@@ -1,0 +1,39 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../jQuery.selectBoxIt.css" />
+  <link type="text/css" rel="stylesheet" href="../jquery-ui-1.8.18.custom.css" />
+ </head>
+ <body>
+ <form>
+ <br />
+<div id="switcher"></div><br />
+<label for="test">Select a Month</label>
+<select id="test">
+<option value="Select a Month">Select a Month</option>
+<option value="January">January</option>
+<option value="February">February</option>
+<option value="March">March</option>
+<option value="April">April</option>
+<option value="May">May</option>
+<option value="June">June</option>
+<option value="July">July</option>
+<option value="August">August</option>
+<option value="September">September</option>
+<option value="October">October</option>
+<option value="November">November</option>
+<option value="December">December</option>
+</select><br /><br />
+</form>
+<script src="../jquery-1.7.2.min.js"></script>
+<script src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
+<script src="../jquery-ui-1.8.18.custom.min.js"></script>
+<script src="../jQuery.selectBoxIt.js"></script>
+<script>
+$(function() {
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+    $("#switcher").themeswitcher();
+});
+</script>
+ </body>
+</html>

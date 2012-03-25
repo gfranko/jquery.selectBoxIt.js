@@ -217,7 +217,7 @@
             selectBoxHeight = self.div.height();
             //Places the select box options list on top of the select box if the select box options list
             //(when opened) does not fit on the page.
-            if((listOffsetTop + selectBoxHeight + listHeight >= $(document).height()) && (listOffsetTop - listHeight >= 0)){
+            if((listOffsetTop + selectBoxHeight + listHeight >= $(window).height() + $(window).scrollTop()) && (listOffsetTop - listHeight >= 0)){
                 //If the select box already opens upward
                 if(!self.flipped) {
                     //Inserts select box options into the DOM before the select box

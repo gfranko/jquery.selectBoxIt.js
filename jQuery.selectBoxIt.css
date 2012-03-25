@@ -1,5 +1,5 @@
 /*
- * jQuery selectBox Plugin CSS
+ * jQuery.selectBoxIt.css 0.1.0
  * Author: @gregfranko
  */
 
@@ -69,7 +69,7 @@
     margin-left:auto;
 }
 
-/*Prevents the blue selection background from showing up on Chrome*/
+/*Prevents the blue selection background from showing up on webkit*/
 *::selection {
     background:transparent;
 }

@@ -3,6 +3,13 @@
  * Author: @gregfranko
  */
 
+/* div surrounding the Select Box */
+#testSelectBoxItContainer {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+
 /* Select Box */
 #testSelectBoxIt {
   height: 30px; /* Height of the select box */

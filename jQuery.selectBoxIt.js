@@ -37,6 +37,8 @@
             currentText : "",
             //Plugin options object
             options : options,
+            //The div that contains all of the `selectBoxIt` DOM elements
+            divContainer : null,
             //The div element that replaces the original select box
             div : null,
             //The nested span element that contains the select box text
@@ -62,10 +64,10 @@
             self.divText = $("<span/>", { 
                 //Dynamically sets the span `id` attribute
                 id : self.originalElem.id + "SelectBoxItText",
+                //IE specific attribute to not allow the element to be selected
+                unselectable: "on",
                 //Sets the span `text` to equal the original select box's default value
-                text : self.firstSelectItem.text(),
-                //`IE specific` attribute to not allow the select box text to be selectable
-                unselectable: "on" });
+                text : self.firstSelectItem.text() });
             //Creates a div that acts as the new select box container
             self.div = $("<div/>", { 
                 //Dynamically sets the div `id` attribute
@@ -73,11 +75,13 @@
                 //Sets the div `name` attribute to be the same name as the original select box
                 name: self.originalElem.name,
                 //Sets the div `tabindex` attribute to 0 to allow the div to be focusable 
-                tabindex : 0,
-                //`IE specific` attribute to not allow the select box to be selectable
-                unselectable: "on" }).
+                tabindex : 0 }).
             //Appends the the default text to the select box by setting the `innerHTML`
             html(self.divText);
+            //Create the div container that will hold all of the dom elements created by `selectBoxIt`
+            self.divContainer = $("<div/>", {
+                id : self.originalElem.id + "SelectBoxItContainer"
+            });
             //Maintains chainability
             return this;
         },
@@ -139,7 +143,7 @@
             self.downArrow = $("<span/>", { 
                 //Dynamically sets the span `id` attribute of the down arrow
                 id: self.originalElem.id + "SelectBoxItArrow",
-                //`IE specific` attribute to not allow the select box down arrow to be selectable
+                //IE specific attribute to not allow the element to be selected
                 unselectable: "on",
                 //The dynamic CSS of the down arrow div element
                 style: "margin-top:" + height/2 + ";" });
@@ -147,12 +151,16 @@
             self.downArrowContainer = $("<span/>", { 
                 //Dynamically sets the span `id` attribute for the down arrow container element
                 id: self.originalElem.id + "SelectBoxItArrowContainer",
+                //IE specific attribute to not allow the element to be selected
+                unselectable: "on",
                 //The dynamic CSS of the down arrow container element
                 style: "height:" + height + "px;" }).
             //Inserts the down arrow element inside of the down arrow container element by setting its `innerHTML`
             html(self.downArrow);
             //Appends the down arrow element to the select box
-            self.div.append(self.downArrowContainer);
+            self.div.append(self.downArrowContainer).add(self.list)
+            //Uses the jQuery `wrapAll()` method to wrap all of the DOM elements created by the plugin to wrap the new select box in a div container
+            .wrapAll(self.divContainer);
             //Dynamically adds the `max-width` and `line-height` CSS styles of the select box text element
             self.divText.css({"line-height": self.div.css("height"), "max-width": self.div.width() - self.downArrowContainer.width() - 5 });
             //Maintains chainability
@@ -588,6 +596,8 @@
                                 if(self.options.keyboardNavigation) {
                                     //Moves the focus down to the select box option directly beneath the currently selected selectbox option
                                     moveDown();
+                                    //Triggers the custom `moveDown` event on the original select box
+                                    self.selectBox.trigger("moveDown");
                                 }
                                 break;
                             //If the user presses the `up key`
@@ -598,16 +608,19 @@
                                 if(self.options.keyboardNavigation) {
                                     //Moves the focus up to the select box option directly above the currently selected selectbox option
                                     moveUp();
+                                    //Triggers the custom `moveUp` event on the original select box
+                                    self.selectBox.trigger("moveUp");
                                 }
                                 break;
                             //If the user presses the `enter key`
                             case enterKey:
+                                e.preventDefault();
                                 //Checks to see if the select box options list is open
                                 if(self.list.is(":visible")) {
-                                    //Triggers the custom `close` event on the original select box
-                                    self.selectBox.trigger("close");
                                     //Closes the select box options list
                                     close();
+                                    //Triggers the custom `close` and `enter` events on the original select box
+                                    self.selectBox.trigger("close").trigger("enter");
                                 }
                                 //If the first select box option is not shown in the options list,
                                 //and the select box has not been interacted with, then
@@ -621,8 +634,8 @@
                                 break;
                             //If the user presses the `tab key`
                             case tabKey:
-                                //Triggers the custom `close` event on the original select box
-                                self.selectBox.trigger("close");
+                                //Triggers the custom `close` and `tab` events on the original select box
+                                self.selectBox.trigger("close").trigger("tab");
                                 //Closes the select box options list
                                 close();
                                 break;
@@ -630,6 +643,8 @@
                             case backspaceKey:
                                 //Prevents the browser from navigating to the previous page in its history 
                                 e.preventDefault();
+                                //Triggers the custom `backspace` event on the original select box
+                                self.selectBox.trigger("backspace");
                                 break;
                             //Default is to break out of the switch statement
                             default:
@@ -681,8 +696,8 @@
             // The jQuery `add` method is used to bind the focus event for three elements.
             // The `add` method adds a jQuery object to the set of matched selectors 
             self.divText.add(self.downArrow).add(self.downArrowContainer).bind({
-                //`focus` event with the `selectBoxIt` namespace
-                "focus.selectBoxIt" : function() {
+                //`click` event with the `selectBoxIt` namespace
+                "click.selectBoxIt" : function() {
                     //Focuses the select box
                     self.div.focus();
                 }
@@ -715,14 +730,14 @@
             .delegate("li", "click.selectBoxIt", function() {
                 //Sets the original select box value and triggers the `change` event on the original select box
                 self.originalElem.value = $(this).text();
-                //Triggers the original select box `change` event
-                self.selectBox.trigger("change");
-                //Closes the list after selecting an option
-                close();
                 //Sets `currentFocus` to the currently focused select box option.
                 //The unary `+` operator casts the string to a number 
                 //[James Padolsey Blog Post](http://james.padolsey.com/javascript/terse-javascript-101-part-2/)
                 self.currentFocus = +this.id;
+                //Closes the list after selecting an option
+                close();
+                //Triggers the select box `change` and custom `close` event
+                self.selectBox.trigger("change").trigger("close");
             })
             //Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {
@@ -934,7 +949,7 @@
             return this;
         },
         //_jQueryUI
-        // -------
+        // --------
         //      Adds jQueryUI CSS classes
         _jqueryUI = function() {
             //Adds the default styling to the select box
@@ -958,6 +973,7 @@
             self.div.bind({
                 //`click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt": function() {
+                    $(this).removeClass("ui-state-hover").addClass("ui-state-focus");
                     //Adds the focus CSS class to the currently selected select box
                     self.listItems.eq(self.currentFocus).add(self.div).addClass("ui-state-focus");
                 },

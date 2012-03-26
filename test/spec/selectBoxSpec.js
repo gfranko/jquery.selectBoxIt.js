@@ -94,11 +94,10 @@ describe('selectBoxIt jQuery Plugin', function () {
             });
 
             it("should set the correct jQueryUI classes if jQueryUI is being used", function() {
-                if(self.jqueryUI) {
-                    expect(self.div).toHaveClass("ui-state-focus");
-                    expect(self.list).toHaveClass("ui-widget-content");
-                    expect(self.listItems.eq(self.currentFocus)).toHaveClass("ui-state-focus");
-                }
+                expect(self.div).toHaveClass("ui-widget");
+                expect(self.div).toHaveClass("ui-state-default");
+                expect(self.list).toHaveClass("ui-widget");
+                expect(self.list).toHaveClass("ui-widget-content");
             });
         });
     });
@@ -307,6 +306,7 @@ describe('selectBoxIt jQuery Plugin', function () {
         beforeEach(function() {
             spyOn($.fn, "unbind").andCallThrough();
             spyOn($.fn, "undelegate").andCallThrough();
+            spyOn($.fn, "remove").andCallThrough();
             spyOnEvent(self.div, "destroy");
             spyOnEvent(self.selectBox, "destroy");
             pluginData.destroy();
@@ -329,14 +329,7 @@ describe('selectBoxIt jQuery Plugin', function () {
         });
 
         it("should remove all of the DOM elements created by the selectBoxIt plugin", function() {
-            setTimeout(function() { 
-	            expect(self.div).not.toExist(); 
-                expect(self.divText).not.toExist();
-                expect(self.downArrowContainer).not.toExist();
-                expect(self.downArrow).not.toExist();
-                expect(self.list).not.toExist();
-                expect(self.selectItems).not.toExist();
-            }, 0);
+            expect($.fn.remove).toHaveBeenCalled();
         });
 
         it("should make the original select box visible", function() {

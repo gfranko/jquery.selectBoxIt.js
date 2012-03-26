@@ -76,12 +76,14 @@
                 name: self.originalElem.name,
                 //Sets the div `tabindex` attribute to 0 to allow the div to be focusable 
                 tabindex : 0 }).
-            //Appends the the default text to the select box by setting the `innerHTML`
-            html(self.divText);
+            //Appends the default text to the inner select box div element
+            append(self.divText);
             //Create the div container that will hold all of the dom elements created by `selectBoxIt`
             self.divContainer = $("<div/>", {
                 id : self.originalElem.id + "SelectBoxItContainer"
-            });
+            })
+            //Appends the inner select box div element to the div container element
+            .append(self.div);
             //Maintains chainability
             return this;
         },
@@ -120,10 +122,12 @@
                     self.currentFocus = index;
                 }
             });
-            //Append the list item to the unordered list by setting the unordered list `innerHTML`
-            createdList.html(currentItem);
+            //Append the list item to the unordered list
+            createdList.append(currentItem);
             //Stores the select box options list inside of the `list` instance variable
             self.list = createdList;
+            //Append the select box options list to the div container element
+            self.divContainer.append(self.list);
             //Stores the individual select box options inside of the `listItems` instance variable
             self.listItems = self.list.find("li");
             //Maintains chainability
@@ -134,9 +138,9 @@
         //      Hides the original select box and inserts the new DOM elements
         _replaceSelectBox = function() {
             //Hides the original select box element
-            self.selectBox.css("display", "none").
-            //Adds the new DOM elements directly after the original select box
-            after(self.div.add(self.list));
+            self.selectBox.css("display", "none")
+            //Adds the `selectBoxIt` DOM elements to the page directly after the original select box
+            .after(self.divContainer);
             //The height of the select box
             var height = self.div.height();
             //The down arrow element
@@ -155,12 +159,10 @@
                 unselectable: "on",
                 //The dynamic CSS of the down arrow container element
                 style: "height:" + height + "px;" }).
-            //Inserts the down arrow element inside of the down arrow container element by setting its `innerHTML`
-            html(self.downArrow);
+            //Inserts the down arrow element inside of the down arrow container element
+            append(self.downArrow);
             //Appends the down arrow element to the select box
-            self.div.append(self.downArrowContainer).add(self.list)
-            //Uses the jQuery `wrapAll()` method to wrap all of the DOM elements created by the plugin to wrap the new select box in a div container
-            .wrapAll(self.divContainer);
+            self.div.append(self.downArrowContainer);
             //Dynamically adds the `max-width` and `line-height` CSS styles of the select box text element
             self.divText.css({"line-height": self.div.css("height"), "max-width": self.div.width() - self.downArrowContainer.width() - 5 });
             //Maintains chainability
@@ -384,6 +386,8 @@
                 //gets passed to `scrollToView`.             
                 _scrollToView("down");
             }
+            //Triggers the custom `moveDown` event on the original select box
+            self.selectBox.trigger("moveDown");
             //Provide callback function support
             _callbackSupport(callback);
             //Maintains chainability
@@ -412,6 +416,8 @@
                 //gets passed to `scrollToView`.  
                 _scrollToView("up");
             }
+            //Triggers the custom `moveUp` event on the original select box
+            self.selectBox.trigger("moveUp");
             //Provide callback function support
             _callbackSupport(callback);
             //Maintains chainability
@@ -596,8 +602,6 @@
                                 if(self.options.keyboardNavigation) {
                                     //Moves the focus down to the select box option directly beneath the currently selected selectbox option
                                     moveDown();
-                                    //Triggers the custom `moveDown` event on the original select box
-                                    self.selectBox.trigger("moveDown");
                                 }
                                 break;
                             //If the user presses the `up key`
@@ -608,8 +612,6 @@
                                 if(self.options.keyboardNavigation) {
                                     //Moves the focus up to the select box option directly above the currently selected selectbox option
                                     moveUp();
-                                    //Triggers the custom `moveUp` event on the original select box
-                                    self.selectBox.trigger("moveUp");
                                 }
                                 break;
                             //If the user presses the `enter key`
@@ -620,7 +622,7 @@
                                     //Closes the select box options list
                                     close();
                                     //Triggers the custom `close` and `enter` events on the original select box
-                                    self.selectBox.trigger("close").trigger("enter");
+                                    self.selectBox.trigger("enter");
                                 }
                                 //If the first select box option is not shown in the options list,
                                 //and the select box has not been interacted with, then
@@ -634,10 +636,10 @@
                                 break;
                             //If the user presses the `tab key`
                             case tabKey:
-                                //Triggers the custom `close` and `tab` events on the original select box
-                                self.selectBox.trigger("close").trigger("tab");
                                 //Closes the select box options list
                                 close();
+                                //Triggers the custom `close` and `tab` events on the original select box
+                                self.selectBox.trigger("tab");
                                 break;
                             //If the user presses the `backspace key`
                             case backspaceKey:
@@ -737,7 +739,7 @@
                 //Closes the list after selecting an option
                 close();
                 //Triggers the select box `change` and custom `close` event
-                self.selectBox.trigger("change").trigger("close");
+                self.selectBox.trigger("change");
             })
             //Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {
@@ -940,7 +942,9 @@
             //Undelegates all of the select box event handlers with the `selectBoxIt` namespace
             undelegate(".selectBoxIt");
             //Triggers the custom `destroy` event handler and then removes the select box div and unordered list elements from the DOM
-            self.div.trigger("destroy").add(self.list).remove();
+            self.div.trigger("destroy");
+            //Remove all of the `selectBoxIt` DOM elements from the page
+            self.divContainer.remove();
             //Triggers the custom `destroy` event on the original select box and then shows the original select box
             self.selectBox.trigger("destroy").show();
             //Provides callback function support

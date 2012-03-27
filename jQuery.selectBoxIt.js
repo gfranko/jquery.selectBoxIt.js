@@ -998,7 +998,7 @@
             self.listItems.bind({
                 "mouseenter.selectBoxIt": function() {
                     //Sets the select box individual options back to the default state and sets the hover CSS class on the currently hovered option
-                    self.listItems.removeClass("ui-state-focus");
+                    self.listItems.removeClass("ui-state-focus ui-state-hover");
                     $(this).addClass("ui-state-hover");
                 },
                 "mouseleave.selectBoxIt": function() {

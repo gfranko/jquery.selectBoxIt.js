@@ -3,11 +3,12 @@
  * Author: @gregfranko
  */
 
-/* div surrounding the Select Box */
+/* div surrounding all of the selectBoxIt elements */
 #testSelectBoxItContainer {
-    display: inline-block;
-    *display: inline;
-    zoom: 1;
+  display: inline-block;
+  /* Hack for IE 6 and 7 to allow inline-block to work */
+  *display: inline;
+  zoom: 1;
 }
 
 /* Select Box */
@@ -53,7 +54,7 @@
   display:none;
   z-index:99999;
   outline:none;
- }
+}
 
 /* Select Box Individual Options */
 #testSelectBoxItOptions li {
@@ -71,12 +72,12 @@
 
 /* Select Box Down Arrow */
 #testSelectBoxItArrow {
-	/* Horizontally centers the down arrow */
-    margin-right:auto;
-    margin-left:auto;
+  /* Horizontally centers the down arrow */
+  margin-right:auto;
+  margin-left:auto;
 }
 
 /*Prevents the blue selection background from showing up on webkit*/
 *::selection {
-    background:transparent;
+  background:transparent;
 }

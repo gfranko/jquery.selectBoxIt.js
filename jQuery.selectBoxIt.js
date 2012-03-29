@@ -402,7 +402,7 @@
             self.currentFocus -= 1;
             //Set `currentFocus` to the previously focused item (the first list item in the list)
             //if the user has reached the top of the select box options list and is trying to go up again.
-            if(self.currentFocus < 0) { 
+            if(self.currentFocus < 0 || self.currentFocus === 0 && !self.listItems.eq(0).is(":visible")) { 
                 self.currentFocus += 1;
             }
             //If the user has not reached the top of the unordered list
@@ -621,8 +621,6 @@
                                 if(self.list.is(":visible")) {
                                     //Closes the select box options list
                                     close();
-                                    //Triggers the custom `close` and `enter` events on the original select box
-                                    self.selectBox.trigger("enter");
                                 }
                                 //If the first select box option is not shown in the options list,
                                 //and the select box has not been interacted with, then
@@ -633,6 +631,8 @@
                                     //Triggers a `change` event on the original select box
                                     trigger("change");
                                 }
+                                //Triggers the `enter` events on the original select box
+                                self.selectBox.trigger("enter");
                                 break;
                             //If the user presses the `tab key`
                             case tabKey:
@@ -867,6 +867,16 @@
                 //Sets the plugin option to the new value provided by the user
                 self.options[key] = value;    
             }
+            //If a user sets the `showFirstOption` to false
+            if(key === "showFirstOption" && !value) {
+            	//Hides the first option in the dropdown list
+                self.listItems.eq(0).hide();
+            }
+            //If a user sets the `showFirstOption` to true
+            else if(key === "showFirstOption" && value) {
+            	//Shows the first option in the dropdown list
+                self.listItems.eq(0).show();
+            }
             //Provides callback function support
             _callbackSupport(callback);
             //Maintains chainability
@@ -883,6 +893,16 @@
                 //object to create a new object.  The options variable is set to the newly created object.
                 self.options = $.extend({}, self.options, newOptions);
                 //Maintains chainability
+            }
+            //If the `showFirstOption` option is true
+            if(self.options.showFirstOption) {
+            	//Shows the first option in the dropdown list
+                self.listItems.eq(0).show();
+            }
+            //If the `showFirstOption` option is false
+            else {
+            	//Hides the first option in the dropdown list
+                self.listItems.eq(0).hide();
             }
             //Provide callback function support
             _callbackSupport(callback);

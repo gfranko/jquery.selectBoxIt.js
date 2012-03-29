@@ -738,8 +738,10 @@
                 self.currentFocus = +this.id;
                 //Closes the list after selecting an option
                 close();
-                //Triggers the select box `change` and custom `close` event
-                self.selectBox.trigger("change");
+                //Triggers the select box `change` event if a value change occurs
+                if(self.originalElem.value !== self.divText.text()) {
+	                self.selectBox.trigger("change");
+	            }
             })
             //Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {

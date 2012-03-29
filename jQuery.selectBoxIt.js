@@ -644,8 +644,6 @@
                                 break;
                             //If the user presses the `tab key`
                             case tabKey:
-                                //Closes the select box options list
-                                close();
                                 //Triggers the custom `close` and `tab` events on the original select box
                                 self.selectBox.trigger("tab");
                                 break;

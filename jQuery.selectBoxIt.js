@@ -427,20 +427,28 @@
         // ------------------------
         //      Sets the currently selected select box search option
         _setCurrentSearchOption = function(currentOption) {
-            //Updates the default select box text
-            self.divText.text(self.textArray[currentOption]);
-            //Calls the `blur` event of the currently selected select box option
-            self.listItems.eq(self.currentFocus).blur();
-            //Sets `currentIndex` to the currently selected select box option
-            self.currentIndex = currentOption;
-            //Sets `currentFocus` to the currently selected select box option
-            self.currentFocus = currentOption;
-            //Focuses the currently selected select box option
-            self.listItems.eq(self.currentFocus).focus();
-            //Updates the scrollTop so that the currently selected select box option is visible to the user
-            _scrollToView("search");
-            //Maintains chainability
+        	//If the currently matched option is not visible, then do not allow it to be selected as an option
+        	if(!self.listItems.eq(currentOption).is(":visible")) {
+
+        	}
+        	//If the currently matched option is visible
+        	else {
+                //Updates the default select box text
+                self.divText.text(self.textArray[currentOption]);
+                //Calls the `blur` event of the currently selected select box option
+                self.listItems.eq(self.currentFocus).blur();
+                //Sets `currentIndex` to the currently selected select box option
+                self.currentIndex = currentOption;
+                //Sets `currentFocus` to the currently selected select box option
+                self.currentFocus = currentOption;
+                //Focuses the currently selected select box option
+                self.listItems.eq(self.currentFocus).focus();
+                //Updates the scrollTop so that the currently selected select box option is visible to the user
+                _scrollToView("search");
+                //Maintains chainability
+            }
             return this;
+            
         },
         //_Search Algorithm
         // ---------------

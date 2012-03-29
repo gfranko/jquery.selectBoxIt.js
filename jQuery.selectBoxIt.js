@@ -590,8 +590,11 @@
                         //Popular open source projects such as Backbone.js utilize event delegation to bind events,
                         //so if you are using Backbone.js, use the `focusout` event instead of the `blur` event
                         self.selectBox.trigger("blur").trigger("focusout");
-                        //Closes the select box options list
-                        close();
+                        //If the dropdown options list is visible
+                        if(self.list.is(":visible")) {
+                            //Closes the select box options list
+                            close();
+                        }
                     }
                 },
                 //`keydown` event with the `selectBoxIt` namespace.  Catches all user keyboard navigations

@@ -1,7 +1,7 @@
 describe('selectBoxIt jQuery Plugin', function () {
     var pluginData, self;
     beforeEach(function() {
-    	loadFixtures("selectBox.html");
+    	setFixtures('<select id="test"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>');
         pluginData = $("select#test").selectBoxIt().data("selectBoxIt"),
         self = pluginData.self;
     });
@@ -166,7 +166,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         it("should trigger focus and blur events, and update the select box current value", function() {
         	//Sets the select box value to the last select box option
-        	pluginData.search(self.listItems.last().text());
+        	self.currentFocus = +self.listItems.last().attr("id");
         	self.selectItems.each(function(index) {
         		//Cache the previous and next list elements
         		var previous = self.listItems.eq(self.currentFocus),
@@ -200,15 +200,18 @@ describe('selectBoxIt jQuery Plugin', function () {
             self.listItems.each(function() {
             	//Call the search method
                 pluginData.search($(this).text());
-                //The custom 'search' event to be called on the original select box
-                expect("search").toHaveBeenTriggeredOn(self.selectBox);
-                //The current focus instance variable should be set to the currently selected option 
-                expect(self.currentFocus).toEqual(parseInt($(this).attr("id")));
-                //The value of the original select box should be set to the currently selected option
-                expect(self.selectBox).toHaveValue($(this).text());
-                //The select box text should be updated to the currently selected option
-                expect(self.divText).toHaveText($(this).text());
-            });
+                setTimeout(function(){
+                    //The custom 'search' event to be called on the original select box
+                    expect("search").toHaveBeenTriggeredOn(self.selectBox);
+                    //The current focus instance variable should be set to the currently selected option 
+                    expect(self.currentFocus).toEqual(+$(this).attr("id"));
+                    //The value of the original select box should be set to the currently selected option
+                    expect(self.selectBox).toHaveValue($(this).text());
+                    //The select box text should be updated to the currently selected option
+                    expect(self.divText).toHaveText($(this).text());
+                },0);
+
+           });
         });
                 
     });

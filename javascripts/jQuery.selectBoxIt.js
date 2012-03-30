@@ -427,12 +427,8 @@
         // ------------------------
         //      Sets the currently selected select box search option
         _setCurrentSearchOption = function(currentOption) {
-        	//If the currently matched option is not visible, then do not allow it to be selected as an option
-        	if(!self.listItems.eq(currentOption).is(":visible")) {
-
-        	}
-        	//If the currently matched option is visible
-        	else {
+            //If the currently matched option is visible
+            if(self.listItems.eq(currentOption).is(":visible")) {
                 //Updates the default select box text
                 self.divText.text(self.textArray[currentOption]);
                 //Calls the `blur` event of the currently selected select box option
@@ -749,8 +745,8 @@
                 close();
                 //Triggers the select box `change` event if a value change occurs
                 if(self.originalElem.value !== self.divText.text()) {
-	                self.selectBox.trigger("change");
-	            }
+                    self.selectBox.trigger("change");
+                }
             })
             //Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {
@@ -880,12 +876,12 @@
             }
             //If a user sets the `showFirstOption` to false
             if(key === "showFirstOption" && !value) {
-            	//Hides the first option in the dropdown list
+                //Hides the first option in the dropdown list
                 self.listItems.eq(0).hide();
             }
             //If a user sets the `showFirstOption` to true
             else if(key === "showFirstOption" && value) {
-            	//Shows the first option in the dropdown list
+                //Shows the first option in the dropdown list
                 self.listItems.eq(0).show();
             }
             //Provides callback function support
@@ -907,12 +903,12 @@
             }
             //If the `showFirstOption` option is true
             if(self.options.showFirstOption) {
-            	//Shows the first option in the dropdown list
+                //Shows the first option in the dropdown list
                 self.listItems.eq(0).show();
             }
             //If the `showFirstOption` option is false
             else {
-            	//Hides the first option in the dropdown list
+                //Hides the first option in the dropdown list
                 self.listItems.eq(0).hide();
             }
             //Provide callback function support

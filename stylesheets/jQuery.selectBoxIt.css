@@ -9,7 +9,6 @@
   /* Hack for IE 6 and 7 to allow inline-block to work */
   *display: inline;
   zoom: 1;
-  margin-top:300px;
 }
 
 /* Select Box */

@@ -231,7 +231,7 @@
                 //If the select box already opens upward
                 if(!self.flipped) {
                     //Inserts select box options into the DOM before the select box
-                    self.list.insertBefore(self.div).
+                    self.list.insertBefore(self.divContainer).
                     //Sets custom CSS properties to place the select box options directly above the select box
                     css({ "top": self.div.offset().top - self.list.outerHeight() });
                     //Set the `flipped` instance variable to true to reflect that the select box opens upward
@@ -245,7 +245,7 @@
                     //Move the select box list after the select box div in the DOM
                     self.list.insertAfter(self.div).
                     //Dynamically defaults the margin-top back to 0
-                    css({"margin-top": "0" });
+                    css({"top": self.div.offset().top + self.div.height() });
                     //Sets the `flipped` instance variable to false to reflect that the select box opens downward
                     self.flipped = false;
                 }

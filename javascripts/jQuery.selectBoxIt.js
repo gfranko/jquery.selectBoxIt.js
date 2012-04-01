@@ -1004,9 +1004,16 @@
             self.selectBox.bind({
                 //`click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt": function() {
-                    self.div.removeClass("ui-state-hover").addClass("ui-state-focus");
-                    //Adds the focus CSS class to the currently selected select box
-                    self.listItems.eq(self.currentFocus).add(self.div).addClass("ui-state-focus");
+                    //Removes the jQueryUI hover class from the dropdown list and adds the jQueryUI focus class for both the dropdown list and the currently selected dropdown list option
+                    self.div.removeClass("ui-state-hover").add(self.listItems.eq(self.currentFocus)).
+                    addClass("ui-state-focus");
+                },
+                "open.selectBoxIt": function() {
+                    //In case a user is using the method api, and the select box is opened without being clicked
+                    if(!self.listItems.eq(self.currentFocus).hasClass("ui-state-focus")) {
+                        //Adds the focus CSS class to the currently selected select box
+                        self.listItems.eq(self.currentFocus).addClass("ui-state-focus");
+                    }
                 },
                 "blur.selectBoxIt": function() {
                     self.div.removeClass("ui-state-focus");

@@ -233,7 +233,7 @@
                     //Inserts select box options into the DOM before the select box
                     self.list.insertBefore(self.div).
                     //Sets custom CSS properties to place the select box options directly above the select box
-                    css({ "margin-top": -listHeight - 1 });
+                    css({ "top": self.div.offset().top - self.list.outerHeight() });
                     //Set the `flipped` instance variable to true to reflect that the select box opens upward
                     self.flipped = true;
                 }
@@ -1003,17 +1003,10 @@
             //Select box events
             self.selectBox.bind({
                 //`click` event with the `selectBoxIt` namespace
-                "click.selectBoxIt": function() {
+                "open.selectBoxIt": function() {
                     //Removes the jQueryUI hover class from the dropdown list and adds the jQueryUI focus class for both the dropdown list and the currently selected dropdown list option
                     self.div.removeClass("ui-state-hover").add(self.listItems.eq(self.currentFocus)).
                     addClass("ui-state-focus");
-                },
-                "open.selectBoxIt": function() {
-                    //In case a user is using the method api, and the select box is opened without being clicked
-                    if(!self.listItems.eq(self.currentFocus).hasClass("ui-state-focus")) {
-                        //Adds the focus CSS class to the currently selected select box
-                        self.listItems.eq(self.currentFocus).addClass("ui-state-focus");
-                    }
                 },
                 "blur.selectBoxIt": function() {
                     self.div.removeClass("ui-state-focus");

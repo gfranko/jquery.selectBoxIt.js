@@ -427,8 +427,8 @@
         // ------------------------
         //      Sets the currently selected select box search option
         _setCurrentSearchOption = function(currentOption) {
-            //If the currently matched option is visible
-            if(self.listItems.eq(currentOption).is(":visible")) {
+            //Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.  Otherwise, the current option value is updated
+            if(!(currentOption === 0 && !self.options.showFirstOption)) {
                 //Updates the default select box text
                 self.divText.text(self.textArray[currentOption]);
                 //Calls the `blur` event of the currently selected select box option
@@ -518,7 +518,7 @@
         //Search
         // -----
         //      Calls searchAlgorithm()
-        search = function(alphaNumericKey, callback, rememberPreviousSearch) {
+        search = function(alphaNumericKey, rememberPreviousSearch, callback) {
             //If the search method is being called internally by the plugin, and not externally as a method by a user
             if(rememberPreviousSearch) {
                 //Continued search with history from past searches.  Properly escapes the regular expression
@@ -677,7 +677,7 @@
                         //If the plugin options allow text searches
                         if(self.options.keyboardSearch) {
                             //Calls `search` and passes the character value of the user's text search
-                            search(alphaNumericKey, "", true);      
+                            search(alphaNumericKey, true, "");      
                         }
                     }
                 },

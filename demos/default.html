@@ -32,7 +32,7 @@
 <script src="../javascripts/jQuery.selectBoxIt.js"></script>
 <script>
 $(function() {
-        var selectBox = $("select#test").selectBoxIt({ showEffect: "bounce", showEffectOptions: {direction: "down", times: 2}, showEffectSpeed: 300, hideEffect: "bounce", hideEffectSpeed: 300, hideEffectOptions: {direction: "up", times: 1} }).data("selectBoxIt");
+        var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
     $("#switcher").themeswitcher();
 });
 

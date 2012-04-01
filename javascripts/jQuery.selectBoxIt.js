@@ -1001,24 +1001,24 @@
                 }
             });
             //Select box events
-            self.div.bind({
+            self.selectBox.bind({
                 //`click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt": function() {
-                    $(this).removeClass("ui-state-hover").addClass("ui-state-focus");
+                    self.div.removeClass("ui-state-hover").addClass("ui-state-focus");
                     //Adds the focus CSS class to the currently selected select box
                     self.listItems.eq(self.currentFocus).add(self.div).addClass("ui-state-focus");
                 },
                 "blur.selectBoxIt": function() {
-                    $(this).removeClass("ui-state-focus");
+                    self.div.removeClass("ui-state-focus");
                 },
                 //`mousenter` event with the `selectBoxIt` namespace
                 "mouseenter.selectBoxIt": function() {
-                    $(this).addClass("ui-state-hover");
+                    self.div.addClass("ui-state-hover");
                 },
                 //`mouseleave` event with the `selectBoxIt` namespace
                 "mouseleave.selectBoxIt": function() {
                     //Removes the hover CSS class on the previously hovered select box option
-                    $(this).removeClass("ui-state-hover");
+                    self.div.removeClass("ui-state-hover");
                 }
             });
 

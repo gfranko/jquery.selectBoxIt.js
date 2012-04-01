@@ -402,7 +402,7 @@
             self.currentFocus -= 1;
             //Set `currentFocus` to the previously focused item (the first list item in the list)
             //if the user has reached the top of the select box options list and is trying to go up again.
-            if(self.currentFocus < 0 || self.currentFocus === 0 && !self.listItems.eq(0).is(":visible")) { 
+            if(self.currentFocus < 0 || self.currentFocus === 0 && !self.options.showFirstOption) { 
                 self.currentFocus += 1;
             }
             //If the user has not reached the top of the unordered list

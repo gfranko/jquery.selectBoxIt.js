@@ -385,9 +385,9 @@
                 //Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action 
                 //gets passed to `scrollToView`.             
                 _scrollToView("down");
+                //Triggers the custom `moveDown` event on the original select box
+                self.selectBox.trigger("moveDown");
             }
-            //Triggers the custom `moveDown` event on the original select box
-            self.selectBox.trigger("moveDown");
             //Provide callback function support
             _callbackSupport(callback);
             //Maintains chainability
@@ -415,9 +415,9 @@
                 //Calls `scrollToView` to make sure the `scrollTop` is correctly updated.  The `up` user action 
                 //gets passed to `scrollToView`.  
                 _scrollToView("up");
+                //Triggers the custom `moveUp` event on the original select box
+                self.selectBox.trigger("moveUp");
             }
-            //Triggers the custom `moveUp` event on the original select box
-            self.selectBox.trigger("moveUp");
             //Provide callback function support
             _callbackSupport(callback);
             //Maintains chainability

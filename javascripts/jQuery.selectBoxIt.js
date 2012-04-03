@@ -402,7 +402,7 @@
             self.currentFocus -= 1;
             //Set `currentFocus` to the previously focused item (the first list item in the list)
             //if the user has reached the top of the select box options list and is trying to go up again.
-            if(self.currentFocus < 0 || self.currentFocus === 0 && !self.options.showFirstOption) { 
+            if(self.currentFocus < 0 || (self.currentFocus === 0 && !self.options.showFirstOption)) { 
                 self.currentFocus += 1;
             }
             //If the user has not reached the top of the unordered list
@@ -488,6 +488,8 @@
                         _setCurrentSearchOption(x);
                         //Increments the current index by one
                         self.currentIndex += 1;
+                        //Trigger the custom `search` event on the original select box
+                        self.selectBox.trigger("search");
                         //Exits the search
                         return false;
                     }
@@ -498,6 +500,8 @@
                     if((self.textArray[x].search(alphaNumeric) !== -1)) {
                         //Sets properties of that select box option to make it the currently selected option
                         _setCurrentSearchOption(x);
+                        //Trigger the custom `search` event on the original select box
+                        self.selectBox.trigger("search");
                         //Exits the search
                         return false;
                     }
@@ -508,6 +512,8 @@
                     _setCurrentSearchOption(x);
                     //Resets the current text search to a blank string to start fresh again
                     self.currentText = "";
+                    //Trigger the custom `search` event on the original select box
+                    self.selectBox.trigger("search");
                     //Exits the search
                     return false;
                 }
@@ -543,8 +549,6 @@
                 //Searches the select box values starting from the beginning of the text array
                 _searchAlgorithm(0, alphaNumeric); 
             }
-            //Trigger the custom `search` event on the original select box
-            self.selectBox.trigger("search");
             //Provide callback function support
             _callbackSupport(callback);
             //Maintains chainability

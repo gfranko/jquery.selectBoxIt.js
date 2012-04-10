@@ -609,7 +609,7 @@
                     //If no data was passed to the focus event (this correctly triggers the focus event)
                     if(!data) {
                         //Triggers the `focus` default event on the original select box
-                        self.selectBox.trigger("focus");
+                        self.selectBox.trigger("focus").trigger("focusin");
                     }
                 },
                 //`keydown` event with the `selectBoxIt` namespace.  Catches all user keyboard navigations

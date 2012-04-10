@@ -19,13 +19,13 @@
             originalElem : element,
             //The original select box DOM element wrapped in a jQuery object
             selectBox : $(element),
-            //The original select box options
+            //All of the original select box options
             selectItems : $(element).find("option"),
             //The first option in the original select box
             firstSelectItem : $(element).find("option").slice(0, 1),
-            //The index of the currently selected select box option
+            //The index of the currently selected dropdown list option
             currentFocus : 0,
-            //Keeps track of which blur events will hide the select box options
+            //Keeps track of which blur events will hide the dropdown list options
             blur : true,
             //The html document height
             documentHeight : $(document).height(),
@@ -33,42 +33,40 @@
             textArray : [],
             //Maintains search order in the `search` method
             currentIndex : 0,
-            //Text of the currently selected select box option
+            //Text of the currently selected dropdown list option
             currentText : "",
             //Plugin options object
             options : options,
-            //The div that contains all of the `selectBoxIt` DOM elements
+            //The div that contains all of the new dropdown list DOM elements
             divContainer : null,
-            //The div element that replaces the original select box
+            //The div element that acts as the new dropdown list that replaces the original select box
             div : null,
-            //The nested span element that contains the select box text
+            //The nested span element that contains the dropdown list text
             divText : null,
-            //The unordered list element that contains the select box options
+            //The unordered list element that contains the dropdown list options
             list : null,
-            //The list item elements that each contain a select box option
+            //The list item elements that each contain a dropdown list option
             listItems : null,
-            //The span that holds the down arrow
+            //The span that holds the down arrow for the dropdown list
             downArrow:  null,
             //The span that holds `downArrow`
             downArrowContainer : null,
-            //Stores the javascript events associated with the select box
-            divEvents : null,
-            //Whether or not the select box opens up or downArrowContainer
+            //Whether or not the dropdown list opens up or down (depending on how much room is on the page)
             flipped : false },
         //_Create Div
         // ---------
-        //      Creates new div and span element to replace 
-        //      the original select box
+        //      Creates new div and span elements to replace 
+        //      the original select box with a dropdown list
         _createDiv = function() {
-            //Creates a span element that contains the new select box text value
+            //Creates a span element that contains the dropdown list text value
             self.divText = $("<span/>", { 
                 //Dynamically sets the span `id` attribute
                 id : self.originalElem.id + "SelectBoxItText",
                 //IE specific attribute to not allow the element to be selected
                 unselectable: "on",
-                //Sets the span `text` to equal the original select box's default value
+                //Sets the span `text` to equal the original select box default value
                 text : self.firstSelectItem.text() });
-            //Creates a div that acts as the new select box container
+            //Creates a div to act as the new dropdown list
             self.div = $("<div/>", { 
                 //Dynamically sets the div `id` attribute
                 id : self.originalElem.id + "SelectBoxIt",
@@ -76,23 +74,24 @@
                 name: self.originalElem.name,
                 //Sets the div `tabindex` attribute to 0 to allow the div to be focusable 
                 tabindex : 0 }).
-            //Appends the default text to the inner select box div element
+            //Appends the default text to the inner dropdown list div element
             append(self.divText);
-            //Create the div container that will hold all of the dom elements created by `selectBoxIt`
+            //Create the div container that will hold all of the dropdown list dom elements
             self.divContainer = $("<div/>", {
                 id : self.originalElem.id + "SelectBoxItContainer"
             })
-            //Appends the inner select box div element to the div container element
+            //Appends the inner dropdown list div element to the dropdown list container div element
             .append(self.div);
             //Maintains chainability
             return this;
         },
         //_Create Unordered List
         // --------------------
-        //      Creates an unordered list element to hold the option values
-        //      of the original select box
+        //      Creates an unordered list element to hold the 
+        //		new dropdown list options that directly match 
+        //		the values of the original select box options
         _createUnorderedList = function() {
-            //Declaring the variable that will hold all of the select box option elements
+            //Declaring the variable that will hold all of the dropdown list option elements
             var currentItem = "",
             //Creates an unordered list element
             createdList = $("<ul/>", {
@@ -100,16 +99,15 @@
                 id: self.originalElem.id + "SelectBoxItOptions",
                 //Sets the unordered list `tabindex` attribute to -1 to prevent the unordered list from being focusable
                 tabindex: -1 });
-            //Checks `showFirstOption` plugin option to determine if the first select box option should be shown in the
-            //options list.
+            //Checks `showFirstOption` plugin option to determine if the first dropdown list option should be shown in the options list.
             if(!self.options.showFirstOption) {
-                //Excludes the first select box option from the options list
+                //Excludes the first dropdown list option from the options list
                 self.selectItems = self.selectBox.find("option").slice(1);
             }
             //Loops through the original select box options list and copies the text of each 
-            //into new list item elements
+            //into new list item elements of the new dropdown list
             self.selectItems.each(function(index) {
-                //Uses string concatenation instead of append for speed since the number of select box options is unknown.
+                //Uses string concatenation instead of append for speed since the number of dropdown list options is unknown.
                 currentItem += '<li id="' + index + '">' + $(this).text() + '</li>';
                 //Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -124,71 +122,71 @@
             });
             //Append the list item to the unordered list
             createdList.append(currentItem);
-            //Stores the select box options list inside of the `list` instance variable
+            //Stores the dropdown list options list inside of the `list` instance variable
             self.list = createdList;
-            //Append the select box options list to the div container element
+            //Append the dropdown list options list to the div container element
             self.divContainer.append(self.list);
-            //Stores the individual select box options inside of the `listItems` instance variable
+            //Stores the individual dropdown list options inside of the `listItems` instance variable
             self.listItems = self.list.find("li");
             //Maintains chainability
             return this;
         },
         //_Replace Select Box
         // -----------------
-        //      Hides the original select box and inserts the new DOM elements
+        //      Hides the original dropdown list and inserts the new DOM elements
         _replaceSelectBox = function() {
-            //Hides the original select box element
+            //Hides the original select box
             self.selectBox.css("display", "none")
-            //Adds the `selectBoxIt` DOM elements to the page directly after the original select box
+            //Adds the new dropdown list to the page directly after the hidden original select box element
             .after(self.divContainer);
-            //The height of the select box
+            //The height of the dropdown list
             var height = self.div.height();
-            //The down arrow element
+            //The down arrow element of the dropdown list
             self.downArrow = $("<span/>", { 
-                //Dynamically sets the span `id` attribute of the down arrow
+                //Dynamically sets the span `id` attribute of the dropdown list down arrow
                 id: self.originalElem.id + "SelectBoxItArrow",
-                //IE specific attribute to not allow the element to be selected
+                //IE specific attribute to not allow the dropdown list text to be selected
                 unselectable: "on",
-                //The dynamic CSS of the down arrow div element
+                //The dynamic CSS of the dropdown list down arrow div element
                 style: "margin-top:" + height/2 + ";" });
-            //The down arrow container element
+            //The down arrow container element of the dropdown list
             self.downArrowContainer = $("<span/>", { 
                 //Dynamically sets the span `id` attribute for the down arrow container element
                 id: self.originalElem.id + "SelectBoxItArrowContainer",
-                //IE specific attribute to not allow the element to be selected
+                //IE specific attribute to not allow the dropdown list text to be selected
                 unselectable: "on",
                 //The dynamic CSS of the down arrow container element
                 style: "height:" + height + "px;" }).
             //Inserts the down arrow element inside of the down arrow container element
             append(self.downArrow);
-            //Appends the down arrow element to the select box
+            //Appends the down arrow element to the dropdown list
             self.div.append(self.downArrowContainer);
-            //Dynamically adds the `max-width` and `line-height` CSS styles of the select box text element
+            //Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.divText.css({"line-height": self.div.css("height"), "max-width": self.div.width() - self.downArrowContainer.width() - 5 });
             //Maintains chainability
             return this;
         },
         //_Scroll-To-View
         // -------------
-        //      Updates the select box scrollTop value
+        //      Updates the dropdown list scrollTop value
         _scrollToView = function(type) {
-            //The current scroll positioning of the select box options list
+            //The current scroll positioning of the dropdown list options list
             var listScrollTop = self.list.scrollTop(),
-            //The height of the currently selected select box option
+            //The height of the currently selected dropdown list option
             currentItemHeight = self.listItems.eq(self.currentFocus).height(),
-            //The relative distance from the currently selected select box option to the the top of the select box
+            //The relative distance from the currently selected dropdown list option to the the top of the dropdown list options list
             currentTopPosition = self.listItems.eq(self.currentFocus).position().top,
-            //The height of the select box option list
+            //The height of the dropdown list option list
             listHeight = self.list.height();
             //Scrolling logic for a text search
             if(type === "search") {
-                //Increases the select box options `scrollTop` if a user is searching for an option 
+                //Increases the dropdown list options `scrollTop` if a user is searching for an option 
                 //below the currently selected option that is not visible
                 if(listHeight - currentTopPosition < currentItemHeight) {
                     //The selected option will be shown at the very bottom of the visible options list
                     self.list.scrollTop(listScrollTop + (currentTopPosition - (listHeight - currentItemHeight)));
                 }
-                //Decreases the select box options `scrollTop` if a user is searching for an option above the
+                //Decreases the dropdown list options `scrollTop` if a user is searching for an option above the
                 //currently selected option that is not visible
                 else if(currentTopPosition < -1) {
                     self.list.scrollTop(currentTopPosition - currentItemHeight);
@@ -196,19 +194,19 @@
             }
             //Scrolling logic for the `up` keyboard navigation
             else if(type === "up") {
-                //Decreases the select box option list `scrollTop` if a user is navigating to an element that is not 
+                //Decreases the dropdown list option list `scrollTop` if a user is navigating to an element that is not 
                 //visible
                 if(currentTopPosition < -1) {
-                    //Decreases the select box option `scrollTop` by the height of the current option item.
+                    //Decreases the dropdown list option `scrollTop` by the height of the current option item.
                     self.list.scrollTop(listScrollTop - currentItemHeight);
                 }
             }
             //Scrolling logic for the `down` keyboard navigation
             else if(type === "down") {
-                //Increases the select box options `scrollTop` if a user is navigating to an element that is 
+                //Increases the dropdown list options `scrollTop` if a user is navigating to an element that is 
                 //not fully visible
                 if(listHeight - currentTopPosition < currentItemHeight) {
-                    //Increases the select box options `scrollTop` by the height of the current option item.
+                    //Increases the dropdown list options `scrollTop` by the height of the current option item.
                     self.list.scrollTop((listScrollTop + currentItemHeight));
                 }
             }
@@ -217,36 +215,36 @@
         },
         //_Dynamic positioning
         // ------------------
-        //      Dynamically positions the select box options list
+        //      Dynamically positions the dropdown list options list
         _dynamicPositioning = function() {
-            //Returns the x and y coordinates of the select box options list relative to the document
+            //Returns the x and y coordinates of the dropdown list options list relative to the document
             var listOffsetTop = self.div.offset().top,
-            //The height of the select box options list
+            //The height of the dropdown list options list
             listHeight = self.list.height(),
-            //The height of the select box DOM element
+            //The height of the dropdown list DOM element
             selectBoxHeight = self.div.height();
-            //Places the select box options list on top of the select box if the select box options list
+            //Places the dropdown list options list on top of the dropdown list if the dropdown list options list
             //(when opened) does not fit on the page.
             if((listOffsetTop + selectBoxHeight + listHeight >= $(window).height() + $(window).scrollTop()) && (listOffsetTop - listHeight >= 0)){
-                //If the select box already opens upward
+                //If the dropdown list already opens upward
                 if(!self.flipped) {
-                    //Inserts select box options into the DOM before the select box
+                    //Inserts dropdown list options into the DOM before the dropdown list
                     self.list.insertBefore(self.div).
-                    //Sets custom CSS properties to place the select box options directly above the select box
+                    //Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                     css({ "margin-top": -listHeight - 2 });
-                    //Set the `flipped` instance variable to true to reflect that the select box opens upward
+                    //Set the `flipped` instance variable to true to reflect that the dropdown list opens upward
                     self.flipped = true;
                 }
             }
-            //If the select box options have enough room on the page to open downward
+            //If the dropdown list options have enough room on the page to open downward
             else {
-                //If the select box is currently opening upward
+                //If the dropdown list is currently opening upward
                 if(self.flipped) {
-                    //Move the select box list after the select box div in the DOM
+                    //Move the dropdown list list after the dropdown list div in the DOM
                     self.list.insertAfter(self.div).
                     //Dynamically defaults the margin-top back to 0
                     css({"margin-top": "0px" });
-                    //Sets the `flipped` instance variable to false to reflect that the select box opens downward
+                    //Sets the `flipped` instance variable to false to reflect that the dropdown list opens downward
                     self.flipped = false;
                 }
             }
@@ -259,19 +257,19 @@
             if($.isFunction(callback)) {
                 //Calls the method passed in as a parameter and sets the current `SelectBoxIt` object that is stored in the jQuery data method as the context 
                 //(allows for `this` to reference the SelectBoxIt API Methods in the callback function
-                //The `div` DOM element that acts as the new select box is also passed as the only parameter to the callback
+                //The `div` DOM element that acts as the new dropdown list is also passed as the only parameter to the callback
                 callback.call($(self.originalElem).data(dataName), self.div);
             }
         },
         //Open
         // ---
-        //      Opens the select box options list
+        //      Opens the dropdown list options list
         open = function(callback) {
             //Triggers a custom "open" event on the original select box
             self.selectBox.trigger("open");
-            //Dynamically positions the select box options list
+            //Dynamically positions the dropdown list options list
             _dynamicPositioning();
-            //Determines what jQuery effect to use when opening the select box options list
+            //Determines what jQuery effect to use when opening the dropdown list options list
             switch(self.options.showEffect) {
                 //Uses `no effect`
                 case "none":
@@ -305,7 +303,7 @@
                     break;
                 //If none of the above options were passed, then a `jqueryUI show effect` is expected
                 default:
-                    //Makes sure the select box options list is not visible
+                    //Makes sure the dropdown list options list is not visible
                     if(!self.list.is(":visible")) {
                         //Allows for custom show effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/show/)
                         self.list.show(self.options.showEffect, self.options.showEffectOptions, self.options.showEffectSpeed, function() { 
@@ -322,11 +320,11 @@
         },
         //Close
         // ----
-        //      Closes the select box options list
+        //      Closes the dropdown list options list
         close = function(callback) {
             //Triggers a custom "close" event on the original select box
             self.selectBox.trigger("close");
-            //Determines what jQuery effect to use when closing the select box options list
+            //Determines what jQuery effect to use when closing the dropdown list options list
             switch(self.options.hideEffect) {
                 //Uses `no effect`
                 case "none":
@@ -349,7 +347,7 @@
                     break;
                 //If none of the above options were passed, then a `jqueryUI hide effect` is expected
                 default:
-                    //Makes sure the select box options list is visible
+                    //Makes sure the dropdown list options list is visible
                     if(self.list.is(":visible")) {
                         //Allows for custom hide effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/hide/)
                         self.list.hide(self.options.hideEffect, self.options.hideEffectOptions, self.options.hideEffectSpeed, function() { 
@@ -371,7 +369,7 @@
             //Increments `currentFocus`, which represents the currently focused list item `id` attribute.
             self.currentFocus +=  1;
             //Sets the `currentFocus` to the previously focused item (the last list item in the list)
-            //if the user has reached the bottom of the select box options list and is trying to go down again 
+            //if the user has reached the bottom of the dropdown list options list and is trying to go down again 
             if(self.currentFocus === self.listItems.length) {
                 self.currentFocus -= 1;
             }
@@ -401,7 +399,7 @@
             //attribute.
             self.currentFocus -= 1;
             //Set `currentFocus` to the previously focused item (the first list item in the list)
-            //if the user has reached the top of the select box options list and is trying to go up again.
+            //if the user has reached the top of the dropdown list options list and is trying to go up again.
             if(self.currentFocus < 0 || (self.currentFocus === 0 && !self.options.showFirstOption)) { 
                 self.currentFocus += 1;
             }
@@ -425,21 +423,21 @@
         },
         //_Set Current Search Option
         // ------------------------
-        //      Sets the currently selected select box search option
+        //      Sets the currently selected dropdown list search option
         _setCurrentSearchOption = function(currentOption) {
             //Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.  Otherwise, the current option value is updated
             if(!(currentOption === 0 && !self.options.showFirstOption)) {
-                //Updates the default select box text
+                //Updates the default dropdown list text
                 self.divText.text(self.textArray[currentOption]);
-                //Calls the `blur` event of the currently selected select box option
+                //Calls the `blur` event of the currently selected dropdown list option
                 self.listItems.eq(self.currentFocus).blur();
-                //Sets `currentIndex` to the currently selected select box option
+                //Sets `currentIndex` to the currently selected dropdown list option
                 self.currentIndex = currentOption;
-                //Sets `currentFocus` to the currently selected select box option
+                //Sets `currentFocus` to the currently selected dropdown list option
                 self.currentFocus = currentOption;
-                //Focuses the currently selected select box option
+                //Focuses the currently selected dropdown list option
                 self.listItems.eq(self.currentFocus).focus();
-                //Updates the scrollTop so that the currently selected select box option is visible to the user
+                //Updates the scrollTop so that the currently selected dropdown list option is visible to the user
                 _scrollToView("search");
                 //Maintains chainability
             }
@@ -479,16 +477,16 @@
                     //Resets the regular expression with the new value of `self.currentText`
                     alphaNumeric = new RegExp(self.currentText, "gi");                  
                 }
-                //Searches based on the first letter of the select box options text if the `self.currentText`
+                //Searches based on the first letter of the dropdown list options text if the `self.currentText`
                 //< 2 characters
                 if(self.currentText.length < 2) {
                     //If there is a match based on the first character
                     if((self.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {
-                        //Sets properties of that select box option to make it the currently selected option
+                        //Sets properties of that dropdown list option to make it the currently selected option
                         _setCurrentSearchOption(x);
                         //Increments the current index by one
                         self.currentIndex += 1;
-                        //Trigger the custom `search` event on the original select box
+                        //Triggers the custom `search` event on the original select box
                         self.selectBox.trigger("search");
                         //Exits the search
                         return false;
@@ -498,9 +496,9 @@
                 else {
                     //If there is a match based on the entire string
                     if((self.textArray[x].search(alphaNumeric) !== -1)) {
-                        //Sets properties of that select box option to make it the currently selected option
+                        //Sets properties of that dropdown list option to make it the currently selected option
                         _setCurrentSearchOption(x);
-                        //Trigger the custom `search` event on the original select box
+                        //Triggers the custom `search` event on the original select box
                         self.selectBox.trigger("search");
                         //Exits the search
                         return false;
@@ -508,11 +506,11 @@
                 }
                 //If the current text search is an exact match
                 if(self.textArray[x].toLowerCase() === self.currentText.toLowerCase()) {
-                    //Sets properties of that select box option to make it the currently selected option
+                    //Sets properties of that dropdown list option to make it the currently selected option
                     _setCurrentSearchOption(x);
                     //Resets the current text search to a blank string to start fresh again
                     self.currentText = "";
-                    //Trigger the custom `search` event on the original select box
+                    //Triggers the custom `search` event on the original select box
                     self.selectBox.trigger("search");
                     //Exits the search
                     return false;
@@ -538,15 +536,14 @@
             //globally
             var alphaNumeric = new RegExp(self.currentText, "gi"),
 
-            //Calls `searchAlgorithm` which searches an array that contains all of the select box option 
+            //Calls `searchAlgorithm` which searches an array that contains all of the dropdown list option 
             //values.
             notFound = _searchAlgorithm(self.currentIndex, alphaNumeric);
-            //Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of 
-            //the currently selected select box option, and does not search the options before the current array indece.
-            //If there are many similar select box options, starting the search at the indece of the currently 
-            //selected select box option is needed to properly traverse the text array.
+            //Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of the currently selected dropdown list option, and does not search the options before the current array indece.
+            //If there are many similar dropdown list options, starting the search at the indece of the currently 
+            //selected dropdown list option is needed to properly traverse the text array.
             if(notFound) {
-                //Searches the select box values starting from the beginning of the text array
+                //Searches the dropdown list values starting from the beginning of the text array
                 _searchAlgorithm(0, alphaNumeric); 
             }
             //Provide callback function support
@@ -556,7 +553,7 @@
         },
         //_Event Handlers
         // -------------
-        //      Adds event handlers to the new select box
+        //      Adds event handlers to the new dropdown list
         _eventHandlers = function() {
             //Stores the correct keyboard values in local variables
             var upKey = 38, downKey = 40,enterKey = 13, backspaceKey = 8, tabKey = 9, spaceKey = 32;
@@ -564,27 +561,34 @@
             self.div.bind({
                 //`click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt" : function() {
-                    //The `click` handler logic will only be applied if the select box is enabled
+                    //The `click` handler logic will only be applied if the dropdown list is enabled
                     if(!self.originalElem.disabled) {
-                        //Trigger the `click` event on the original select box
+                        //Triggers the `click` event on the original select box
                         self.selectBox.trigger("click");
-                        //If the select box options list is visible when a user clicks on the select box
+                        //If the dropdown list options list is visible when a user clicks on the dropdown list
                         if(self.list.is(":visible")) {
-                            //Closes the select box options list
+                            //Closes the dropdown list options list
                             close();
                         }
-                        //If the select box options list is not visible when a user clicks on the select box
+                        //If the dropdown list options list is not visible when a user clicks on the dropdown list
                         else {
-                            //Shows the select box options list
+                            //Shows the dropdown list options list
                             open();
                         }
                     }
                 },
-                //`blur` event with the `selectBoxIt` namespace.  Uses special blur logic to make sure the select box closes correctly
+                //`mousedown` event with the `selectBoxIt` namespace
+                "mousedown.selectBoxIt" : function() {
+                    //Stores data in the jQuery `data` method to help determine if the dropdown list
+                    //gains focus from a click or tabstop.  The mousedown event fires before the focus
+                    //event.
+                    $(this).data("mdown",true);
+                },
+                //`blur` event with the `selectBoxIt` namespace.  Uses special blur logic to make sure the dropdown list closes correctly
                 "blur.selectBoxIt" : function() {
                     //If `self.blur` is true
                     if(self.blur) {
-                        //Triggers both the `blur` and `focusout` events on the original select box
+                        //Triggers both the `blur` and `focusout` events on the original select box.
                         //The `focusout` event was also triggered because the event bubbles
                         //This event has to be used when using event delegation (such as the jQuery `delegate` or `on` methods)
                         //Popular open source projects such as Backbone.js utilize event delegation to bind events,
@@ -592,16 +596,32 @@
                         self.selectBox.trigger("blur").trigger("focusout");
                         //If the dropdown options list is visible
                         if(self.list.is(":visible")) {
-                            //Closes the select box options list
+                            //Closes the dropdown list options list
                             close();
                         }
+                    }
+                },
+                "focus.selectBoxIt" : function(event, data) {
+                    //Stores the data associated with the mousedown event inside of a local variable
+                    var mdown = $(this).data("mdown");
+                    //Removes the jQuery data associated with the mousedown event
+                    $(this).removeData('mdown');
+                    //If a mousedown event did not occur and no data was passed to the focus event (this correctly triggers the focus event), then the dropdown list gained focus from a tabstop
+                    if(!data && !mdown) {
+                        //Triggers the `tabFocus` custom event on the original select box
+                        self.selectBox.trigger("tabFocus");
+                    }
+                    //If no data was passed to the focus event (this correctly triggers the focus event)
+                    if(!data) {
+                        //Triggers the `focus` default event on the original select box
+                        self.selectBox.trigger("focus");
                     }
                 },
                 //`keydown` event with the `selectBoxIt` namespace.  Catches all user keyboard navigations
                 "keydown.selectBoxIt": function(e) {
                     //Stores the `keycode` value in a local variable
                     var currentKey = e.keyCode;
-                    //Performs keyboard events if the select box is focused
+                    //Performs keyboard events if the dropdown list is focused
                     if(self.div.is(":focus")) {
                         //Supports keyboard navigation
                         switch(currentKey) {
@@ -611,7 +631,7 @@
                                 e.preventDefault();
                                 //If the plugin options allow keyboard navigation        
                                 if(self.options.keyboardNavigation) {
-                                    //Moves the focus down to the select box option directly beneath the currently selected selectbox option
+                                    //Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
                                     moveDown();
                                 }
                                 break;
@@ -621,23 +641,23 @@
                                 e.preventDefault();
                                 //If the plugin options allow keyboard navgiation
                                 if(self.options.keyboardNavigation) {
-                                    //Moves the focus up to the select box option directly above the currently selected selectbox option
+                                    //Moves the focus up to the dropdown list option directly above the currently selected selectbox option
                                     moveUp();
                                 }
                                 break;
                             //If the user presses the `enter key`
                             case enterKey:
                                 e.preventDefault();
-                                //Checks to see if the select box options list is open
+                                //Checks to see if the dropdown list options list is open
                                 if(self.list.is(":visible")) {
-                                    //Closes the select box options list
+                                    //Closes the dropdown list options list
                                     close();
                                 }
-                                //If the first select box option is not shown in the options list,
-                                //and the select box has not been interacted with, then
-                                //update the select box value when the enter key is pressed
+                                //If the first dropdown list option is not shown in the options list,
+                                //and the dropdown list has not been interacted with, then
+                                //update the dropdown list value when the enter key is pressed
                                 if(!self.options.showFirstOption && self.div.text() === self.firstSelectItem.text() && self.currentFocus === 0) {
-                                    //Updates the select box value
+                                    //Updates the dropdown list value
                                     self.selectBox.val(self.listItems.eq(self.currentFocus).text()).
                                     //Triggers a `change` event on the original select box
                                     trigger("change");
@@ -647,8 +667,8 @@
                                 break;
                             //If the user presses the `tab key`
                             case tabKey:
-                                //Triggers the custom `close` and `tab` events on the original select box
-                                self.selectBox.trigger("tab");
+                                //Triggers the custom `tabBlur` events on the original select box
+                                self.selectBox.trigger("tabBlur");
                                 break;
                             //If the user presses the `backspace key`
                             case backspaceKey:
@@ -666,7 +686,7 @@
                 //`keypress` event with the `selectBoxIt` namespace.  Catches all user keyboard text searches since you can only reliably 
                 //get character codes using the `keypress` event
                 "keypress.selectBoxIt": function(e) {
-                    //Performs a text search if the select box is focused
+                    //Performs a text search if the dropdown list is focused
                     if(self.div.is(":focus")) {
                         //Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross 
                         //browser support since IE uses `keyCode` instead of `charCode`.
@@ -703,33 +723,36 @@
                     $.removeData(self.selectBox[0], dataName);
                 }
             });
-            //Properly focuses the select box (removes focus flicker in IE).
+            //Properly focuses the dropdown list (removes focus flicker in IE).
             // The jQuery `add` method is used to bind the focus event for three elements.
             // The `add` method adds a jQuery object to the set of matched selectors 
-            self.divText.add(self.downArrow).add(self.downArrowContainer).bind({
+            self.div.add(self.divText).add(self.downArrow).add(self.downArrowContainer).bind({
                 //`click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt" : function() {
-                    //Focuses the select box
-                    self.div.focus();
+                    //If the dropdown list is not focused
+                    if(!self.div.is(":focus")) {
+                        //Focuses the dropdown list
+                        self.div.trigger("focus", true);
+                    }
                 }
             });
-            //Select box options events that set the select box blur logic (decides when the select box gets 
+            //Select box options events that set the dropdown list blur logic (decides when the dropdown list gets 
             //closed)
             self.list.bind({
                 //`mouseover` event with the `selectBoxIt` namespace
                 "mouseover.selectBoxIt" : function() {
-                    //Prevents the select box options list from closing
+                    //Prevents the dropdown list options list from closing
                     self.blur = false;
                 },
                 //`mouseout` event with the `selectBoxIt` namespace
                 "mouseout.selectBoxIt" : function() {
-                    //Allows the select box options list to close
+                    //Allows the dropdown list options list to close
                     self.blur = true;        
                 },
                 //`focusin` event with the `selectBoxIt` namespace
                 "focusin.selectBoxIt" : function() {
                     //Prevents the default browser outline border to flicker, which results because of the `blur` event
-                    self.div.focus();
+                    self.div.trigger("focus", true);
                 }
             })
             //Select box individual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding individual
@@ -739,41 +762,41 @@
 
             //Delegates the `click` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "click.selectBoxIt", function() {
-                //Sets the original select box value and triggers the `change` event on the original select box
+                //Sets the original dropdown list value and triggers the `change` event on the original select box
                 self.originalElem.value = $(this).text();
-                //Sets `currentFocus` to the currently focused select box option.
+                //Sets `currentFocus` to the currently focused dropdown list option.
                 //The unary `+` operator casts the string to a number 
                 //[James Padolsey Blog Post](http://james.padolsey.com/javascript/terse-javascript-101-part-2/)
                 self.currentFocus = +this.id;
                 //Closes the list after selecting an option
                 close();
-                //Triggers the select box `change` event if a value change occurs
+                //Triggers the dropdown list `change` event if a value change occurs
                 if(self.originalElem.value !== self.divText.text()) {
                     self.selectBox.trigger("change");
                 }
             })
             //Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {
-                //Sets the original select box value and triggers the change event on the original select box
+                //Sets the original select box current value and triggers the change event
                 self.originalElem.value = $(this).text();
-                //Triggers a `change` event on the original select box element
+                //Triggers a `change` event on the original select box
                 self.selectBox.trigger("change");              
             });
-            //Original select box events
+            //Original dropdown list events
             self.selectBox.bind({
                 //`change` event handler with the `selectBoxIt` namespace
                 "change.selectBoxIt": function() {
-                    //Sets the new select box text to the value of the original select box
+                    //Sets the new dropdown list text to the value of the original dropdown list
                     self.divText.text(this.value);
                 },
                 //`disable` event with the `selectBoxIt` namespace
                 "disable.selectBoxIt": function() {
-                    //Adds the `disabled` CSS class to the new select box to visually show that it is disabled
+                    //Adds the `disabled` CSS class to the new dropdown list to visually show that it is disabled
                     self.div.addClass("ui-state-disabled");
                 },
                 //`enable` event with the `selectBoxIt` namespace
                 "enable.selectBoxIt": function() {
-                    //Removes the `disabled` CSS class from the new select box to visually show that it is enabled
+                    //Removes the `disabled` CSS class from the new dropdown list to visually show that it is enabled
                     self.div.removeClass("ui-state-disabled");
                 }
             });
@@ -785,7 +808,7 @@
         //      Adds ARIA (Accessible Rich Internet Applications)
         //      Accessibility Tags to the Select Box
         _ariaAccessibility = function() {
-            //Adds `ARIA attributes` to the select box
+            //Adds `ARIA attributes` to the dropdown list
             self.div.attr({
                 //W3C `combobox` description: A presentation of a select; usually similar to a textbox where users can type ahead to select an option.
                 "role": "combobox",
@@ -802,7 +825,7 @@
                 //W3C `aria-live` description: Indicates that an element will be updated.
                 //Use the assertive value when the update needs to be communicated to the user more urgently.
                 "aria-live": "assertive" }).
-            //Dynamically adds `ARIA attributes` if the new select box is enabled or disabled
+            //Dynamically adds `ARIA attributes` if the new dropdown list is enabled or disabled
             bind({
                 //Select box custom `disable` event with the `selectBoxIt` namespace
                 "disable.selectBoxIt" : function() {
@@ -815,17 +838,17 @@
                     self.div.attr("aria-disabled", "false");
                 }
             });
-            //Adds ARIA attributes to the select box options list
+            //Adds ARIA attributes to the dropdown list options list
             self.list.attr({
                 //W3C `listbox` description: A widget that allows the user to select one or more items from a list of choices.
                 "role": "listbox",
-                //Indicates that the select box options list is currently hidden
+                //Indicates that the dropdown list options list is currently hidden
                 "aria-hidden": "true" });
-            //Adds `ARIA attributes` to the select box options
+            //Adds `ARIA attributes` to the dropdown list options
             self.listItems.attr({
                 //This must be set for each element when the container element role is set to `listbox`
                 "role": "option" });
-            //Dynamically updates the new select box `aria-label` attribute after the original select box value changes
+            //Dynamically updates the new dropdown list `aria-label` attribute after the original dropdown list value changes
             self.selectBox.bind({
                 //Custom `change` event with the `selectBoxIt` namespace
                 "change.selectBoxIt": function() {
@@ -834,16 +857,16 @@
                 },
                 //Custom `open` event with the `selectBoxIt` namespace
                 "open.selectBoxIt": function() {
-                    //Indicates that the select box options list is currently visible
+                    //Indicates that the dropdown list options list is currently visible
                     self.list.attr("aria-hidden", "false");
-                    //Indicates that the select box is currently expanded
+                    //Indicates that the dropdown list is currently expanded
                     self.div.attr("aria-expanded", "true");
                 },
                 //Custom `close` event with the `selectBoxIt` namespace
                 "close.selectBoxIt": function() {
-                    //Indicates that the select box options list is currently hidden
+                    //Indicates that the dropdown list options list is currently hidden
                     self.list.attr("aria-hidden", "true");
-                    //Indicates that the select box is currently collapsed
+                    //Indicates that the dropdown list is currently collapsed
                     self.div.attr("aria-expanded", "false");
                 }
             });
@@ -861,7 +884,7 @@
         },
         //Get Options
         // ----------
-        //      Returns all of the select box options      
+        //      Returns all of the dropdown list options      
         getOptions = function(callback) {
             //Provide callback function support
             _callbackSupport(callback);
@@ -921,15 +944,15 @@
         },
         //Disable
         // ------
-        //      Disables the new select box
+        //      Disables the new dropdown list
         disable = function(callback) {
-            //Makes sure the select box is closed
+            //Makes sure the dropdown list is closed
             close();
-            //Triggers a `disable` custom event on the original select box element
+            //Triggers a `disable` custom event on the original select box
             self.selectBox.trigger("disable")
             //Sets the `disabled` attribute on the original select box
             .attr("disabled", "disabled");
-            //Makes the select box not focusable by removing the `tabindex` attribute
+            //Makes the dropdown list not focusable by removing the `tabindex` attribute
             self.div.removeAttr("tabindex").css("cursor", "default");
             //Provides callback function support
             _callbackSupport(callback);
@@ -942,7 +965,7 @@
         _isDisabled = function() {
             //If the original select box is disabled
             if(self.originalElem.disabled) {
-                //Disables the select box
+                //Disables the dropdown list
                 disable();
             }
             //Maintains chainability
@@ -950,14 +973,14 @@
         },
         //Enable
         // -----
-        //      Enables the new select box
+        //      Enables the new dropdown list
         enable = function(callback) {
             var e, i;
-            //Triggers a `enable` custom event on the original select box element
+            //Triggers a `enable` custom event on the original select box
             self.selectBox.trigger("enable")
-            //Removes the `disabled` attribute from the original select box
+            //Removes the `disabled` attribute from the original dropdown list
             .removeAttr("disabled");
-            //Make the select box focusable
+            //Make the dropdown list focusable
             self.div.attr("tabindex", 0).css("cursor", "pointer");
             //Provide callback function support
             _callbackSupport(callback);
@@ -966,17 +989,17 @@
         },
         //Destroy
         // ------
-        //      Removes any data associated with the select box plugin
+        //      Removes any data associated with the dropdown list plugin
         destroy = function(callback) {
-            //Unbinds all of the select box event handlers with the `selectBoxIt` namespace
+            //Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
             self.div.unbind(".selectBoxIt").
-            //Undelegates all of the select box event handlers with the `selectBoxIt` namespace
+            //Undelegates all of the dropdown list event handlers with the `selectBoxIt` namespace
             undelegate(".selectBoxIt");
-            //Triggers the custom `destroy` event handler and then removes the select box div and unordered list elements from the DOM
+            //Triggers the custom `destroy` event handler and then removes the dropdown list div and unordered list elements from the DOM
             self.div.trigger("destroy");
             //Remove all of the `selectBoxIt` DOM elements from the page
             self.divContainer.remove();
-            //Triggers the custom `destroy` event on the original select box and then shows the original select box
+            //Triggers the custom `destroy` event on the original select box and then shows the original dropdown list
             self.selectBox.trigger("destroy").show();
             //Provides callback function support
             _callbackSupport(callback);
@@ -987,20 +1010,20 @@
         // --------
         //      Adds jQueryUI CSS classes
         _jqueryUI = function() {
-            //Adds the default styling to the select box
+            //Adds the default styling to the dropdown list
             self.div.addClass("ui-widget ui-state-default");
-            //Adds the default styling for the select box options
+            //Adds the default styling for the dropdown list options
             self.list.addClass("ui-widget ui-widget-content");
             //Select box individual option events
             self.listItems.bind({
                 //`focus` event with the `selectBoxIt` namespace
                 "focus.selectBoxIt": function() {
-                    //Adds the focus CSS class to the currently focused select box option
+                    //Adds the focus CSS class to the currently focused dropdown list option
                     $(this).addClass("ui-state-focus");
                 },
                 //`blur` event with the `selectBoxIt` namespace
                 "blur.selectBoxIt": function() {
-                    //Removes the focus CSS class from the previously focused select box option
+                    //Removes the focus CSS class from the previously focused dropdown list option
                     $(this).removeClass("ui-state-focus");
                 }
             });
@@ -1021,14 +1044,14 @@
                 },
                 //`mouseleave` event with the `selectBoxIt` namespace
                 "mouseleave.selectBoxIt": function() {
-                    //Removes the hover CSS class on the previously hovered select box option
+                    //Removes the hover CSS class on the previously hovered dropdown list option
                     self.div.removeClass("ui-state-hover");
                 }
             });
 
             self.listItems.bind({
                 "mouseenter.selectBoxIt": function() {
-                    //Sets the select box individual options back to the default state and sets the hover CSS class on the currently hovered option
+                    //Sets the dropdown list individual options back to the default state and sets the hover CSS class on the currently hovered option
                     self.listItems.removeClass("ui-state-focus ui-state-hover");
                     $(this).addClass("ui-state-hover");
                 },
@@ -1045,23 +1068,23 @@
         },
         //Create
         // -----
-        //      Constructs the select box plugin
+        //      Constructs the dropdown list plugin
         create = function(callback) {
-            //Creates the new div element that acts as the select box
+            //Creates the new div element that acts as the dropdown list
             _createDiv();
-            //Creates the new unordered list element to hold the select box options
+            //Creates the new unordered list element to hold the dropdown list options
             _createUnorderedList();
-            //Replaces the old select box with the new div and unordered list elements
+            //Replaces the old dropdown list with the new div and unordered list elements
             _replaceSelectBox();
-            //Adds event handlers to the new select box
+            //Adds event handlers to the new dropdown list
             _eventHandlers();
-            //Disables the select box if the original select box had the `disabled` attribute
+            //Disables the dropdown list if the original dropdown list had the `disabled` attribute
             _isDisabled();
-            //Adds ARIA accessibillity tags to the select box
+            //Adds ARIA accessibillity tags to the dropdown list
             _ariaAccessibility();
-            //Adds jQueryUI classes to the select box if the jqueryUI option is set to true
+            //Adds jQueryUI classes to the dropdown list if the jqueryUI option is set to true
             _jqueryUI();
-            //Triggers a custom `create` event on the original select box
+            //Triggers a custom `create` event on the original dropdown list
             self.selectBox.trigger("create");
             //Provide callback function support
             _callbackSupport(callback);
@@ -1075,22 +1098,22 @@
             version: "0.1.0",
             //**self**: The object that contains all of the `selectBoxIt` instance properties
             self: self,
-            //**open**: Opens the select box options list
+            //**open**: Opens the dropdown list options list
             open: open,
-            //**close**: Closes the select box options list
+            //**close**: Closes the dropdown list options list
             close: close,
-            //**moveDown**: Selects the select box option directly beneath the 
-            //currently selected select box option
+            //**moveDown**: Selects the dropdown list option directly beneath the 
+            //currently selected dropdown list option
             moveDown: moveDown,
-            //**moveUp**: Selects the select box option directly above the 
-            //currently selected select box option
+            //**moveUp**: Selects the dropdown list option directly above the 
+            //currently selected dropdown list option
             moveUp: moveUp,
-            //**search**: Selects the select box option that best matches the
+            //**search**: Selects the dropdown list option that best matches the
             //text passed into the method  If a pattern match is found, that option is made the currently selected option. 
-            //If a pattern match is not found, then the select box currently select option is not updated.
+            //If a pattern match is not found, then the dropdown list currently select option is not updated.
             //Accepts one parameter (String searchTerm)  
             search: search,
-            //**getOption**: Returns a select box option.  Accepts one parameter (String key)
+            //**getOption**: Returns a dropdown list option.  Accepts one parameter (String key)
             getOption: getOption,
             //**getOptions**: Returns an object containing all of the current plugin 
             //option settings
@@ -1099,13 +1122,13 @@
             setOption: setOption,
             //**setOptions**: Sets or adds new plugin option settings.  Accepts one parameter (Object newOptions)
             setOptions: setOptions,
-            //**disable**: Disables the select box
+            //**disable**: Disables the dropdown list
             disable: disable,
-            //**enable**: Enables the select box
+            //**enable**: Enables the dropdown list
             enable: enable,
-            //**destroy**: Removes the select box plugin from the DOM
+            //**destroy**: Removes the dropdown list plugin from the DOM
             destroy: destroy,
-            //**create**: Adds the select box plugin to the DOM
+            //**create**: Adds the dropdown list plugin to the DOM
             create: create
         };
     };
@@ -1161,12 +1184,12 @@
         hideEffectOptions: {},
         //**hideEffectSpeed**: Accepts Number (milliseconds) or String: "slow", "medium", or "fast"
         hideEffectSpeed: "medium",
-        //**keyboardSearch**: Allows users to search for select box options.  Accepts Boolean: true or false
+        //**keyboardSearch**: Allows users to search for dropdown list options.  Accepts Boolean: true or false
         keyboardSearch: true,
         //**keyboardNavigation**: Allows keyboard navigation using the `up` and `down` keyboard arrow keys.
         // Accepts Boolean: true or false
         keyboardNavigation: true,
-        //**showFirstOption**: Shows the first select box option within the select box options list
+        //**showFirstOption**: Shows the first dropdown list option within the dropdown list options list
         showFirstOption: true };
 //      End of Plugin
 })(jQuery, window, document); //passes in the jQuery, window, and document global objects to allow the plugin to use these objects locally

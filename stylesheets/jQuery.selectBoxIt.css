@@ -3,7 +3,7 @@
  * Author: @gregfranko
  */
 
-/* div surrounding all of the selectBoxIt elements */
+/* Div container holding the dropdown list */
 #testSelectBoxItContainer {
   display: inline-block;
   /* Hack for IE 6 and 7 to allow inline-block to work */
@@ -11,7 +11,7 @@
   zoom: 1;
 }
 
-/* Select Box */
+/* Dropdown List Box */
 #testSelectBoxIt {
   height: 30px; /* Height of the select box */
   cursor:pointer;
@@ -19,12 +19,12 @@
   /* Provide a background image here if you want to use an image for the down arrow */
 }
 
-/* Select Box and Select Box Options  */
+/* Dropdown List Box and Dropdown Options List  */
 #testSelectBoxIt, #testSelectBoxItOptions {
-  width: 280px; /* Width of the select box and select box options*/
+  width: 280px; /* Width of the dropdown list box and dropdown list options*/
 }
 
-/* Select Box Text */
+/* Dropdown List Box Text */
 #testSelectBoxItText {
   font: 14px Helvetica, Arial;
   text-indent: 5px;
@@ -32,6 +32,7 @@
   overflow:hidden;
   float:left;
   white-space:nowrap;
+  /* Prevents text selection */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -41,7 +42,7 @@
   user-select: none;
 }
 
-/* Select Box Options List*/
+/* Dropdown List Options List*/
 #testSelectBoxItOptions { 
   max-height: 180px; /* A vertical scrollbar appears if your select box options are taller than this */
   font: 14px Helvetica, Arial;
@@ -56,7 +57,7 @@
   outline:none;
 }
 
-/* Select Box Individual Options */
+/* Dropdown List Individual Options */
 #testSelectBoxItOptions li {
   line-height: 30px; /* Height of Individual Select Box Options */
   text-indent: 5px; /* Horizontal Positioning of the select box option text */
@@ -64,20 +65,21 @@
   white-space:nowrap;
 }
 
-/* Select Box Down Arrow Container (if an image is not used) */
+/* Dropdown List Down Arrow Container (if an image is not used) */
 #testSelectBoxItArrowContainer {
-  width: 30px; /* Positions the down arrow */
+  /* Positions the down arrow */
+  width: 30px;
   float:right;
 }
 
-/* Select Box Down Arrow */
+/* Dropdown List Down Arrow */
 #testSelectBoxItArrow {
   /* Horizontally centers the down arrow */
   margin-right:auto;
   margin-left:auto;
 }
 
-/*Prevents the blue selection background from showing up on webkit*/
+/* Disables text selection on webkit*/
 *::selection {
   background:transparent;
 }

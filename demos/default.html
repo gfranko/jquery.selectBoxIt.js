@@ -8,8 +8,7 @@
 <form>
 <br />
 <div id="switcher"></div><br />
-<label for="test">Select a Month</label>
-<br /><br /><br /><br /><br /><br />
+
 <select id="test">
 <option value="Select a Month">Select a Month</option>
 <option value="January">January</option>
@@ -33,7 +32,7 @@
 <script src="../javascripts/jQuery.selectBoxIt.js"></script>
 <script>
 $(function() {
-    var selectBox = $("select#test").selectBoxIt({showEffect: "bounce"}).data("selectBoxIt");
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
     $("#switcher").themeswitcher();
 });
 </script>

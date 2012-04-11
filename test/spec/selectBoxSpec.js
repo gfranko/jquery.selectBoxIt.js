@@ -194,26 +194,20 @@ describe('selectBoxIt jQuery Plugin', function () {
  
         beforeEach(function() {
             spyOnEvent(self.selectBox, "search");
+            pluginData.search("December");
         });
 
         it("should update the original select box value to the currently selected option", function() {
-            self.listItems.each(function() {
-            	//Call the search method
-                pluginData.search($(this).text());
-                setTimeout(function(){
-                    //The custom 'search' event to be called on the original select box
-                    expect("search").toHaveBeenTriggeredOn(self.selectBox);
-                    //The current focus instance variable should be set to the currently selected option 
-                    expect(self.currentFocus).toEqual(+$(this).attr("id"));
-                    //The value of the original select box should be set to the currently selected option
-                    expect(self.selectBox).toHaveValue($(this).text());
-                    //The select box text should be updated to the currently selected option
-                    expect(self.divText).toHaveText($(this).text());
-                },0);
-
-           });
+            //The custom 'search' event to be called on the original select box
+            expect("search").toHaveBeenTriggeredOn(self.selectBox);
+            //The current focus instance variable should be set to the currently selected option 
+            expect(self.currentFocus).toEqual(12);
+            //The value of the original select box should be set to the currently selected option
+            expect(self.selectBox).toHaveValue("December");
+            //The select box text should be updated to the currently selected option
+            expect(self.divText).toHaveText("December");
         });
-                
+        
     });
 
     describe("getOption()", function() {

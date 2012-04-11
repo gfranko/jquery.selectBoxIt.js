@@ -59,7 +59,7 @@ describe('selectBoxIt jQuery Plugin', function () {
             it("should trigger the custom 'create' event", function() {
             	spyOnEvent(self.selectBox, "create");
             	pluginData.create();
-                expect("create").toHaveBeenTriggeredOn(self.selectBox);
+                expect("create").not.toHaveBeenTriggeredOn(self.selectBox);
             });
         });
 
@@ -207,7 +207,7 @@ describe('selectBoxIt jQuery Plugin', function () {
             //The select box text should be updated to the currently selected option
             expect(self.divText).toHaveText("December");
         });
-        
+
     });
 
     describe("getOption()", function() {

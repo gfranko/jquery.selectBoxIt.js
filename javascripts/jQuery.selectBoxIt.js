@@ -1065,24 +1065,27 @@
         // -----
         //      Constructs the dropdown list plugin
         create = function(callback) {
-            //Creates the new div element that acts as the dropdown list
-            _createDiv();
-            //Creates the new unordered list element to hold the dropdown list options
-            _createUnorderedList();
-            //Replaces the old dropdown list with the new div and unordered list elements
-            _replaceSelectBox();
-            //Adds event handlers to the new dropdown list
-            _eventHandlers();
-            //Disables the dropdown list if the original dropdown list had the `disabled` attribute
-            _isDisabled();
-            //Adds ARIA accessibillity tags to the dropdown list
-            _ariaAccessibility();
-            //Adds jQueryUI classes to the dropdown list if the jqueryUI option is set to true
-            _jqueryUI();
-            //Triggers a custom `create` event on the original dropdown list
-            self.selectBox.trigger("create");
-            //Provide callback function support
-            _callbackSupport(callback);
+            //If the original select box element is visible, then you know the plugin is not currently being called
+            if ($(element).is(":visible")) {
+                //Creates the new div element that acts as the dropdown list
+                _createDiv();
+                //Creates the new unordered list element to hold the dropdown list options
+                _createUnorderedList();
+                //Replaces the old dropdown list with the new div and unordered list elements
+                _replaceSelectBox();
+                //Adds event handlers to the new dropdown list
+                _eventHandlers();
+                //Disables the dropdown list if the original dropdown list had the `disabled` attribute
+                _isDisabled();
+                //Adds ARIA accessibillity tags to the dropdown list
+                _ariaAccessibility();
+                //Adds jQueryUI classes to the dropdown list if the jqueryUI option is set to true
+                _jqueryUI();
+                //Triggers a custom `create` event on the original dropdown list
+                self.selectBox.trigger("create");
+                //Provide callback function support
+                _callbackSupport(callback);
+            }
             //Maintains chainability
             return this;
         };

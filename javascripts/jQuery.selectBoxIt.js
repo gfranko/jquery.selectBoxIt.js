@@ -1,8 +1,10 @@
 //      jQuery.selectBoxIt.js 0.1.0
 
 
-//      (c) 2012 Greg Franko
-//      SelectBoxIt may be freely distributed under the MIT license
+//		(c) 2012 Greg Franko
+
+//		SelectBoxIt may be freely distributed
+//		under the MIT license
 
 //Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript
 (function ($, window, document, undefined) {
@@ -133,7 +135,8 @@
         },
         //_Replace Select Box
         // -----------------
-        //      Hides the original dropdown list and inserts the new DOM elements
+        //      Hides the original dropdown list and inserts 
+        //		the new DOM elements
         _replaceSelectBox = function() {
             //Hides the original select box
             self.selectBox.css("display", "none")
@@ -956,7 +959,8 @@
         },
         //_Is Disabled
         // ---------
-        //      Checks the original select box for the disabled attribute
+        //      Checks the original select box for the 
+        //		disabled attribute
         _isDisabled = function() {
             //If the original select box is disabled
             if(self.originalElem.disabled) {
@@ -984,7 +988,8 @@
         },
         //Destroy
         // ------
-        //      Removes any data associated with the dropdown list plugin
+        //      Removes any data associated with the
+        //		dropdown list plugin
         destroy = function(callback) {
             //Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
             self.div.unbind(".selectBoxIt").
@@ -1061,6 +1066,32 @@
             //Maintains chainability
             return this;
         },
+        //Wait
+        // ---
+        //		Delays execution by the amount of time
+        //		specified by the parameter
+        wait = function(time, callback) {
+            //The timeout variable stores a Deferred Object, which will be resolved after the time specified in the parameter
+            var timeout = returnTimeout(time);
+            //Once the Deferred object is resolved, call the callback function
+            timeout.then(function() {
+                //Provide callback function support
+                _callbackSupport(callback);
+            });
+            //Maintains chainability
+            return this;
+        },
+        //Return timeout
+        // -------------
+        //		Returns a Deferred Object after the time 
+        //		specified by the parameter
+        returnTimeout = function(time) {
+            //Returns a Deferred Object
+            return $.Deferred(function(dfd) {
+                //Call the JavaScript `setTimeout function and resolve the Deferred Object 
+                setTimeout(dfd.resolve, time);
+            });
+        },
         //Create
         // -----
         //      Constructs the dropdown list plugin
@@ -1126,6 +1157,8 @@
             enable: enable,
             //**destroy**: Removes the dropdown list plugin from the DOM
             destroy: destroy,
+            //**wait**: Delays execution by the amount of time specified by the user passed parameter
+            wait: wait,
             //**create**: Adds the dropdown list plugin to the DOM
             create: create
         };
@@ -1154,12 +1187,7 @@
             $.data(element[0], dataName, selectBox);
             //Adds custom jQuery pseudo selectors
             $.extend($.expr[":"], {
-                //Adds the jQuery focus selector (`for jQuery versions < 1.5`)
-                focus: function(elem) {
-                    return elem === document.activeElement;
-                },
                 //Adds a custom pseudo selector for the `selectBoxIt` plugin that returns all plugin instances
-                //You can use it like this: `$(":selectBoxIt")`
                 //It will return all DOM elements that have been called with the `selectBoxIt` plugin
                 selectBoxIt: function(elem) {
                      return $(elem).data(dataName) !== undefined;

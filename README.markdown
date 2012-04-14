@@ -16,7 +16,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 	- Includes ARIA (Accessible Rich Internet Applications) support
 	- Provides API methods to programmatically interact with the Select Box
 	- Passes jsHint with no errors
-	- Small footprint (2.7KB minified and gzipped)
+	- Small footprint (2.9KB minified and gzipped)
 
 **Requirements**
 jQuery 1.5.0+

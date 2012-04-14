@@ -78,8 +78,3 @@
   margin-right:auto;
   margin-left:auto;
 }
-
-/* Disables text selection on webkit*/
-*::selection {
-  background:transparent;
-}

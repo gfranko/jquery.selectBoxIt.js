@@ -6,7 +6,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 [Documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit/)
 
-[Annotated Source Code](http://http://gregfranko.com/docs/jQuery.selectBoxIt.html)
+[Annotated Source Code](gregfranko.com/docs/jQuery.selectBoxIt.html)
 
 [Unit Test Suite](http://gregfranko.com/test/SpecRunner.html)
 

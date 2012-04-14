@@ -4,11 +4,11 @@ jQuery.selectBoxIt.js - jQuery Select Box Widget
 
 A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **ThemeRoller** and optionally animated with **jQueryUI show/hide effects**.
 
-[Documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit/)
+[Documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit)
 
-[Annotated Source Code](http://gregfranko.com/docs/jQuery.selectBoxIt.html/)
+[Annotated Source Code](http://gregfranko.com/docs/jQuery.selectBoxIt.html)
 
-[Unit Test Suite](http://gregfranko.com/test/SpecRunner.html/)
+[Unit Test Suite](http://gregfranko.com/test/SpecRunner.html)
 
 **Notable Features**
 	- Styleable with the jQueryUI Themeroller (optional)

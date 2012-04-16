@@ -1,6 +1,6 @@
 jQuery.selectBoxIt.js - jQuery Select Box Widget
 ------------------------------------------------
-![selectBoxIt](http://gregfranko.com/images/select.PNG "selectBoxIt")
+![selectBoxIt](images/select.PNG "selectBoxIt")
 
 A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **ThemeRoller** and optionally animated with **jQueryUI show/hide effects**.
 

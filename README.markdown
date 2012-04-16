@@ -20,10 +20,13 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 	- Small footprint (2.9KB minified and gzipped)
 
 **Requirements**
-jQuery 1.5.0+
+jQuery 1.5+
 
 **Browser Support**
 IE7+, Firefox 4+, Chrome, and Safari 4+
 
 **Unit Tests**
 All unit tests are written using the Jasmine Framework
+
+**Contributors**
+Greg Franko

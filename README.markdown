@@ -1,4 +1,4 @@
-jQuery.selectBoxIt.js - jQuery Select Box Widget
+jQuery.selectBoxIt.js - jQuery Select Box Plugin
 ------------------------------------------------
 
 ![Example](http://gregfranko.com/images/select.PNG)

@@ -7,6 +7,8 @@
     <meta name="description" content="Jquery.selectboxit.js : jQuery Select Box Plugin" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-darkness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/jQuery.selectBoxIt.css">
 
     <title>Jquery.selectboxit.js</title>
   </head>
@@ -16,7 +18,7 @@
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/gfranko/jQuery.selectBoxIt.js">Fork Me on GitHub</a>
+          <a id="forkme_banner" href="https://github.com/gfranko/jQuery.selectBoxIt.js" target="_blank">Fork Me on GitHub</a>
 
           <h1 id="project_title">Jquery.selectboxit.js</h1>
           <h2 id="project_tagline">jQuery Select Box Plugin</h2>
@@ -31,51 +33,52 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-<<<<<<< HEAD
-        <h3>Welcome to GitHub Pages.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+        <h1>SelectBoxIt</h1>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<div style="float:left;">
+Turns this
+<br />
+<select name="test">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<option value="a jQuery Plugin">a jQuery Plugin</option>
+<option value="a Select Box Replacement">a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget">a Stateful UI Dropdown Widget</option>
+</select>
+</div>
+<div style="float:right;">
+Into this
+<br />
+<select id="test" name="test">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<option value="a jQuery Plugin">a jQuery Plugin</option>
+<option value="a Select Box Replacement">a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget">a Stateful UI Dropdown Widget</option>
+</select>
+</div>
+<br /><br /><br /><br />
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p><strong>SelectBoxIt</strong> is a jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with <strong>ThemeRoller</strong> and optionally animated with <strong>jQueryUI show/hide effects</strong>.</p>
 
-<h3>Designer Templates</h3>
+<p><a href="http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit" target="_blank">Documentation</a></p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p><a href="http://gregfranko.com/docs/jQuery.selectBoxIt.html" target="_blank">Annotated Source Code</a></p>
 
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact support@github.com and we’ll help you sort it out.</p>
-=======
-        <h2>jQuery.selectBoxIt.js - jQuery Select Box Widget</h2>
-
-<p>A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with <strong>ThemeRoller</strong> and optionally animated with <strong>jQueryUI show/hide effects</strong>.</p>
-
-<p><a href="http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit">Documentation</a></p>
-
-<p><a href="http://gregfranko.com/docs/jQuery.selectBoxIt.html">Annotated Source Code</a></p>
-
-<p><a href="http://gregfranko.com/test/SpecRunner.html">Unit Test Suite</a></p>
+<p><a href="http://gregfranko.com/test/SpecRunner.html" target="_blank">Unit Test Suite</a></p>
 
 <p><strong>Notable Features</strong>
-    - Styleable with the jQueryUI Themeroller (optional)
-    - Supports all jQuery and jQueryUI show/hide effects (optional)
-    - Includes ARIA (Accessible Rich Internet Applications) support
-    - Provides API methods to programmatically interact with the Select Box
-    - Passes jsHint with no errors
-    - Small footprint (2.9KB minified and gzipped)</p>
+	<br />
+    - Styleable with the <strong>jQueryUI Themeroller</strong> (optional)
+    <br />
+    - Supports all jQuery and <strong>jQueryUI show/hide effects</strong> (optional)
+    <br />
+    - Includes <strong>ARIA support</strong>(Accessible Rich Internet Applications)
+    <br />
+    - Provides <strong>API methods</strong> to programmatically interact with the Select Box
+    <br />
+    - Passes <strong>jsHint</strong> with no errors
+    <br />
+    - Small footprint (<strong>2.9KB</strong> minified and gzipped)</p>
 
 <p><strong>Requirements</strong>
 jQuery 1.5+</p>
@@ -84,11 +87,11 @@ jQuery 1.5+</p>
 IE7+, Firefox 4+, Chrome, and Safari 4+</p>
 
 <p><strong>Unit Tests</strong>
-All unit tests are written using the Jasmine Framework</p>
+All unit tests are written using the <strong>Jasmine</strong> Framework</p>
 
 <p><strong>Contributors</strong>
 Greg Franko</p>
->>>>>>> fbc4aae16e38e4d67765091e6aabe011273bb194
+
       </section>
     </div>
 
@@ -100,21 +103,24 @@ Greg Franko</p>
       </footer>
     </div>
 
-<<<<<<< HEAD
-    
-=======
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-30888305-1");
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-30888305-1");
             pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
+        } catch(err) {}
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://www.gregfranko.com/javascripts/jQuery.selectBoxIt.min.js"></script>
 
->>>>>>> fbc4aae16e38e4d67765091e6aabe011273bb194
+    <script>
+    $(function() {
+        var selectBox = $("select#test").selectBoxIt({ showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600 }).data("selectBoxIt");
+    });        
+    </script>
 
   </body>
 </html>

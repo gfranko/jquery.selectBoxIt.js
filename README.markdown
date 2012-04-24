@@ -42,12 +42,7 @@ All unit tests are written using the Jasmine Framework
 
 - This release requires you to use jQuery 1.6.1+.
 
-- You are no longer required to have select box option values be the same as the select box option text.  Below is an example:
-
-- <select id="gender" name="gender">
-  <option value="m">Male</option>
-  <option value="f">Female</option>
-  </select>
+- You are no longer required to have select box option values be the same as the select box option text.
 
 - IE bug fix to prevent default dropdown text from being selectable
 

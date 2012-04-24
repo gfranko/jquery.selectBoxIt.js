@@ -1,4 +1,4 @@
-//      jQuery.selectBoxIt.js 0.1.0
+//      jQuery.selectBoxIt.js 0.2.0
 
 
 //		(c) 2012 Greg Franko

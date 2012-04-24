@@ -44,10 +44,10 @@ All unit tests are written using the Jasmine Framework
 
 - You are no longer required to have select box option values be the same as the select box option text.  Below is an example:
 
-	<select id="gender" name="gender">
-		<option value="m">Male</option>
-		<option value="f">Female</option>
-	</select>
+<select id="gender" name="gender">
+<option value="m">Male</option>
+<option value="f">Female</option>
+</select>
 
 - IE bug fix to prevent default dropdown text from being selectable
 

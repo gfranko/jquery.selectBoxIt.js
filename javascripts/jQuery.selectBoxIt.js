@@ -67,13 +67,17 @@
                 //IE specific attribute to not allow the element to be selected
                 unselectable: "on",
                 //Sets the span `text` to equal the original select box default value
-                text : self.firstSelectItem.text() });
+                text : self.firstSelectItem.text() }).
+                //Sets the HTML5 data attribute on the divText `span` element
+                attr("data-val", self.originalElem.value);
             //Creates a div to act as the new dropdown list
             self.div = $("<div/>", { 
                 //Dynamically sets the div `id` attribute
                 id : self.originalElem.id + "SelectBoxIt",
                 //Sets the div `name` attribute to be the same name as the original select box
                 name: self.originalElem.name,
+                //IE specific attribute to not allow the element to be selected
+                unselectable: "on",
                 //Sets the div `tabindex` attribute to 0 to allow the div to be focusable 
                 tabindex : 0 }).
             //Appends the default text to the inner dropdown list div element
@@ -110,7 +114,7 @@
             //into new list item elements of the new dropdown list
             self.selectItems.each(function(index) {
                 //Uses string concatenation instead of append for speed since the number of dropdown list options is unknown.
-                currentItem += '<li id="' + index + '">' + $(this).text() + '</li>';
+                currentItem += '<li id="' + index + '" data-val="' + this.value + '">' + $(this).text() + '</li>';
                 //Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
                 self.textArray[index] = $(this).text();
@@ -656,7 +660,7 @@
                                 //update the dropdown list value when the enter key is pressed
                                 if(!self.options.showFirstOption && self.div.text() === self.firstSelectItem.text() && self.currentFocus === 0) {
                                     //Updates the dropdown list value
-                                    self.selectBox.val(self.listItems.eq(self.currentFocus).text()).
+                                    self.selectBox.val(self.listItems.eq(self.currentFocus).attr("data-val")).
                                     //Triggers a `change` event on the original select box
                                     trigger("change");
                                 }
@@ -761,7 +765,7 @@
             //Delegates the `click` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "click.selectBoxIt", function() {
                 //Sets the original dropdown list value and triggers the `change` event on the original select box
-                self.originalElem.value = $(this).text();
+                self.originalElem.value = $(this).attr("data-val");
                 //Sets `currentFocus` to the currently focused dropdown list option.
                 //The unary `+` operator casts the string to a number 
                 //[James Padolsey Blog Post](http://james.padolsey.com/javascript/terse-javascript-101-part-2/)
@@ -769,14 +773,14 @@
                 //Closes the list after selecting an option
                 close();
                 //Triggers the dropdown list `change` event if a value change occurs
-                if(self.originalElem.value !== self.divText.text()) {
+                if(self.originalElem.value !== self.divText.attr("data-val")) {
                     self.selectBox.trigger("change");
                 }
             })
             //Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {
                 //Sets the original select box current value and triggers the change event
-                self.originalElem.value = $(this).text();
+                self.originalElem.value = $(this).attr("data-val");
                 //Triggers a `change` event on the original select box
                 self.selectBox.trigger("change");              
             });
@@ -785,7 +789,7 @@
                 //`change` event handler with the `selectBoxIt` namespace
                 "change.selectBoxIt": function() {
                     //Sets the new dropdown list text to the value of the original dropdown list
-                    self.divText.text(this.value);
+                    self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
                 },
                 //`disable` event with the `selectBoxIt` namespace
                 "disable.selectBoxIt": function() {

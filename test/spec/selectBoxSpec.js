@@ -33,7 +33,6 @@ describe('selectBoxIt jQuery Plugin', function () {
             it("should create a hidden unordered list that contains list items", function() {
                 expect(self.list).toExist();
                 expect(self.list.prop("tagName")).toEqual("UL");
-                expect(self.list).toBeHidden();
                 expect(self.list).toContain(self.listItems);
             });
 
@@ -69,28 +68,8 @@ describe('selectBoxIt jQuery Plugin', function () {
                 expect(self.div).toHaveAttr("tabindex", 0);
             });
 
-            it("should set the nested DIV element css 'overflow' attribute to 'hidden'", function() {
-                expect(self.divText.css('overflow')).toEqual("hidden");
-            });
-
             it("should set the UL element tabindex attribute to -1", function() {
                 expect(self.list).toHaveAttr("tabindex", -1);
-            });
-
-            it("should set the UL element 'display' attribute to 'none'", function() {
-                expect(self.list).toBeHidden();
-            });
-
-            it("should set the UL css 'position' attribute to 'absolute'", function() {
-                expect(self.list.css('position')).toEqual("absolute");
-            });
-
-            it("should set the UL 'z-index' attribute to '9999'", function() {
-                expect(self.list.css('z-index')).toEqual("99999");
-            });
-
-            it("should set the UL css 'overflow' attribute to 'auto'", function() {
-                expect(self.list.css('overflow')).toEqual("auto");
             });
 
             it("should set the correct jQueryUI classes if jQueryUI is being used", function() {

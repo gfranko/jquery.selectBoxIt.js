@@ -28,13 +28,33 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 	- Small footprint (2.9KB minified and gzipped)
 
 **Requirements**
-jQuery 1.5+
+jQuery 1.6.1+
 
 **Browser Support**
 IE7+, Firefox 4+, Chrome, and Safari 4+
 
 **Unit Tests**
 All unit tests are written using the Jasmine Framework
+
+##Change Log
+
+`0.2.0` - April 24, 2012
+
+- This release requires you to use jQuery 1.6.1+.
+
+- You are no longer required to have select box option values be the same as the select box option text.  Below is an example:
+
+	<select id="gender" name="gender">
+		<option value="m">Male</option>
+		<option value="f">Female</option>
+	</select>
+
+- IE bug fix to prevent default dropdown text from being selectable
+
+
+`0.1.0` - April 14, 2012
+
+- Initial SelectBoxIt release.  Added annotated source code, unit tests, and documentation
 
 **Contributors**
 Greg Franko

@@ -77,8 +77,6 @@ Into this
     - Provides <strong>API methods</strong> to programmatically interact with the Select Box
     <br />
     - Passes <strong>jsHint</strong> with no errors
-    <br />
-    - Small footprint (<strong>2.9KB</strong> minified and gzipped)</p>
 
 <p><strong>Requirements</strong>
 jQuery 1.6.1+</p>
@@ -91,6 +89,44 @@ All unit tests are written using the <strong>Jasmine</strong> Framework</p>
 
 <p><strong>Contributors</strong>
 Greg Franko</p>
+
+<p><strong>Change Log</strong>
+<br /><br />
+
+<code>0.3.0</code> - April 25, 2012
+
+<br /><br />
+
+* A new option, <code>defaultText</code>, was added to allow users to specify the default text of the dropdown list that is not linked to a specific select box option
+
+<br /><br />
+
+* The <code>disabled</code> HTML property is now supported for individual select box options
+
+<br /><br />
+
+* When a user presses the <code>esc</code> keyboard key, the dropdown options list will now close (become hidden)
+
+<br /><br />
+<code>0.2.0</code> - April 24, 2012
+
+<br /><br />
+
+* This release requires you to use jQuery 1.6.1+.
+
+<br /><br />
+
+* You are no longer required to have select box option values be the same as the select box option text.
+
+<br />
+
+* IE bug fix to prevent default dropdown text from being selectable
+
+<br /><br />
+
+<code>0.1.0</code> - April 14, 2012
+
+* Initial SelectBoxIt release.  Added annotated source code, unit tests, and documentation
 
       </section>
     </div>
@@ -118,7 +154,7 @@ Greg Franko</p>
 
     <script>
     $(function() {
-        var selectBox = $("select#test").selectBoxIt({ showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600 }).data("selectBoxIt");
+        var selectBox = $("select#test").selectBoxIt({ showEffect: "slideDown", showEffectSpeed: 400, hideEffect: "slideUp", hideEffectSpeed: 400 }).data("selectBoxIt");
     });        
     </script>
 

@@ -384,18 +384,28 @@
         moveDown = function(callback) {
             //Increments `currentFocus`, which represents the currently focused list item `id` attribute.
             self.currentFocus +=  1;
+            //Represents how many times the user has to skip options because other options are disabled
             var moves = 1,
+            //Determines whether the dropdown option the user is trying to go to is currently disabled
             disabled = self.listItems.eq(self.currentFocus).hasClass("ui-state-disabled");
+            //If the next option that the user is trying to go to is disabled and it is not the last option in the list
             if(disabled && (self.currentFocus !== self.listItems.length - 1)) {
+                //Blur the previous current option
                 self.listItems.eq(self.currentFocus - 1).blur();
+                //Call the `moveDown()` method again
                 moveDown();
+                //Exit the method
+                return;
             }
             //Sets the `currentFocus` to the previously focused item (the last list item in the list)
             //if the user has reached the bottom of the dropdown list options list and is trying to go down again 
             if(self.currentFocus === self.listItems.length - 1 && disabled) {
-                self.currentFocus = +self.listItems.eq(self.currentFocus).prev("li").not(".ui-state-disabled").attr("id");
+                //Sets the current focus to the previous option that is not disabled
+                self.currentFocus = +self.listItems.eq(self.currentFocus).prevAll("li").not(".ui-state-disabled").attr("id");
             }
+            //If the user has reached the bottom of the list
             else if(self.currentFocus === self.listItems.length) {
+                //Does not allow the user to continue to go down the list
                 self.currentFocus -= 1;
             }
             //If the user has not reached the bottom of the unordered list
@@ -405,7 +415,9 @@
                 self.listItems.eq(self.currentFocus - 1).blur().end().
                 //Focuses the currently focused list item
                 eq(self.currentFocus).focus();
+                //The `id` attribute of the previous dropdown option that is not currently `disabled`
                 var prevDisabledId = +self.listItems.eq(self.currentFocus).prevAll("li.ui-state-disabled").attr("id");
+                //How many dropdown options the user had to go to find an option that was not disabled
                 moves = self.currentFocus - prevDisabledId || 1;
                 //Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
                 _scrollToView("down", moves);
@@ -421,21 +433,30 @@
         // ------
         //      Handles the up keyboard navigation logic
         moveUp = function(callback) {
-            //Decrements `currentFocus`, which represents the currently focused list item `id` 
-            //attribute.
-            self.currentFocus -= 1;
+            //Increments `currentFocus`, which represents the currently focused list item `id` attribute.
+            self.currentFocus -=  1;
+            //Represents how many times the user has to skip options because other options are disabled
             var moves = 1,
+            //Determines whether the dropdown option the user is trying to go to is currently disabled
             disabled = self.listItems.eq(self.currentFocus).hasClass("ui-state-disabled");
-            if(disabled && (self.currentFocus > 0)) {
+            //If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list
+            if(disabled && (self.currentFocus > -1)) {
+                //Blur the previously selected option
                 self.listItems.eq(self.currentFocus + 1).blur();
+                //Call the `moveUp` method again
                 moveUp();
+                //Exit the method
+                return;
             }
-            //Set `currentFocus` to the previously focused item (the first list item in the list)
-            //if the user has reached the top of the dropdown list options list and is trying to go up again.
-            if(self.currentFocus === 1 && disabled) {
-                self.currentFocus = +self.listItems.eq(self.currentFocus).nextAll("li").not(".ui-state-disabled").attr("id");
+            //Sets the `currentFocus` to the previously focused item (the last list item in the list)
+            //if the user has reached the bottom of the dropdown list options list and is trying to go down again 
+            if(self.currentFocus === 0 && disabled) {
+                //Sets the current focus to the previous option that is not disabled
+                self.currentFocus = +self.listItems.eq(self.currentFocus).prevAll("li").not(".ui-state-disabled").attr("id");
             }
-            else if(self.currentFocus < 0 || (self.currentFocus === 0 && !self.options.showFirstOption)) {
+            //If the user has reached the top of the list
+            else if(self.currentFocus === -1) {
+                //Does not allow the user to continue to go up the list
                 self.currentFocus += 1;
             }
             //If the user has not reached the top of the unordered list
@@ -443,14 +464,15 @@
                 //Blurs the previously focused list item
                 //The jQuery `end()` method allows you to continue chaining while also using a different selector
                 self.listItems.eq(self.currentFocus + 1).blur().end().
-                //Focuses the currently selected list item
+                //Focuses the currently focused list item
                 eq(self.currentFocus).focus();
-                //Calls `scrollToView` to make sure the `scrollTop` is correctly updated.  The `up` user action
-                var prevDisabledId = +self.listItems.eq(self.currentFocus).next("li.ui-state-disabled").attr("id");
-                moves = self.currentFocus + prevDisabledId || 1;
-                //gets passed to `scrollToView`.  
+                //The `id` attribute of the previous dropdown option that is not currently `disabled`
+                var prevDisabledId = +self.listItems.eq(self.currentFocus).prevAll("li").not(".ui-state-disabled").attr("id");
+                //How many dropdown options the user had to go to find an option that was not disabled
+                moves = self.currentFocus - prevDisabledId || 1;
+                //Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
                 _scrollToView("up", moves);
-                //Triggers the custom `moveUp` event on the original select box
+                //Triggers the custom `moveDown` event on the original select box
                 self.selectBox.trigger("moveUp");
             }
             //Provide callback function support

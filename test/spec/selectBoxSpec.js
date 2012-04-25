@@ -60,6 +60,10 @@ describe('selectBoxIt jQuery Plugin', function () {
             	pluginData.create();
                 expect("create").not.toHaveBeenTriggeredOn(self.selectBox);
             });
+
+            it("should not allow a disabled option to be set as the currentFocus", function() {
+                expect(self.currentFocus).not.toHaveClass("ui-widget-disabled");
+            });
         });
 
         describe('Setting the correct CSS and HTML attributes for the new select box', function () {
@@ -160,7 +164,7 @@ describe('selectBoxIt jQuery Plugin', function () {
         	    expect("blur").toHaveBeenTriggeredOn(previous);
         	    expect("focus").toHaveBeenTriggeredOn(next);
         	    //Check to make sure the original select box value is set to the currently selected option
-        	    expect(self.selectBox).toHaveValue(self.listItems.eq(self.currentFocus).text());
+        	    expect(self.selectBox).toHaveValue(self.listItems.eq(self.currentFocus).attr("data-val"));
         	    //Check to make sure the select box text is updated to the currently selected option
         	    expect(self.divText).toHaveText(self.listItems.eq(self.currentFocus).text());
         	});

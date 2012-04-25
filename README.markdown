@@ -38,6 +38,15 @@ All unit tests are written using the Jasmine Framework
 
 ##Change Log
 
+`0.3.0` - April 25, 2012
+
+- A new option, `defaultText`, was added to allow users to specify the default text of the dropdown list that is not linked to a specific select box option
+
+- The `disabled` HTML property is now supported for individual select box options
+
+- When a user presses the `esc` keyboard key, the dropdown options list will now close (become hidden)
+
+
 `0.2.0` - April 24, 2012
 
 - This release requires you to use jQuery 1.6.1+.

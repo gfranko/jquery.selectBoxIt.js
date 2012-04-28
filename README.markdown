@@ -40,7 +40,7 @@ All unit tests are written using the Jasmine Framework
 
 - `AMD Support`.  If `AMD` support is found, SelectBoxIt is wrapped in a define `module`.
 	[UMD Patterns](https://github.com/umdjs/umd/blob/master/jqueryPlugin.js)
-- `Bug fixes for supporting the `disabled` HTML property for individual select box options
+- Bug fixes for supporting the `disabled` HTML property for individual select box options
 
 `0.3.0` - April 25, 2012
 

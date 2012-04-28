@@ -1,4 +1,4 @@
-//      jQuery.selectBoxIt.js 0.3.0
+//      jQuery.selectBoxIt.js 0.4.0
 
 
 //		(c) 2012 Greg Franko
@@ -6,6 +6,21 @@
 //		SelectBoxIt may be freely distributed
 //		under the MIT license
 
+// Uses AMD or browser globals to create the SelectBoxIt jQuery plugin.
+
+// It does not try to register in a CommonJS environment since
+// jQuery is not likely to run in those environments.
+// See jqueryPluginCommonJs.js for that version.
+// [UMD Patterns](https://github.com/umdjs/umd/blob/master/jqueryPlugin.js)
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(["jquery"], factory);
+    } else {
+        // Browser globals
+        factory(jQuery, window, document);
+    }
+}
 //Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript
 (function ($, window, document, undefined) {
     //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
@@ -106,7 +121,7 @@
                 //Sets the unordered list `tabindex` attribute to -1 to prevent the unordered list from being focusable
                 tabindex: -1 });
             //Checks `showFirstOption` plugin option to determine if the first dropdown list option should be shown in the options list.
-            if(!self.options.showFirstOption) {
+            if (!self.options.showFirstOption) {
                 //Excludes the first dropdown list option from the options list
                 self.selectItems = self.selectBox.find("option").slice(1);
             }
@@ -120,14 +135,14 @@
                 // (Used later in the `searchAlgorithm` method)
                 self.textArray[index] = $(this).text();
                 //Checks the original select box option for the `selected` attribute
-                if(this.selected) {
+                if (this.selected) {
                     //Replace the default text with the selected option
                     self.divText.text($(this).text());
                     //Set the currently selected option
                     self.currentFocus = index;
                 }
                 //If the `defaultText` option is being used
-                if(self.options.defaultText) {
+                if (self.options.defaultText) {
                     //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
                     self.divText.text(self.options.defaultText);
                 }
@@ -143,7 +158,7 @@
             //Set the disabled CSS class for select box options 
             self.list.find("li[data-disabled='true']").addClass("ui-state-disabled");
             //If the first select box option is disabled, and the user has chosen to not show the first select box option
-            if(self.currentFocus === 0 && !self.options.showFirstOption && self.listItems.eq(0).hasClass("ui-state-disabled")) {
+            if (self.currentFocus === 0 && !self.options.showFirstOption && self.listItems.eq(0).hasClass("ui-state-disabled")) {
                 //Sets the default value of the dropdown list to the first option that is not disabled
                 self.currentFocus = +self.listItems.not(".ui-state-disabled").first().attr("id");
             }
@@ -156,9 +171,9 @@
         //		the new DOM elements
         _replaceSelectBox = function() {
             //Hides the original select box
-            self.selectBox.css("display", "none")
+            self.selectBox.css("display", "none").
             //Adds the new dropdown list to the page directly after the hidden original select box element
-            .after(self.divContainer);
+            after(self.divContainer);
             //The height of the dropdown list
             var height = self.div.height();
             //The down arrow element of the dropdown list
@@ -199,33 +214,33 @@
             //The height of the dropdown list option list
             listHeight = self.list.height();
             //Scrolling logic for a text search
-            if(type === "search") {
+            if (type === "search") {
                 //Increases the dropdown list options `scrollTop` if a user is searching for an option 
                 //below the currently selected option that is not visible
-                if(listHeight - currentTopPosition < currentItemHeight) {
+                if (listHeight - currentTopPosition < currentItemHeight) {
                     //The selected option will be shown at the very bottom of the visible options list
                     self.list.scrollTop(listScrollTop + (currentTopPosition - (listHeight - currentItemHeight)));
                 }
                 //Decreases the dropdown list options `scrollTop` if a user is searching for an option above the
                 //currently selected option that is not visible
-                else if(currentTopPosition < -1) {
+                else if (currentTopPosition < -1) {
                     self.list.scrollTop(currentTopPosition - currentItemHeight);
                 }
             }
             //Scrolling logic for the `up` keyboard navigation
-            else if(type === "up") {
+            else if (type === "up") {
                 //Decreases the dropdown list option list `scrollTop` if a user is navigating to an element that is not 
                 //visible
-                if(currentTopPosition < -1) {
+                if (currentTopPosition < -1) {
                     //Decreases the dropdown list option `scrollTop` by the height of the current option item.
                     self.list.scrollTop(listScrollTop - (currentItemHeight * moves));
                 }
             }
             //Scrolling logic for the `down` keyboard navigation
-            else if(type === "down") {
+            else if (type === "down") {
                 //Increases the dropdown list options `scrollTop` if a user is navigating to an element that is 
                 //not fully visible
-                if(listHeight - currentTopPosition < currentItemHeight) {
+                if (listHeight - currentTopPosition < currentItemHeight) {
                     //Increases the dropdown list options `scrollTop` by the height of the current option item.
                     self.list.scrollTop((listScrollTop + (currentItemHeight * moves)));
                 }
@@ -244,9 +259,9 @@
             //The height of the dropdown list DOM element
             selectBoxHeight = self.div.height();
             //Places the dropdown list options list on top of the dropdown list if the dropdown list options list does not fit on the page when opened
-            if((listOffsetTop + selectBoxHeight + listHeight >= $(window).height() + $(window).scrollTop()) && (listOffsetTop - listHeight >= 0)){
+            if ((listOffsetTop + selectBoxHeight + listHeight >= $(window).height() + $(window).scrollTop()) && (listOffsetTop - listHeight >= 0)){
                 //If the dropdown list currently opens downward
-                if(!self.flipped) {
+                if (!self.flipped) {
                     //Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                     self.list.css("top", (self.divContainer.position().top - self.list.height()) - 2);
                     //Sets the `flipped` instance variable to false to reflect that the dropdown list opens upward
@@ -256,7 +271,7 @@
             //If the dropdown list options have enough room on the page to open downward
             else {
                 //If the dropdown list is currently opening upward
-                if(self.flipped) {
+                if (self.flipped) {
                     //Sets custom CSS properties to place the dropdown list options directly below the dropdown list
                     self.list.css("top", (self.divContainer.position().top + self.div.height()) + 2);
                     //Sets the `flipped` instance variable to false to reflect that the dropdown list opens downward
@@ -269,7 +284,7 @@
         //      Call the function passed into the method
         _callbackSupport = function(callback) {
             //Checks to make sure the parameter passed in is a function
-            if($.isFunction(callback)) {
+            if ($.isFunction(callback)) {
                 //Calls the method passed in as a parameter and sets the current `SelectBoxIt` object that is stored in the jQuery data method as the context 
                 //(allows for `this` to reference the SelectBoxIt API Methods in the callback function
                 //The `div` DOM element that acts as the new dropdown list is also passed as the only parameter to the callback
@@ -319,7 +334,7 @@
                 //If none of the above options were passed, then a `jqueryUI show effect` is expected
                 default:
                     //Makes sure the dropdown list options list is not visible
-                    if(!self.list.is(":visible")) {
+                    if (!self.list.is(":visible")) {
                         //Allows for custom show effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/show/)
                         self.list.show(self.options.showEffect, self.options.showEffectOptions, self.options.showEffectSpeed, function() { 
                             //Updates the list `scrollTop` attribute
@@ -363,7 +378,7 @@
                 //If none of the above options were passed, then a `jqueryUI hide effect` is expected
                 default:
                     //Makes sure the dropdown list options list is visible
-                    if(self.list.is(":visible")) {
+                    if (self.list.is(":visible")) {
                         //Allows for custom hide effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/hide/)
                         self.list.hide(self.options.hideEffect, self.options.hideEffectOptions, self.options.hideEffectSpeed, function() { 
                             //Updates the list `scrollTop` attribute
@@ -387,25 +402,23 @@
             //Represents how many times the user has to skip options because other options are disabled
             var moves = 1,
             //Determines whether the dropdown option the user is trying to go to is currently disabled
-            disabled = self.listItems.eq(self.currentFocus).hasClass("ui-state-disabled");
-            //If the next option that the user is trying to go to is disabled and it is not the last option in the list
-            if(disabled && (self.currentFocus !== self.listItems.length - 1)) {
-                //Blur the previous current option
+            disabled = self.listItems.eq(self.currentFocus).data("disabled"),
+            hasNextEnabled = self.listItems.eq(self.currentFocus).nextAll("li").not(".ui-state-disabled").length;
+            //If the user has reached the top of the list
+            if (self.currentFocus === self.listItems.length) {
+                //Does not allow the user to continue to go up the list
+                self.currentFocus -= 1;
+            }
+            //If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list
+            else if (disabled && hasNextEnabled) {
+                //Blur the previously selected option
                 self.listItems.eq(self.currentFocus - 1).blur();
-                //Call the `moveDown()` method again
+                //Call the `moveUp` method again
                 moveDown();
                 //Exit the method
                 return;
             }
-            //Sets the `currentFocus` to the previously focused item (the last list item in the list)
-            //if the user has reached the bottom of the dropdown list options list and is trying to go down again 
-            if(self.currentFocus === self.listItems.length - 1 && disabled) {
-                //Sets the current focus to the previous option that is not disabled
-                self.currentFocus = +self.listItems.eq(self.currentFocus).prevAll("li").not(".ui-state-disabled").attr("id");
-            }
-            //If the user has reached the bottom of the list
-            else if(self.currentFocus === self.listItems.length) {
-                //Does not allow the user to continue to go down the list
+            else if (disabled && !hasNextEnabled) {
                 self.currentFocus -= 1;
             }
             //If the user has not reached the bottom of the unordered list
@@ -416,9 +429,9 @@
                 //Focuses the currently focused list item
                 eq(self.currentFocus).focus();
                 //The `id` attribute of the previous dropdown option that is not currently `disabled`
-                var prevDisabledId = +self.listItems.eq(self.currentFocus).prevAll("li.ui-state-disabled").attr("id");
+                var prevDisabledId = +self.listItems.eq(self.currentFocus).prevAll("li").not(".ui-state-disabled").attr("id");
                 //How many dropdown options the user had to go to find an option that was not disabled
-                moves = self.currentFocus - prevDisabledId || 1;
+                moves = Math.abs(self.currentFocus - prevDisabledId);
                 //Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
                 _scrollToView("down", moves);
                 //Triggers the custom `moveDown` event on the original select box
@@ -438,9 +451,15 @@
             //Represents how many times the user has to skip options because other options are disabled
             var moves = 1,
             //Determines whether the dropdown option the user is trying to go to is currently disabled
-            disabled = self.listItems.eq(self.currentFocus).hasClass("ui-state-disabled");
+            disabled = self.listItems.eq(self.currentFocus).data("disabled"),
+            hasPreviousEnabled = self.listItems.eq(self.currentFocus).prevAll("li").not(".ui-state-disabled").length;
+            //If the user has reached the top of the list
+            if (self.currentFocus === -1) {
+                //Does not allow the user to continue to go up the list
+                self.currentFocus += 1;
+            }
             //If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list
-            if(disabled && (self.currentFocus > -1)) {
+            else if (disabled && hasPreviousEnabled) {
                 //Blur the previously selected option
                 self.listItems.eq(self.currentFocus + 1).blur();
                 //Call the `moveUp` method again
@@ -448,15 +467,7 @@
                 //Exit the method
                 return;
             }
-            //Sets the `currentFocus` to the previously focused item (the last list item in the list)
-            //if the user has reached the bottom of the dropdown list options list and is trying to go down again 
-            if(self.currentFocus === 0 && disabled) {
-                //Sets the current focus to the previous option that is not disabled
-                self.currentFocus = +self.listItems.eq(self.currentFocus).prevAll("li").not(".ui-state-disabled").attr("id");
-            }
-            //If the user has reached the top of the list
-            else if(self.currentFocus === -1) {
-                //Does not allow the user to continue to go up the list
+            else if (disabled && !hasPreviousEnabled) {
                 self.currentFocus += 1;
             }
             //If the user has not reached the top of the unordered list
@@ -467,9 +478,9 @@
                 //Focuses the currently focused list item
                 eq(self.currentFocus).focus();
                 //The `id` attribute of the previous dropdown option that is not currently `disabled`
-                var prevDisabledId = +self.listItems.eq(self.currentFocus).prevAll("li").not(".ui-state-disabled").attr("id");
+                var prevDisabledId = +self.listItems.eq(self.currentFocus).nextAll("li").not(".ui-state-disabled").attr("id");
                 //How many dropdown options the user had to go to find an option that was not disabled
-                moves = self.currentFocus - prevDisabledId || 1;
+                moves = Math.abs(self.currentFocus - prevDisabledId);
                 //Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
                 _scrollToView("up", moves);
                 //Triggers the custom `moveDown` event on the original select box
@@ -485,7 +496,7 @@
         //      Sets the currently selected dropdown list search option
         _setCurrentSearchOption = function(currentOption) {
             //Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.  Otherwise, the current option value is updated
-            if(!(currentOption === 0 && !self.options.showFirstOption) && !self.listItems.eq(currentOption).hasClass("ui-state-disabled")) {
+            if (!(currentOption === 0 && !self.options.showFirstOption) && !self.listItems.eq(currentOption).hasClass("ui-state-disabled")) {
                 //Updates the default dropdown list text
                 self.divText.text(self.textArray[currentOption]);
                 //Calls the `blur` event of the currently selected dropdown list option
@@ -521,7 +532,7 @@
                 //Nested for loop to help search for a pattern match with the currently traversed array item
                 for(y = 0; y < arrayLength; y += 1) {
                     //Searches for a match
-                    if(self.textArray[y].search(alphaNumeric) !== -1) {
+                    if (self.textArray[y].search(alphaNumeric) !== -1) {
                         //`matchExists` is set to true if there is a match
                         matchExists = true;
                         //Exits the nested for loop
@@ -529,7 +540,7 @@
                     }
                 }//End nested for loop
                 //If a match does not exist
-                if(!matchExists) {
+                if (!matchExists) {
                     //Sets the current text to the last entered character
                     self.currentText = self.currentText.charAt(self.currentText.length - 1).
                     //Escapes the regular expression to make sure special characters are seen as literal characters instead of special commands
@@ -539,9 +550,9 @@
                 }
                 //Searches based on the first letter of the dropdown list options text if the `self.currentText`
                 //< 2 characters
-                if(self.currentText.length < 2) {
+                if (self.currentText.length < 2) {
                     //If there is a match based on the first character
-                    if((self.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {
+                    if ((self.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {
                         //Sets properties of that dropdown list option to make it the currently selected option
                         _setCurrentSearchOption(x);
                         //Increments the current index by one
@@ -553,7 +564,7 @@
                 //If `self.currentText` > 1 character
                 else {
                     //If there is a match based on the entire string
-                    if((self.textArray[x].search(alphaNumeric) !== -1)) {
+                    if ((self.textArray[x].search(alphaNumeric) !== -1)) {
                         //Sets properties of that dropdown list option to make it the currently selected option
                         _setCurrentSearchOption(x);
                         //Exits the search
@@ -561,7 +572,7 @@
                     }
                 }
                 //If the current text search is an exact match
-                if(self.textArray[x].toLowerCase() === self.currentText.toLowerCase()) {
+                if (self.textArray[x].toLowerCase() === self.currentText.toLowerCase()) {
                     //Sets properties of that dropdown list option to make it the currently selected option
                     _setCurrentSearchOption(x);
                     //Resets the current text search to a blank string to start fresh again
@@ -578,7 +589,7 @@
         //      Calls searchAlgorithm()
         search = function(alphaNumericKey, rememberPreviousSearch, callback) {
             //If the search method is being called internally by the plugin, and not externally as a method by a user
-            if(rememberPreviousSearch) {
+            if (rememberPreviousSearch) {
                 //Continued search with history from past searches.  Properly escapes the regular expression
                 self.currentText += alphaNumericKey.replace(/[|()\[{.+*?$\\]/g,"\\$0");            
             }
@@ -596,7 +607,7 @@
             //Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of the currently selected dropdown list option, and does not search the options before the current array indece.
             //If there are many similar dropdown list options, starting the search at the indece of the currently 
             //selected dropdown list option is needed to properly traverse the text array.
-            if(notFound) {
+            if (notFound) {
                 //Searches the dropdown list values starting from the beginning of the text array
                 _searchAlgorithm(0, alphaNumeric); 
             }
@@ -616,11 +627,11 @@
                 //`click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt" : function() {
                     //The `click` handler logic will only be applied if the dropdown list is enabled
-                    if(!self.originalElem.disabled) {
+                    if (!self.originalElem.disabled) {
                         //Triggers the `click` event on the original select box
                         self.selectBox.trigger("click");
                         //If the dropdown list options list is visible when a user clicks on the dropdown list
-                        if(self.list.is(":visible")) {
+                        if (self.list.is(":visible")) {
                             //Closes the dropdown list options list
                             close();
                         }
@@ -641,7 +652,7 @@
                 //`blur` event with the `selectBoxIt` namespace.  Uses special blur logic to make sure the dropdown list closes correctly
                 "blur.selectBoxIt" : function() {
                     //If `self.blur` is true
-                    if(self.blur) {
+                    if (self.blur) {
                         //Triggers both the `blur` and `focusout` events on the original select box.
                         //The `focusout` event was also triggered because the event bubbles
                         //This event has to be used when using event delegation (such as the jQuery `delegate` or `on` methods)
@@ -649,7 +660,7 @@
                         //so if you are using Backbone.js, use the `focusout` event instead of the `blur` event
                         self.selectBox.trigger("blur").trigger("focusout");
                         //If the dropdown options list is visible
-                        if(self.list.is(":visible")) {
+                        if (self.list.is(":visible")) {
                             //Closes the dropdown list options list
                             close();
                         }
@@ -661,12 +672,12 @@
                     //Removes the jQuery data associated with the mousedown event
                     $(this).removeData('mdown');
                     //If a mousedown event did not occur and no data was passed to the focus event (this correctly triggers the focus event), then the dropdown list gained focus from a tabstop
-                    if(!data && !mdown) {
+                    if (!data && !mdown) {
                         //Triggers the `tabFocus` custom event on the original select box
                         self.selectBox.trigger("tabFocus");
                     }
                     //If no data was passed to the focus event (this correctly triggers the focus event)
-                    if(!data) {
+                    if (!data) {
                         //Triggers the `focus` default event on the original select box
                         self.selectBox.trigger("focus").trigger("focusin");
                     }
@@ -676,7 +687,7 @@
                     //Stores the `keycode` value in a local variable
                     var currentKey = e.keyCode;
                     //Performs keyboard events if the dropdown list is focused
-                    if(self.div.is(":focus")) {
+                    if (self.div.is(":focus")) {
                         //Supports keyboard navigation
                         switch(currentKey) {
                             //If the user presses the `down key`
@@ -684,7 +695,7 @@
                                 //Prevents the page from moving down
                                 e.preventDefault();
                                 //If the plugin options allow keyboard navigation        
-                                if(self.options.keyboardNavigation) {
+                                if (self.options.keyboardNavigation) {
                                     //Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
                                     moveDown();
                                 }
@@ -694,7 +705,7 @@
                                 //Prevents the page from moving up 
                                 e.preventDefault();
                                 //If the plugin options allow keyboard navgiation
-                                if(self.options.keyboardNavigation) {
+                                if (self.options.keyboardNavigation) {
                                     //Moves the focus up to the dropdown list option directly above the currently selected selectbox option
                                     moveUp();
                                 }
@@ -703,14 +714,14 @@
                             case enterKey:
                                 e.preventDefault();
                                 //Checks to see if the dropdown list options list is open
-                                if(self.list.is(":visible")) {
+                                if (self.list.is(":visible")) {
                                     //Closes the dropdown list options list
                                     close();
                                 }
                                 //If the first dropdown list option is not shown in the options list,
                                 //and the dropdown list has not been interacted with, then
                                 //update the dropdown list value when the enter key is pressed
-                                if(!self.options.showFirstOption && self.div.text() === self.firstSelectItem.text() && self.currentFocus === 0 || (self.options.showFirstOption && self.options.defaultText) || (!self.options.showFirstOption && self.listItems.eq(0).hasClass("ui-state-disabled"))) {
+                                if (!self.options.showFirstOption && self.div.text() === self.firstSelectItem.text() && self.currentFocus === 0 || (self.options.showFirstOption && self.options.defaultText) || (!self.options.showFirstOption && self.listItems.eq(0).hasClass("ui-state-disabled"))) {
                                     //Updates the dropdown list value
                                     self.selectBox.val(self.listItems.eq(self.currentFocus).attr("data-val")).
                                     //Triggers a `change` event on the original select box
@@ -746,19 +757,19 @@
                 //get character codes using the `keypress` event
                 "keypress.selectBoxIt": function(e) {
                     //Performs a text search if the dropdown list is focused
-                    if(self.div.is(":focus")) {
+                    if (self.div.is(":focus")) {
                         //Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross 
                         //browser support since IE uses `keyCode` instead of `charCode`.
                         var currentKey = e.charCode || e.keyCode,
                         //Converts unicode values to characters
                         alphaNumericKey = String.fromCharCode(currentKey);
                         //If the user presses the `space bar`
-                        if(currentKey === spaceKey) {
+                        if (currentKey === spaceKey) {
                             //Prevents the browser from scrolling to the bottom of the page
                             e.preventDefault();
                         }
                         //If the plugin options allow text searches
-                        if(self.options.keyboardSearch) {
+                        if (self.options.keyboardSearch) {
                             //Calls `search` and passes the character value of the user's text search
                             search(alphaNumericKey, true, "");      
                         }
@@ -789,7 +800,7 @@
                 //`click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt" : function() {
                     //If the dropdown list is not focused
-                    if(!self.div.is(":focus")) {
+                    if (!self.div.is(":focus")) {
                         //Focuses the dropdown list
                         self.div.trigger("focus", true);
                     }
@@ -821,7 +832,7 @@
 
             //Delegates the `click` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "click.selectBoxIt", function() {
-                if(!$(this).hasClass("ui-state-disabled")) {
+                if (!$(this).hasClass("ui-state-disabled")) {
                     //Sets the original dropdown list value and triggers the `change` event on the original select box
                     self.originalElem.value = $(this).attr("data-val");
                     //Sets `currentFocus` to the currently focused dropdown list option.
@@ -831,14 +842,14 @@
                     //Closes the list after selecting an option
                     close();
                     //Triggers the dropdown list `change` event if a value change occurs
-                    if(self.originalElem.value !== self.divText.attr("data-val") || (self.options.defaultText !== self.originalElem.value)) {
+                    if (self.originalElem.value !== self.divText.attr("data-val") || (self.options.defaultText !== self.originalElem.value)) {
                         self.selectBox.trigger("change");
                     }
                 }
             })
             //Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {
-                if(!$(this).hasClass("ui-state-disabled")) {
+                if (!$(this).hasClass("ui-state-disabled")) {
                     //Sets the original select box current value and triggers the change event
                     self.originalElem.value = $(this).attr("data-val");
                     //Triggers a `change` event on the original select box
@@ -960,22 +971,22 @@
         //      plugin options object
         setOption = function(key, value, callback) {
             //If the plugin contains the specified option
-            if(self.options[key] !== undefined) {
+            if (self.options[key] !== undefined) {
                 //Sets the plugin option to the new value provided by the user
                 self.options[key] = value;    
             }
             //If a user sets the `showFirstOption` to false
-            if(key === "showFirstOption" && !value) {
+            if (key === "showFirstOption" && !value) {
                 //Hides the first option in the dropdown list
                 self.listItems.eq(0).hide();
             }
             //If a user sets the `showFirstOption` to true
-            else if(key === "showFirstOption" && value) {
+            else if (key === "showFirstOption" && value) {
                 //Shows the first option in the dropdown list
                 self.listItems.eq(0).show();
             }
             //If a user sets the defaultText option
-            else if(key === "defaultText") {
+            else if (key === "defaultText") {
                 //Sets the new dropdown list default text
                 self.divText.text(value);
             }
@@ -990,14 +1001,14 @@
         //      properties to the plugin options object
         setOptions = function(newOptions, callback) {
             //If the passed in parameter is an object literal
-            if($.isPlainObject(newOptions)) {
+            if ($.isPlainObject(newOptions)) {
                 //Uses the jQuery `extend` method to merge the user specified options object with the `self.options`
                 //object to create a new object.  The options variable is set to the newly created object.
                 self.options = $.extend({}, self.options, newOptions);
                 //Maintains chainability
             }
             //If the `showFirstOption` option is true
-            if(self.options.showFirstOption) {
+            if (self.options.showFirstOption) {
                 //Shows the first option in the dropdown list
                 self.listItems.eq(0).show();
             }
@@ -1007,7 +1018,7 @@
                 self.listItems.eq(0).hide();
             }
             //If the defaultText option is set, make sure the dropdown list default text reflects this value
-            if(self.options.defaultText) {
+            if (self.options.defaultText) {
                 self.divText.text(self.options.defaultText);
             }
             //Provide callback function support
@@ -1037,7 +1048,7 @@
         //		disabled attribute
         _isDisabled = function() {
             //If the original select box is disabled
-            if(self.originalElem.disabled) {
+            if (self.originalElem.disabled) {
                 //Disables the dropdown list
                 disable();
             }
@@ -1048,7 +1059,6 @@
         // -----
         //      Enables the new dropdown list
         enable = function(callback) {
-            var e, i;
             //Triggers a `enable` custom event on the original select box
             self.selectBox.trigger("enable")
             //Removes the `disabled` attribute from the original dropdown list
@@ -1198,7 +1208,7 @@
         // ---------
         return {
             //**version**: The current version of the `selectBoxIt` plugin
-            version: "0.1.0",
+            version: "0.4.0",
             //**self**: The object that contains all of the `selectBoxIt` instance properties
             self: self,
             //**open**: Opens the dropdown list options list
@@ -1293,5 +1303,4 @@
         showFirstOption: true,
         //**defaultText**: Overrides the text used by the dropdown list selected option to allow a user to specify custom text.  Accepts a String.
         defaultText: null };
-//      End of Plugin
-})(jQuery, window, document); //passes in the jQuery, window, and document global objects to allow the plugin to use these objects locally
+})); // End of Plugin

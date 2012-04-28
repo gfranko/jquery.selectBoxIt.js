@@ -23,9 +23,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 	- Provides API methods to programmatically interact with the Select Box
 
-	- Passes jsHint with no errors
-
-	- Small footprint (2.9KB minified and gzipped)
+	- AMD Compatible
 
 **Requirements**
 jQuery 1.6.1+
@@ -37,6 +35,12 @@ IE7+, Firefox 4+, Chrome, and Safari 4+
 All unit tests are written using the Jasmine Framework
 
 ##Change Log
+
+`0.4.0` - April 28, 2012
+
+- `AMD Support`.  If `AMD` support is found, SelectBoxIt is wrapped in a define `module`.
+	[UMD Patterns](https://github.com/umdjs/umd/blob/master/jqueryPlugin.js)
+- `Bug fixes for supporting the `disabled` HTML property for individual select box options
 
 `0.3.0` - April 25, 2012
 

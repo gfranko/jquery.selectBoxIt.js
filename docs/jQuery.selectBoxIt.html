@@ -17,7 +17,7 @@
       <div class='octowrap'>
         <a class='octothorpe' href='#section-0'>#</a>
       </div>
-      <pre><code> jQuery.selectBoxIt.js 0.3.0
+      <pre><code> jQuery.selectBoxIt.js 0.4.0
 </code></pre>
     </div>
     <div class='code'>
@@ -57,10 +57,10 @@ under the MIT license
       <div class='octowrap'>
         <a class='octothorpe' href='#section-3'>#</a>
       </div>
-      <p>Immediately-Invoked Function Expression (IIFE) <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">Ben Alman Blog Post</a> that locally passes in <code>jQuery</code>, the <code>window</code> object, the <code>document</code> object, and an <code>undefined</code> variable.  The <code>jQuery</code>, <code>window</code> and <code>document</code> objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are passed in locally to be minifier friendly. <code>undefined</code> can be passed in locally, because it is not a reserved word in JavaScript</p>
+      <p>Uses AMD or browser globals to create the SelectBoxIt jQuery plugin.</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nb">window</span><span class="p">,</span> <span class="nb">document</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -69,10 +69,14 @@ under the MIT license
       <div class='octowrap'>
         <a class='octothorpe' href='#section-4'>#</a>
       </div>
-      <p>ECMAScript 5 Strict Mode: <a href="http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/">John Resig Blog Post</a></p>
+      <p>It does not try to register in a CommonJS environment since
+jQuery is not likely to run in those environments.
+See jqueryPluginCommonJs.js for that version.
+<a href="https://github.com/umdjs/umd/blob/master/jqueryPlugin.js">UMD Patterns</a></p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span></pre></div>
+      <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">factory</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">define</span> <span class="o">===</span> <span class="s2">&quot;function&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">define</span><span class="p">.</span><span class="nx">amd</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -80,6 +84,57 @@ under the MIT license
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>AMD. Register as an anonymous module.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">define</span><span class="p">([</span><span class="s2">&quot;jquery&quot;</span><span class="p">],</span> <span class="nx">factory</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>Browser globals</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">factory</span><span class="p">(</span><span class="nx">jQuery</span><span class="p">,</span> <span class="nb">window</span><span class="p">,</span> <span class="nb">document</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>Immediately-Invoked Function Expression (IIFE) <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">Ben Alman Blog Post</a> that locally passes in <code>jQuery</code>, the <code>window</code> object, the <code>document</code> object, and an <code>undefined</code> variable.  The <code>jQuery</code>, <code>window</code> and <code>document</code> objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are passed in locally to be minifier friendly. <code>undefined</code> can be passed in locally, because it is not a reserved word in JavaScript</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nb">window</span><span class="p">,</span> <span class="nb">document</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>ECMAScript 5 Strict Mode: <a href="http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/">John Resig Blog Post</a></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
       </div>
       <h2>SelectBox Object</h2>
 <p><strong>Convention:</strong> Methods or properties starting with <code>_</code> are private</p>
@@ -89,10 +144,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-6'>
+  <div class='section' id='section-10'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-6'>#</a>
+        <a class='octothorpe' href='#section-10'>#</a>
       </div>
       <p>Local object that stores all of the <code>SelectBox</code> object instance variables</p>
     </div>
@@ -101,10 +156,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-7'>
+  <div class='section' id='section-11'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-7'>#</a>
+        <a class='octothorpe' href='#section-11'>#</a>
       </div>
       <p>The original select box DOM element</p>
     </div>
@@ -113,10 +168,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-8'>
+  <div class='section' id='section-12'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-8'>#</a>
+        <a class='octothorpe' href='#section-12'>#</a>
       </div>
       <p>The original select box DOM element wrapped in a jQuery object</p>
     </div>
@@ -125,10 +180,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-9'>
+  <div class='section' id='section-13'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-9'>#</a>
+        <a class='octothorpe' href='#section-13'>#</a>
       </div>
       <p>All of the original select box options</p>
     </div>
@@ -137,10 +192,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-10'>
+  <div class='section' id='section-14'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-10'>#</a>
+        <a class='octothorpe' href='#section-14'>#</a>
       </div>
       <p>The first option in the original select box</p>
     </div>
@@ -149,10 +204,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-11'>
+  <div class='section' id='section-15'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-11'>#</a>
+        <a class='octothorpe' href='#section-15'>#</a>
       </div>
       <p>The index of the currently selected dropdown list option</p>
     </div>
@@ -161,10 +216,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-12'>
+  <div class='section' id='section-16'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-12'>#</a>
+        <a class='octothorpe' href='#section-16'>#</a>
       </div>
       <p>Keeps track of which blur events will hide the dropdown list options</p>
     </div>
@@ -173,10 +228,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-13'>
+  <div class='section' id='section-17'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-13'>#</a>
+        <a class='octothorpe' href='#section-17'>#</a>
       </div>
       <p>The html document height</p>
     </div>
@@ -185,10 +240,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-14'>
+  <div class='section' id='section-18'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-14'>#</a>
+        <a class='octothorpe' href='#section-18'>#</a>
       </div>
       <p>Array holding all of the original select box options text</p>
     </div>
@@ -197,10 +252,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-15'>
+  <div class='section' id='section-19'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-15'>#</a>
+        <a class='octothorpe' href='#section-19'>#</a>
       </div>
       <p>Maintains search order in the <code>search</code> method</p>
     </div>
@@ -209,10 +264,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-16'>
+  <div class='section' id='section-20'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-16'>#</a>
+        <a class='octothorpe' href='#section-20'>#</a>
       </div>
       <p>Text of the currently selected dropdown list option</p>
     </div>
@@ -221,10 +276,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-17'>
+  <div class='section' id='section-21'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-17'>#</a>
+        <a class='octothorpe' href='#section-21'>#</a>
       </div>
       <p>Plugin options object</p>
     </div>
@@ -233,10 +288,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-18'>
+  <div class='section' id='section-22'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-18'>#</a>
+        <a class='octothorpe' href='#section-22'>#</a>
       </div>
       <p>The div that contains all of the new dropdown list DOM elements</p>
     </div>
@@ -245,10 +300,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-19'>
+  <div class='section' id='section-23'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-19'>#</a>
+        <a class='octothorpe' href='#section-23'>#</a>
       </div>
       <p>The div element that acts as the new dropdown list that replaces the original select box</p>
     </div>
@@ -257,10 +312,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-20'>
+  <div class='section' id='section-24'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-20'>#</a>
+        <a class='octothorpe' href='#section-24'>#</a>
       </div>
       <p>The nested span element that contains the dropdown list text</p>
     </div>
@@ -269,10 +324,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-21'>
+  <div class='section' id='section-25'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-21'>#</a>
+        <a class='octothorpe' href='#section-25'>#</a>
       </div>
       <p>The unordered list element that contains the dropdown list options</p>
     </div>
@@ -281,10 +336,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-22'>
+  <div class='section' id='section-26'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-22'>#</a>
+        <a class='octothorpe' href='#section-26'>#</a>
       </div>
       <p>The list item elements that each contain a dropdown list option</p>
     </div>
@@ -293,10 +348,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-23'>
+  <div class='section' id='section-27'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-23'>#</a>
+        <a class='octothorpe' href='#section-27'>#</a>
       </div>
       <p>The span that holds the down arrow for the dropdown list</p>
     </div>
@@ -305,10 +360,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-24'>
+  <div class='section' id='section-28'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-24'>#</a>
+        <a class='octothorpe' href='#section-28'>#</a>
       </div>
       <p>The span that holds <code>downArrow</code></p>
     </div>
@@ -317,10 +372,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-25'>
+  <div class='section' id='section-29'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-25'>#</a>
+        <a class='octothorpe' href='#section-29'>#</a>
       </div>
       <p>Whether or not the dropdown list opens up or down (depending on how much room is on the page)</p>
     </div>
@@ -329,10 +384,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-26'>
+  <div class='section' id='section-30'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-26'>#</a>
+        <a class='octothorpe' href='#section-30'>#</a>
       </div>
       <h2>_Create Div</h2>
 <pre><code> Creates new div and span elements to replace 
@@ -344,10 +399,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-27'>
+  <div class='section' id='section-31'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-27'>#</a>
+        <a class='octothorpe' href='#section-31'>#</a>
       </div>
       <p>Creates a span element that contains the dropdown list text value</p>
     </div>
@@ -356,10 +411,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-28'>
+  <div class='section' id='section-32'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-28'>#</a>
+        <a class='octothorpe' href='#section-32'>#</a>
       </div>
       <p>Dynamically sets the span <code>id</code> attribute</p>
     </div>
@@ -368,63 +423,15 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-29'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-29'>#</a>
-      </div>
-      <p>IE specific attribute to not allow the element to be selected</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">unselectable</span><span class="o">:</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-30'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-30'>#</a>
-      </div>
-      <p>Sets the span <code>text</code> to equal the original select box default value</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">text</span> <span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">firstSelectItem</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span> <span class="p">}).</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-31'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-31'>#</a>
-      </div>
-      <p>Sets the HTML5 data attribute on the divText <code>span</code> element</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;data-val&quot;</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-32'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-32'>#</a>
-      </div>
-      <p>Creates a div to act as the new dropdown list</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">div</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;div/&gt;&quot;</span><span class="p">,</span> <span class="p">{</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
   <div class='section' id='section-33'>
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-33'>#</a>
       </div>
-      <p>Dynamically sets the div <code>id</code> attribute</p>
+      <p>IE specific attribute to not allow the element to be selected</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">id</span> <span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;SelectBoxIt&quot;</span><span class="p">,</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">unselectable</span><span class="o">:</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -433,10 +440,10 @@ under the MIT license
       <div class='octowrap'>
         <a class='octothorpe' href='#section-34'>#</a>
       </div>
-      <p>Sets the div <code>name</code> attribute to be the same name as the original select box</p>
+      <p>Sets the span <code>text</code> to equal the original select box default value</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">name</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">text</span> <span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">firstSelectItem</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span> <span class="p">}).</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -445,10 +452,10 @@ under the MIT license
       <div class='octowrap'>
         <a class='octothorpe' href='#section-35'>#</a>
       </div>
-      <p>IE specific attribute to not allow the element to be selected</p>
+      <p>Sets the HTML5 data attribute on the divText <code>span</code> element</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">unselectable</span><span class="o">:</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;data-val&quot;</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -457,10 +464,10 @@ under the MIT license
       <div class='octowrap'>
         <a class='octothorpe' href='#section-36'>#</a>
       </div>
-      <p>Sets the div <code>tabindex</code> attribute to 0 to allow the div to be focusable </p>
+      <p>Creates a div to act as the new dropdown list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">tabindex</span> <span class="o">:</span> <span class="mi">0</span> <span class="p">}).</span></pre></div>
+      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">div</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;div/&gt;&quot;</span><span class="p">,</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -469,10 +476,10 @@ under the MIT license
       <div class='octowrap'>
         <a class='octothorpe' href='#section-37'>#</a>
       </div>
-      <p>Appends the default text to the inner dropdown list div element</p>
+      <p>Dynamically sets the div <code>id</code> attribute</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">append</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">divText</span><span class="p">);</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">id</span> <span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;SelectBoxIt&quot;</span><span class="p">,</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -480,6 +487,54 @@ under the MIT license
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-38'>#</a>
+      </div>
+      <p>Sets the div <code>name</code> attribute to be the same name as the original select box</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="nx">name</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-39'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-39'>#</a>
+      </div>
+      <p>IE specific attribute to not allow the element to be selected</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="nx">unselectable</span><span class="o">:</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-40'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-40'>#</a>
+      </div>
+      <p>Sets the div <code>tabindex</code> attribute to 0 to allow the div to be focusable </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="nx">tabindex</span> <span class="o">:</span> <span class="mi">0</span> <span class="p">}).</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-41'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-41'>#</a>
+      </div>
+      <p>Appends the default text to the inner dropdown list div element</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="nx">append</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">divText</span><span class="p">);</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-42'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-42'>#</a>
       </div>
       <p>Create the div container that will hold all of the dropdown list dom elements</p>
     </div>
@@ -490,10 +545,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-39'>
+  <div class='section' id='section-43'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-39'>#</a>
+        <a class='octothorpe' href='#section-43'>#</a>
       </div>
       <p>Appends the inner dropdown list div element to the dropdown list container div element</p>
     </div>
@@ -502,10 +557,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-40'>
+  <div class='section' id='section-44'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-40'>#</a>
+        <a class='octothorpe' href='#section-44'>#</a>
       </div>
       <p>Maintains chainability</p>
     </div>
@@ -515,10 +570,10 @@ under the MIT license
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-41'>
+  <div class='section' id='section-45'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-41'>#</a>
+        <a class='octothorpe' href='#section-45'>#</a>
       </div>
       <h2>_Create Unordered List</h2>
 <pre><code> Creates an unordered list element to hold the 
@@ -531,10 +586,10 @@ the values of the original select box options
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-42'>
+  <div class='section' id='section-46'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-42'>#</a>
+        <a class='octothorpe' href='#section-46'>#</a>
       </div>
       <p>Declaring the variable that will hold all of the dropdown list option elements</p>
     </div>
@@ -543,10 +598,10 @@ the values of the original select box options
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-43'>
+  <div class='section' id='section-47'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-43'>#</a>
+        <a class='octothorpe' href='#section-47'>#</a>
       </div>
       <p>Creates an unordered list element</p>
     </div>
@@ -555,10 +610,10 @@ the values of the original select box options
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-44'>
+  <div class='section' id='section-48'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-44'>#</a>
+        <a class='octothorpe' href='#section-48'>#</a>
       </div>
       <p>Sets the unordered list <code>id</code> attribute</p>
     </div>
@@ -567,10 +622,10 @@ the values of the original select box options
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-45'>
+  <div class='section' id='section-49'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-45'>#</a>
+        <a class='octothorpe' href='#section-49'>#</a>
       </div>
       <p>Sets the unordered list <code>tabindex</code> attribute to -1 to prevent the unordered list from being focusable</p>
     </div>
@@ -579,22 +634,22 @@ the values of the original select box options
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-46'>
+  <div class='section' id='section-50'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-46'>#</a>
+        <a class='octothorpe' href='#section-50'>#</a>
       </div>
       <p>Checks <code>showFirstOption</code> plugin option to determine if the first dropdown list option should be shown in the options list.</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-47'>
+  <div class='section' id='section-51'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-47'>#</a>
+        <a class='octothorpe' href='#section-51'>#</a>
       </div>
       <p>Excludes the first dropdown list option from the options list</p>
     </div>
@@ -604,10 +659,10 @@ the values of the original select box options
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-48'>
+  <div class='section' id='section-52'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-48'>#</a>
+        <a class='octothorpe' href='#section-52'>#</a>
       </div>
       <p>Loops through the original select box options list and copies the text of each 
 into new list item elements of the new dropdown list</p>
@@ -618,10 +673,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-49'>
+  <div class='section' id='section-53'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-49'>#</a>
+        <a class='octothorpe' href='#section-53'>#</a>
       </div>
       <p>Uses string concatenation instead of append for speed since the number of dropdown list options is unknown.</p>
     </div>
@@ -630,10 +685,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-50'>
+  <div class='section' id='section-54'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-50'>#</a>
+        <a class='octothorpe' href='#section-54'>#</a>
       </div>
       <p>Stores all of the original select box options text inside of an array
 (Used later in the <code>searchAlgorithm</code> method)</p>
@@ -643,22 +698,22 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-51'>
+  <div class='section' id='section-55'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-51'>#</a>
+        <a class='octothorpe' href='#section-55'>#</a>
       </div>
       <p>Checks the original select box option for the <code>selected</code> attribute</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selected</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selected</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-52'>
+  <div class='section' id='section-56'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-52'>#</a>
+        <a class='octothorpe' href='#section-56'>#</a>
       </div>
       <p>Replace the default text with the selected option</p>
     </div>
@@ -667,10 +722,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-53'>
+  <div class='section' id='section-57'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-53'>#</a>
+        <a class='octothorpe' href='#section-57'>#</a>
       </div>
       <p>Set the currently selected option</p>
     </div>
@@ -680,22 +735,22 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-54'>
+  <div class='section' id='section-58'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-54'>#</a>
+        <a class='octothorpe' href='#section-58'>#</a>
       </div>
       <p>If the <code>defaultText</code> option is being used</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultText</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultText</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-55'>
+  <div class='section' id='section-59'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-55'>#</a>
+        <a class='octothorpe' href='#section-59'>#</a>
       </div>
       <p>Overrides the current dropdown default text with the value the user specifies in the <code>defaultText</code> option</p>
     </div>
@@ -706,10 +761,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-56'>
+  <div class='section' id='section-60'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-56'>#</a>
+        <a class='octothorpe' href='#section-60'>#</a>
       </div>
       <p>Append the list item to the unordered list</p>
     </div>
@@ -718,10 +773,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-57'>
+  <div class='section' id='section-61'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-57'>#</a>
+        <a class='octothorpe' href='#section-61'>#</a>
       </div>
       <p>Stores the dropdown list options list inside of the <code>list</code> instance variable</p>
     </div>
@@ -730,10 +785,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-58'>
+  <div class='section' id='section-62'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-58'>#</a>
+        <a class='octothorpe' href='#section-62'>#</a>
       </div>
       <p>Append the dropdown list options list to the div container element</p>
     </div>
@@ -742,10 +797,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-59'>
+  <div class='section' id='section-63'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-59'>#</a>
+        <a class='octothorpe' href='#section-63'>#</a>
       </div>
       <p>Stores the individual dropdown list options inside of the <code>listItems</code> instance variable</p>
     </div>
@@ -754,10 +809,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-60'>
+  <div class='section' id='section-64'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-60'>#</a>
+        <a class='octothorpe' href='#section-64'>#</a>
       </div>
       <p>Set the disabled CSS class for select box options </p>
     </div>
@@ -766,22 +821,22 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-61'>
+  <div class='section' id='section-65'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-61'>#</a>
+        <a class='octothorpe' href='#section-65'>#</a>
       </div>
       <p>If the first select box option is disabled, and the user has chosen to not show the first select box option</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-62'>
+  <div class='section' id='section-66'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-62'>#</a>
+        <a class='octothorpe' href='#section-66'>#</a>
       </div>
       <p>Sets the default value of the dropdown list to the first option that is not disabled</p>
     </div>
@@ -791,10 +846,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-63'>
+  <div class='section' id='section-67'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-63'>#</a>
+        <a class='octothorpe' href='#section-67'>#</a>
       </div>
       <p>Maintains chainability</p>
     </div>
@@ -804,10 +859,10 @@ into new list item elements of the new dropdown list</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-64'>
+  <div class='section' id='section-68'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-64'>#</a>
+        <a class='octothorpe' href='#section-68'>#</a>
       </div>
       <h2>_Replace Select Box</h2>
 <pre><code> Hides the original dropdown list and inserts 
@@ -819,63 +874,15 @@ the new DOM elements
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-65'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-65'>#</a>
-      </div>
-      <p>Hides the original select box</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">selectBox</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;display&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">)</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-66'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-66'>#</a>
-      </div>
-      <p>Adds the new dropdown list to the page directly after the hidden original select box element</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>            <span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">divContainer</span><span class="p">);</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-67'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-67'>#</a>
-      </div>
-      <p>The height of the dropdown list</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>            <span class="kd">var</span> <span class="nx">height</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">height</span><span class="p">();</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-68'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-68'>#</a>
-      </div>
-      <p>The down arrow element of the dropdown list</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">downArrow</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;span/&gt;&quot;</span><span class="p">,</span> <span class="p">{</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
   <div class='section' id='section-69'>
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-69'>#</a>
       </div>
-      <p>Dynamically sets the span <code>id</code> attribute of the dropdown list down arrow</p>
+      <p>Hides the original select box</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">id</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;SelectBoxItArrow&quot;</span><span class="p">,</span></pre></div>
+      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">selectBox</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;display&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">).</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -884,10 +891,10 @@ the new DOM elements
       <div class='octowrap'>
         <a class='octothorpe' href='#section-70'>#</a>
       </div>
-      <p>IE specific attribute to not allow the dropdown list text to be selected</p>
+      <p>Adds the new dropdown list to the page directly after the hidden original select box element</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">unselectable</span><span class="o">:</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span></pre></div>
+      <div class="highlight"><pre>            <span class="nx">after</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">divContainer</span><span class="p">);</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -896,10 +903,10 @@ the new DOM elements
       <div class='octowrap'>
         <a class='octothorpe' href='#section-71'>#</a>
       </div>
-      <p>The dynamic CSS of the dropdown list down arrow div element</p>
+      <p>The height of the dropdown list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-top:&quot;</span> <span class="o">+</span> <span class="nx">height</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="s2">&quot;;&quot;</span> <span class="p">});</span></pre></div>
+      <div class="highlight"><pre>            <span class="kd">var</span> <span class="nx">height</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">height</span><span class="p">();</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -908,10 +915,10 @@ the new DOM elements
       <div class='octowrap'>
         <a class='octothorpe' href='#section-72'>#</a>
       </div>
-      <p>The down arrow container element of the dropdown list</p>
+      <p>The down arrow element of the dropdown list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">downArrowContainer</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;span/&gt;&quot;</span><span class="p">,</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">downArrow</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;span/&gt;&quot;</span><span class="p">,</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -920,10 +927,10 @@ the new DOM elements
       <div class='octowrap'>
         <a class='octothorpe' href='#section-73'>#</a>
       </div>
-      <p>Dynamically sets the span <code>id</code> attribute for the down arrow container element</p>
+      <p>Dynamically sets the span <code>id</code> attribute of the dropdown list down arrow</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">id</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;SelectBoxItArrowContainer&quot;</span><span class="p">,</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">id</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;SelectBoxItArrow&quot;</span><span class="p">,</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -944,10 +951,10 @@ the new DOM elements
       <div class='octowrap'>
         <a class='octothorpe' href='#section-75'>#</a>
       </div>
-      <p>The dynamic CSS of the down arrow container element</p>
+      <p>The dynamic CSS of the dropdown list down arrow div element</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;height:&quot;</span> <span class="o">+</span> <span class="nx">height</span> <span class="o">+</span> <span class="s2">&quot;px;&quot;</span> <span class="p">}).</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;margin-top:&quot;</span> <span class="o">+</span> <span class="nx">height</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="s2">&quot;;&quot;</span> <span class="p">});</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -956,10 +963,10 @@ the new DOM elements
       <div class='octowrap'>
         <a class='octothorpe' href='#section-76'>#</a>
       </div>
-      <p>Inserts the down arrow element inside of the down arrow container element</p>
+      <p>The down arrow container element of the dropdown list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">append</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">downArrow</span><span class="p">);</span></pre></div>
+      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">downArrowContainer</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;span/&gt;&quot;</span><span class="p">,</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -968,10 +975,10 @@ the new DOM elements
       <div class='octowrap'>
         <a class='octothorpe' href='#section-77'>#</a>
       </div>
-      <p>Appends the down arrow element to the dropdown list</p>
+      <p>Dynamically sets the span <code>id</code> attribute for the down arrow container element</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">downArrowContainer</span><span class="p">);</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">id</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;SelectBoxItArrowContainer&quot;</span><span class="p">,</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -980,10 +987,10 @@ the new DOM elements
       <div class='octowrap'>
         <a class='octothorpe' href='#section-78'>#</a>
       </div>
-      <p>Dynamically adds the <code>max-width</code> and <code>line-height</code> CSS styles of the dropdown list text element</p>
+      <p>IE specific attribute to not allow the dropdown list text to be selected</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">divText</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span><span class="s2">&quot;line-height&quot;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">),</span> <span class="s2">&quot;max-width&quot;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span> <span class="o">-</span> <span class="nx">self</span><span class="p">.</span><span class="nx">downArrowContainer</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span> <span class="o">-</span> <span class="mi">5</span> <span class="p">});</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">unselectable</span><span class="o">:</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -991,6 +998,54 @@ the new DOM elements
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-79'>#</a>
+      </div>
+      <p>The dynamic CSS of the down arrow container element</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;height:&quot;</span> <span class="o">+</span> <span class="nx">height</span> <span class="o">+</span> <span class="s2">&quot;px;&quot;</span> <span class="p">}).</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-80'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-80'>#</a>
+      </div>
+      <p>Inserts the down arrow element inside of the down arrow container element</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="nx">append</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">downArrow</span><span class="p">);</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-81'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-81'>#</a>
+      </div>
+      <p>Appends the down arrow element to the dropdown list</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">downArrowContainer</span><span class="p">);</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-82'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-82'>#</a>
+      </div>
+      <p>Dynamically adds the <code>max-width</code> and <code>line-height</code> CSS styles of the dropdown list text element</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="nx">self</span><span class="p">.</span><span class="nx">divText</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span><span class="s2">&quot;line-height&quot;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">),</span> <span class="s2">&quot;max-width&quot;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span> <span class="o">-</span> <span class="nx">self</span><span class="p">.</span><span class="nx">downArrowContainer</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span> <span class="o">-</span> <span class="mi">5</span> <span class="p">});</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-83'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-83'>#</a>
       </div>
       <p>Maintains chainability</p>
     </div>
@@ -1000,10 +1055,10 @@ the new DOM elements
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-80'>
+  <div class='section' id='section-84'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-80'>#</a>
+        <a class='octothorpe' href='#section-84'>#</a>
       </div>
       <h2>_Scroll-To-View</h2>
 <pre><code> Updates the dropdown list scrollTop value
@@ -1014,10 +1069,10 @@ the new DOM elements
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-81'>
+  <div class='section' id='section-85'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-81'>#</a>
+        <a class='octothorpe' href='#section-85'>#</a>
       </div>
       <p>The current scroll positioning of the dropdown list options list</p>
     </div>
@@ -1026,10 +1081,10 @@ the new DOM elements
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-82'>
+  <div class='section' id='section-86'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-82'>#</a>
+        <a class='octothorpe' href='#section-86'>#</a>
       </div>
       <p>The height of the currently selected dropdown list option</p>
     </div>
@@ -1038,10 +1093,10 @@ the new DOM elements
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-83'>
+  <div class='section' id='section-87'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-83'>#</a>
+        <a class='octothorpe' href='#section-87'>#</a>
       </div>
       <p>The relative distance from the currently selected dropdown list option to the the top of the dropdown list options list</p>
     </div>
@@ -1050,10 +1105,10 @@ the new DOM elements
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-84'>
+  <div class='section' id='section-88'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-84'>#</a>
+        <a class='octothorpe' href='#section-88'>#</a>
       </div>
       <p>The height of the dropdown list option list</p>
     </div>
@@ -1062,35 +1117,35 @@ the new DOM elements
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-85'>
+  <div class='section' id='section-89'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-85'>#</a>
+        <a class='octothorpe' href='#section-89'>#</a>
       </div>
       <p>Scrolling logic for a text search</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;search&quot;</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;search&quot;</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-86'>
+  <div class='section' id='section-90'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-86'>#</a>
+        <a class='octothorpe' href='#section-90'>#</a>
       </div>
       <p>Increases the dropdown list options <code>scrollTop</code> if a user is searching for an option 
 below the currently selected option that is not visible</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="nx">listHeight</span> <span class="o">-</span> <span class="nx">currentTopPosition</span> <span class="o">&lt;</span> <span class="nx">currentItemHeight</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="nx">listHeight</span> <span class="o">-</span> <span class="nx">currentTopPosition</span> <span class="o">&lt;</span> <span class="nx">currentItemHeight</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-87'>
+  <div class='section' id='section-91'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-87'>#</a>
+        <a class='octothorpe' href='#section-91'>#</a>
       </div>
       <p>The selected option will be shown at the very bottom of the visible options list</p>
     </div>
@@ -1100,51 +1155,51 @@ below the currently selected option that is not visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-88'>
+  <div class='section' id='section-92'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-88'>#</a>
+        <a class='octothorpe' href='#section-92'>#</a>
       </div>
       <p>Decreases the dropdown list options <code>scrollTop</code> if a user is searching for an option above the
 currently selected option that is not visible</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">currentTopPosition</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <div class="highlight"><pre>                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">currentTopPosition</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">scrollTop</span><span class="p">(</span><span class="nx">currentTopPosition</span> <span class="o">-</span> <span class="nx">currentItemHeight</span><span class="p">);</span>
                 <span class="p">}</span>
             <span class="p">}</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-89'>
+  <div class='section' id='section-93'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-89'>#</a>
+        <a class='octothorpe' href='#section-93'>#</a>
       </div>
       <p>Scrolling logic for the <code>up</code> keyboard navigation</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;up&quot;</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;up&quot;</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-90'>
+  <div class='section' id='section-94'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-90'>#</a>
+        <a class='octothorpe' href='#section-94'>#</a>
       </div>
       <p>Decreases the dropdown list option list <code>scrollTop</code> if a user is navigating to an element that is not 
 visible</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="nx">currentTopPosition</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="nx">currentTopPosition</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-91'>
+  <div class='section' id='section-95'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-91'>#</a>
+        <a class='octothorpe' href='#section-95'>#</a>
       </div>
       <p>Decreases the dropdown list option <code>scrollTop</code> by the height of the current option item.</p>
     </div>
@@ -1155,35 +1210,35 @@ visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-92'>
+  <div class='section' id='section-96'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-92'>#</a>
+        <a class='octothorpe' href='#section-96'>#</a>
       </div>
       <p>Scrolling logic for the <code>down</code> keyboard navigation</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;down&quot;</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">&quot;down&quot;</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-93'>
+  <div class='section' id='section-97'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-93'>#</a>
+        <a class='octothorpe' href='#section-97'>#</a>
       </div>
       <p>Increases the dropdown list options <code>scrollTop</code> if a user is navigating to an element that is 
 not fully visible</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="nx">listHeight</span> <span class="o">-</span> <span class="nx">currentTopPosition</span> <span class="o">&lt;</span> <span class="nx">currentItemHeight</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="nx">listHeight</span> <span class="o">-</span> <span class="nx">currentTopPosition</span> <span class="o">&lt;</span> <span class="nx">currentItemHeight</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-94'>
+  <div class='section' id='section-98'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-94'>#</a>
+        <a class='octothorpe' href='#section-98'>#</a>
       </div>
       <p>Increases the dropdown list options <code>scrollTop</code> by the height of the current option item.</p>
     </div>
@@ -1194,10 +1249,10 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-95'>
+  <div class='section' id='section-99'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-95'>#</a>
+        <a class='octothorpe' href='#section-99'>#</a>
       </div>
       <p>maintains chainability</p>
     </div>
@@ -1207,10 +1262,10 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-96'>
+  <div class='section' id='section-100'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-96'>#</a>
+        <a class='octothorpe' href='#section-100'>#</a>
       </div>
       <h2>_Dynamic positioning</h2>
 <pre><code> Dynamically positions the dropdown list options list
@@ -1221,10 +1276,10 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-97'>
+  <div class='section' id='section-101'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-97'>#</a>
+        <a class='octothorpe' href='#section-101'>#</a>
       </div>
       <p>Returns the x and y coordinates of the dropdown list options list relative to the document</p>
     </div>
@@ -1233,10 +1288,10 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-98'>
+  <div class='section' id='section-102'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-98'>#</a>
+        <a class='octothorpe' href='#section-102'>#</a>
       </div>
       <p>The height of the dropdown list options list</p>
     </div>
@@ -1245,10 +1300,10 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-99'>
+  <div class='section' id='section-103'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-99'>#</a>
+        <a class='octothorpe' href='#section-103'>#</a>
       </div>
       <p>The height of the dropdown list DOM element</p>
     </div>
@@ -1257,34 +1312,34 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-100'>
+  <div class='section' id='section-104'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-100'>#</a>
+        <a class='octothorpe' href='#section-104'>#</a>
       </div>
       <p>Places the dropdown list options list on top of the dropdown list if the dropdown list options list does not fit on the page when opened</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">((</span><span class="nx">listOffsetTop</span> <span class="o">+</span> <span class="nx">selectBoxHeight</span> <span class="o">+</span> <span class="nx">listHeight</span> <span class="o">&gt;=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">())</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">listOffsetTop</span> <span class="o">-</span> <span class="nx">listHeight</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)){</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">((</span><span class="nx">listOffsetTop</span> <span class="o">+</span> <span class="nx">selectBoxHeight</span> <span class="o">+</span> <span class="nx">listHeight</span> <span class="o">&gt;=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">())</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">listOffsetTop</span> <span class="o">-</span> <span class="nx">listHeight</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)){</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-101'>
+  <div class='section' id='section-105'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-101'>#</a>
+        <a class='octothorpe' href='#section-105'>#</a>
       </div>
       <p>If the dropdown list currently opens downward</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">flipped</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">flipped</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-102'>
+  <div class='section' id='section-106'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-102'>#</a>
+        <a class='octothorpe' href='#section-106'>#</a>
       </div>
       <p>Sets custom CSS properties to place the dropdown list options directly above the dropdown list</p>
     </div>
@@ -1293,10 +1348,10 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-103'>
+  <div class='section' id='section-107'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-103'>#</a>
+        <a class='octothorpe' href='#section-107'>#</a>
       </div>
       <p>Sets the <code>flipped</code> instance variable to false to reflect that the dropdown list opens upward</p>
     </div>
@@ -1307,10 +1362,10 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-104'>
+  <div class='section' id='section-108'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-104'>#</a>
+        <a class='octothorpe' href='#section-108'>#</a>
       </div>
       <p>If the dropdown list options have enough room on the page to open downward</p>
     </div>
@@ -1319,22 +1374,22 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-105'>
+  <div class='section' id='section-109'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-105'>#</a>
+        <a class='octothorpe' href='#section-109'>#</a>
       </div>
       <p>If the dropdown list is currently opening upward</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">flipped</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">flipped</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-106'>
+  <div class='section' id='section-110'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-106'>#</a>
+        <a class='octothorpe' href='#section-110'>#</a>
       </div>
       <p>Sets custom CSS properties to place the dropdown list options directly below the dropdown list</p>
     </div>
@@ -1343,10 +1398,10 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-107'>
+  <div class='section' id='section-111'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-107'>#</a>
+        <a class='octothorpe' href='#section-111'>#</a>
       </div>
       <p>Sets the <code>flipped</code> instance variable to false to reflect that the dropdown list opens downward</p>
     </div>
@@ -1358,10 +1413,10 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-108'>
+  <div class='section' id='section-112'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-108'>#</a>
+        <a class='octothorpe' href='#section-112'>#</a>
       </div>
       <h2>_Callback</h2>
 <pre><code> Call the function passed into the method
@@ -1372,22 +1427,22 @@ not fully visible</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-109'>
+  <div class='section' id='section-113'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-109'>#</a>
+        <a class='octothorpe' href='#section-113'>#</a>
       </div>
       <p>Checks to make sure the parameter passed in is a function</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">callback</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">callback</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-110'>
+  <div class='section' id='section-114'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-110'>#</a>
+        <a class='octothorpe' href='#section-114'>#</a>
       </div>
       <p>Calls the method passed in as a parameter and sets the current <code>SelectBoxIt</code> object that is stored in the jQuery data method as the context 
 (allows for <code>this</code> to reference the SelectBoxIt API Methods in the callback function
@@ -1400,10 +1455,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-111'>
+  <div class='section' id='section-115'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-111'>#</a>
+        <a class='octothorpe' href='#section-115'>#</a>
       </div>
       <h2>Open</h2>
 <pre><code> Opens the dropdown list options list
@@ -1414,10 +1469,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-112'>
+  <div class='section' id='section-116'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-112'>#</a>
+        <a class='octothorpe' href='#section-116'>#</a>
       </div>
       <p>Triggers a custom "open" event on the original select box</p>
     </div>
@@ -1426,10 +1481,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-113'>
+  <div class='section' id='section-117'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-113'>#</a>
+        <a class='octothorpe' href='#section-117'>#</a>
       </div>
       <p>Dynamically positions the dropdown list options list</p>
     </div>
@@ -1438,10 +1493,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-114'>
+  <div class='section' id='section-118'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-114'>#</a>
+        <a class='octothorpe' href='#section-118'>#</a>
       </div>
       <p>Determines what jQuery effect to use when opening the dropdown list options list</p>
     </div>
@@ -1450,10 +1505,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-115'>
+  <div class='section' id='section-119'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-115'>#</a>
+        <a class='octothorpe' href='#section-119'>#</a>
       </div>
       <p>Uses <code>no effect</code></p>
     </div>
@@ -1462,10 +1517,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-116'>
+  <div class='section' id='section-120'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-116'>#</a>
+        <a class='octothorpe' href='#section-120'>#</a>
       </div>
       <p>Does not require a callback function because this animation will complete before the call to <code>scrollToView</code></p>
     </div>
@@ -1474,10 +1529,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-117'>
+  <div class='section' id='section-121'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-117'>#</a>
+        <a class='octothorpe' href='#section-121'>#</a>
       </div>
       <p>Updates the list <code>scrollTop</code> attribute</p>
     </div>
@@ -1487,10 +1542,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-118'>
+  <div class='section' id='section-122'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-118'>#</a>
+        <a class='octothorpe' href='#section-122'>#</a>
       </div>
       <p>Uses the jQuery <code>show</code> special effect</p>
     </div>
@@ -1499,10 +1554,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-119'>
+  <div class='section' id='section-123'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-119'>#</a>
+        <a class='octothorpe' href='#section-123'>#</a>
       </div>
       <p>Requires a callback function to determine when the <code>show</code> animation is complete</p>
     </div>
@@ -1511,10 +1566,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-120'>
+  <div class='section' id='section-124'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-120'>#</a>
+        <a class='octothorpe' href='#section-124'>#</a>
       </div>
       <p>Updates the list <code>scrollTop</code> attribute</p>
     </div>
@@ -1525,10 +1580,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-121'>
+  <div class='section' id='section-125'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-121'>#</a>
+        <a class='octothorpe' href='#section-125'>#</a>
       </div>
       <p>Uses the jQuery <code>slideDown</code> special effect</p>
     </div>
@@ -1537,10 +1592,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-122'>
+  <div class='section' id='section-126'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-122'>#</a>
+        <a class='octothorpe' href='#section-126'>#</a>
       </div>
       <p>Requires a callback function to determine when the <code>slideDown</code> animation is complete</p>
     </div>
@@ -1549,10 +1604,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-123'>
+  <div class='section' id='section-127'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-123'>#</a>
+        <a class='octothorpe' href='#section-127'>#</a>
       </div>
       <p>Updates the list <code>scrollTop</code> attribute</p>
     </div>
@@ -1563,10 +1618,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-124'>
+  <div class='section' id='section-128'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-124'>#</a>
+        <a class='octothorpe' href='#section-128'>#</a>
       </div>
       <p>Uses the jQuery <code>fadeIn</code> special effect</p>
     </div>
@@ -1575,64 +1630,15 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-125'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-125'>#</a>
-      </div>
-      <p>Does not require a callback function because this animation will complete before the call to <code>scrollToView</code></p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                    <span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showEffectSpeed</span><span class="p">);</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-126'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-126'>#</a>
-      </div>
-      <p>Updates the list <code>scrollTop</code> attribute</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                    <span class="nx">_scrollToView</span><span class="p">(</span><span class="s2">&quot;search&quot;</span><span class="p">);</span>
-                    <span class="k">break</span><span class="p">;</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-127'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-127'>#</a>
-      </div>
-      <p>If none of the above options were passed, then a <code>jqueryUI show effect</code> is expected</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                <span class="k">default</span><span class="o">:</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-128'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-128'>#</a>
-      </div>
-      <p>Makes sure the dropdown list options list is not visible</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
   <div class='section' id='section-129'>
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-129'>#</a>
       </div>
-      <p>Allows for custom show effects via the <a href="http://http://jqueryui.com/demos/show/">jQueryUI core effects</a></p>
+      <p>Does not require a callback function because this animation will complete before the call to <code>scrollToView</code></p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                        <span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showEffect</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showEffectOptions</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showEffectSpeed</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showEffectSpeed</span><span class="p">);</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -1644,11 +1650,8 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
       <p>Updates the list <code>scrollTop</code> attribute</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                            <span class="nx">_scrollToView</span><span class="p">(</span><span class="s2">&quot;search&quot;</span><span class="p">);</span> 
-                        <span class="p">});</span>
-                    <span class="p">}</span>
-                    <span class="k">break</span><span class="p">;</span>
-            <span class="p">}</span></pre></div>
+      <div class="highlight"><pre>                    <span class="nx">_scrollToView</span><span class="p">(</span><span class="s2">&quot;search&quot;</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -1657,10 +1660,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
       <div class='octowrap'>
         <a class='octothorpe' href='#section-131'>#</a>
       </div>
-      <p>Provide callback function support</p>
+      <p>If none of the above options were passed, then a <code>jqueryUI show effect</code> is expected</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">_callbackSupport</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">default</span><span class="o">:</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -1668,6 +1671,58 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-132'>#</a>
+      </div>
+      <p>Makes sure the dropdown list options list is not visible</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-133'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-133'>#</a>
+      </div>
+      <p>Allows for custom show effects via the <a href="http://http://jqueryui.com/demos/show/">jQueryUI core effects</a></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                        <span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showEffect</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showEffectOptions</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showEffectSpeed</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-134'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-134'>#</a>
+      </div>
+      <p>Updates the list <code>scrollTop</code> attribute</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                            <span class="nx">_scrollToView</span><span class="p">(</span><span class="s2">&quot;search&quot;</span><span class="p">);</span> 
+                        <span class="p">});</span>
+                    <span class="p">}</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-135'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-135'>#</a>
+      </div>
+      <p>Provide callback function support</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="nx">_callbackSupport</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-136'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-136'>#</a>
       </div>
       <p>Maintains chainability</p>
     </div>
@@ -1677,10 +1732,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-133'>
+  <div class='section' id='section-137'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-133'>#</a>
+        <a class='octothorpe' href='#section-137'>#</a>
       </div>
       <h2>Close</h2>
 <pre><code> Closes the dropdown list options list
@@ -1691,10 +1746,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-134'>
+  <div class='section' id='section-138'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-134'>#</a>
+        <a class='octothorpe' href='#section-138'>#</a>
       </div>
       <p>Triggers a custom "close" event on the original select box</p>
     </div>
@@ -1703,10 +1758,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-135'>
+  <div class='section' id='section-139'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-135'>#</a>
+        <a class='octothorpe' href='#section-139'>#</a>
       </div>
       <p>Determines what jQuery effect to use when closing the dropdown list options list</p>
     </div>
@@ -1715,10 +1770,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-136'>
+  <div class='section' id='section-140'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-136'>#</a>
+        <a class='octothorpe' href='#section-140'>#</a>
       </div>
       <p>Uses <code>no effect</code></p>
     </div>
@@ -1727,10 +1782,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-137'>
+  <div class='section' id='section-141'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-137'>#</a>
+        <a class='octothorpe' href='#section-141'>#</a>
       </div>
       <p>Does not require a callback function because this animation will complete before the call to <code>scrollToView</code></p>
     </div>
@@ -1739,10 +1794,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-138'>
+  <div class='section' id='section-142'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-138'>#</a>
+        <a class='octothorpe' href='#section-142'>#</a>
       </div>
       <p>Updates the list <code>scrollTop</code> attribute</p>
     </div>
@@ -1752,10 +1807,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-139'>
+  <div class='section' id='section-143'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-139'>#</a>
+        <a class='octothorpe' href='#section-143'>#</a>
       </div>
       <p>Uses the jQuery <code>hide</code> special effect </p>
     </div>
@@ -1766,10 +1821,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-140'>
+  <div class='section' id='section-144'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-140'>#</a>
+        <a class='octothorpe' href='#section-144'>#</a>
       </div>
       <p>Uses the jQuery <code>slideUp</code> special effect</p>
     </div>
@@ -1780,10 +1835,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-141'>
+  <div class='section' id='section-145'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-141'>#</a>
+        <a class='octothorpe' href='#section-145'>#</a>
       </div>
       <p>Uses the jQuery <code>fadeOut</code> special effect</p>
     </div>
@@ -1794,10 +1849,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-142'>
+  <div class='section' id='section-146'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-142'>#</a>
+        <a class='octothorpe' href='#section-146'>#</a>
       </div>
       <p>If none of the above options were passed, then a <code>jqueryUI hide effect</code> is expected</p>
     </div>
@@ -1806,22 +1861,22 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-143'>
+  <div class='section' id='section-147'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-143'>#</a>
+        <a class='octothorpe' href='#section-147'>#</a>
       </div>
       <p>Makes sure the dropdown list options list is visible</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-144'>
+  <div class='section' id='section-148'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-144'>#</a>
+        <a class='octothorpe' href='#section-148'>#</a>
       </div>
       <p>Allows for custom hide effects via the <a href="http://http://jqueryui.com/demos/hide/">jQueryUI core effects</a></p>
     </div>
@@ -1830,10 +1885,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-145'>
+  <div class='section' id='section-149'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-145'>#</a>
+        <a class='octothorpe' href='#section-149'>#</a>
       </div>
       <p>Updates the list <code>scrollTop</code> attribute</p>
     </div>
@@ -1846,10 +1901,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-146'>
+  <div class='section' id='section-150'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-146'>#</a>
+        <a class='octothorpe' href='#section-150'>#</a>
       </div>
       <p>Provide callback function support</p>
     </div>
@@ -1858,10 +1913,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-147'>
+  <div class='section' id='section-151'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-147'>#</a>
+        <a class='octothorpe' href='#section-151'>#</a>
       </div>
       <p>Maintains chainability</p>
     </div>
@@ -1871,10 +1926,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-148'>
+  <div class='section' id='section-152'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-148'>#</a>
+        <a class='octothorpe' href='#section-152'>#</a>
       </div>
       <h2>Move Down</h2>
 <pre><code> Handles the down keyboard navigation logic
@@ -1885,10 +1940,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-149'>
+  <div class='section' id='section-153'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-149'>#</a>
+        <a class='octothorpe' href='#section-153'>#</a>
       </div>
       <p>Increments <code>currentFocus</code>, which represents the currently focused list item <code>id</code> attribute.</p>
     </div>
@@ -1897,10 +1952,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-150'>
+  <div class='section' id='section-154'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-150'>#</a>
+        <a class='octothorpe' href='#section-154'>#</a>
       </div>
       <p>Represents how many times the user has to skip options because other options are disabled</p>
     </div>
@@ -1909,64 +1964,16 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-151'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-151'>#</a>
-      </div>
-      <p>Determines whether the dropdown option the user is trying to go to is currently disabled</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">disabled</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">);</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-152'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-152'>#</a>
-      </div>
-      <p>If the next option that the user is trying to go to is disabled and it is not the last option in the list</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">disabled</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">!==</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-153'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-153'>#</a>
-      </div>
-      <p>Blur the previous current option</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="nx">blur</span><span class="p">();</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-154'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-154'>#</a>
-      </div>
-      <p>Call the <code>moveDown()</code> method again</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">moveDown</span><span class="p">();</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
   <div class='section' id='section-155'>
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-155'>#</a>
       </div>
-      <p>Exit the method</p>
+      <p>Determines whether the dropdown option the user is trying to go to is currently disabled</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">return</span><span class="p">;</span>
-            <span class="p">}</span></pre></div>
+      <div class="highlight"><pre>            <span class="nx">disabled</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">),</span>
+            <span class="nx">hasNextEnabled</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">nextAll</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s2">&quot;.ui-state-disabled&quot;</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -1975,11 +1982,10 @@ The <code>div</code> DOM element that acts as the new dropdown list is also pass
       <div class='octowrap'>
         <a class='octothorpe' href='#section-156'>#</a>
       </div>
-      <p>Sets the <code>currentFocus</code> to the previously focused item (the last list item in the list)
-if the user has reached the bottom of the dropdown list options list and is trying to go down again </p>
+      <p>If the user has reached the top of the list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">disabled</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -1988,10 +1994,10 @@ if the user has reached the bottom of the dropdown list options list and is tryi
       <div class='octowrap'>
         <a class='octothorpe' href='#section-157'>#</a>
       </div>
-      <p>Sets the current focus to the previous option that is not disabled</p>
+      <p>Does not allow the user to continue to go up the list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">=</span> <span class="o">+</span><span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">prevAll</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s2">&quot;.ui-state-disabled&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">);</span>
+      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
             <span class="p">}</span></pre></div>
     </div>
   </div>
@@ -2001,10 +2007,10 @@ if the user has reached the bottom of the dropdown list options list and is tryi
       <div class='octowrap'>
         <a class='octothorpe' href='#section-158'>#</a>
       </div>
-      <p>If the user has reached the bottom of the list</p>
+      <p>If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">disabled</span> <span class="o">&amp;&amp;</span> <span class="nx">hasNextEnabled</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2013,11 +2019,10 @@ if the user has reached the bottom of the dropdown list options list and is tryi
       <div class='octowrap'>
         <a class='octothorpe' href='#section-159'>#</a>
       </div>
-      <p>Does not allow the user to continue to go down the list</p>
+      <p>Blur the previously selected option</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="p">}</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="nx">blur</span><span class="p">();</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2026,10 +2031,10 @@ if the user has reached the bottom of the dropdown list options list and is tryi
       <div class='octowrap'>
         <a class='octothorpe' href='#section-160'>#</a>
       </div>
-      <p>If the user has not reached the bottom of the unordered list</p>
+      <p>Call the <code>moveUp</code> method again</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">else</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">moveDown</span><span class="p">();</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2037,6 +2042,34 @@ if the user has reached the bottom of the dropdown list options list and is tryi
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-161'>#</a>
+      </div>
+      <p>Exit the method</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">disabled</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">hasNextEnabled</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-162'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-162'>#</a>
+      </div>
+      <p>If the user has not reached the bottom of the unordered list</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="k">else</span> <span class="p">{</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-163'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-163'>#</a>
       </div>
       <p>Blurs the previously focused list item
 The jQuery <code>end()</code> method allows you to continue chaining while also using a different selector</p>
@@ -2046,10 +2079,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-162'>
+  <div class='section' id='section-164'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-162'>#</a>
+        <a class='octothorpe' href='#section-164'>#</a>
       </div>
       <p>Focuses the currently focused list item</p>
     </div>
@@ -2058,34 +2091,34 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-163'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-163'>#</a>
-      </div>
-      <p>The <code>id</code> attribute of the previous dropdown option that is not currently <code>disabled</code></p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                <span class="kd">var</span> <span class="nx">prevDisabledId</span> <span class="o">=</span> <span class="o">+</span><span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">prevAll</span><span class="p">(</span><span class="s2">&quot;li.ui-state-disabled&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">);</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-164'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-164'>#</a>
-      </div>
-      <p>How many dropdown options the user had to go to find an option that was not disabled</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">moves</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">-</span> <span class="nx">prevDisabledId</span> <span class="o">||</span> <span class="mi">1</span><span class="p">;</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
   <div class='section' id='section-165'>
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-165'>#</a>
+      </div>
+      <p>The <code>id</code> attribute of the previous dropdown option that is not currently <code>disabled</code></p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="kd">var</span> <span class="nx">prevDisabledId</span> <span class="o">=</span> <span class="o">+</span><span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">prevAll</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s2">&quot;.ui-state-disabled&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">);</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-166'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-166'>#</a>
+      </div>
+      <p>How many dropdown options the user had to go to find an option that was not disabled</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="nx">moves</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">-</span> <span class="nx">prevDisabledId</span><span class="p">);</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-167'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-167'>#</a>
       </div>
       <p>Calls <code>scrollToView</code> to make sure the <code>scrollTop</code> is correctly updated. The <code>down</code> user action</p>
     </div>
@@ -2094,10 +2127,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-166'>
+  <div class='section' id='section-168'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-166'>#</a>
+        <a class='octothorpe' href='#section-168'>#</a>
       </div>
       <p>Triggers the custom <code>moveDown</code> event on the original select box</p>
     </div>
@@ -2107,10 +2140,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-167'>
+  <div class='section' id='section-169'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-167'>#</a>
+        <a class='octothorpe' href='#section-169'>#</a>
       </div>
       <p>Provide callback function support</p>
     </div>
@@ -2119,10 +2152,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-168'>
+  <div class='section' id='section-170'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-168'>#</a>
+        <a class='octothorpe' href='#section-170'>#</a>
       </div>
       <p>Maintains chainability</p>
     </div>
@@ -2132,10 +2165,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-169'>
+  <div class='section' id='section-171'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-169'>#</a>
+        <a class='octothorpe' href='#section-171'>#</a>
       </div>
       <h2>Move Up</h2>
 <pre><code> Handles the up keyboard navigation logic
@@ -2146,10 +2179,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-170'>
+  <div class='section' id='section-172'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-170'>#</a>
+        <a class='octothorpe' href='#section-172'>#</a>
       </div>
       <p>Increments <code>currentFocus</code>, which represents the currently focused list item <code>id</code> attribute.</p>
     </div>
@@ -2158,10 +2191,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-171'>
+  <div class='section' id='section-173'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-171'>#</a>
+        <a class='octothorpe' href='#section-173'>#</a>
       </div>
       <p>Represents how many times the user has to skip options because other options are disabled</p>
     </div>
@@ -2170,39 +2203,16 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-172'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-172'>#</a>
-      </div>
-      <p>Determines whether the dropdown option the user is trying to go to is currently disabled</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">disabled</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">);</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-173'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-173'>#</a>
-      </div>
-      <p>If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list</p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">disabled</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
   <div class='section' id='section-174'>
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-174'>#</a>
       </div>
-      <p>Blur the previously selected option</p>
+      <p>Determines whether the dropdown option the user is trying to go to is currently disabled</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">blur</span><span class="p">();</span></pre></div>
+      <div class="highlight"><pre>            <span class="nx">disabled</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">),</span>
+            <span class="nx">hasPreviousEnabled</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">prevAll</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s2">&quot;.ui-state-disabled&quot;</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2211,10 +2221,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <div class='octowrap'>
         <a class='octothorpe' href='#section-175'>#</a>
       </div>
-      <p>Call the <code>moveUp</code> method again</p>
+      <p>If the user has reached the top of the list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">moveUp</span><span class="p">();</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2223,10 +2233,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <div class='octowrap'>
         <a class='octothorpe' href='#section-176'>#</a>
       </div>
-      <p>Exit the method</p>
+      <p>Does not allow the user to continue to go up the list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">return</span><span class="p">;</span>
+      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
             <span class="p">}</span></pre></div>
     </div>
   </div>
@@ -2236,11 +2246,10 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <div class='octowrap'>
         <a class='octothorpe' href='#section-177'>#</a>
       </div>
-      <p>Sets the <code>currentFocus</code> to the previously focused item (the last list item in the list)
-if the user has reached the bottom of the dropdown list options list and is trying to go down again </p>
+      <p>If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">disabled</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">disabled</span> <span class="o">&amp;&amp;</span> <span class="nx">hasPreviousEnabled</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2249,11 +2258,10 @@ if the user has reached the bottom of the dropdown list options list and is tryi
       <div class='octowrap'>
         <a class='octothorpe' href='#section-178'>#</a>
       </div>
-      <p>Sets the current focus to the previous option that is not disabled</p>
+      <p>Blur the previously selected option</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">=</span> <span class="o">+</span><span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">prevAll</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s2">&quot;.ui-state-disabled&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">);</span>
-            <span class="p">}</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">blur</span><span class="p">();</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2262,10 +2270,10 @@ if the user has reached the bottom of the dropdown list options list and is tryi
       <div class='octowrap'>
         <a class='octothorpe' href='#section-179'>#</a>
       </div>
-      <p>If the user has reached the top of the list</p>
+      <p>Call the <code>moveUp</code> method again</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">moveUp</span><span class="p">();</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2274,10 +2282,13 @@ if the user has reached the bottom of the dropdown list options list and is tryi
       <div class='octowrap'>
         <a class='octothorpe' href='#section-180'>#</a>
       </div>
-      <p>Does not allow the user to continue to go up the list</p>
+      <p>Exit the method</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+      <div class="highlight"><pre>                <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">disabled</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">hasPreviousEnabled</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
             <span class="p">}</span></pre></div>
     </div>
   </div>
@@ -2327,7 +2338,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <p>The <code>id</code> attribute of the previous dropdown option that is not currently <code>disabled</code></p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="kd">var</span> <span class="nx">prevDisabledId</span> <span class="o">=</span> <span class="o">+</span><span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">prevAll</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s2">&quot;.ui-state-disabled&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">);</span></pre></div>
+      <div class="highlight"><pre>                <span class="kd">var</span> <span class="nx">prevDisabledId</span> <span class="o">=</span> <span class="o">+</span><span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span><span class="p">).</span><span class="nx">nextAll</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="s2">&quot;.ui-state-disabled&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">);</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2339,7 +2350,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <p>How many dropdown options the user had to go to find an option that was not disabled</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="nx">moves</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">-</span> <span class="nx">prevDisabledId</span> <span class="o">||</span> <span class="mi">1</span><span class="p">;</span></pre></div>
+      <div class="highlight"><pre>                <span class="nx">moves</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">-</span> <span class="nx">prevDisabledId</span><span class="p">);</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2415,7 +2426,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <p>Does not change the current option if <code>showFirstOption</code> is false and the matched search item is the hidden first option.  Otherwise, the current option value is updated</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">currentOption</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">currentOption</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">currentOption</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">currentOption</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2611,7 +2622,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <p>Searches for a match</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">textArray</span><span class="p">[</span><span class="nx">y</span><span class="p">].</span><span class="nx">search</span><span class="p">(</span><span class="nx">alphaNumeric</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">textArray</span><span class="p">[</span><span class="nx">y</span><span class="p">].</span><span class="nx">search</span><span class="p">(</span><span class="nx">alphaNumeric</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2649,7 +2660,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <p>If a match does not exist</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">matchExists</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">matchExists</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2699,7 +2710,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
 &lt; 2 characters</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentText</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">currentText</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2711,7 +2722,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <p>If there is a match based on the first character</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">((</span><span class="nx">self</span><span class="p">.</span><span class="nx">textArray</span><span class="p">[</span><span class="nx">x</span><span class="p">].</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">search</span><span class="p">(</span><span class="nx">alphaNumeric</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">((</span><span class="nx">self</span><span class="p">.</span><span class="nx">textArray</span><span class="p">[</span><span class="nx">x</span><span class="p">].</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">search</span><span class="p">(</span><span class="nx">alphaNumeric</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2773,7 +2784,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <p>If there is a match based on the entire string</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">((</span><span class="nx">self</span><span class="p">.</span><span class="nx">textArray</span><span class="p">[</span><span class="nx">x</span><span class="p">].</span><span class="nx">search</span><span class="p">(</span><span class="nx">alphaNumeric</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">((</span><span class="nx">self</span><span class="p">.</span><span class="nx">textArray</span><span class="p">[</span><span class="nx">x</span><span class="p">].</span><span class="nx">search</span><span class="p">(</span><span class="nx">alphaNumeric</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2811,7 +2822,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <p>If the current text search is an exact match</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">textArray</span><span class="p">[</span><span class="nx">x</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">===</span> <span class="nx">self</span><span class="p">.</span><span class="nx">currentText</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">textArray</span><span class="p">[</span><span class="nx">x</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">===</span> <span class="nx">self</span><span class="p">.</span><span class="nx">currentText</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2888,7 +2899,7 @@ The jQuery <code>end()</code> method allows you to continue chaining while also 
       <p>If the search method is being called internally by the plugin, and not externally as a method by a user</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">rememberPreviousSearch</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">rememberPreviousSearch</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -2955,7 +2966,7 @@ If there are many similar dropdown list options, starting the search at the inde
 selected dropdown list option is needed to properly traverse the text array.</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">notFound</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">notFound</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3055,7 +3066,7 @@ selected dropdown list option is needed to properly traverse the text array.</p>
       <p>The <code>click</code> handler logic will only be applied if the dropdown list is enabled</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">disabled</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">disabled</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3079,7 +3090,7 @@ selected dropdown list option is needed to properly traverse the text array.</p>
       <p>If the dropdown list options list is visible when a user clicks on the dropdown list</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                        <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                        <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3170,7 +3181,7 @@ event.</p>
       <p>If <code>self.blur</code> is true</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">blur</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">blur</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3198,7 +3209,7 @@ so if you are using Backbone.js, use the <code>focusout</code> event instead of 
       <p>If the dropdown options list is visible</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                        <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                        <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3250,7 +3261,7 @@ so if you are using Backbone.js, use the <code>focusout</code> event instead of 
       <p>If a mousedown event did not occur and no data was passed to the focus event (this correctly triggers the focus event), then the dropdown list gained focus from a tabstop</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">data</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">mdown</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">mdown</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3275,7 +3286,7 @@ so if you are using Backbone.js, use the <code>focusout</code> event instead of 
       <p>If no data was passed to the focus event (this correctly triggers the focus event)</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3325,7 +3336,7 @@ so if you are using Backbone.js, use the <code>focusout</code> event instead of 
       <p>Performs keyboard events if the dropdown list is focused</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:focus&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:focus&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3374,7 +3385,7 @@ so if you are using Backbone.js, use the <code>focusout</code> event instead of 
 </p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                                <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">keyboardNavigation</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                                <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">keyboardNavigation</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3424,7 +3435,7 @@ so if you are using Backbone.js, use the <code>focusout</code> event instead of 
       <p>If the plugin options allow keyboard navgiation</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                                <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">keyboardNavigation</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                                <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">keyboardNavigation</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3463,7 +3474,7 @@ so if you are using Backbone.js, use the <code>focusout</code> event instead of 
       <p>Checks to see if the dropdown list options list is open</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                                <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                                <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:visible&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3490,7 +3501,7 @@ and the dropdown list has not been interacted with, then
 update the dropdown list value when the enter key is pressed</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span> <span class="o">===</span> <span class="nx">self</span><span class="p">.</span><span class="nx">firstSelectItem</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultText</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">)))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span> <span class="o">===</span> <span class="nx">self</span><span class="p">.</span><span class="nx">firstSelectItem</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">currentFocus</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultText</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">)))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3656,7 +3667,7 @@ get character codes using the <code>keypress</code> event</p>
       <p>Performs a text search if the dropdown list is focused</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:focus&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:focus&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3693,7 +3704,7 @@ browser support since IE uses <code>keyCode</code> instead of <code>charCode</co
       <p>If the user presses the <code>space bar</code></p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                        <span class="k">if</span><span class="p">(</span><span class="nx">currentKey</span> <span class="o">===</span> <span class="nx">spaceKey</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                        <span class="k">if</span> <span class="p">(</span><span class="nx">currentKey</span> <span class="o">===</span> <span class="nx">spaceKey</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3718,7 +3729,7 @@ browser support since IE uses <code>keyCode</code> instead of <code>charCode</co
       <p>If the plugin options allow text searches</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                        <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">keyboardSearch</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                        <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">keyboardSearch</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3849,7 +3860,7 @@ The <code>add</code> method adds a jQuery object to the set of matched selectors
       <p>If the dropdown list is not focused</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:focus&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">div</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;:focus&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -3981,7 +3992,7 @@ This greatly increases page performance because we only have to bind an event to
     </div>
     <div class='code'>
       <div class="highlight"><pre>            <span class="p">.</span><span class="nx">delegate</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">,</span> <span class="s2">&quot;click.selectBoxIt&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -4031,7 +4042,7 @@ The unary <code>+</code> operator casts the string to a number
       <p>Triggers the dropdown list <code>change</code> event if a value change occurs</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>                    <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">value</span> <span class="o">!==</span> <span class="nx">self</span><span class="p">.</span><span class="nx">divText</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;data-val&quot;</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultText</span> <span class="o">!==</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span> <span class="p">{</span>
+      <div class="highlight"><pre>                    <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">value</span> <span class="o">!==</span> <span class="nx">self</span><span class="p">.</span><span class="nx">divText</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;data-val&quot;</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultText</span> <span class="o">!==</span> <span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span> <span class="p">{</span>
                         <span class="nx">self</span><span class="p">.</span><span class="nx">selectBox</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">);</span>
                     <span class="p">}</span>
                 <span class="p">}</span>
@@ -4048,7 +4059,7 @@ The unary <code>+</code> operator casts the string to a number
     </div>
     <div class='code'>
       <div class="highlight"><pre>            <span class="p">.</span><span class="nx">delegate</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">,</span> <span class="s2">&quot;focus.selectBoxIt&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;ui-state-disabled&quot;</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -4640,7 +4651,7 @@ Use the assertive value when the update needs to be communicated to the user mor
       <p>If the plugin contains the specified option</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -4665,7 +4676,7 @@ Use the assertive value when the update needs to be communicated to the user mor
       <p>If a user sets the <code>showFirstOption</code> to false</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">key</span> <span class="o">===</span> <span class="s2">&quot;showFirstOption&quot;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="o">===</span> <span class="s2">&quot;showFirstOption&quot;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -4690,7 +4701,7 @@ Use the assertive value when the update needs to be communicated to the user mor
       <p>If a user sets the <code>showFirstOption</code> to true</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">key</span> <span class="o">===</span> <span class="s2">&quot;showFirstOption&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="o">===</span> <span class="s2">&quot;showFirstOption&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -4715,7 +4726,7 @@ Use the assertive value when the update needs to be communicated to the user mor
       <p>If a user sets the defaultText option</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">key</span> <span class="o">===</span> <span class="s2">&quot;defaultText&quot;</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="o">===</span> <span class="s2">&quot;defaultText&quot;</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -4780,7 +4791,7 @@ Use the assertive value when the update needs to be communicated to the user mor
       <p>If the passed in parameter is an object literal</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">isPlainObject</span><span class="p">(</span><span class="nx">newOptions</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">isPlainObject</span><span class="p">(</span><span class="nx">newOptions</span><span class="p">))</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -4817,7 +4828,7 @@ object to create a new object.  The options variable is set to the newly created
       <p>If the <code>showFirstOption</code> option is true</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">showFirstOption</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -4867,7 +4878,7 @@ object to create a new object.  The options variable is set to the newly created
       <p>If the defaultText option is set, make sure the dropdown list default text reflects this value</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultText</span><span class="p">)</span> <span class="p">{</span>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultText</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nx">self</span><span class="p">.</span><span class="nx">divText</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultText</span><span class="p">);</span>
             <span class="p">}</span></pre></div>
     </div>
@@ -4997,7 +5008,7 @@ disabled attribute
       <p>If the original select box is disabled</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">disabled</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">originalElem</span><span class="p">.</span><span class="nx">disabled</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -5037,8 +5048,7 @@ disabled attribute
 </code></pre>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>        <span class="nx">enable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">i</span><span class="p">;</span></pre></div>
+      <div class="highlight"><pre>        <span class="nx">enable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -5717,7 +5727,7 @@ specified by the parameter
       <p><strong>version</strong>: The current version of the <code>selectBoxIt</code> plugin</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>            <span class="nx">version</span><span class="o">:</span> <span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span></pre></div>
+      <div class="highlight"><pre>            <span class="nx">version</span><span class="o">:</span> <span class="s2">&quot;0.4.0&quot;</span><span class="p">,</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -6170,20 +6180,8 @@ Accepts Boolean: true or false</p>
       <p><strong>defaultText</strong>: Overrides the text used by the dropdown list selected option to allow a user to specify custom text.  Accepts a String.</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>        <span class="nx">defaultText</span><span class="o">:</span> <span class="kc">null</span> <span class="p">};</span></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-487'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-487'>#</a>
-      </div>
-      <pre><code> End of Plugin
-</code></pre>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre><span class="p">})(</span><span class="nx">jQuery</span><span class="p">,</span> <span class="nb">window</span><span class="p">,</span> <span class="nb">document</span><span class="p">);</span> <span class="c1">//passes in the jQuery, window, and document global objects to allow the plugin to use these objects locally</span>
+      <div class="highlight"><pre>        <span class="nx">defaultText</span><span class="o">:</span> <span class="kc">null</span> <span class="p">};</span>
+<span class="p">}));</span> <span class="c1">// End of Plugin</span>
 
 </pre></div>
     </div>

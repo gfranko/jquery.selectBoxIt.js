@@ -25,7 +25,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 	- An event API triggered on the original select box element that calls the plugin
 
-    -A method API providing methods to interact with the dropdown list (i.e. Search, Open, Disable, Set Options).
+    - A method API providing methods to interact with the dropdown list (i.e. Search, Open, Disable, Set Options).
 
 	- Passes jsHint with no errors
 

@@ -479,7 +479,7 @@
                 this.list.show(this.options.showEffectSpeed, function() {
                 
                     //Updates the list `scrollTop` attribute
-                    this._scrollToView("search");
+                    self._scrollToView("search");
                 
                 });
 
@@ -492,7 +492,7 @@
                 this.list.slideDown(this.options.showEffectSpeed, function() {
                 
                     //Updates the list `scrollTop` attribute
-                    this._scrollToView("search");
+                    self._scrollToView("search");
                 
                 });
 

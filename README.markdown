@@ -49,19 +49,19 @@ If you plan to contribute to `SelectBoxIt` in the future, keep in mind that you 
 
 After you have verified your code, send a pull request to the `SelectBoxIt` dev branch.  After you send a pull request, you will hear back from me shortly after I review your code.
 
-You'll find source code in the "src" subdirectory!_
+You'll find source code in the "src" subdirectory!
 
 ##Change Log
 
-`0.5.0` - April 29, 2012 **MAJOR REWRITE**
+`0.5.0` - April 29, 2012   **MAJOR REWRITE**
 
-- `SelectBoxIt` has been rewritten using the jQueryUI Widget Factory!  This means that `SelectBoxIt` depends on both jQuery and the jQueryUI Widget Factory.  This also means that there are a few API changes that are not backwards compatible...
+- `SelectBoxIt` has been rewritten using the `jQueryUI Widget Factory`!  This means that `SelectBoxIt` depends on both jQuery and the jQueryUI Widget Factory.  This also means that there are a few API changes that are not backwards compatible...
 	* `getOption()`, `getOptions()`, and `create()` were all removed from the Method API
-	* To use the custom pseudo selector, you must now use $(":selectBox-selectBoxIt")
+	* To use the custom pseudo selector, you must now use `$(":selectBox-selectBoxIt")`
 
-- `SelectBoxIt` now uses [grunt](https://github.com/cowboy/grunt) to run jsHint for code quality checking, Jasmine for unit testing, and UglifyJS for minification.
+- `Grunt` Integration.  `SelectBoxIt` now uses [grunt](https://github.com/cowboy/grunt) to run jsHint for code quality checking, Jasmine for unit testing, and UglifyJS for minification.
 
-- Removed AMD Support
+- Removed `AMD` Support
 
 
 `0.4.0` - April 28, 2012

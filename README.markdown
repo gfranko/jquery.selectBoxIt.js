@@ -33,6 +33,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 ##Requirements
 jQuery 1.6.1+
+
 jQueryUI Widget Factory 1.8.19+
 
 ##Browser Support

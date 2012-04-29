@@ -1,4 +1,4 @@
-jQuery.selectBoxIt.js - jQuery Select Box Plugin
+jquery.selectBoxIt.js - jQuery Select Box Plugin
 ------------------------------------------------
 
 ![Example](http://gregfranko.com/images/select.PNG)
@@ -23,24 +23,47 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 	- Provides API methods to programmatically interact with the Select Box
 
-	- AMD Compatible
+	- Passes jsHint with no errors
 
-**Requirements**
+	- Small footprint (2.9KB minified and gzipped)
+
+##Requirements
 jQuery 1.6.1+
 
-**Browser Support**
+##Browser Support
 IE7+, Firefox 4+, Chrome, and Safari 4+
 
-**Unit Tests**
+##Unit Tests
 All unit tests are written using the Jasmine Framework
 
+##Contributing
+Take care to maintain the existing coding style. Add Jasmine unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+
+If you plan to contribute to `SelectBoxIt` in the future, keep in mind that you should make sure your code passes the Grunt checks.  If you are on Windows (like me) remember you need to run the grunt command using `grunt.cmd`.  Also, if you have trouble getting the Jasmine Unit Tests to work with PhantomJS 1.5 (the current release), install PhantomJS 1.3.
+
+After you have verified your code, send a pull request to the `SelectBoxIt` dev branch.  After you send a pull request, you will hear back from me shortly after I review your code.
+
+You'll find source code in the "src" subdirectory!_
+
 ##Change Log
+
+`0.5.0` - April 29, 2012 **MAJOR REWRITE**
+
+- `SelectBoxIt` has been rewritten using the jQueryUI Widget Factory!  This means that `SelectBoxIt` depends on both jQuery and the jQueryUI Widget Factory.  This also means that there are a few API changes that are not backwards compatible...
+	* `getOption()`, `getOptions()`, and `create()` were all removed from the Method API
+	* To use the custom pseudo selector, you must now use $(":selectBox-selectBoxIt")
+
+- `SelectBoxIt` now uses [grunt](https://github.com/cowboy/grunt) to run jsHint for code quality checking, Jasmine for unit testing, and UglifyJS for minification.
+
+- Removed AMD Support
+
 
 `0.4.0` - April 28, 2012
 
 - `AMD Support`.  If `AMD` support is found, SelectBoxIt is wrapped in a define `module`.
 	[UMD Patterns](https://github.com/umdjs/umd/blob/master/jqueryPlugin.js)
 - Bug fixes for supporting the `disabled` HTML property for individual select box options
+
 
 `0.3.0` - April 25, 2012
 
@@ -66,3 +89,7 @@ All unit tests are written using the Jasmine Framework
 
 **Contributors**
 Greg Franko
+
+## License
+Copyright (c) 2012 Greg Franko  
+Licensed under the MIT license.

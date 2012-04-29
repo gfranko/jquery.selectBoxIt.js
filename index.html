@@ -67,22 +67,29 @@ Into this
 <p><a href="http://gregfranko.com/test/SpecRunner.html" target="_blank">Unit Test Suite</a></p>
 
 <p><strong>Notable Features</strong>
-	<br />
-    - Styleable with the <strong>jQueryUI Themeroller</strong> (optional)
-    <br />
-    - Supports all jQuery and <strong>jQueryUI show/hide effects</strong> (optional)
-    <br />
-    - Includes <strong>ARIA support</strong>(Accessible Rich Internet Applications)
-    <br />
-    - Provides <strong>API methods</strong> to programmatically interact with the Select Box
-    <br />
-    - <strong>AMD</strong> compatible
+<br />
+
+	- Styleable with the <strong>jQueryUI Themeroller</strong> (optional)
+<br />
+	- Supports all jQuery and jQueryUI <strong>show/hide effects</strong> (optional)
+<br />
+	- Includes <strong>ARIA</strong> (Accessible Rich Internet Applications) support
+<br />
+	- Full <strong>keyboard search</strong> and <strong>navigation</strong> support
+<br />
+	- An <strong>event API</strong> triggered on the original select box element that calls the plugin
+<br />
+    - A <strong>method API</strong> providing methods to interact with the dropdown list (i.e. Search, Open, Disable, Set Options).
+<br />
+	- Passes <strong>jsHint</strong> with no errors
+<br />
+	- <strong>Selected</strong> and <strong>Disabled</strong> Support
 
 <p><strong>Requirements</strong>
-jQuery 1.6.1+</p>
+jQuery 1.6.1+ and jQueryUI Widget Factory 1.8.19+</p>
 
 <p><strong>Browser Support</strong>
-IE7+, Firefox 4+, Chrome, and Safari 4+</p>
+IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+</p>
 
 <p><strong>Unit Tests</strong>
 All unit tests are written using the <strong>Jasmine</strong> Framework</p>
@@ -91,6 +98,22 @@ All unit tests are written using the <strong>Jasmine</strong> Framework</p>
 Greg Franko</p>
 
 <p><strong>Change Log</strong>
+<br /><br />
+
+<code>0.5.0</code> - April 29, 2012
+
+<br /><br />
+
+<code>0.5.0</code> - April 29, 2012   <strong>MAJOR REWRITE</strong>
+
+- SelectBoxIt has been rewritten using the <sode>jQueryUI Widget Factory</code>!  This means that SelectBoxIt depends on both jQuery and the jQueryUI Widget Factory.  This also means that there are a few API changes that are not backwards compatible...
+<br /><br />
+	* <code>getOption()</code>, <code>getOptions()</code>, and <code>create()</code> were all removed from the Method API
+	* To use the custom pseudo selector, you must now use <code>$(":selectBox-selectBoxIt")</code>
+<br /><br />
+- <code>Grunt</code> Integration.  SelectBoxIt now uses grunt to run jsHint for code quality checking, Jasmine for unit testing, and UglifyJS for minification.
+<br /><br />
+- Removed <code>AMD</code> Support
 <br /><br />
 
 <code>0.4.0</code> - April 28, 2012

@@ -25,7 +25,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 	- Passes jsHint with no errors
 
-	- Small footprint (2.9KB minified and gzipped)
+	- Selected and Disabled Support
 
 ##Requirements
 jQuery 1.6.1+

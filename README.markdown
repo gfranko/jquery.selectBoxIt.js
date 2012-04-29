@@ -21,7 +21,11 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 	- Includes ARIA (Accessible Rich Internet Applications) support
 
-	- Provides API methods to programmatically interact with the Select Box
+	- Full keyboard search and navigation support
+
+	- An event API triggered on the original select box element that calls the plugin
+
+    -A method API providing methods to interact with the dropdown list (i.e. Search, Open, Disable, Set Options).
 
 	- Passes jsHint with no errors
 
@@ -29,9 +33,10 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 ##Requirements
 jQuery 1.6.1+
+jQueryUI Widget Factory 1.8.19+
 
 ##Browser Support
-IE7+, Firefox 4+, Chrome, and Safari 4+
+IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+
 
 ##Unit Tests
 All unit tests are written using the Jasmine Framework

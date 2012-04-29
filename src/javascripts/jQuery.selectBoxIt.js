@@ -1,4 +1,4 @@
-/*! jquery Selectboxit - v0.5.0 - 2012-04-28
+/* jquery Selectboxit - v0.5.0 - 2012-04-28
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -21,9 +21,10 @@
     //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
     "use strict";
 
-    //Using the jQueryUI 
-    // The namespace will automatically be created if it doesn't exist
+    //Calling the jQueryUI Widget Factory Method
     $.widget("selectBox.selectBoxIt", {
+
+    	//Plugin version
 
     	version: "0.5.0",
 
@@ -62,6 +63,10 @@
             defaultText: null
         },
 
+        //_Create
+        // ---------
+        //      Sets the Plugin Instance variables and
+        //      constructs the plugin.  Only called once.
         _create: function() {
 
             //The original select box DOM element
@@ -94,10 +99,13 @@
             //Whether or not the dropdown list opens up or down (depending on how much room is on the page)
             this.flipped = false;
 
+            //Creates the div elements that will become the dropdown
             this._createDiv();
 
+            //Creates the ul element that will become the dropdown options list
             this._createUnorderedList();
 
+            //Hides the original select box and adds the new plugin DOM elements to the page
             this._replaceSelectBox();
 
             //Adds event handlers to the new dropdown list

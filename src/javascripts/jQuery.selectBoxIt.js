@@ -24,9 +24,9 @@
     //Calling the jQueryUI Widget Factory Method
     $.widget("selectBox.selectBoxIt", {
 
-    	//Plugin version
+        //Plugin version
 
-    	version: "0.5.0",
+        version: "0.5.0",
 
         // These options will be used as defaults
         options: {

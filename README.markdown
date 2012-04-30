@@ -31,6 +31,8 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 	- Selected and Disabled Support
 
+	- Easily extendable to allow developers to create new widgets
+
 ##Requirements
 jQuery 1.6.1+
 
@@ -50,6 +52,11 @@ If you plan to contribute to `SelectBoxIt` in the future, keep in mind that you 
 After you have verified your code, send a pull request to the `SelectBoxIt` dev branch.  After you send a pull request, you will hear back from me shortly after I review your code.
 
 You'll find source code in the "src" subdirectory!
+
+##Forking
+If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the SelectBoxIt issue tracker, or fork SelectBoxIt on Github and easily extend SelectBoxIt to create your own widget!
+
+For more documentation on how to do this, take a look at the [documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit/#extending-selectboxit)
 
 ##Change Log
 

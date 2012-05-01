@@ -24,6 +24,10 @@
   width: 280px; /* Width of the dropdown list box and dropdown list options*/
 }
 
+#testSelectBoxItIcon {
+    float: left;
+}
+
 /* Dropdown List Box Text */
 #testSelectBoxItText {
   font: 14px Helvetica, Arial;

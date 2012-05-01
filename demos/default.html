@@ -28,14 +28,11 @@
 </form>
 
 <script src="../libs/jquery/jquery-1.7.2.min.js"></script>
-<script src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
 <script src="../libs/jqueryUI/jquery-ui-1.8.19.custom.min.js"></script>
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 $(function() {
-    var selectBox = $("select#test").selectBoxIt({ showEffect: "slideDown" }).data("selectBoxIt");
-
-    $("#switcher").themeswitcher();
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
 });
 </script>
  </body>

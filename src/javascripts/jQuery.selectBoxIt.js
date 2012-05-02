@@ -146,6 +146,17 @@
             //Sets the HTML5 data attribute on the divText `span` element
             attr("data-val", this.originalElem.value);
 
+            //Creates a span element that contains the dropdown list text value
+            this.divImage = $("<span/>", {
+
+                //Dynamically sets the span `id` attribute
+                id: this.originalElem.id + "SelectBoxItDefaultIcon",
+
+                //IE specific attribute to not allow the element to be selected
+                unselectable: "on"
+
+            });
+
             //Creates a div to act as the new dropdown list
             this.div = $("<div/>", {
 
@@ -163,7 +174,7 @@
             }).
 
             //Appends the default text to the inner dropdown list div element
-            append(this.divText);
+            append(this.divImage.after(this.divText));
 
             //Create the div container that will hold all of the dropdown list dom elements
             this.divContainer = $("<div/>", {
@@ -189,6 +200,8 @@
 
                 dataDisabled,
 
+                iconClass,
+
                 //Declaring the variable that will hold all of the dropdown list option elements
                 currentItem = "",
                 //Creates an unordered list element
@@ -201,6 +214,7 @@
 
             //Checks `showFirstOption` plugin option to determine if the first dropdown list option should be shown in the options list.
             if (!this.options.showFirstOption) {
+
                 //Excludes the first dropdown list option from the options list
                 this.selectItems = this.selectBox.find("option").slice(1);
             }
@@ -210,9 +224,11 @@
             this.selectItems.each(function(index) {
 
                 dataDisabled = $(this).prop("disabled");
+
+                iconClass = $(this).data("icon") || "";
                 
                 //Uses string concatenation instead of append for speed since the number of dropdown list options is unknown.
-                currentItem += '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '">' + $(this).text() + '</li>';
+                currentItem += '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '"><span class="' + iconClass + '"></span>' + $(this).text() + '</li>';
                 
                 //Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -259,6 +275,12 @@
             
             }
 
+            this.divImage.attr("class", this.listItems.eq(this.currentFocus).find("span").attr("class"));
+
+            if(this.selectBox.data("icon")) {
+                this.divImage.attr("class", this.selectBox.data("icon"));
+            }
+
             //Maintains chainability
             return this;
         },
@@ -285,10 +307,7 @@
                 id: this.originalElem.id + "SelectBoxItArrow",
 
                 //IE specific attribute to not allow the dropdown list text to be selected
-                unselectable: "on",
-
-                //The dynamic CSS of the dropdown list down arrow div element
-                style: "margin-top:" + height / 2 + ";"
+                unselectable: "on"
             
             });
 
@@ -317,6 +336,14 @@
                 "line-height": this.div.css("height"),
                 "max-width": this.div.width() - this.downArrowContainer.width() - 5
             });
+
+            this.divImage.css({
+                "margin-top": height/4
+            });
+
+            this.listItems.find("span").css({
+                "margin-top": height/4
+            });	
 
             //Maintains chainability
             return this;
@@ -1238,6 +1265,8 @@
                 
                     //Sets the new dropdown list text to the value of the original dropdown list
                     self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
+
+                    self.divImage.attr("class", self.listItems.eq(self.currentFocus).find("span").attr("class"));
                 },
                 
                 //`disable` event with the `selectBoxIt` namespace
@@ -1623,10 +1652,12 @@
             });
             
             //Adds the jqueryUI down arrow icon CSS class to the down arrow div
-            this.downArrow.addClass("ui-icon ui-icon-triangle-1-s").
+            this.downArrow.
             
             //Center positions the down arrow icon
-            css({ "margin-top": this.downArrowContainer.height()/3 });
+            css({ "margin-top": this.downArrowContainer.height()/3 }).
+
+            addClass(this.selectBox.data("arrow") || "ui-icon ui-icon-triangle-1-s");
             
             //Maintains chainability
             return this;

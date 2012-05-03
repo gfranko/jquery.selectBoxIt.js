@@ -73,6 +73,8 @@ Into this
 <br />
 	- Supports all jQuery and jQueryUI <strong>show/hide effects</strong> (optional)
 <br />
+	- Supports all jQueryUI and custom <strong>icon support</strong>
+<br />
 	- Includes <strong>ARIA</strong> (Accessible Rich Internet Applications) support
 <br />
 	- Full <strong>keyboard search</strong> and <strong>navigation</strong> support
@@ -102,6 +104,25 @@ Greg Franko</p>
 <p><strong>Change Log</strong>
 <br /><br />
 
+<code>0.6.0</code> - May 3, 2012
+<br /><br />
+- Added jQueryUI and custom icon support to allow icons to be used for the dropdown list and also alongside individual dropdown options.  You can specify the class names that you want to use to show the appropriate icon (set the <code>background</code> property inside of your CSS).  There are two ways to do this (HTML5 data attributes or SelectBoxIt options)
+<br /><br />
+	* Added support for <strong>three new HTML5 data attributes</strong> to be used with the original select box element.  Use cases for each are described below.
+	<br /><br />
+		<code>data-icon</code> - Specifies the custom or jQueryUI CSS classes you want to use to show icon images for the dropdown list and/or dropdown list individual options
+		<br /><br />
+		<code>data-downarrow</code> - Specifies the custom or jQueryUI CSS classes you want to use to replace the default down arrow icon image
+		<br /><br />
+		<code>data-text</code> - Specifies the custom text that you want to use for the dropdown list
+<br /><br />
+	* Added support for <strong>two new options</strong>.  Use cases for each are described below.
+	<br /><br />
+		<code>defaultIcon</code> - An alternative to the `data-icon` HTML5 data attribute
+		<br /><br />
+		<code>downArrowIcon</code> - An alternative to the `data-downarrow` HTML5 data attribute
+<br /><br />
+<hr />
 <code>0.5.0</code> - April 29, 2012   <strong>MAJOR REWRITE</strong>
 
 - SelectBoxIt has been rewritten using the <sode>jQueryUI Widget Factory</code>!  This means that SelectBoxIt depends on both jQuery and the jQueryUI Widget Factory.  This also means that there are a few API changes that are not backwards compatible...
@@ -114,7 +135,7 @@ Greg Franko</p>
 <br /><br />
 - Removed <code>AMD</code> Support
 <br /><br />
-
+<hr />
 <code>0.4.0</code> - April 28, 2012
 
 <br /><br />
@@ -128,7 +149,7 @@ Greg Franko</p>
 * Bug fixes for supporting the <code>disabled</code> HTML property for individual select box options
 
 <br /><br />
-
+<br />
 <code>0.3.0</code> - April 25, 2012
 
 <br /><br />
@@ -144,6 +165,7 @@ Greg Franko</p>
 * When a user presses the <code>esc</code> keyboard key, the dropdown options list will now close (become hidden)
 
 <br /><br />
+<hr />
 <code>0.2.0</code> - April 24, 2012
 
 <br /><br />
@@ -159,7 +181,7 @@ Greg Franko</p>
 * IE bug fix to prevent default dropdown text from being selectable
 
 <br /><br />
-
+<hr />
 <code>0.1.0</code> - April 14, 2012
 
 <br /><br />

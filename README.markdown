@@ -19,6 +19,8 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 	- Supports all jQuery and jQueryUI show/hide effects (optional)
 
+	- Supports all jQueryUI and custom icon support
+
 	- Includes ARIA (Accessible Rich Internet Applications) support
 
 	- Full keyboard search and navigation support
@@ -59,6 +61,19 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 For more documentation on how to do this, take a look at the [documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit/#extending-selectboxit)
 
 ##Change Log
+
+`0.6.0` - May 3, 2012
+
+- Added jQueryUI and custom icon support to allow icons to be used for the dropdown list and also alongside individual dropdown options.  You can specify the class names that you want to use to show the appropriate icon (set the background-image property inside of your CSS).  There are two ways to do this (HTML5 data attributes or SelectBoxIt options)
+
+	* Added support for three new HTML5 data attributes to be used with the original select box element.  Use cases for each are described below.
+		* data-icon - Specifies the custom or jQueryUI CSS classes you want to use to show icon images for the dropdown list and/or dropdown list individual options
+		* data-downarrow - Specifies the custom or jQueryUI CSS classes you want to use to replace the default down arrow icon image
+		* data-text - Specifies the custom text that you want to use for the dropdown list
+
+	* Added support for two new options.  Use cases for each are described below.
+		* defaultIcon - An alternative to the `data-icon` HTML5 data attribute
+		* downArrowIcon - An alternative to the `data-downarrow` HTML5 data attribute
 
 `0.5.0` - April 29, 2012   **MAJOR REWRITE**
 

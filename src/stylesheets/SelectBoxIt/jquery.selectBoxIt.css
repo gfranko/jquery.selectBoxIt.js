@@ -13,7 +13,7 @@
 
 /* Dropdown List Box */
 #testSelectBoxIt {
-  height: 35px; /* Height of the select box */
+  height: 30px; /* Height of the select box */
   cursor:pointer;
   white-space:nowrap;
   /* Provide a background image here if you want to use an image for the down arrow */
@@ -24,8 +24,9 @@
   width: 280px; /* Width of the dropdown list box and dropdown list options*/
 }
 
+/* Dropdown list Default Icon Positioning */
 #testSelectBoxItDefaultIcon {
-    float: left;
+  float: left;
 }
 
 /* Dropdown List Box Text */
@@ -84,7 +85,7 @@
   margin-left:auto;
 }
 
-/* Dropdown List Icon Images */
+/* Dropdown List Individual Option Icon Positioning */
 #testSelectBoxItOptions li span {
   float:left;
 }

@@ -3,7 +3,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
     beforeEach(function() {
 
-    setFixtures('<select id="test"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>');
+    setFixtures('<select id="test" data-icon="ui-icon ui-icon-power" data-text="Testing"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>');
 
     spyOnEvent($("select#test"), "create");
 
@@ -43,7 +43,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             it("should set the new select box text to the original select box value if the default text option is not set", function() {
 
-            	if(!selectBoxIt.defaultText) {
+            	if(!selectBoxIt.defaultText && !selectBoxIt.selectBox.data("text")) {
     	    
     	            expect(selectBoxIt.divText).toHaveText(selectBoxIt.selectBox.val());
             
@@ -51,7 +51,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 else {
 
-                    expect(selectBoxIt.divText).toHaveText(selectBoxIt.defaultText);
+                    expect(selectBoxIt.divText).toHaveText(selectBoxIt.options.defaultText);
 
                 }
 
@@ -191,6 +191,12 @@ describe('selectBoxIt jQuery Plugin', function () {
     });
 
     describe("moveDown()", function() {
+
+    	beforeEach(function() {
+
+            spyOnEvent($("select#test"), "moveDown");
+    	
+        });
  
         it("should trigger focus and blur events, and update the select box current value", function() {
     
@@ -215,6 +221,8 @@ describe('selectBoxIt jQuery Plugin', function () {
         	    expect("blur").toHaveBeenTriggeredOn(previous);
     
         	    expect("focus").toHaveBeenTriggeredOn(next);
+
+        	    expect("moveDown").toHaveBeenTriggeredOn(selectBoxIt.selectBox);
     
         	    //Check to make sure the original select box value is set to the currently selected option
         	    expect(selectBoxIt.selectBox).toHaveValue(selectBoxIt.listItems.eq(selectBoxIt.currentFocus).text());
@@ -229,6 +237,12 @@ describe('selectBoxIt jQuery Plugin', function () {
     });
 
     describe("moveUp()", function() {
+
+    	beforeEach(function() {
+
+            spyOnEvent($("select#test"), "moveUp");          
+
+    	});
 
         it("should trigger focus and blur events, and update the select box current value", function() {
       
@@ -255,6 +269,9 @@ describe('selectBoxIt jQuery Plugin', function () {
         	    expect("blur").toHaveBeenTriggeredOn(previous);
         	   
         	    expect("focus").toHaveBeenTriggeredOn(next);
+
+                expect("moveUp").toHaveBeenTriggeredOn(selectBoxIt.selectBox);
+
         	    //Check to make sure the original select box value is set to the currently selected option
         	   
         	    expect(selectBoxIt.selectBox).toHaveValue(selectBoxIt.listItems.eq(selectBoxIt.currentFocus).attr("data-val"));
@@ -484,6 +501,76 @@ describe('selectBoxIt jQuery Plugin', function () {
             expect($(":selectBox-selectBoxIt")).toBe("select");
 
             expect($(":selectBox-selectBoxIt")).toHaveId("test");
+
+        });
+
+    });
+
+    describe("Custom Icons", function() {
+
+        it("should set the default icon if the HTML5 data-icon is specified", function() {
+
+            expect(selectBoxIt.divImage).toHaveClass("ui-icon ui-icon-power");
+
+        });
+
+        it("should set the default icon if the defaultIcon option is set using setOption()", function() {
+
+            selectBoxIt.setOption("defaultIcon", "ui-icon ui-icon-info");
+
+            expect(selectBoxIt.divImage).toHaveClass("ui-icon ui-icon-info");
+
+        });
+
+        it("should set the default icon if the defaultIcon option is set using setOptions()", function() {
+
+            selectBoxIt.setOptions({ defaultIcon: "ui-icon ui-icon-info" });
+
+            expect(selectBoxIt.divImage).toHaveClass("ui-icon ui-icon-info");
+
+        });
+
+        it("should set the correct icon for each dropdown option", function() {
+
+            selectBoxIt.selectItems.each(function(index) {
+
+            	if($(this).data("icon")) {
+
+                    expect(selectBoxIt.listItems.eq(index).find("span")).toHaveClass($(this).data("icon"));
+
+                }
+
+            });
+
+        });
+
+    });
+
+    describe("Setting custom text", function() {
+
+        it("should set the default text if the select box has the HTML5 data-text attribute", function() {
+
+            if(selectBoxIt.selectBox.data("text")) {
+
+                expect(selectBoxIt.divText.text()).toEqual(selectBoxIt.selectBox.data("text"));
+
+            }
+
+        });
+
+        it("should set the default text if the setOption() method sets the defaultText", function() {
+
+        	selectBoxIt.setOption("defaultText", "Testing");
+
+            expect(selectBoxIt.divText.text()).toEqual("Testing");
+
+        });
+
+        it("should set the default text if the setOptions() method sets the defaultText", function() {
+
+        	selectBoxIt.setOptions({ defaultText: "Testing" });
+
+            expect(selectBoxIt.divText.text()).toEqual("Testing");
 
         });
 

@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v0.5.0 - 2012-04-28
+/* jquery Selectboxit - v0.6.0 - 2012-04-28
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         //Plugin version
 
-        version: "0.5.0",
+        version: "0.6.0",
 
         // These options will be used as defaults
         options: {
@@ -60,7 +60,14 @@
             showFirstOption: true,
 
             //**defaultText**: Overrides the text used by the dropdown list selected option to allow a user to specify custom text.  Accepts a String.
-            defaultText: null
+            defaultText: "",
+
+            //**defaultIcon**: Overrides the icon used by the dropdown list selected option to allow a user to specify a custom icon.  Accepts a String (CSS class name(s)).
+            defaultIcon: "",
+
+            //**downArrowIcon**: Overrides the default down arrow used by the dropdown list to allow a user to specify a custom image.  Accepts a String (CSS class name(s)).
+            downArrowIcon: ""
+
         },
 
         //_Create
@@ -243,14 +250,24 @@
                     //Set the currently selected option
                     self.currentFocus = index;
                 }
-                
-                //If the `defaultText` option is being used
-                if (self.options.defaultText) {
-                
-                    //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
-                    self.divText.text(self.options.defaultText);
-                }
+
             });
+
+            //If the `defaultText` option is being used
+            if (self.options.defaultText) {
+                
+                //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
+                self.divText.text(self.options.defaultText);
+            }
+
+            //If the `defaultText` HTML5 data attribute is being used
+            if (self.selectBox.data("text")) {
+ 
+                //Overrides the current dropdown default text with the value from the HTML5 `defaultText` value
+                self.divText.text(self.selectBox.data("text"));
+                self.options.defaultText = self.selectBox.data("text");
+                 
+            }
 
             //Append the list item to the unordered list
             createdList.append(currentItem);
@@ -275,11 +292,7 @@
             
             }
 
-            this.divImage.attr("class", this.listItems.eq(this.currentFocus).find("span").attr("class"));
-
-            if(this.selectBox.data("icon")) {
-                this.divImage.attr("class", this.selectBox.data("icon"));
-            }
+            this.divImage.attr("class", this.selectBox.data("icon") || this.options.defaultIcon || this.listItems.eq(this.currentFocus).find("span").attr("class"));
 
             //Maintains chainability
             return this;
@@ -334,16 +347,18 @@
             //Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             this.divText.css({
                 "line-height": this.div.css("height"),
-                "max-width": this.div.width() - this.downArrowContainer.width() - 5
+                "max-width": this.div.width() - (this.downArrowContainer.width() + this.divImage.width()) - 5
             });
 
             this.divImage.css({
-                "margin-top": height/4
+                "margin-top": height / 4
             });
 
             this.listItems.find("span").css({
-                "margin-top": height/4
-            });	
+                "margin-top": height / 4
+            });
+
+            this.downArrow.attr("class", this.selectBox.data("downarrow") || this.options.downArrowIcon || "ui-icon ui-icon-triangle-1-s");
 
             //Maintains chainability
             return this;
@@ -1266,7 +1281,10 @@
                     //Sets the new dropdown list text to the value of the original dropdown list
                     self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
 
-                    self.divImage.attr("class", self.listItems.eq(self.currentFocus).find("span").attr("class"));
+                    if(self.listItems.eq(self.currentFocus).find("span").attr("class")) {
+
+                        self.divImage.attr("class", self.listItems.eq(self.currentFocus).find("span").attr("class"));
+                    }
                 },
                 
                 //`disable` event with the `selectBoxIt` namespace
@@ -1415,6 +1433,18 @@
             
             }
 
+            else if(key === "defaultIcon" && value) {
+
+                this.divImage.attr("class", value);
+
+            }
+
+            else if(key === "downArrowIcon" && value) {
+
+                this.downArrow.attr("class", value);
+
+            }
+
             //If a user sets the defaultText option
             else if (key === "defaultText") {
             
@@ -1442,17 +1472,37 @@
 
             //If the `showFirstOption` option is true
             if (this.options.showFirstOption) {
+
                 //Shows the first option in the dropdown list
                 this.listItems.eq(0).show();
+
             }
+
             //If the `showFirstOption` option is false
             else {
+
                 //Hides the first option in the dropdown list
                 this.listItems.eq(0).hide();
+
             }
+
+            if(this.options.defaultIcon) {
+
+                this.divImage.attr("class", this.options.defaultIcon);
+
+            }
+
+            if(this.options.downArrowIcon) {
+
+                this.downArrow.attr("class", this.options.downArrowIcon);
+
+            }
+
             //If the defaultText option is set, make sure the dropdown list default text reflects this value
             if (this.options.defaultText) {
+
                 this.divText.text(this.options.defaultText);
+
             }
 
             //Provide callback function support
@@ -1652,12 +1702,7 @@
             });
             
             //Adds the jqueryUI down arrow icon CSS class to the down arrow div
-            this.downArrow.
-            
-            //Center positions the down arrow icon
-            css({ "margin-top": this.downArrowContainer.height()/3 }).
-
-            addClass(this.selectBox.data("arrow") || "ui-icon ui-icon-triangle-1-s");
+            this.downArrow.css({ "margin-top": this.downArrowContainer.height()/3 });
             
             //Maintains chainability
             return this;

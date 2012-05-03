@@ -19,7 +19,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 	- Supports all jQuery and jQueryUI show/hide effects (optional)
 
-	- Supports all jQueryUI and custom icon support
+	- Supports all jQueryUI/custom icons
 
 	- Includes ARIA (Accessible Rich Internet Applications) support
 

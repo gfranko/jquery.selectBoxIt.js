@@ -3,7 +3,7 @@ jquery.selectBoxIt.js - jQuery Select Box Plugin
 
 ![Example](http://gregfranko.com/images/select.PNG)
 
-A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **ThemeRoller** and optionally animated with **jQueryUI show/hide effects**.
+A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **ThemeRoller** and **jQueryUI/custom image icons**, and optionally animated with **jQueryUI show/hide effects**.
 
 [Homepage](http://gregfranko.com/jQuery.selectBoxIt.js/)
 
@@ -62,7 +62,7 @@ For more documentation on how to do this, take a look at the [documentation](htt
 
 ##Change Log
 
-`0.6.0` - May 3, 2012
+`0.6.0` - May 3, 2012 [Documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit/#using-icons)
 
 - Added jQueryUI and custom icon support to allow icons to be used for the dropdown list and also alongside individual dropdown options.  You can specify the class names that you want to use to show the appropriate icon (set the background-image property inside of your CSS).  There are two ways to do this (HTML5 data attributes or SelectBoxIt options)
 

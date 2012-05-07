@@ -30,7 +30,7 @@ module.exports = function(grunt) {
       }
     },
     lint: {
-      files: ['grunt.js', 'src/**/jquery.selectBoxIt.js']
+      files: ['grunt.js', 'src/javascripts/jquery.selectBoxIt.js']
     },
     watch: {
       files: '<config:lint.files>',

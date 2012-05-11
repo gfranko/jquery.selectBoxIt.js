@@ -85,28 +85,33 @@ Into this
 <br />
 	- Passes <strong>jsHint</strong> with no errors
 <br />
-	- <strong>Selected</strong> and <strong>Disabled</strong> Support
+	- <strong>Selected</strong>, <strong>Disabled</strong>, and <strong>Optgroup</strong> Support
 <br />
-	- -Easily <strong>extendable</strong> to allow developers to create new widgets
-
+	- Easily <strong>extendable</strong> to allow developers to create new widgets
+<br />
 <p><strong>Requirements</strong>
 jQuery 1.6.1+ and jQueryUI Widget Factory 1.8.19+</p>
-
+<br />
 <p><strong>Browser Support</strong>
 IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+</p>
-
+<br />
 <p><strong>Unit Tests</strong>
 All unit tests are written using the <strong>Jasmine</strong> Framework</p>
-
+<br />
 <p><strong>Contributors</strong>
 Greg Franko</p>
-
+<br />
 <p><strong>Change Log</strong>
 <br /><br />
-
+<code>0.7.0</code> - May 10, 2012
+<br /><br />
+* Added <strong>optgroup support</strong> to allow dropdown list options to be put in subgroups.
+<br /><br />
+* Bug fixes to the `change` and `focus` Event API handlers
+<br /><br />
 <code>0.6.0</code> - May 3, 2012
 <br /><br />
-- Added jQueryUI and custom icon support to allow icons to be used for the dropdown list and also alongside individual dropdown options.  You can specify the class names that you want to use to show the appropriate icon (set the <code>background</code> property inside of your CSS).  There are two ways to do this (HTML5 data attributes or SelectBoxIt options)
+* Added jQueryUI and custom icon support to allow icons to be used for the dropdown list and also alongside individual dropdown options.  You can specify the class names that you want to use to show the appropriate icon (set the <code>background</code> property inside of your CSS).  There are two ways to do this (HTML5 data attributes or SelectBoxIt options)
 <br /><br />
 	* Added support for <strong>three new HTML5 data attributes</strong> to be used with the original select box element.  Use cases for each are described below.
 	<br /><br />
@@ -125,15 +130,15 @@ Greg Franko</p>
 <hr />
 <code>0.5.0</code> - April 29, 2012   <strong>MAJOR REWRITE</strong>
 
-- SelectBoxIt has been rewritten using the <sode>jQueryUI Widget Factory</code>!  This means that SelectBoxIt depends on both jQuery and the jQueryUI Widget Factory.  This also means that there are a few API changes that are not backwards compatible...
+* SelectBoxIt has been rewritten using the <sode>jQueryUI Widget Factory</code>!  This means that SelectBoxIt depends on both jQuery and the jQueryUI Widget Factory.  This also means that there are a few API changes that are not backwards compatible...
 <br /><br />
 	* <code>getOption()</code>, <code>getOptions()</code>, and <code>create()</code> were all removed from the Method API
 	<br /><br />
 	* To use the custom pseudo selector, you must now use <code>$(":selectBox-selectBoxIt")</code>
 <br /><br />
-- <code>Grunt</code> Integration.  SelectBoxIt now uses grunt to run jsHint for code quality checking, Jasmine for unit testing, and UglifyJS for minification.
+* <strong>Grunt</strong> Integration.  SelectBoxIt now uses grunt to run jsHint for code quality checking, Jasmine for unit testing, and UglifyJS for minification.
 <br /><br />
-- Removed <code>AMD</code> Support
+* Removed <code>AMD</code> Support
 <br /><br />
 <hr />
 <code>0.4.0</code> - April 28, 2012

@@ -7,7 +7,7 @@
     <meta name="description" content="Jquery.selectboxit.js : jQuery Select Box Plugin" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-darkness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/jquery-ui-1.8.18.custom.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/jQuery.selectBoxIt.css">
 
     <title>SelectBoxIt - A jQuery Select Box Plugin</title>
@@ -35,7 +35,21 @@
       <section id="main_content" class="inner">
 
         <h1>SelectBoxIt</h1>
+<p><strong>SelectBoxIt</strong> is a jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with <strong>ThemeRoller</strong> and optionally animated with <strong>jQuery and jQueryUI show/hide effects</strong>.</p>
 
+<p><a href="http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit" target="_blank">Documentation</a></p>
+
+<p><a href="http://gregfranko.com/docs/jQuery.selectBoxIt.html" target="_blank">Annotated Source Code</a></p>
+
+<p><a href="http://gregfranko.com/test/SpecRunner.html" target="_blank">Unit Test Suite</a></p>
+<br />
+<h2>Examples</h3>
+<br />
+<h4>Themeable</h4>
+<br />
+<div id="switcher"></div>
+<br /><br />
+<h4><strong>Default Select</strong></h4>
 <div style="float:left;">
 Turns this
 <br />
@@ -58,62 +72,189 @@ Into this
 </div>
 <br /><br /><br /><br />
 
-<p><strong>SelectBoxIt</strong> is a jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with <strong>ThemeRoller</strong> and optionally animated with <strong>jQueryUI show/hide effects</strong>.</p>
+<h4><strong>Icon Support</strong></h4>
+<div style="float:left;">
+Turns this
+<br />
+<select id="icon" name="icon">
+<option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search">SelectBoxIt is:</option>
+<option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check">a jQuery Plugin</option>
+<option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check">a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget" data-icon="ui-icon ui-icon-check">a Stateful UI Dropdown Widget</option>
+</select>
+</div>
+<div style="float:right;">
+Into this
+<br />
+<select id="icons" name="icons">
+<option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search">SelectBoxIt is:</option>
+<option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check">a jQuery Plugin</option>
+<option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check">a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget" data-icon="ui-icon ui-icon-check">a Stateful UI Dropdown Widget</option>
+</select>
+</div>
+<br /><br /><br /><br />
 
-<p><a href="http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit" target="_blank">Documentation</a></p>
+<h4><strong>Selected and Disabled Support</strong></h4>
+<div style="float:left;">
+Turns this
+<br />
+<select id="disabled" name="disabled">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<option value="a jQuery Plugin" disabled>a jQuery Plugin</option>
+<option value="a Select Box Replacement" disabled>a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget" selected>a Stateful UI Dropdown Widget</option>
+</select>
+</div>
+<div style="float:right;">
+Into this
+<br />
+<select id="disable" name="disable">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<option value="a jQuery Plugin" disabled>a jQuery Plugin</option>
+<option value="a Select Box Replacement" disabled>a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget" selected>a Stateful UI Dropdown Widget</option>
+</select>
+</div>
+<br /><br /><br /><br />
 
-<p><a href="http://gregfranko.com/docs/jQuery.selectBoxIt.html" target="_blank">Annotated Source Code</a></p>
+<h4><strong>Optgroup Support</strong></h4>
+<div style="float:left;">
+Turns this
+<br />
+<select id="optgroup" name="optgroup">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<optgroup label="Optgroup 1">
+  <option value="a jQuery Plugin">a jQuery Plugin</option>
+</optgroup>
+<optgroup label="Optgroup 2">
+  <option value="a Select Box Replacement">a Select Box Replacement</option>
+</optgroup>
+<optgroup label="Optgroup 3">
+  <option value="a Stateful UI Dropdown Widget">a Stateful UI Dropdown Widget
+  </option>
+</optgroup>
+</select>  
+</div>
+<div style="float:right;">
+Into this
+<br />
+<select id="optgroups" name="optgroups">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<optgroup label="Optgroup 1">
+  <option value="a jQuery Plugin">a jQuery Plugin</option>
+</optgroup>
+<optgroup label="Optgroup 2">
+  <option value="a Select Box Replacement">a Select Box Replacement</option>
+</optgroup>
+<optgroup label="Optgroup 3">
+  <option value="a Stateful UI Dropdown Widget">a Stateful UI Dropdown Widget
+  </option>
+</optgroup>
+</select>  
+</div>
+<br /><br /><br /><br />
 
-<p><a href="http://gregfranko.com/test/SpecRunner.html" target="_blank">Unit Test Suite</a></p>
+<h4><strong>jQuery Show/Hide Effects</strong></h4>
+<div style="float:left;">
+Turns this
+<br />
+<select id="jqueryeffect" name="jqueryeffect">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<option value="a jQuery Plugin">a jQuery Plugin</option>
+<option value="a Select Box Replacement">a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget">a Stateful UI Dropdown Widget</option>
+</select>
+</div>
+<div style="float:right;">
+Into this
+<br />
+<select id="jqueryeffects" name="jqueryeffects">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<option value="a jQuery Plugin">a jQuery Plugin</option>
+<option value="a Select Box Replacement">a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget">a Stateful UI Dropdown Widget</option>
+</select> 
+</div>
+<br /><br /><br /><br />
 
-<p><strong>Notable Features</strong>
+<h4><strong>jQueryUI Show/Hide Effects</strong></h4>
+<div style="float:left;">
+Turns this
+<br />
+<select id="jqueryuieffect" name="jqueryuieffect">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<option value="a jQuery Plugin">a jQuery Plugin</option>
+<option value="a Select Box Replacement">a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget">a Stateful UI Dropdown Widget</option>
+</select>
+</div>
+<div style="float:right;">
+Into this
+<br />
+<select id="jqueryuieffects" name="jqueryuieffects">
+<option value="SelectBoxIt is:">SelectBoxIt is:</option>
+<option value="a jQuery Plugin">a jQuery Plugin</option>
+<option value="a Select Box Replacement">a Select Box Replacement</option>
+<option value="a Stateful UI Dropdown Widget">a Stateful UI Dropdown Widget</option>
+</select> 
+</div>
+<br /><br /><br /><br />
+
+
+<p><h2><strong>Notable Features</strong></h2>
 <br />
 
-	- Styleable with the <strong>jQueryUI Themeroller</strong> (optional)
+	Styleable with the <strong>jQueryUI Themeroller</strong> (optional)
+<br /><br />
+	Supports all jQuery and jQueryUI <strong>show/hide effects</strong> (optional)
+<br /><br />
+	Supports all jQueryUI and custom <strong>icon support</strong>
+<br /><br />
+	Includes <strong>ARIA</strong> (Accessible Rich Internet Applications) support
+<br /><br />
+	Full <strong>keyboard search</strong> and <strong>navigation</strong> support
+<br /><br />
+	An <strong>event API</strong> triggered on the original select box element that calls the plugin
+<br /><br />
+    A <strong>method API</strong> providing methods to interact with the dropdown list
+<br /><br />
+	Passes <strong>jsHint</strong> with no errors
+<br /><br />
+	<strong>Selected</strong>, <strong>Disabled</strong>, and <strong>Optgroup</strong> Support
+<br /><br />
+	Easily <strong>extendable</strong> to allow developers to create new widgets
+<br /><br />
+<p><h2><strong>Requirements</strong></h2>
 <br />
-	- Supports all jQuery and jQueryUI <strong>show/hide effects</strong> (optional)
-<br />
-	- Supports all jQueryUI and custom <strong>icon support</strong>
-<br />
-	- Includes <strong>ARIA</strong> (Accessible Rich Internet Applications) support
-<br />
-	- Full <strong>keyboard search</strong> and <strong>navigation</strong> support
-<br />
-	- An <strong>event API</strong> triggered on the original select box element that calls the plugin
-<br />
-    - A <strong>method API</strong> providing methods to interact with the dropdown list
-<br />
-	- Passes <strong>jsHint</strong> with no errors
-<br />
-	- <strong>Selected</strong>, <strong>Disabled</strong>, and <strong>Optgroup</strong> Support
-<br />
-	- Easily <strong>extendable</strong> to allow developers to create new widgets
-<br />
-<p><strong>Requirements</strong>
 jQuery 1.6.1+ and jQueryUI Widget Factory 1.8.19+</p>
 <br />
-<p><strong>Browser Support</strong>
+<p><h2><strong>Browser Support</strong></h2>
+<br />
 IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+</p>
 <br />
-<p><strong>Unit Tests</strong>
+<p><h2><strong>Unit Tests</strong></h2>
+<br />
 All unit tests are written using the <strong>Jasmine</strong> Framework</p>
 <br />
-<p><strong>Contributors</strong>
+<p><h2><strong>Contributors</strong></h2>
+<br />
 Greg Franko</p>
 <br />
-<p><strong>Change Log</strong>
-<br /><br />
+<p><h2><strong>Change Log</strong></h2>
+<br />
 <code>0.7.0</code> - May 10, 2012
 <br /><br />
-* Added <strong>optgroup support</strong> to allow dropdown list options to be put in subgroups.
+Added <strong>optgroup support</strong> to allow dropdown list options to be put in subgroups.
 <br /><br />
-* Bug fixes to the `change` and `focus` Event API handlers
+Bug fixes to the <code>change</code> and <code>focus</code> Event API handlers
 <br /><br />
+<hr />
 <code>0.6.0</code> - May 3, 2012
 <br /><br />
-* Added jQueryUI and custom icon support to allow icons to be used for the dropdown list and also alongside individual dropdown options.  You can specify the class names that you want to use to show the appropriate icon (set the <code>background</code> property inside of your CSS).  There are two ways to do this (HTML5 data attributes or SelectBoxIt options)
+Added jQueryUI and custom icon support to allow icons to be used for the dropdown list and also alongside individual dropdown options.  You can specify the class names that you want to use to show the appropriate icon (set the <code>background</code> property inside of your CSS).  There are two ways to do this (HTML5 data attributes or SelectBoxIt options)
 <br /><br />
-	* Added support for <strong>three new HTML5 data attributes</strong> to be used with the original select box element.  Use cases for each are described below.
+	Added support for <strong>three new HTML5 data attributes</strong> to be used with the original select box element.  Use cases for each are described below.
 	<br /><br />
 		<code>data-icon</code> - Specifies the custom or jQueryUI CSS classes you want to use to show icon images for the dropdown list and/or dropdown list individual options
 		<br /><br />
@@ -121,37 +262,37 @@ Greg Franko</p>
 		<br /><br />
 		<code>data-text</code> - Specifies the custom text that you want to use for the dropdown list
 <br /><br />
-	* Added support for <strong>two new options</strong>.  Use cases for each are described below.
+	Added support for <strong>two new options</strong>.  Use cases for each are described below.
 	<br /><br />
-		<code>defaultIcon</code> - An alternative to the `data-icon` HTML5 data attribute
+		<code>defaultIcon</code> - An alternative to the <code>data-icon</code> HTML5 data attribute
 		<br /><br />
-		<code>downArrowIcon</code> - An alternative to the `data-downarrow` HTML5 data attribute
+		<code>downArrowIcon</code> - An alternative to the <code>data-downarrow</code> HTML5 data attribute
 <br /><br />
 <hr />
 <code>0.5.0</code> - April 29, 2012   <strong>MAJOR REWRITE</strong>
 
-* SelectBoxIt has been rewritten using the <sode>jQueryUI Widget Factory</code>!  This means that SelectBoxIt depends on both jQuery and the jQueryUI Widget Factory.  This also means that there are a few API changes that are not backwards compatible...
+SelectBoxIt has been rewritten using the <sode>jQueryUI Widget Factory</code>!  This means that SelectBoxIt depends on both jQuery and the jQueryUI Widget Factory.  This also means that there are a few API changes that are not backwards compatible...
 <br /><br />
-	* <code>getOption()</code>, <code>getOptions()</code>, and <code>create()</code> were all removed from the Method API
+	<code>getOption()</code>, <code>getOptions()</code>, and <code>create()</code> were all removed from the Method API
 	<br /><br />
-	* To use the custom pseudo selector, you must now use <code>$(":selectBox-selectBoxIt")</code>
+	To use the custom pseudo selector, you must now use <code>$(":selectBox-selectBoxIt")</code>
 <br /><br />
-* <strong>Grunt</strong> Integration.  SelectBoxIt now uses grunt to run jsHint for code quality checking, Jasmine for unit testing, and UglifyJS for minification.
+<strong>Grunt</strong> Integration.  SelectBoxIt now uses grunt to run jsHint for code quality checking, Jasmine for unit testing, and UglifyJS for minification.
 <br /><br />
-* Removed <code>AMD</code> Support
+Removed <code>AMD</code> Support
 <br /><br />
 <hr />
 <code>0.4.0</code> - April 28, 2012
 
 <br /><br />
 
-* <code>AMD Support</code>.  If <code>AMD</code> support is found, SelectBoxIt is wrapped in a define <code>module</code>.
+<code>AMD Support</code>.  If <code>AMD</code> support is found, SelectBoxIt is wrapped in a define <code>module</code>.
 	  
 <a href="https://github.com/umdjs/umd/blob/master/jqueryPlugin.js" target="_blank">UMD Patterns</a>
 
 <br /><br />
 
-* Bug fixes for supporting the <code>disabled</code> HTML property for individual select box options
+Bug fixes for supporting the <code>disabled</code> HTML property for individual select box options
 
 <br /><br />
 <br />
@@ -159,15 +300,15 @@ Greg Franko</p>
 
 <br /><br />
 
-* A new option, <code>defaultText</code>, was added to allow users to specify the default text of the dropdown list that is not linked to a specific select box option
+A new option, <code>defaultText</code>, was added to allow users to specify the default text of the dropdown list that is not linked to a specific select box option
 
 <br /><br />
 
-* The <code>disabled</code> HTML property is now supported for individual select box options
+The <code>disabled</code> HTML property is now supported for individual select box options
 
 <br /><br />
 
-* When a user presses the <code>esc</code> keyboard key, the dropdown options list will now close (become hidden)
+When a user presses the <code>esc</code> keyboard key, the dropdown options list will now close (become hidden)
 
 <br /><br />
 <hr />
@@ -175,15 +316,15 @@ Greg Franko</p>
 
 <br /><br />
 
-* This release requires you to use jQuery 1.6.1+.
+This release requires you to use jQuery 1.6.1+.
 
 <br /><br />
 
-* You are no longer required to have select box option values be the same as the select box option text.
+You are no longer required to have select box option values be the same as the select box option text.
 
 <br />
 
-* IE bug fix to prevent default dropdown text from being selectable
+IE bug fix to prevent default dropdown text from being selectable
 
 <br /><br />
 <hr />
@@ -217,11 +358,15 @@ Greg Franko</p>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script src="http://www.gregfranko.com/javascripts/jQuery.selectBoxIt.min.js"></script>
-
+    <script src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
     <script>
     $(function() {
-        var selectBox = $("select#test").selectBoxIt({ showEffect: "slideDown", showEffectSpeed: 400, hideEffect: "slideUp", hideEffectSpeed: 400 }).data("selectBoxIt");
-    });        
+
+       $("#test, #icons, #disable, #optgroups").selectBoxIt().data("selectBoxIt");
+       $("#switcher").themeswitcher();
+       $("#jqueryeffects").selectBoxIt({ showEffect: "slideDown", showEffectSpeed: 400, hideEffect: "slideUp", hideEffectSpeed: 400 }).data("selectBoxIt");        
+       });
+       $("#jqueryuieffects").selectBoxIt({ showEffect: "bounce", showEffectOptions: {times: 2}, hideEffect: "explode" }).data("selectBoxIt");
     </script>
 
   </body>

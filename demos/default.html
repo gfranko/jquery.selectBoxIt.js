@@ -6,37 +6,32 @@
 </head>
 <body>
 <form>
-
 <select id="test" name="test">
 <option value="Select a Month">Select a Month</option>
-<option value="January">January</option>
-<option value="February">February</option>
-<option value="March">March</option>
-<option value="April">April</option>
-<option value="May">May</option>
-<option value="June">June</option>
-<option value="July">July</option>
-<option value="August">August</option>
-<option value="September">September</option>
-<option value="October">October</option>
-<option value="November">November</option>
-<option value="December">December</option>
+<optgroup label="Winter">
+  <option value="December">December</option>
+  <option value="January">January</option>
+  <option value="February">February</option>
+</optgroup>
+<optgroup label="Spring">
+  <option value="March">March</option>
+  <option value="April">April</option>
+  <option value="May">May</option>
+</optgroup>
+<optgroup label="Summer">
+  <option value="June">June</option>
+  <option value="July">July</option>
+  <option value="August">August</option>
+</optgroup>
+<optgroup label="Fall">
+  <option value="September">September</option>
+  <option value="October">October</option>
+  <option value="November">November</option>
+</optgroup>
 </select>
 
 <br /><br />
 
-    <select name="food">
-        <optgroup label="Fruit">
-            <option>Apples</option>
-            <option>Bananas</option>
-            <option>Oranges</option>
-        </optgroup>
-        <optgroup label="Veges">
-            <option>Beans</option>
-            <option>Carrots</option>
-            <option>Peas</option>
-        </optgroup>
-    </select>
 
 </form>
 
@@ -46,6 +41,9 @@
 <script>
 $(function() {
     var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+$("select#test").focus(function() {
+console.log('focused');
+});
 });
 </script>
  </body>

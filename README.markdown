@@ -31,7 +31,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 	- Passes jsHint with no errors
 
-	- Selected and Disabled Support
+	- Selected, Disabled, and Optgroup Support
 
 	- Easily extendable to allow developers to create new widgets
 
@@ -61,6 +61,12 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 For more documentation on how to do this, take a look at the [documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit/#extending-selectboxit)
 
 ##Change Log
+
+`0.7.0` - May 10, 2012 [Documentation](http://localhost:4000/blog/introducing-the-jquery-plugin-selectboxit/#optgroup-support)
+
+- Added optgroup support to allow dropdown list options to be put in subgroups.
+
+- Bug fixes to the `change` and `focus` Event API handlers
 
 `0.6.0` - May 3, 2012 [Documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit/#using-icons)
 

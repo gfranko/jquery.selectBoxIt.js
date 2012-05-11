@@ -1,8 +1,8 @@
-/* jquery Selectboxit - v0.6.0 - 2012-04-28
+/* jquery Selectboxit - v0.7.0 - 2012-05-10
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
-//Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that I anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed.
+//Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
 
 (function (selectBoxIt) {
 
@@ -26,7 +26,7 @@
 
         //Plugin version
 
-        version: "0.6.0",
+        version: "0.7.0",
 
         // These options will be used as defaults
         options: {
@@ -173,11 +173,11 @@
                 //Sets the div `name` attribute to be the same name as the original select box
                 name: this.originalElem.name,
 
-                //IE specific attribute to not allow the element to be selected
-                unselectable: "on",
-
                 //Sets the div `tabindex` attribute to 0 to allow the div to be focusable 
-                tabindex: 0
+                tabindex: 0,
+
+                //IE specific attribute to not allow the element to be selected
+                unselectable: "on"
             }).
 
             //Appends the default text to the inner dropdown list div element
@@ -207,6 +207,10 @@
 
                 dataDisabled,
 
+                optgroupClass = "",
+
+                optgroupElement = "",
+
                 iconClass,
 
                 //Declaring the variable that will hold all of the dropdown list option elements
@@ -233,9 +237,27 @@
                 dataDisabled = $(this).prop("disabled");
 
                 iconClass = $(this).data("icon") || "";
+
+                if($(this).parent().is("optgroup")) {
+
+                    optgroupClass = "optgroupOption";
+
+                    if($(this).index() === 0) {
+
+                         optgroupElement = '<div class="optgroupHeader" data-disabled="true">' + $(this).parent().first().attr("label") + '</div>';
+
+                    }
+
+                    else {
+
+                        optgroupElement = "";
+
+                    }
+
+                }
                 
                 //Uses string concatenation instead of append for speed since the number of dropdown list options is unknown.
-                currentItem += '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '"><span class="' + iconClass + '"></span>' + $(this).text() + '</li>';
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><span class="' + iconClass + '"></span>' + $(this).text() + '</li>';
                 
                 //Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -282,7 +304,7 @@
             this.listItems = this.list.find("li");
 
             //Set the disabled CSS class for select box options 
-            this.list.find("li[data-disabled='true']").addClass("ui-state-disabled");
+            this.list.find("li[data-disabled='true']").not(".optgroupHeader").addClass("ui-state-disabled");
 
             //If the first select box option is disabled, and the user has chosen to not show the first select box option
             if (this.currentFocus === 0 && !this.options.showFirstOption && this.listItems.eq(0).hasClass("ui-state-disabled")) {
@@ -367,7 +389,7 @@
         //_Scroll-To-View
         // -------------
         //      Updates the dropdown list scrollTop value
-        _scrollToView: function(type, moves) {
+        _scrollToView: function(type) {
 
             //The current scroll positioning of the dropdown list options list
             var listScrollTop = this.list.scrollTop(),
@@ -407,8 +429,7 @@
                 //Decreases the dropdown list option list `scrollTop` if a user is navigating to an element that is not visible
                 if (currentTopPosition < -1) {
 
-                    //Decreases the dropdown list option `scrollTop` by the height of the current option item.
-                    this.list.scrollTop(listScrollTop - (currentItemHeight * moves));
+                    this.list.scrollTop(listScrollTop - Math.abs(this.listItems.eq(this.currentFocus).position().top));
 
                 }
             }
@@ -420,7 +441,7 @@
                 if (listHeight - currentTopPosition < currentItemHeight) {
 
                     //Increases the dropdown list options `scrollTop` by the height of the current option item.
-                    this.list.scrollTop((listScrollTop + (currentItemHeight * moves)));
+                    this.list.scrollTop((listScrollTop + (Math.abs(this.listItems.eq(this.currentFocus).position().top) - listHeight + currentItemHeight)));
 
                 }
             }
@@ -654,13 +675,10 @@
             //Increments `currentFocus`, which represents the currently focused list item `id` attribute.
             this.currentFocus += 1;
 
-            //Represents how many times the user has to skip options because other options are disabled
-            var moves = 1,
+            //Determines whether the dropdown option the user is trying to go to is currently disabled
+            var disabled = this.listItems.eq(this.currentFocus).data("disabled"),
 
-                //Determines whether the dropdown option the user is trying to go to is currently disabled
-                disabled = this.listItems.eq(this.currentFocus).data("disabled"),
-
-                hasNextEnabled = this.listItems.eq(this.currentFocus).nextAll("li").not(".ui-state-disabled").length;
+                hasNextEnabled = this.listItems.eq(this.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
 
             //If the user has reached the top of the list
             if (this.currentFocus === this.listItems.length) {
@@ -669,19 +687,20 @@
                 this.currentFocus -= 1;
             }
 
-            //If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list
+            //If the option the user is trying to go to is disabled, but there is another enabled option
             else if (disabled && hasNextEnabled) {
 
                 //Blur the previously selected option
                 this.listItems.eq(this.currentFocus - 1).blur();
 
-                //Call the `moveUp` method again
+                //Call the `moveDown` method again
                 this.moveDown();
 
                 //Exit the method
                 return;
             }
 
+            //If the option the user is trying to go to is disabled, but there is not another enabled option
             else if (disabled && !hasNextEnabled) {
 
                 this.currentFocus -= 1;
@@ -697,14 +716,8 @@
                 //Focuses the currently focused list item
                 eq(this.currentFocus).focus();
 
-                //The `id` attribute of the previous dropdown option that is not currently `disabled`
-                var prevDisabledId = +this.listItems.eq(this.currentFocus).prevAll("li").not(".ui-state-disabled").attr("id");
-
-                //How many dropdown options the user had to go to find an option that was not disabled
-                moves = Math.abs(this.currentFocus - prevDisabledId);
-
                 //Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
-                this._scrollToView("down", moves);
+                this._scrollToView("down");
 
                 //Triggers the custom `moveDown` event on the original select box
                 this.selectBox.trigger("moveDown");
@@ -725,13 +738,10 @@
             //Increments `currentFocus`, which represents the currently focused list item `id` attribute.
             this.currentFocus -= 1;
 
-            //Represents how many times the user has to skip options because other options are disabled
-            var moves = 1,
+            //Determines whether the dropdown option the user is trying to go to is currently disabled
+            var disabled = this.listItems.eq(this.currentFocus).data("disabled"),
 
-                //Determines whether the dropdown option the user is trying to go to is currently disabled
-                disabled = this.listItems.eq(this.currentFocus).data("disabled"),
-
-                hasPreviousEnabled = this.listItems.eq(this.currentFocus).prevAll("li").not(".ui-state-disabled").length;
+                hasPreviousEnabled = this.listItems.eq(this.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
 
             //If the user has reached the top of the list
             if (this.currentFocus === -1) {
@@ -767,14 +777,8 @@
                 //Focuses the currently focused list item
                 eq(this.currentFocus).focus();
 
-                //The `id` attribute of the previous dropdown option that is not currently `disabled`
-                var prevDisabledId = +this.listItems.eq(this.currentFocus).nextAll("li").not(".ui-state-disabled").attr("id");
-
-                //How many dropdown options the user had to go to find an option that was not disabled
-                moves = Math.abs(this.currentFocus - prevDisabledId);
-
                 //Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
-                this._scrollToView("up", moves);
+                this._scrollToView("up");
 
                 //Triggers the custom `moveDown` event on the original select box
                 this.selectBox.trigger("moveUp");
@@ -793,7 +797,7 @@
         _setCurrentSearchOption: function(currentOption) {
 
             //Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.  Otherwise, the current option value is updated
-            if (!(currentOption === 0 && !this.options.showFirstOption) && !this.listItems.eq(currentOption).hasClass("ui-state-disabled")) {
+            if (!(currentOption === 0 && !this.options.showFirstOption) && this.listItems.eq(currentOption).not("[data-disabled='true']")) {
 
                 //Updates the default dropdown list text
                 this.divText.text(this.textArray[currentOption]);
@@ -975,6 +979,12 @@
                 //`click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt": function() {
 
+                    if(!self.div.is(":focus")) {
+
+                        $(this).focus();
+
+                    }
+
                     //The `click` handler logic will only be applied if the dropdown list is enabled
                     if (!self.originalElem.disabled) {
 
@@ -1024,7 +1034,7 @@
                     }
                 },
 
-                "focus.selectBoxIt": function(event, data) {
+                "focus.selectBoxIt": function() {
 
                     //Stores the data associated with the mousedown event inside of a local variable
                     var mdown = $(this).data("mdown");
@@ -1033,16 +1043,18 @@
                     $(this).removeData('mdown');
 
                     //If a mousedown event did not occur and no data was passed to the focus event (this correctly triggers the focus event), then the dropdown list gained focus from a tabstop
-                    if (!data && !mdown) {
+                    if (!mdown) {
 
                         //Triggers the `tabFocus` custom event on the original select box
                         self.selectBox.trigger("tabFocus");
                     }
 
-                    //If no data was passed to the focus event (this correctly triggers the focus event)
-                    if (!data) {
+                    //Only trigger the `focus` event on the original select box if the dropdown list is hidden (this verifies that only the correct `focus` events are used to trigger the event on the original select box
+                    if(!self.list.is(":visible")) {
+
                         //Triggers the `focus` default event on the original select box
                         self.selectBox.trigger("focus").trigger("focusin");
+                
                     }
                 },
 
@@ -1099,7 +1111,7 @@
                             }
 
                             //If the first dropdown list option is not shown in the options list, and the dropdown list has not been interacted with, then update the dropdown list value when the enter key is pressed
-                            if (!self.options.showFirstOption && self.div.text() === self.firstSelectItem.text() && self.currentFocus === 0 || (self.options.showFirstOption && self.options.defaultText) || (!self.options.showFirstOption && self.listItems.eq(0).hasClass("ui-state-disabled"))) {
+                            if (!self.options.showFirstOption && self.div.text() === self.firstSelectItem.text() && self.currentFocus === 0 || (self.options.showFirstOption && self.options.defaultText) || (!self.options.showFirstOption && !self.listItems.eq(0).not("[data-disabled='true']"))) {
 
                                 //Updates the dropdown list value
                                 self.selectBox.val(self.listItems.eq(self.currentFocus).attr("data-val")).
@@ -1192,23 +1204,6 @@
 
             });
 
-            //Properly focuses the dropdown list (removes focus flicker in IE).
-            // The jQuery `add` method is used to bind the focus event for three elements.
-            // The `add` method adds a jQuery object to the set of matched selectors 
-            this.div.add(this.divText).add(this.downArrow).add(this.downArrowContainer).bind({
-                
-                //`click` event with the `selectBoxIt` namespace
-                "click.selectBoxIt": function() {
-                
-                    //If the dropdown list is not focused
-                    if (!self.div.is(":focus")) {
-                    
-                        //Focuses the dropdown list
-                        self.div.trigger("focus", true);
-                    }
-                }
-            });
-
             //Select box options events that set the dropdown list blur logic (decides when the dropdown list gets 
             //closed)
             this.list.bind({
@@ -1226,19 +1221,20 @@
                     //Allows the dropdown list options list to close
                     self.blur = true;
                 },
-                
+
                 //`focusin` event with the `selectBoxIt` namespace
                 "focusin.selectBoxIt": function() {
                 
                     //Prevents the default browser outline border to flicker, which results because of the `blur` event
-                    self.div.trigger("focus", true);
+                    self.div.focus();
                 }
+
             })
 
             //Select box individual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding individual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "click.selectBoxIt", function() {
                 
-                if (!$(this).hasClass("ui-state-disabled")) {
+                if (!$(this).data("disabled")) {
                 
                     //Sets the original dropdown list value and triggers the `change` event on the original select box
                     self.originalElem.value = $(this).attr("data-val");
@@ -1250,11 +1246,12 @@
                 
                     //Closes the list after selecting an option
                     self.close();
-                    //Triggers the dropdown list `change` event if a value change occurs
-                    if (self.originalElem.value !== self.divText.attr("data-val") || (self.options.
 
-                        defaultText !== self.originalElem.value)) {
+                    //Triggers the dropdown list `change` event if a value change occurs
+                    if (self.originalElem.value !== self.divText.attr("data-val")) {
+
                         self.selectBox.trigger("change");
+
                     }
                 }
             })
@@ -1262,13 +1259,17 @@
             //Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {
             
-                if (!$(this).hasClass("ui-state-disabled")) {
+                if (!$(this).data("disabled")) {
             
                     //Sets the original select box current value and triggers the change event
                     self.originalElem.value = $(this).attr("data-val");
             
-                    //Triggers a `change` event on the original select box
-                    self.selectBox.trigger("change");
+                    //Triggers the dropdown list `change` event if a value change occurs
+                    if (self.originalElem.value !== self.divText.attr("data-val")) {
+
+                        self.selectBox.trigger("change");
+
+                    }
                 }
             });
             

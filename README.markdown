@@ -62,6 +62,10 @@ For more documentation on how to do this, take a look at the [documentation](htt
 
 ##Change Log
 
+`0.8.0` - May 15, 2012 *Approaching a stable 1.0 release*
+
+- Bug fixes for the `disabled` use cases
+
 `0.7.0` - May 10, 2012 [Documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit/#optgroup-support)
 
 - Added optgroup support to allow dropdown list options to be put in subgroups.

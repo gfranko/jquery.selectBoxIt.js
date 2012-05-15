@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v0.7.0 - 2012-05-10
+/* jquery Selectboxit - v0.8.0 - 2012-05-15
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         //Plugin version
 
-        version: "0.7.0",
+        version: "0.8.0",
 
         // These options will be used as defaults
         options: {
@@ -741,7 +741,7 @@
             //Determines whether the dropdown option the user is trying to go to is currently disabled
             var disabled = this.listItems.eq(this.currentFocus).data("disabled"),
 
-                hasPreviousEnabled = this.listItems.eq(this.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
+                hasPreviousEnabled = this.listItems.eq(this.currentFocus).prevAll("li").not("[data-disabled='true']").first().length;
 
             //If the user has reached the top of the list
             if (this.currentFocus === -1) {
@@ -764,7 +764,9 @@
             }
 
             else if (disabled && !hasPreviousEnabled) {
+
                 this.currentFocus += 1;
+
             }
 
             //If the user has not reached the top of the unordered list
@@ -797,7 +799,7 @@
         _setCurrentSearchOption: function(currentOption) {
 
             //Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.  Otherwise, the current option value is updated
-            if (!(currentOption === 0 && !this.options.showFirstOption) && this.listItems.eq(currentOption).not("[data-disabled='true']")) {
+            if (!(currentOption === 0 && !this.options.showFirstOption) && this.listItems.eq(currentOption).data("disabled") !== true) {
 
                 //Updates the default dropdown list text
                 this.divText.text(this.textArray[currentOption]);

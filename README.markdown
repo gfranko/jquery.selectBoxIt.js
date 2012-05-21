@@ -62,6 +62,10 @@ For more documentation on how to do this, take a look at the [documentation](htt
 
 ##Change Log
 
+`0.9.0` - May 21, 2012 *Approaching a stable 1.0 release*
+
+- IE7 and IE8 bug fix: A special thanks to [lhwparis](https://github.com/lhwparis)
+
 `0.8.0` - May 15, 2012 *Approaching a stable 1.0 release*
 
 - Bug fixes for the `disabled` use cases

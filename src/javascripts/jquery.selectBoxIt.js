@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v0.8.0 - 2012-05-15
+/* jquery Selectboxit - v0.9.0 - 2012-05-21
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         //Plugin version
 
-        version: "0.8.0",
+        version: "0.9.0",
 
         // These options will be used as defaults
         options: {
@@ -181,7 +181,7 @@
             }).
 
             //Appends the default text to the inner dropdown list div element
-            append(this.divImage.after(this.divText));
+            append(this.divImage).append(this.divText);
 
             //Create the div container that will hold all of the dropdown list dom elements
             this.divContainer = $("<div/>", {

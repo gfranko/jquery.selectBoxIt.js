@@ -147,7 +147,9 @@
                 unselectable: "on",
 
                 //Sets the span `text` to equal the original select box default value
-                text: this.firstSelectItem.text()
+                text: this.firstSelectItem.text(),
+
+                class: 'select-box-it-text'
             }).
 
             //Sets the HTML5 data attribute on the divText `span` element
@@ -160,7 +162,9 @@
                 id: this.originalElem.id + "SelectBoxItDefaultIcon",
 
                 //IE specific attribute to not allow the element to be selected
-                unselectable: "on"
+                unselectable: "on",
+
+                class: 'select-box-it-default-icon'
 
             });
 
@@ -345,7 +349,9 @@
                 id: this.originalElem.id + "SelectBoxItArrow",
 
                 //IE specific attribute to not allow the dropdown list text to be selected
-                unselectable: "on"
+                unselectable: "on",
+
+                class: 'select-box-it-arrow'
 
             });
 
@@ -359,7 +365,9 @@
                 unselectable: "on",
 
                 //The dynamic CSS of the down arrow container element
-                style: "height:" + height + "px;"
+                style: "height:" + height + "px;",
+
+                class: 'select-box-it-arrow-container'
 
             }).
 

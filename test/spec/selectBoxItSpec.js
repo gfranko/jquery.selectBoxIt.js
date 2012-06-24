@@ -31,9 +31,15 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             });
 
-            it("should add the 'selectBoxIt' class to the new div container element", function() {
+            it("should add a css class to the new div container element", function() {
 
-                expect(selectBoxIt.divContainer).toHaveClass("selectBoxIt");
+                expect(selectBoxIt.divContainer).toHaveClass("select-box-it-container");
+
+            });
+
+            it("should add a css class to the new div element", function() {
+
+                expect(selectBoxIt.div).toHaveClass("select-box-it");
 
             });
 

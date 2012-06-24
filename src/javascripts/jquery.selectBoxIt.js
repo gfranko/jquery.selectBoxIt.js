@@ -177,7 +177,9 @@
                 tabindex: 0,
 
                 //IE specific attribute to not allow the element to be selected
-                unselectable: "on"
+                unselectable: "on",
+
+                class: 'select-box-it'
             }).
 
             //Appends the default text to the inner dropdown list div element
@@ -186,7 +188,7 @@
             //Create the div container that will hold all of the dropdown list dom elements
             this.divContainer = $("<div/>", {
                 id: this.originalElem.id + "SelectBoxItContainer",
-                class: "selectBoxIt"
+                class: 'select-box-it-container'
             }).
 
             //Appends the inner dropdown list div element to the dropdown list container div element

@@ -1,6 +1,22 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
+  var min = {};
+  [
+    'ariaAccessibility',
+    'disable',
+    'enable',
+    'destroy',
+    'setOption',
+    'setOptions',
+    'wait'
+  ].forEach(function(name) {
+    min[name] = {
+      src: 'src/javascripts/jquery.selectBoxIt.' + name + '.js',
+      dest: 'src/javascripts/jquery.selectBoxIt.' + name + '.min.js'
+    };
+  });
+
   // Project configuration.
   grunt.initConfig({
     pkg: '<json:package.json>',
@@ -17,40 +33,9 @@ module.exports = function(grunt) {
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
-    min: {
-      accessibility: {
-        src: ['src/javascripts/jquery.selectBoxIt.ariaAccessibility.js'],
-        dest: 'src/javascripts/jquery.selectBoxIt.ariaAccessibility.min.js'
-      },
-      disable: {
-        src: ['src/javascripts/jquery.selectBoxIt.disable.js'],
-        dest: 'src/javascripts/jquery.selectBoxIt.disable.min.js'
-      },
-      enable: {
-        src: ['src/javascripts/jquery.selectBoxIt.enable.js'],
-        dest: 'src/javascripts/jquery.selectBoxIt.enable.min.js'
-      },
-      destroy: {
-        src: ['src/javascripts/jquery.selectBoxIt.destroy.js'],
-        dest: 'src/javascripts/jquery.selectBoxIt.destroy.min.js'
-      },
-      selectBoxIt: {
-        src: ['src/javascripts/jquery.selectBoxIt.enable.js'],
-        dest: 'src/javascripts/jquery.selectBoxIt.enable.min.js'
-      },
-      setOption: {
-        src: ['src/javascripts/jquery.selectBoxIt.setOption.js'],
-        dest: 'src/javascripts/jquery.selectBoxIt.setOption.min.js'
-      },
-      setOptions: {
-        src: ['src/javascripts/jquery.selectBoxIt.setOptions.js'],
-        dest: 'src/javascripts/jquery.selectBoxIt.setOptions.min.js'
-      },
-      wait: {
-        src: ['src/javascripts/jquery.selectBoxIt.wait.js'],
-        dest: 'src/javascripts/jquery.selectBoxIt.wait.min.js'
-      }
-    },
+
+    min: min,
+
     jasmine: {
       all: {
         src:['test/SpecRunner.html'],

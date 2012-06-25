@@ -1362,8 +1362,8 @@
         _jqueryUI: function() {
 
             var self = this;
-            var focusClass = this.options.jqueryUI ? 'ui-state-focus' : 'select-box-it-focus';
-            var hoverClass = this.options.jqueryUI ? 'ui-state-hover' : 'select-box-it-hover';
+            var focusClass = this.options.jqueryUI ? 'ui-state-focus' : 'selectboxit-focus';
+            var hoverClass = this.options.jqueryUI ? 'ui-state-hover' : 'selectboxit-hover';
 
             if (this.options.jqueryUI) {
 

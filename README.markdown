@@ -130,7 +130,8 @@ For more documentation on how to do this, take a look at the [documentation](htt
 - Initial SelectBoxIt release.  Added annotated source code, unit tests, and documentation
 
 **Contributors**
-Greg Franko
+Greg Franko - @gfranko
+Thomas von Deyen - @tvdeyen
 
 ## License
 Copyright (c) 2012 Greg Franko  

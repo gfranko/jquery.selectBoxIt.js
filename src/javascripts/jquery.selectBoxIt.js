@@ -69,7 +69,10 @@
             downArrowIcon: "",
 
             //**dynamicPositioning**: Enables dynamic positioning, that displays the dropdown list on top of the select box if no space is left below. Accepts Boolean: true or false
-            dynamicPositioning: true
+            dynamicPositioning: true,
+
+            //**jqueryUI**: Adds jQueryUI classes to the dropdown list if set to true. Accepts Boolean: true or false
+            jqueryUI: true
 
         },
 
@@ -427,7 +430,7 @@
 
             });
 
-            this.downArrow.addClass(this.selectBox.data("downarrow") || this.options.downArrowIcon || "ui-icon ui-icon-triangle-1-s");
+            this.downArrow.addClass(this.selectBox.data("downarrow") || this.options.downArrowIcon || (this.options.jqueryUI && "ui-icon ui-icon-triangle-1-s"));
 
             //Maintains chainability
             return this;
@@ -1364,12 +1367,18 @@
         _jqueryUI: function() {
 
             var self = this;
+            var focusClass = this.options.jqueryUI ? 'ui-state-focus' : 'selectboxit-focus';
+            var hoverClass = this.options.jqueryUI ? 'ui-state-hover' : 'selectboxit-hover';
 
-            //Adds the default styling to the dropdown list
-            this.div.addClass("ui-widget ui-state-default");
+            if (this.options.jqueryUI) {
 
-            //Adds the default styling for the dropdown list options
-            this.list.addClass("ui-widget ui-widget-content");
+                //Adds the default styling to the dropdown list
+                this.div.addClass("ui-widget ui-state-default");
+
+                //Adds the default styling for the dropdown list options
+                this.list.addClass("ui-widget ui-widget-content");
+
+            }
 
             //Select box individual option events
             this.listItems.bind({
@@ -1378,7 +1387,7 @@
                 "focus.selectBoxIt": function() {
 
                     //Adds the focus CSS class to the currently focused dropdown list option
-                    $(this).addClass("ui-state-focus");
+                    $(this).addClass(focusClass);
 
                 },
 
@@ -1386,7 +1395,7 @@
                 "blur.selectBoxIt": function() {
 
                     //Removes the focus CSS class from the previously focused dropdown list option
-                    $(this).removeClass("ui-state-focus");
+                    $(this).removeClass(focusClass);
 
                 }
 
@@ -1400,18 +1409,18 @@
 
                     //Removes the jQueryUI hover class from the dropdown list and adds the jQueryUI focus class for both the dropdown list and the currently selected dropdown list option
 
-                    self.div.removeClass("ui-state-hover").add(self.listItems.eq(self.currentFocus)).
-                    addClass("ui-state-focus");
+                    self.div.removeClass(hoverClass).add(self.listItems.eq(self.currentFocus)).
+                    addClass(focusClass);
                 },
 
                 "blur.selectBoxIt": function() {
-                    self.div.removeClass("ui-state-focus");
+                    self.div.removeClass(focusClass);
                 },
 
                 //`mousenter` event with the `selectBoxIt` namespace
                 "mouseenter.selectBoxIt": function() {
 
-                    self.div.addClass("ui-state-hover");
+                    self.div.addClass(hoverClass);
 
                 },
 
@@ -1419,7 +1428,7 @@
                 "mouseleave.selectBoxIt": function() {
 
                     //Removes the hover CSS class on the previously hovered dropdown list option
-                    self.div.removeClass("ui-state-hover");
+                    self.div.removeClass(hoverClass);
 
                 }
 
@@ -1430,22 +1439,24 @@
                 "mouseenter.selectBoxIt": function() {
 
                     //Sets the dropdown list individual options back to the default state and sets the hover CSS class on the currently hovered option
-                    self.listItems.removeClass("ui-state-focus ui-state-hover");
+                    self.listItems.removeClass(focusClass, hoverClass);
 
-                    $(this).addClass("ui-state-hover");
+                    $(this).addClass(hoverClass);
 
                 },
 
                 "mouseleave.selectBoxIt": function() {
 
-                    $(this).removeClass("ui-state-hover");
+                    $(this).removeClass(hoverClass);
 
                 }
 
             });
 
-            //Adds the jqueryUI down arrow icon CSS class to the down arrow div
-            this.downArrow.css({ "margin-top": this.downArrowContainer.height()/3 });
+            if (this.options.jqueryUI) {
+                //Adds the jqueryUI down arrow icon CSS class to the down arrow div
+                this.downArrow.css({ "margin-top": this.downArrowContainer.height()/3 });
+            }
 
             //Maintains chainability
             return this;

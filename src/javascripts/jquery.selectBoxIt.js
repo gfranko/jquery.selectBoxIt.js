@@ -143,7 +143,7 @@
                 //Dynamically sets the span `id` attribute
                 "id": this.originalElem.id + "SelectBoxItText",
 
-                "class": "selectBoxItText",
+                "class": "selectboxit-text",
 
                 //IE specific attribute to not allow the element to be selected
                 "unselectable": "on",
@@ -162,7 +162,7 @@
                 //Dynamically sets the span `id` attribute
                 "id": this.originalElem.id + "SelectBoxItDefaultIcon",
 
-                "class": "selectBoxItDefaultIcon",
+                "class": "selectboxit-default-icon",
 
                 //IE specific attribute to not allow the element to be selected
                 "unselectable": "on"
@@ -175,7 +175,7 @@
                 //Dynamically sets the div `id` attribute
                 "id": this.originalElem.id + "SelectBoxIt",
 
-                "class": "selectBoxIt",
+                "class": "selectboxit",
 
                 //Sets the div `name` attribute to be the same name as the original select box
                 "name": this.originalElem.name,
@@ -196,7 +196,7 @@
 
                 "id": this.originalElem.id + "SelectBoxItContainer",
 
-                "class": "selectBoxItContainer"
+                "class": "selectboxit-container"
             }).
 
             //Appends the inner dropdown list div element to the dropdown list container div element
@@ -232,7 +232,7 @@
                     //Sets the unordered list `id` attribute
                     "id": this.originalElem.id + "SelectBoxItOptions",
 
-                    "class": "selectBoxItOptions",
+                    "class": "selectboxit-options",
 
                     //Sets the unordered list `tabindex` attribute to -1 to prevent the unordered list from being focusable
                     "tabindex": -1
@@ -254,13 +254,15 @@
 
                 iconClass = $(this).data("icon") || "";
 
+                // If the current option being traversed is within an optgroup
+
                 if($(this).parent().is("optgroup")) {
 
-                    optgroupClass = "optgroupOption";
+                    optgroupClass = "selectboxit-optgroup-option";
 
                     if($(this).index() === 0) {
 
-                         optgroupElement = '<div class="optgroupHeader" data-disabled="true">' + $(this).parent().first().attr("label") + '</div>';
+                         optgroupElement = '<div class="selectboxit-optgroup-header" data-disabled="true">' + $(this).parent().first().attr("label") + '</div>';
 
                     }
 
@@ -269,6 +271,14 @@
                         optgroupElement = "";
 
                     }
+
+                }
+
+                // If the current option being traversed is not within an optgroup
+
+                else {
+
+                    optgroupClass = "";
 
                 }
 
@@ -357,7 +367,7 @@
                 //Dynamically sets the span `id` attribute of the dropdown list down arrow
                 "id": this.originalElem.id + "SelectBoxItArrow",
 
-                "class": "selectBoxItArrow",
+                "class": "selectboxit-arrow",
 
                 //IE specific attribute to not allow the dropdown list text to be selected
                 "unselectable": "on"
@@ -370,7 +380,7 @@
                 //Dynamically sets the span `id` attribute for the down arrow container element
                 "id": this.originalElem.id + "SelectBoxItArrowContainer",
 
-                "class": "selectBoxItArrowContainer",
+                "class": "selectboxit-arrow-container",
 
                 //IE specific attribute to not allow the dropdown list text to be selected
                 "unselectable": "on",

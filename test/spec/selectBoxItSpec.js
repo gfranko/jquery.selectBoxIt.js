@@ -33,37 +33,37 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             it("should add a css class to the new div container element", function() {
 
-                expect(selectBoxIt.divContainer).toHaveClass("selectBoxItContainer");
+                expect(selectBoxIt.divContainer).toHaveClass("selectboxit-container");
 
             });
 
             it("should add a css class to the new span text element", function() {
 
-                expect(selectBoxIt.divText).toHaveClass("selectBoxItText");
+                expect(selectBoxIt.divText).toHaveClass("selectboxit-text");
 
             });
 
             it("should add a css class to the new span icon element", function() {
 
-                expect(selectBoxIt.divImage).toHaveClass("selectBoxItDefaultIcon");
+                expect(selectBoxIt.divImage).toHaveClass("selectboxit-default-icon");
 
             });
 
             it("should add a css class to the new span arrow element", function() {
 
-                expect(selectBoxIt.downArrowContainer).toHaveClass("selectBoxItArrowContainer");
+                expect(selectBoxIt.downArrowContainer).toHaveClass("selectboxit-arrow-container");
 
             });
 
             it("should add a css class to the new span arrow container element", function() {
 
-                expect(selectBoxIt.downArrow).toHaveClass("selectBoxItArrow");
+                expect(selectBoxIt.downArrow).toHaveClass("selectboxit-arrow");
 
             });
 
             it("should add a css class to the new div element", function() {
 
-                expect(selectBoxIt.div).toHaveClass("selectBoxIt");
+                expect(selectBoxIt.div).toHaveClass("selectboxit");
 
             });
 

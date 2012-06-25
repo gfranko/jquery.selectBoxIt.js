@@ -48,6 +48,7 @@ $(function() {
             this._callbackSupport(callback);
 
             return this;
-        }
+
+        };
 
 });

@@ -27,6 +27,6 @@ $(function() {
             //Maintains chainability
             return this;
 
-        }
+        };
 
 });

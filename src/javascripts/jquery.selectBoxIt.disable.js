@@ -43,7 +43,7 @@ $(function() {
         //If the original select box is disabled
         if (this.originalElem.disabled) {
 
-	        //Disables the dropdown list
+            //Disables the dropdown list
             this.disable();
         }
 

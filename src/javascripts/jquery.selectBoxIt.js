@@ -1131,6 +1131,9 @@
                             //If the plugin options allow keyboard navigation
                             if (self.options.keyboardNavigation) {
 
+                                //Opens the dropdown list
+                                self.open();
+
                                 //Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
                                 self.moveDown();
                             }
@@ -1145,6 +1148,9 @@
 
                             //If the plugin options allow keyboard navgiation
                             if (self.options.keyboardNavigation) {
+
+                                //Opens the dropdown list
+                                self.open();
 
                                 //Moves the focus up to the dropdown list option directly above the currently selected selectbox option
                                 self.moveUp();

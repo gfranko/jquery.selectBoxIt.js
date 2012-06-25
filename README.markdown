@@ -131,9 +131,9 @@ For more documentation on how to do this, take a look at the [documentation](htt
 
 **Contributors**
 
-Greg Franko - @gfranko
+Greg Franko - [@gfranko](https://github.com/gfranko)
 
-Thomas von Deyen - @tvdeyen
+Thomas von Deyen - [@tvdeyen](https://github.com/tvdeyen)
 
 ## License
 Copyright (c) 2012 Greg Franko  

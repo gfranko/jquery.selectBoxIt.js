@@ -141,15 +141,16 @@
             this.divText = $("<span/>", {
 
                 //Dynamically sets the span `id` attribute
-                id: this.originalElem.id + "SelectBoxItText",
+                "id": this.originalElem.id + "SelectBoxItText",
+
+                "class": "selectBoxItText",
 
                 //IE specific attribute to not allow the element to be selected
-                unselectable: "on",
+                "unselectable": "on",
 
                 //Sets the span `text` to equal the original select box default value
-                text: this.firstSelectItem.text(),
+                "text": this.firstSelectItem.text()
 
-                class: 'select-box-it-text'
             }).
 
             //Sets the HTML5 data attribute on the divText `span` element
@@ -159,12 +160,12 @@
             this.divImage = $("<span/>", {
 
                 //Dynamically sets the span `id` attribute
-                id: this.originalElem.id + "SelectBoxItDefaultIcon",
+                "id": this.originalElem.id + "SelectBoxItDefaultIcon",
+
+                "class": "selectBoxItDefaultIcon",
 
                 //IE specific attribute to not allow the element to be selected
-                unselectable: "on",
-
-                class: 'select-box-it-default-icon'
+                "unselectable": "on"
 
             });
 
@@ -172,18 +173,19 @@
             this.div = $("<div/>", {
 
                 //Dynamically sets the div `id` attribute
-                id: this.originalElem.id + "SelectBoxIt",
+                "id": this.originalElem.id + "SelectBoxIt",
+
+                "class": "selectBoxIt",
 
                 //Sets the div `name` attribute to be the same name as the original select box
-                name: this.originalElem.name,
+                "name": this.originalElem.name,
 
                 //Sets the div `tabindex` attribute to 0 to allow the div to be focusable
-                tabindex: 0,
+                "tabindex": 0,
 
                 //IE specific attribute to not allow the element to be selected
-                unselectable: "on",
+                "unselectable": "on"
 
-                class: 'select-box-it'
             }).
 
             //Appends the default text to the inner dropdown list div element
@@ -191,8 +193,10 @@
 
             //Create the div container that will hold all of the dropdown list dom elements
             this.divContainer = $("<div/>", {
-                id: this.originalElem.id + "SelectBoxItContainer",
-                class: 'select-box-it-container'
+
+                "id": this.originalElem.id + "SelectBoxItContainer",
+
+                "class": "selectBoxItContainer"
             }).
 
             //Appends the inner dropdown list div element to the dropdown list container div element
@@ -224,10 +228,15 @@
                 currentItem = "",
                 //Creates an unordered list element
                 createdList = $("<ul/>", {
+
                     //Sets the unordered list `id` attribute
-                    id: this.originalElem.id + "SelectBoxItOptions",
+                    "id": this.originalElem.id + "SelectBoxItOptions",
+
+                    "class": "selectBoxItOptions",
+
                     //Sets the unordered list `tabindex` attribute to -1 to prevent the unordered list from being focusable
-                    tabindex: -1
+                    "tabindex": -1
+
                 });
 
             //Checks `showFirstOption` plugin option to determine if the first dropdown list option should be shown in the options list.
@@ -321,7 +330,7 @@
 
             }
 
-            this.divImage.attr("class", this.selectBox.data("icon") || this.options.defaultIcon || this.listItems.eq(this.currentFocus).find("span").attr("class"));
+            this.divImage.addClass(this.selectBox.data("icon") || this.options.defaultIcon || this.listItems.eq(this.currentFocus).find("span").attr("class"));
 
             //Maintains chainability
             return this;
@@ -346,12 +355,12 @@
             this.downArrow = $("<span/>", {
 
                 //Dynamically sets the span `id` attribute of the dropdown list down arrow
-                id: this.originalElem.id + "SelectBoxItArrow",
+                "id": this.originalElem.id + "SelectBoxItArrow",
+
+                "class": "selectBoxItArrow",
 
                 //IE specific attribute to not allow the dropdown list text to be selected
-                unselectable: "on",
-
-                class: 'select-box-it-arrow'
+                "unselectable": "on"
 
             });
 
@@ -359,15 +368,15 @@
             this.downArrowContainer = $("<span/>", {
 
                 //Dynamically sets the span `id` attribute for the down arrow container element
-                id: this.originalElem.id + "SelectBoxItArrowContainer",
+                "id": this.originalElem.id + "SelectBoxItArrowContainer",
+
+                "class": "selectBoxItArrowContainer",
 
                 //IE specific attribute to not allow the dropdown list text to be selected
-                unselectable: "on",
+                "unselectable": "on",
 
                 //The dynamic CSS of the down arrow container element
-                style: "height:" + height + "px;",
-
-                class: 'select-box-it-arrow-container'
+                "style": "height:" + height + "px;"
 
             }).
 
@@ -379,19 +388,25 @@
 
             //Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             this.divText.css({
+
                 "line-height": this.div.css("height"),
+
                 "max-width": this.div.width() - (this.downArrowContainer.width() + this.divImage.width()) - 5
             });
 
             this.divImage.css({
+
                 "margin-top": height / 4
+
             });
 
             this.listItems.find("span").css({
+
                 "margin-top": height / 4
+
             });
 
-            this.downArrow.attr("class", this.selectBox.data("downarrow") || this.options.downArrowIcon || "ui-icon ui-icon-triangle-1-s");
+            this.downArrow.addClass(this.selectBox.data("downarrow") || this.options.downArrowIcon || "ui-icon ui-icon-triangle-1-s");
 
             //Maintains chainability
             return this;

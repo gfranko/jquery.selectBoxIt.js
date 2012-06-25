@@ -66,7 +66,10 @@
             defaultIcon: "",
 
             //**downArrowIcon**: Overrides the default down arrow used by the dropdown list to allow a user to specify a custom image.  Accepts a String (CSS class name(s)).
-            downArrowIcon: ""
+            downArrowIcon: "",
+
+            //**dynamicPositioning**: Enables dynamic positioning, that displays the dropdown list on top of the select box if no space is left below. Accepts Boolean: true or false
+            dynamicPositioning: true
 
         },
 
@@ -562,8 +565,10 @@
             //Triggers a custom "open" event on the original select box
             this.selectBox.trigger("open");
 
-            //Dynamically positions the dropdown list options list
-            this._dynamicPositioning();
+            if (this.options.dynamicPositioning) {
+                //Dynamically positions the dropdown list options list
+                this._dynamicPositioning();
+            }
 
             //Determines what jQuery effect to use when opening the dropdown list options list
             switch (this.options.showEffect) {

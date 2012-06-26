@@ -4,9 +4,14 @@ module.exports = function(grunt) {
   var min = {};
   [
     'ariaAccessibility',
+    'core',
     'disable',
-    'enable',
     'destroy',
+    'dynamicPositioning',
+    'enable',
+    'jqueryui',
+    'keyboardNavigation',
+    'keyboardSearch',
     'setOption',
     'setOptions',
     'wait'
@@ -43,7 +48,7 @@ module.exports = function(grunt) {
       }
     },
     lint: {
-      files: ['grunt.js','src/javascripts/jquery.selectBoxIt.ariaAccessibility.js', 'src/javascripts/jquery.selectBoxIt.disable.js', 'src/javascripts/jquery.selectBoxIt.enable.js', 'src/javascripts/jquery.selectBoxIt.destroy.js', 'src/javascripts/jquery.selectBoxIt.js', 'src/javascripts/jquery.selectBoxIt.setOption.js', 'src/javascripts/jquery.selectBoxIt.setOptions.js', 'src/javascripts/jquery.selectBoxIt.wait.js']
+      files: ['grunt.js','src/javascripts/jquery.selectBoxIt.ariaAccessibility.js', 'src/javascripts/jquery.selectBoxIt.core.js', 'src/javascripts/jquery.selectBoxIt.destroy.js', 'src/javascripts/jquery.selectBoxIt.disable.js', 'src/javascripts/jquery.selectBoxIt.dynamicPositioning.js', 'src/javascripts/jquery.selectBoxIt.enable.js', 'src/javascripts/jquery.selectBoxIt.jqueryui.js', 'src/javascripts/jquery.selectBoxIt.keyboardNavigation.js', 'src/javascripts/jquery.selectBoxIt.keyboardSearch.js', 'src/javascripts/jquery.selectBoxIt.setOption.js', 'src/javascripts/jquery.selectBoxIt.setOptions.js', 'src/javascripts/jquery.selectBoxIt.wait.js']
     },
     watch: {
       files: '<config:lint.files>',

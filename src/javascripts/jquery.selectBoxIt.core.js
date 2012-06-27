@@ -1127,4 +1127,4 @@
 
     });
 
-})); // End of plugin
+})); // End of core module

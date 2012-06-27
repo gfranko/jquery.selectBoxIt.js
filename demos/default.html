@@ -27,11 +27,21 @@
 
 <script src="../libs/jquery/jquery-1.7.2.min.js"></script>
 <script src="../libs/jqueryUI/jquery-ui-1.8.19.custom.min.js"></script>
-<script src="../src/javascripts/jquery.selectBoxIt.min.js"></script>
-
+<script src="../src/javascripts/jquery.selectBoxIt.ariaAccessibility.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.core.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.destroy.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.disable.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.dynamicPositioning.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.enable.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.jqueryui.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.keyboardNavigation.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.keyboardSearch.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.setOption.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.setOptions.js"></script>
+<script src="../src/javascripts/jquery.selectBoxIt.wait.js"></script>
 <script>
 $(function() {
-    var selectBox = $("select#test").selectBoxIt({jqueryUI: true }).data("selectBoxIt");
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
 });
 </script>
  </body>

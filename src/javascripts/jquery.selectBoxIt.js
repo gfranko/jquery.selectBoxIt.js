@@ -504,83 +504,84 @@
         //      Opens the dropdown list options list
         open: function(callback) {
 
-            var self = this;
+            if(!this.list.is(":visible")) {
 
-            // Triggers a custom "open" event on the original select box
-            this.selectBox.trigger("open");
+                var self = this;
 
-            if (this._dynamicPositioning) {
-                // Dynamically positions the dropdown list options list
-                this._dynamicPositioning();
-            }
+                // Triggers a custom "open" event on the original select box
+                this.selectBox.trigger("open");
 
-            // Determines what jQuery effect to use when opening the dropdown list options list
-            switch (this.options.showEffect) {
-
-                // Uses `no effect`
-            case "none":
-
-                // Does not require a callback function because this animation will complete before the call to `scrollToView`
-                this.list.show();
-
-                // Updates the list `scrollTop` attribute
-                this._scrollToView("search");
-
-                break;
-
-                // Uses the jQuery `show` special effect
-            case "show":
-
-                // Requires a callback function to determine when the `show` animation is complete
-                this.list.show(this.options.showEffectSpeed, function() {
-
-                    // Updates the list `scrollTop` attribute
-                    self._scrollToView("search");
-
-                });
-
-                break;
-
-                // Uses the jQuery `slideDown` special effect
-            case "slideDown":
-
-                // Requires a callback function to determine when the `slideDown` animation is complete
-                this.list.slideDown(this.options.showEffectSpeed, function() {
-
-                    // Updates the list `scrollTop` attribute
-                    self._scrollToView("search");
-
-                });
-
-                break;
-
-                // Uses the jQuery `fadeIn` special effect
-            case "fadeIn":
-
-                // Does not require a callback function because this animation will complete before the call to `scrollToView`
-                this.list.fadeIn(this.options.showEffectSpeed);
-
-                // Updates the list `scrollTop` attribute
-                this._scrollToView("search");
-
-                break;
-
-                // If none of the above options were passed, then a `jqueryUI show effect` is expected
-            default:
-
-                // Makes sure the dropdown list options list is not visible
-                if (!this.list.is(":visible")) {
-
-                    // Allows for custom show effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/show/)
-                    this.list.show(this.options.showEffect, this.options.showEffectOptions, this.options.showEffectSpeed, function() {
-
-                        // Updates the list `scrollTop` attribute
-                        self._scrollToView("search");
-
-                    });
+                if (this._dynamicPositioning) {
+                    // Dynamically positions the dropdown list options list
+                    this._dynamicPositioning();
                 }
 
-                break;
+                // Determines what jQuery effect to use when opening the dropdown list options list
+                switch (this.options.showEffect) {
+
+                    // Uses `no effect`
+                    case "none":
+
+                        // Does not require a callback function because this animation will complete before the call to `scrollToView`
+                        this.list.show();
+
+                       // Updates the list `scrollTop` attribute
+                       this._scrollToView("search");
+
+                    break;
+
+                    // Uses the jQuery `show` special effect
+                    case "show":
+
+                        // Requires a callback function to determine when the `show` animation is complete
+                        this.list.show(this.options.showEffectSpeed, function() {
+
+                            // Updates the list `scrollTop` attribute
+                            self._scrollToView("search");
+
+                        });
+
+                    break;
+
+                   // Uses the jQuery `slideDown` special effect
+                   case "slideDown":
+
+                       // Requires a callback function to determine when the `slideDown` animation is complete
+                       this.list.slideDown(this.options.showEffectSpeed, function() {
+
+                           // Updates the list `scrollTop` attribute
+                           self._scrollToView("search");
+
+                       });
+
+                   break;
+
+                  // Uses the jQuery `fadeIn` special effect
+                  case "fadeIn":
+
+                      // Does not require a callback function because this animation will complete before the call to `scrollToView`
+                      this.list.fadeIn(this.options.showEffectSpeed);
+
+                      // Updates the list `scrollTop` attribute
+                      this._scrollToView("search");
+
+                  break;
+
+                  // If none of the above options were passed, then a `jqueryUI show effect` is expected
+                  default:
+
+                     // Allows for custom show effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/show/)
+                     this.list.show(this.options.showEffect, this.options.showEffectOptions, this.options.showEffectSpeed, function() {
+
+                         // Updates the list `scrollTop` attribute
+                         self._scrollToView("search");
+
+                     });
+
+                 break;
+
+                }
+
             }
 
             // Provide callback function support
@@ -595,62 +596,62 @@
         //      Closes the dropdown list options list
         close: function(callback) {
 
-            var self = this;
+            if(this.list.is(":visible")) {
 
-            // Triggers a custom "close" event on the original select box
-            this.selectBox.trigger("close");
+                var self = this;
 
-            // Determines what jQuery effect to use when closing the dropdown list options list
-            switch (this.options.hideEffect) {
+                // Triggers a custom "close" event on the original select box
+                this.selectBox.trigger("close");
 
-                // Uses `no effect`
-            case "none":
+                // Determines what jQuery effect to use when closing the dropdown list options list
+                switch (this.options.hideEffect) {
 
-                // Does not require a callback function because this animation will complete before the call to `scrollToView`
-                this.list.hide();
+                    // Uses `no effect`
+                    case "none":
 
-                // Updates the list `scrollTop` attribute
-                this._scrollToView("search");
+                        // Does not require a callback function because this animation will complete before the call to `scrollToView`
+                        this.list.hide();
 
-                break;
+                        // Updates the list `scrollTop` attribute
+                        this._scrollToView("search");
 
-                // Uses the jQuery `hide` special effect
-            case "hide":
+                    break;
 
-                this.list.hide(this.options.hideEffectSpeed);
+                    // Uses the jQuery `hide` special effect
+                    case "hide":
 
-                break;
+                        this.list.hide(this.options.hideEffectSpeed);
 
-                // Uses the jQuery `slideUp` special effect
-            case "slideUp":
+                    break;
 
-                this.list.slideUp(this.options.hideEffectSpeed);
+                    // Uses the jQuery `slideUp` special effect
+                    case "slideUp":
 
-                break;
+                    this.list.slideUp(this.options.hideEffectSpeed);
 
-                // Uses the jQuery `fadeOut` special effect
-            case "fadeOut":
+                    break;
 
-                this.list.fadeOut(this.options.hideEffectSpeed);
+                    // Uses the jQuery `fadeOut` special effect
+                    case "fadeOut":
 
-                break;
+                        this.list.fadeOut(this.options.hideEffectSpeed);
 
-                // If none of the above options were passed, then a `jqueryUI hide effect` is expected
-            default:
+                    break;
 
-                // Makes sure the dropdown list options list is visible
-                if (this.list.is(":visible")) {
+                    // If none of the above options were passed, then a `jqueryUI hide effect` is expected
+                    default:
 
-                    // Allows for custom hide effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/hide/)
-                    this.list.hide(this.options.hideEffect, this.options.hideEffectOptions, this.options.hideEffectSpeed, function() {
+                        // Allows for custom hide effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/hide/)
+                        this.list.hide(this.options.hideEffect, this.options.hideEffectOptions, this.options.hideEffectSpeed, function() {
 
-                        //Updates the list `scrollTop` attribute
-                        self._scrollToView("search");
+                            //Updates the list `scrollTop` attribute
+                            self._scrollToView("search");
 
-                    });
+                        });
+
+                    break;
                 }
 
-                break;
             }
 
             // Provide callback function support

@@ -125,8 +125,6 @@
 
             }
 
-            
-
             // Adds jQueryUI classes to the dropdown list if the jqueryUI option is set to true
             this._addClasses();
 

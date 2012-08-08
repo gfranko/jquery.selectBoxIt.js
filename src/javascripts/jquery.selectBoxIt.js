@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v1.0.0 - 2012-08-8
+/* jquery Selectboxit - v0.9.0 - 2012-05-21
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        version: "1.0.0",
+        version: "0.9.0",
 
         // These options will be used as defaults
         options: {
@@ -1013,7 +1013,7 @@
 
                     if(self.listItems.eq(self.currentFocus).find("span").attr("class")) {
 
-                        self.divImage.attr("class", self.listItems.eq(self.currentFocus).find("span").attr("class"));
+                        self.divImage.attr("class", self.listItems.eq(self.currentFocus).find("span").attr("class")).addClass("selectboxit-default-icon");
                     }
                 },
 

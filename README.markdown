@@ -62,6 +62,14 @@ For more documentation on how to do this, take a look at the [documentation](htt
 
 ##Change Log
 
+`1.0.0` - August 8, 2012 *Stable 1.0 release*
+
+- Upgraded Homepage/Documentation
+
+- The plugin was split into modules (multiple files) and a custom build process was created
+
+- Big fixes/code clean up
+
 `0.9.0` - May 21, 2012 *Approaching a stable 1.0 release*
 
 - IE7 and IE8 bug fix: A special thanks to [lhwparis](https://github.com/lhwparis)

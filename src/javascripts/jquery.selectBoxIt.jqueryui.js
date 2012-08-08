@@ -1,10 +1,10 @@
 $(function() {
 
-     // _addClasses
+     // _jqueryui
      // ---------
      //      Adds SelectBoxIt CSS classes
 
-    $.selectBox.selectBoxIt.prototype._addClasses = function() {
+    $.selectBox.selectBoxIt.prototype._jqueryui = function() {
         var self = this,
 
             focusClass = "ui-state-focus",

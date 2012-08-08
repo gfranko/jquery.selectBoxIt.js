@@ -3,11 +3,11 @@ describe('selectBoxIt jQuery Plugin', function () {
 
     beforeEach(function() {
 
-    setFixtures('<select id="test" data-icon="ui-icon ui-icon-power" data-text="Testing"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>');
+        setFixtures('<select id="test" data-icon="ui-icon ui-icon-power" data-text="Testing"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>');
 
-    spyOnEvent($("select#test"), "create");
+        spyOnEvent($("select#test"), "create");
 
-    selectBoxIt = $("select#test").selectBoxIt().data("selectBoxIt");
+        selectBoxIt = $("select#test").selectBoxIt().data("selectBoxIt");
 
     });
 
@@ -208,7 +208,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             spyOnEvent(selectBoxIt.selectBox, "close");
 
-            selectBoxIt.close();
+            selectBoxIt.open().close();
 
         });
 

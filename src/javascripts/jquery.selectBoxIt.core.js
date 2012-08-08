@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v0.9.0 - 2012-05-21
+/* jquery Selectboxit - v1.0.0 - 2012-08-8
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        version: "0.9.0",
+        version: "1.0.0",
 
         // These options will be used as defaults
         options: {
@@ -118,6 +118,7 @@
 
             }
 
+            // If the Aria Accessibility Module has been included
             if(this._ariaAccessibility) {
 
                 // Adds ARIA accessibillity tags to the dropdown list
@@ -125,8 +126,15 @@
 
             }
 
-            // Adds jQueryUI classes to the dropdown list if the jqueryUI option is set to true
+            // Adds regular classes to the dropdown list
             this._addClasses();
+
+            if(this._jqueryui) {
+
+                // Adds jQueryUI classes to the dropdown list
+                this._jqueryui();  
+
+            }
 
             // Triggers a custom `create` event on the original dropdown list
             this.selectBox.trigger("create");
@@ -757,7 +765,7 @@
                     if (!mdown) {
 
                         // Triggers the `tabFocus` custom event on the original select box
-                        self.selectBox.trigger("tabFocus");
+                        self.selectBox.trigger("tab-focus");
                     }
 
                     // Only trigger the `focus` event on the original select box if the dropdown list is hidden (this verifies that only the correct `focus` events are used to trigger the event on the original select box
@@ -844,8 +852,8 @@
                             // If the user presses the `tab key`
                             case tabKey:
 
-                                // Triggers the custom `tabBlur` events on the original select box
-                                self.selectBox.trigger("tabBlur");
+                                // Triggers the custom `tab-blur` event on the original select box
+                                self.selectBox.trigger("tab-blur");
 
                                 break;
 
@@ -971,6 +979,9 @@
                         self.selectBox.trigger("change");
 
                     }
+
+                    // Triggers the custom option-click event on the original select box
+                    self.selectBox.trigger("option-click");
                 }
             })
 

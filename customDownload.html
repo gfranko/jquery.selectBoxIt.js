@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>DownloadBuilder.js by Greg Franko</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/black-tie/jquery-ui.css" rel="stylesheet">
+    <link href="css/prettify.css" type="text/css" rel="stylesheet" />
+    <link href="css/styles.css" type="text/css" rel="stylesheet" />
+    <link href="css/docs.css" type="text/css" rel="stylesheet" />
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Enter Project Name Here</a>
+
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="documentation.html">Home</a></li>
+              <li class="active"><a href="customDownload.html" class="active">Custom Download</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+<div class="container">
+
+<header class="jumbotron subhead" id="overview">
+  <h1>Customize and download</h1>
+  <p class="lead"><a href="#">Download the full repository</a> or customize your entire <em>Enter Project Name Here</em> build by selecting only the components that you need.</p>
+  <div class="subnav">
+    <ul class="nav nav-pills">
+      <li><a href="#css-downloads">1. Choose and Generate CSS components</a></li>
+      <li><a href="#javascript-downloads">2. Choose and Generate JavaScript components</a></li>
+      <li><a href="#">3. Be Happy</a></li>
+    </ul>
+  </div>
+</header>
+
+<hr>
+<p class="well note">
+<strong>Note:</strong> This example page uses the jQuery plugin, <a href="https://github.com/gfranko/jquery.selectBoxIt.js" target="_blank">SelectBoxIt</a>, to demonstrate how to create custom builds with Downloadbuilder.js.
+</p>
+
+<section class="custom-downloads" id="css-downloads">
+  <div class="page-header">
+    <a class="btn btn-small pull-right toggle-all" href="#">Toggle all</a>
+    <h1>
+      1. Choose and Download CSS components
+      <small>Get just the CSS you need</small>
+    </h1>
+  </div>
+  <div class="row">
+    <div class="span3">
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/stylesheets/SelectBoxIt/jquery.selectBoxIt.css"> SelectBoxIt CSS</label>
+    </div>
+  </div>
+  <br />
+  <a class="btn" data-bind="css-downloads" id="css-generate">Generate CSS</a>
+  <a class="btn btn-primary download-button" id="css-download" download="jquery.selectboxit.css">Download CSS</a>
+  <br /><br />
+  <textarea class="source-area default sourceView" id="generated-css-source">// Minified source</textarea>
+</section>
+
+<section class="custom-downloads" id="javascript-downloads">
+  <div class="page-header">
+    <a class="btn btn-small pull-right toggle-all" href="#">Toggle all</a>
+    <h1>
+      2. Choose and Download JavaScript components
+      <small>Get just the JavaScript you need</small>
+    </h1>
+  </div>
+  <div class="row">
+    <div class="span3">
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.core.min.js" disabled> SelectBoxIt Core</label>
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.ariaAccessibility.min.js"> Aria Accessibility</label>
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.destroy.min.js"> Destroy method</label>
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.disable.min.js"> Disable method</label>
+    </div>
+    <div class="span3">
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.dynamicPositioning.min.js"> Dynamic Positioning</label>
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.enable.min.js"> Enable method</label>
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.jqueryui.min.js"> jQueryUI CSS Support</label>
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.keyboardNavigation.min.js"> Keyboard Navigation</label>
+    </div>
+    <div class="span3">
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.keyboardSearch.min.js"> Keyboard Search</label>
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.setOption.min.js">Set Option method</label>
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.setOptions.min.js"> Set Options method</label>
+      <label class="checkbox"><input checked="checked" type="checkbox" value="src/javascripts/jquery.selectBoxIt.wait.min.js"> Wait method</label>
+    </div>
+  </div><!-- /row -->
+  <br />
+  <a class="btn" href="#" data-bind="javascript-downloads" id="javascript-generate">Generate JavaScript</a>
+  <a class="btn btn-primary download-button" id="javascript-download" download="jquery.selectboxit.js">Download JavaScript</a>
+  <br /><br />
+  <textarea class="source-area default sourceView" id="generated-javascript-source">// Minified source</textarea>
+</section>
+</div>
+
+    </div><!--/.fluid-container-->
+    <div class="modal hide fade" id="myModal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Downloads</h3>
+        </div>
+        <div class="modal-body">
+            <a class="btn btn-large" href="#" target="_blank" data-lang="css" download="jquery.selectboxit.css">Download CSS</a>
+            <a class="btn btn-large" href="#" target="_blank" data-lang="javascript">Download JavaScript</a>
+        </div>
+    </div>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery-ui-1.8.22.custom.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.tocify.min.js"></script>
+    <script src="js/prettify.js"></script>
+    <script src ="js/base64.js"></script>
+    <script src="js/DownloadBuilder.min.js"></script>
+    <script>
+
+        $(function() {
+
+            $("a[href='#']").click(function(event) {
+ 
+                event.preventDefault();
+
+            });
+
+            $(".toggle-all").on("click", function() {
+
+                $(this).parent().parent().find('input[type="checkbox"]').not(":disabled").each(function() {
+
+                    $(this).attr("checked", !$(this).attr("checked"));
+
+                });
+
+            });
+
+            var builder = new DownloadBuilder({ "location": "github", "author": "gfranko", "repo": "jquery.selectboxit.js", "branch": "dev" });
+
+            $("#css-generate").on("click", function() {
+
+                builder.buildURL($("#css-downloads input[type='checkbox']:checked"), "jquery.selectboxit.css", "css", function(data) {
+
+                    $("#generated-css-source").text(data.content);
+
+                    if(!data.content) {
+
+                        $("#css-download").fadeOut("slow");
+
+                    }
+
+                    if(data.url) {
+
+                        $("#css-download").attr("href", data.url).fadeIn("slow");
+
+                    }
+
+                });
+
+            });
+
+            $("#javascript-generate").on("click", function() {
+
+                builder.buildURL($("#javascript-downloads input[type='checkbox']:checked"), "jquery.selectboxit.js", "javascript", function(data) {
+
+                    $("#generated-javascript-source").text(data.content);
+
+                    if(!data.content) {
+
+                        $("#javascript-download").fadeOut("slow");
+
+                    }
+
+                    if(data.url) {
+
+                        $("#javascript-download").attr("href", data.url).fadeIn("slow");
+
+                    }
+
+                });
+
+            });
+
+        });
+
+    </script>
+
+  </body>
+</html>

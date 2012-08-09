@@ -7,33 +7,31 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 [Homepage](http://gregfranko.com/jquery.selectBoxIt.js/)
 
-[Documentation](http://www.gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit)
-
 [Annotated Source Code](http://www.gregfranko.com/docs/jQuery.selectBoxIt.html)
 
 [Unit Test Suite](http://www.gregfranko.com/test/SpecRunner.html)
 
 **Notable Features**
 
-	- Styleable with the jQueryUI Themeroller (optional)
+   - Styleable with the jQueryUI Themeroller (optional)
 
-	- Supports all jQuery and jQueryUI show/hide effects (optional)
+   - Supports all jQuery and jQueryUI show/hide effects (optional)
 
-	- Supports all jQueryUI/custom icons
+   - Supports all jQueryUI/custom icons
 
-	- Includes ARIA (Accessible Rich Internet Applications) support
+   - Includes ARIA (Accessible Rich Internet Applications) support
 
-	- Full keyboard search and navigation support
+   - Full keyboard search and navigation support
 
-	- An event API triggered on the original select box element that calls the plugin
+   - An event API triggered on the original select box element that calls the plugin
 
-    - A method API providing methods to interact with the dropdown list (i.e. Search, Open, Disable, Set Options).
+   - A method API providing methods to interact with the dropdown list (i.e. Search, Open, Disable, Set Options).
 
-	- Passes jsHint with no errors
+   - Passes jsHint with no errors
 
-	- Selected, Disabled, and Optgroup Support
+   - Selected, Disabled, and Optgroup Support
 
-	- Easily extendable to allow developers to create new widgets
+   - Easily extendable to allow developers to create new widgets
 
 ##Requirements
 jQuery 1.6.1+

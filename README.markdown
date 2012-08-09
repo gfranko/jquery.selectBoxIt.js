@@ -56,8 +56,6 @@ You'll find source code in the "src" subdirectory!
 ##Forking
 If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the SelectBoxIt issue tracker, or fork SelectBoxIt on Github and easily extend SelectBoxIt to create your own widget!
 
-For more documentation on how to do this, take a look at the [documentation](http://gregfranko.com/blog/introducing-the-jquery-plugin-selectboxit/#extending-selectboxit)
-
 ##Change Log
 
 `1.0.0` - August 8, 2012 *Stable 1.0 release*

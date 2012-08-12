@@ -2,8 +2,7 @@ $(function() {
 
     //Destroy
     // ------
-    //    Delays execution by the amount of time
-    //    specified by the parameter
+    //    Removes the plugin from the page
 
     $.selectBox.selectBoxIt.prototype.destroy = function(callback) {
 

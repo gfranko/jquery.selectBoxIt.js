@@ -21,7 +21,7 @@
 
 /* Dropdown List Box and Dropdown Options List  */
 .selectboxit, .selectboxit-options {
-  width: 300px; /* Width of the dropdown list box and dropdown list options*/
+  width: 220px; /* Width of the dropdown list box and dropdown list options*/
 }
 
 /* Dropdown list Default Icon Positioning */
@@ -48,8 +48,7 @@
 }
 
 /* Dropdown List Options List*/
-ul.selectboxit-options { 
-  max-height: 180px; /* A vertical scrollbar appears if your select box options are taller than this */
+ul.selectboxit-options {
   font: 14px Helvetica, Arial;
   margin:0;
   padding:0;

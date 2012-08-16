@@ -948,7 +948,7 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery-1.8.0.min.js"></script>
     <script src="js/jquery-ui-1.8.22.custom.min.js"></script>
     <script src="js/jquery.history.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -960,7 +960,7 @@
 
             $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60, extendPage: false });
             $("select#test").selectBoxIt().data("selectBoxIt");
-            $("select#test-jquery").selectBoxIt({ showEffect: "slideDown", hideEffect: "slideUp" }).data("selectBoxIt");
+            $("select#test-jquery").selectBoxIt({ showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600 }).data("selectBoxIt");
             $("select#test-jqueryui").selectBoxIt({ showEffect: "bounce", hideEffect: "explode" }).data("selectBoxIt");
             prettyPrint();
             $(".optionName").popover();

@@ -85,7 +85,7 @@
             </div>
             <br /><br /><br /><br />
             <h2>Description</h2>
-            <p>A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list. The dropdown list can be optionally styled with ThemeRoller and jQueryUI/custom image icons, and optionally animated with jQuery and jQueryUI show/hide effects</p>
+            <div class="github-widget" data-repo="gfranko/jquery.selectBoxIt.js"></div>
             <br />
             <p>The project is hosted on <a href="https://github.com/gfranko/jQuery.selectBoxIt.js" target="_blank" class="projectLinks">Github</a>, the <a href="http://gregfranko.com/docs/jQuery.selectBoxIt.html" target="_blank" class="projectLinks">annotated source code</a> is available, and an <a href="http://gregfranko.com/test/SpecRunner.html" target="_blank" class="projectLinks">online test suite</a> is also available.  SelectBoxIt is available for use under the <a href="https://github.com/gfranko/jQuery.selectBoxIt.js/blob/master/MIT-LICENSE.txt" target="_blank" class="projectLinks">MIT software license</a>.  You can report bugs and discuss features on the <a href="https://github.com/gfranko/jQuery.selectBoxIt.js/issues?sort=created&direction=desc&state=open" target="_blank">GitHub issues page</a>, or send tweets to <a href="http://www.twitter.com/gregfranko" target="_blank">@gregfranko</a>.
             </p>
@@ -949,12 +949,13 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-1.8.0.min.js"></script>
-    <script src="js/jquery-ui-1.8.22.custom.min.js"></script>
+    <script src="js/jquery-ui-1.8.23.custom.min.js"></script>
     <script src="js/jquery.history.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.tocify.min.js"></script>
     <script src="js/jquery.selectBoxIt.min.js"></script>
     <script src="js/prettify.js"></script>
+    <script src="js/githubrepo.js"></script>
     <script>
         $(function() {
 
@@ -963,7 +964,7 @@
             $("select#test-jquery").selectBoxIt({ showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600 }).data("selectBoxIt");
             $("select#test-jqueryui").selectBoxIt({ showEffect: "bounce", hideEffect: "explode" }).data("selectBoxIt");
             prettyPrint();
-            $(".optionName").popover();
+            $(".optionName").popover({ trigger: "hover" });
             $("a[href='#']").click(function(event) {
  
                 event.preventDefault();

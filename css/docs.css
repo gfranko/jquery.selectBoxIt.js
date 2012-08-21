@@ -12,7 +12,6 @@ body {
   position: relative;
   padding-top: 90px;
   background-color: #fff;
-  background-image: url(../img/grid-18px-masked.png);
   background-repeat: repeat-x;
   background-position: 0 40px;
 }
@@ -40,7 +39,7 @@ body {
 /* Space out sub-sections more
 -------------------------------------------------- */
 section {
-  padding-top: 60px;
+  padding-top: 20px;
 }
 
 /* Faded out hr */

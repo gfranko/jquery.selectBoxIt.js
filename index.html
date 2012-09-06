@@ -135,9 +135,7 @@
                   showEffect: "fadeIn",
                   showEffectSpeed: 600,
                   hideEffect: "fadeOut",
-                  hideEffectSpeed: 600,
-                  //jQueryUI down arrow icon class
-                  downArrowIcon: "ui-icon ui-icon-triangle-1-s"
+                  hideEffectSpeed: 600
               });
               </pre>
               <br /><br />
@@ -169,9 +167,7 @@
               var selectBox = $("select").selectBoxIt({
                   showEffect: "shake",
                   showEffectOptions: { times: 1 },
-                  hideEffect: "explode",
-                  //jQueryUI down arrow icon class
-                  downArrowIcon: "ui-icon ui-icon-triangle-1-s"
+                  hideEffect: "explode"
               });
               </pre>
               <br /><br />
@@ -200,14 +196,15 @@
               <h5>Example Code</h5>
               <pre class="prettyprint">
               //Calls the selectBoxIt method on your HTML select box
-              var selectBox = $("select").selectBoxIt({ 
+              var selectBox = $("select").selectBoxIt({
+                  //jQueryUI theme
                   theme: "jqueryui",
+                  //jQueryUI down arrow icon class
+                  downArrowIcon: "ui-icon ui-icon-triangle-1-s",
                   showEffect: "slideDown",
                   showEffectSpeed: 600,
                   hideEffect: "slideUp",
-                  hideEffectSpeed: 600,
-                  //jQueryUI down arrow icon class
-                  downArrowIcon: "ui-icon ui-icon-triangle-1-s"
+                  hideEffectSpeed: 600
               });
               </pre>
               <br /><br />
@@ -1084,10 +1081,10 @@
         $(function() {
 
             $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60, extendPage: false });
-            $("select#test").selectBoxIt({downArrowIcon: "ui-icon ui-icon-triangle-1-s"}).data("selectBoxIt");
+            $("select#test").selectBoxIt().data("selectBoxIt");
             $("select#jqueryui-theme").selectBoxIt({ theme: "jqueryui", showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600, downArrowIcon: "ui-icon ui-icon-triangle-1-s" }).data("selectBoxIt");
-            $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 600, hideEffect: "fadeOut", hideEffectSpeed: 600, downArrowIcon: "ui-icon ui-icon-triangle-1-s" }).data("selectBoxIt");
-            $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectOptions: {times: 1}, hideEffect: "explode", downArrowIcon: "ui-icon ui-icon-triangle-1-s" }).data("selectBoxIt");
+            $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 600, hideEffect: "fadeOut", hideEffectSpeed: 600 }).data("selectBoxIt");
+            $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectOptions: {times: 1}, hideEffect: "explode" }).data("selectBoxIt");
             prettyPrint();
             $(".optionName").popover({ trigger: "hover" });
             $("a[href='#']").click(function(event) {

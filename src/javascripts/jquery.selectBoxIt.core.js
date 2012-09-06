@@ -307,7 +307,7 @@
                 }
 
                 // Uses string concatenation instead of append for speed since the number of dropdown list options is unknown.
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><a><span class="' + iconClass + '"></span>' + $(this).text() + '</a></li>';
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><a><i class="' + iconClass + '"></i>' + $(this).text() + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -365,7 +365,7 @@
 
             }
 
-            this.divImage.addClass(this.selectBox.data("icon") || this.options.defaultIcon || this.listItems.eq(this.currentFocus).find("span").attr("class"));
+            this.divImage.addClass(this.selectBox.data("icon") || this.options.defaultIcon || this.listItems.eq(this.currentFocus).find("i").attr("class"));
 
             //Maintains chainability
             return this;
@@ -430,12 +430,6 @@
             });
 
             this.divImage.css({
-
-                "margin-top": height / 4
-
-            });
-
-            this.listItems.find("span").css({
 
                 "margin-top": height / 4
 
@@ -1027,9 +1021,9 @@
                     // Sets the new dropdown list text to the value of the original dropdown list
                     self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
 
-                    if(self.listItems.eq(self.currentFocus).find("span").attr("class")) {
+                    if(self.listItems.eq(self.currentFocus).find("i").attr("class")) {
 
-                        self.divImage.attr("class", self.listItems.eq(self.currentFocus).find("span").attr("class")).addClass("selectboxit-default-icon");
+                        self.divImage.attr("class", self.listItems.eq(self.currentFocus).find("i").attr("class")).addClass("selectboxit-default-icon");
                     }
                 },
 

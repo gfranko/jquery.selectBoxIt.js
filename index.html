@@ -12,7 +12,7 @@
 
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/black-tie/jquery-ui.css" rel="stylesheet">
+    <link href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet">
     <link href="css/jquery.selectboxit.css" rel="stylesheet">
     <link href="css/jquery.tocify.css" rel="stylesheet">
     <link href="css/prettify.css" type="text/css" rel="stylesheet" />
@@ -127,7 +127,20 @@
                    <option value="a Stateful UI Widget">a Stateful UI Widget</option>
                 </select>
               </div>
-              <br /><br /><br /><br /><br />
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+              //Calls the selectBoxIt method on your HTML select box
+              var selectBox = $("select").selectBoxIt({ 
+                  showEffect: "fadeIn",
+                  showEffectSpeed: 600,
+                  hideEffect: "fadeOut",
+                  hideEffectSpeed: 600,
+                  //jQueryUI down arrow icon class
+                  downArrowIcon: "ui-icon ui-icon-triangle-1-s"
+              });
+              </pre>
+              <br /><br />
               <h3>jQueryUI Show/Hide Support</h3>
               <div class="select">
                 Turns this
@@ -149,7 +162,55 @@
                    <option value="a Stateful UI Widget">a Stateful UI Widget</option>
                 </select>
               </div>
-              <br /><br /><br /><br /><br />
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+              //Calls the selectBoxIt method on your HTML select box
+              var selectBox = $("select").selectBoxIt({
+                  showEffect: "shake",
+                  showEffectOptions: { times: 1 },
+                  hideEffect: "explode",
+                  //jQueryUI down arrow icon class
+                  downArrowIcon: "ui-icon ui-icon-triangle-1-s"
+              });
+              </pre>
+              <br /><br />
+              <h3>jQueryUI Theming Support</h3>
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="jqueryui-theme" name="test-jquery">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+              //Calls the selectBoxIt method on your HTML select box
+              var selectBox = $("select").selectBoxIt({ 
+                  theme: "jqueryui",
+                  showEffect: "slideDown",
+                  showEffectSpeed: 600,
+                  hideEffect: "slideUp",
+                  hideEffectSpeed: 600,
+                  //jQueryUI down arrow icon class
+                  downArrowIcon: "ui-icon ui-icon-triangle-1-s"
+              });
+              </pre>
+              <br /><br />
               <h3>Icon Support</h3>
               <br />
               <div class="select">
@@ -172,7 +233,17 @@
                   <option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check">a Stateful UI Widget</option>
                 </select>
               </div>
-              <br /><br /><br /><br /><br />
+              <br /><br /><br />
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+                &lt;select id="test" name="test"&gt;
+                  &lt;option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search"&gt;SelectBoxIt is:&lt;/option&gt;
+                  &lt;option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check"&gt;a jQuery Plugin&lt;/option&gt;
+                  &lt;option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check"&gt;a Select Box Replacement&lt;/option&gt;
+                  &lt;option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check"&gt;a Stateful UI Widget&lt;/option&gt;
+                &lt;/select&gt;
+              </pre>
+              <br /><br />
               <h3>Selected and Disabled Support</h3>
               <br />
               <div class="select">
@@ -195,7 +266,16 @@
                   <option value="a Stateful UI Widget" selected>a Stateful UI Widget</option>
                 </select>
               </div>
-              <br /><br /><br /><br /><br />
+              <br /><br /><br />
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+                &lt;select id="test" name="test"&gt;
+                  &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+                  &lt;option value="a jQuery Plugin" disabled&gt;a jQuery Plugin&lt;/option&gt;
+                  &lt;option value="a Select Box Replacement" disabled&gt;a Select Box Replacement&lt;/option&gt;
+                  &lt;option value="a Stateful UI Widget" selected&gt;a Stateful UI Widget&lt;/option&gt;
+                &lt;/select&gt;
+              </pre>
               <h3>Optgroup Support</h3>
               <br />
               <div class="select">
@@ -230,7 +310,22 @@
                   </optgroup>
                 </select>
               </div>
-              <br /><br /><br /><br /><br />
+              <br /><br /><br />
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+                &lt;select id="optgroups" name="optgroups"&gt;
+                    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+                    &lt;optgroup label="Optgroup 1"&gt;
+                        &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
+                    &lt;/optgroup&gt;
+                    &lt;optgroup label="Optgroup 2"&gt;
+                        &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+                    &lt;/optgroup&gt;
+                    &lt;optgroup label="Optgroup 3"&gt;
+                        &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
+                    &lt;/optgroup&gt;
+                &lt;/select&gt;
+              </pre>
               <h2>Requirements</h2>
               <br />
               <p class="well"><a href="http://jquery.com" target="_blank">jQuery 1.6.1+</a> (It is always recommended to use the latest version of jQuery)
@@ -250,6 +345,7 @@
               <h2>Notable Features</h2>
               <br />
               <p class="well">
+              Themeable with <span class="headerDoc">Twitter Bootstrap</span> and <span class="headerDoc">jQueryUI</span><br /><br />
               Built-in <span class="headerDoc">ARIA support</span> (Accessible Rich Internet Applications)<br /><br />
               Full <span class="headerDoc">keyboard search and navigation support</span><br /><br />
               An <span class="headerDoc">event API</span> triggered on the original select box element that calls the plugin<br /><br />
@@ -268,8 +364,12 @@
               <br />
               <p><h3><a href="customDownload.html">SelectBoxIt Custom Download</h3></a></p>
               <p class="well">
-              <span class="note"><strong>Note: </strong> All of the plugin files are in the <code>src</code> directory (this includes both the JavaScript and CSS files). If you want to see an example page with all of the files included, look in the <code>demos</code> directory.
+              <span class="note">Only the <strong>SelectBoxIt Core</strong> is required.  Include any other additional components that you like.
               </span>
+              <br /><br />
+              <a href="customDownload.html#javascript-downloads" target="_blank">
+                <img src="img/customDownload.PNG" title="SelectBoxIt Custom Download" >
+              </a>
               </p>
               <br />
               <p><h3><a href="http://jqueryui.com/download" target="_blank"> jQueryUI Custom Download</h3></a>.</p>
@@ -304,14 +404,14 @@
               <span class="note"><strong>CSS</strong></span>
               <pre class="prettyprint">
                 &lt;link type="text/css" rel="stylesheet" href="jquery.selectBoxIt.css" /&gt;
-                &lt;link type="text/css" rel="stylesheet" href="jquery-ui-1.8.21.custom.css" /&gt;
+                &lt;link type="text/css" rel="stylesheet" href="jquery-ui.custom.css" /&gt;
               </pre>
               <br />
               <span class="note"><strong>JavaScript</strong></span>
 
               <pre class="prettyprint">
-                &lt;script src="jquery-1.7.2.min.js"&gt;&lt;/script&gt;
-                &lt;script src="jquery-ui-1.8.21.custom.min.js"&gt;&lt;/script&gt;
+                &lt;script src="jquery.min.js"&gt;&lt;/script&gt;
+                &lt;script src="jquery-ui.custom.min.js"&gt;&lt;/script&gt;
                 &lt;script src="jquery.selectBoxIt.min.js""&gt;&lt;/script&gt;
               </pre>
               <span class="note"><strong>Note:</strong> This assumes that you have downloaded the CSS and JavaScript files to the same folder as your HTML page. Modify the <strong>href</strong> and <strong>src</strong> attributes if you have a different folder structure.
@@ -556,6 +656,12 @@
                   <td>String</td>
                   <td>" "</td>
                   <td>Any valid string classname may be used</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="theme" data-content="Allows the dropdown to be themed with Twitter Bootstrap or jQueryUI"><a href="#">theme</a></td>
+                  <td>String</td>
+                  <td>"twitterbootstrap"</td>
+                  <td>"twitterbootstrap" or "jqueryui"</td>
                 </tr>
               </table>
               <br />
@@ -881,6 +987,11 @@
                   <td>Number time, Function callback</td>
                   <td>Delays execution of the callback function by the amount of time (milleseconds) specified by the time parameter.</td>
                 </tr>
+                <tr>
+                  <td>refresh</td>
+                  <td>none</td>
+                  <td>Rebuilds the dropdown.  Useful for dynamic content.</td>
+                </tr>
               </table>
               <br />
               <h2>Contributing</h2>
@@ -973,9 +1084,10 @@
         $(function() {
 
             $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60, extendPage: false });
-            $("select#test").selectBoxIt().data("selectBoxIt");
-            $("select#test-jquery").selectBoxIt({ showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600 }).data("selectBoxIt");
-            $("select#test-jqueryui").selectBoxIt({ showEffect: "bounce", hideEffect: "explode" }).data("selectBoxIt");
+            $("select#test").selectBoxIt({downArrowIcon: "ui-icon ui-icon-triangle-1-s"}).data("selectBoxIt");
+            $("select#jqueryui-theme").selectBoxIt({ theme: "jqueryui", showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600, downArrowIcon: "ui-icon ui-icon-triangle-1-s" }).data("selectBoxIt");
+            $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 600, hideEffect: "fadeOut", hideEffectSpeed: 600, downArrowIcon: "ui-icon ui-icon-triangle-1-s" }).data("selectBoxIt");
+            $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectOptions: {times: 1}, hideEffect: "explode", downArrowIcon: "ui-icon ui-icon-triangle-1-s" }).data("selectBoxIt");
             prettyPrint();
             $(".optionName").popover({ trigger: "hover" });
             $("a[href='#']").click(function(event) {

@@ -568,7 +568,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 if($(this).data("icon")) {
 
-                    expect(selectBoxIt.listItems.eq(index).find("span")).toHaveClass($(this).data("icon"));
+                    expect(selectBoxIt.listItems.eq(index).find("i")).toHaveClass($(this).data("icon"));
 
                 }
 

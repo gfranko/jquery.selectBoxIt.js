@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v1.0.0 - 2012-08-12
+/* jquery Selectboxit - v1.1.0 - 2012-09-05
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        version: "1.0.0",
+        version: "1.1.0",
 
         // These options will be used as defaults
         options: {
@@ -59,7 +59,10 @@
             defaultIcon: "",
 
             // **downArrowIcon**: Overrides the default down arrow used by the dropdown list to allow a user to specify a custom image.  Accepts a String (CSS class name(s)).
-            downArrowIcon: ""
+            downArrowIcon: "",
+
+            // **theme**: Provides theming support for Twitter Bootstrap and jQueryUI
+            theme: "twitterbootstrap"
 
         },
 
@@ -126,13 +129,24 @@
 
             }
 
-            // Adds regular classes to the dropdown list
-            this._addClasses();
+            if(this.options.theme === "twitterbootstrap") {
 
-            if(this._jqueryui) {
+                // Adds Twitter Bootstrap classes to the dropdown list
+                this._twitterbootstrap();
+
+            }
+
+            else if(this.options.theme === "jqueryui") {
 
                 // Adds jQueryUI classes to the dropdown list
-                this._jqueryui();  
+                this._jqueryui();
+
+            }
+
+            else {
+
+                // Adds regular classes to the dropdown list
+                this._addClasses();
 
             }
 
@@ -140,6 +154,7 @@
             this.selectBox.trigger("create");
 
         },
+
         // _Create Div
         // -----------
         //      Creates new div and span elements to replace
@@ -166,7 +181,7 @@
             attr("data-val", this.originalElem.value);
 
             // Creates a span element that contains the dropdown list text value
-            this.divImage = $("<span/>", {
+            this.divImage = $("<i/>", {
 
                 // Dynamically sets the span `id` attribute
                 "id": this.originalElem.id + "SelectBoxItDefaultIcon",
@@ -292,7 +307,7 @@
                 }
 
                 // Uses string concatenation instead of append for speed since the number of dropdown list options is unknown.
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><span class="' + iconClass + '"></span>' + $(this).text() + '</li>';
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><a><span class="' + iconClass + '"></span>' + $(this).text() + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -322,6 +337,7 @@
 
                 // Overrides the current dropdown default text with the value from the HTML5 `defaultText` value
                 self.divText.text(self.selectBox.data("text"));
+
                 self.options.defaultText = self.selectBox.data("text");
 
             }
@@ -371,7 +387,7 @@
             var height = this.div.height();
 
             // The down arrow element of the dropdown list
-            this.downArrow = $("<span/>", {
+            this.downArrow = $("<i/>", {
 
                 // Dynamically sets the span `id` attribute of the dropdown list down arrow
                 "id": this.originalElem.id + "SelectBoxItArrow",
@@ -502,7 +518,7 @@
             if ($.isFunction(callback)) {
 
                 // Calls the method passed in as a parameter and sets the current `SelectBoxIt` object that is stored in the jQuery data method as the context(allows for `this` to reference the SelectBoxIt API Methods in the callback function. The `div` DOM element that acts as the new dropdown list is also passed as the only parameter to the callback
-                callback.call(this.element.data(this.widgetName), this.div);
+                callback.call(this, this.div);
 
             }
         },
@@ -1037,23 +1053,27 @@
         },
 
         // _addClasses
-        // ---------
+        // -----------
         //      Adds SelectBoxIt CSS classes
-        _addClasses: function() {
+        _addClasses: function(focusClasses, hoverClasses, arrowClass, buttonClasses, listClasses) {
 
             var self = this,
 
-                focusClass = "selectboxit-focus",
+                focusClass = focusClasses || "selectboxit-focus",
 
-                hoverClass = "selectboxit-hover";
+                hoverClass = hoverClasses || "selectboxit-hover",
 
-            this.downArrow.addClass(this.selectBox.data("downarrow") || this.options.downArrowIcon || "");
+                buttonClass = buttonClasses || "selectboxit-btn",
 
-            // Adds the default class to the dropdown list
-            this.div.addClass("selectboxit-widget");
+                listClass = listClasses || "selectboxit-dropdown";
+
+            this.downArrow.addClass(this.selectBox.data("downarrow") || this.options.downArrowIcon || arrowClass);
+
+            // Adds the default styling to the dropdown list
+            this.div.addClass(buttonClasses).css("padding", "0px");
 
             // Adds the default styling for the dropdown list options
-            this.list.addClass("selectboxit-widget selectboxit-widget-content");
+            this.list.addClass(listClasses).css({ "top": "auto", "bottom": "auto", "left": "auto", "right": "auto" });
 
             // Select box individual option events
             this.listItems.bind({
@@ -1086,6 +1106,7 @@
                     self.div.removeClass(hoverClass).add(self.listItems.eq(self.currentFocus)).
 
                     addClass(focusClass);
+
                 },
 
                 "blur.selectBoxIt": function() {
@@ -1130,7 +1151,75 @@
 
             });
 
+            // Adds the jqueryUI down arrow icon CSS class to the down arrow div
+            this.downArrow.css({ "margin-top": this.downArrowContainer.height()/4 });
+
             // Maintains chainability
+            return this;
+
+        },
+
+        // _jqueryui
+        // ---------
+        //      Adds jQueryUI CSS classes
+        _jqueryui: function() {
+
+            this._addClasses("ui-state-focus", "ui-state-hover", "ui-icon ui-icon-triangle-1-s", "ui-widget ui-state-default", "ui-widget ui-widget-content");
+
+        },
+
+        // _twitterbootstrap
+        // -----------------
+        //      Adds Twitter Bootstrap CSS classes
+        _twitterbootstrap: function() {
+
+            this._addClasses("active", "", "icon-chevron-down", "btn", "dropdown-menu"); 
+
+        },
+
+        // Destroy
+        // ------
+        //    Removes the plugin from the page
+
+        destroy: function(callback) {
+
+            //Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
+            this.div.unbind(".selectBoxIt").
+
+            //Undelegates all of the dropdown list event handlers with the `selectBoxIt` namespace
+            undelegate(".selectBoxIt");
+
+            //Remove all of the `selectBoxIt` DOM elements from the page
+            this.divContainer.remove();
+
+            //Triggers the custom `destroy` event on the original select box and then shows the original dropdown list
+            this.selectBox.trigger("destroy").show();
+
+            // Calls the jQueryUI Widget Factory destroy method
+            $.Widget.prototype.destroy.call(this);
+
+            //Provides callback function support
+            this._callbackSupport(callback);
+
+            //Maintains chainability
+            return this;
+
+        },
+
+        // Refresh
+        // -------
+        //    The dropdown will rebuild itself.  Useful for dynamic content.
+
+        refresh: function(callback) {
+
+            // Destroys the plugin and then recreates the plugin
+            this.destroy(function() {
+
+                this._create();
+
+            });
+
+            //Maintains chainability
             return this;
 
         }

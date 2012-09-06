@@ -13,11 +13,11 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 **Notable Features**
 
-   - Styleable with the jQueryUI Themeroller (optional)
+   - Styleable with Twitter Bootstrap and jQueryUI Themeroller (optional)
 
    - Supports all jQuery and jQueryUI show/hide effects (optional)
 
-   - Supports all jQueryUI/custom icons
+   - Supports all Twitter Bootstrap (Glyphicons) and jQueryUI/custom icons
 
    - Includes ARIA (Accessible Rich Internet Applications) support
 
@@ -34,9 +34,9 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
    - Easily extendable to allow developers to create new widgets
 
 ##Requirements
-jQuery 1.6.1+
+jQuery 1.6.1+ (It is always recommended to use the latest version of jQuery)
 
-jQueryUI Widget Factory 1.8.19+
+jQueryUI Widget Factory 1.8.19+ (It is always recommended to use the latest version of the jQueryUI Widget Factory)
 
 ##Browser Support
 IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+

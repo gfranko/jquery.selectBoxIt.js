@@ -6,10 +6,8 @@ module.exports = function(grunt) {
     'ariaAccessibility',
     'core',
     'disable',
-    'destroy',
     'dynamicPositioning',
     'enable',
-    'jqueryui',
     'keyboardNavigation',
     'keyboardSearch',
     'setOption',
@@ -34,11 +32,11 @@ module.exports = function(grunt) {
     },
     concat: {
       minified: {
-        src: ['src/javascripts/jquery.selectBoxIt.core.min.js', 'src/javascripts/jquery.selectBoxIt.ariaAccessibility.min.js', 'src/javascripts/jquery.selectBoxIt.destroy.min.js', 'src/javascripts/jquery.selectBoxIt.disable.min.js', 'src/javascripts/jquery.selectBoxIt.dynamicPositioning.min.js', 'src/javascripts/jquery.selectBoxIt.enable.min.js', 'src/javascripts/jquery.selectBoxIt.jqueryui.min.js', 'src/javascripts/jquery.selectBoxIt.keyboardNavigation.min.js', 'src/javascripts/jquery.selectBoxIt.keyboardSearch.min.js', 'src/javascripts/jquery.selectBoxIt.setOption.min.js', 'src/javascripts/jquery.selectBoxIt.setOptions.min.js', 'src/javascripts/jquery.selectBoxIt.wait.min.js'],
+        src: ['src/javascripts/jquery.selectBoxIt.core.min.js', 'src/javascripts/jquery.selectBoxIt.ariaAccessibility.min.js', 'src/javascripts/jquery.selectBoxIt.disable.min.js', 'src/javascripts/jquery.selectBoxIt.dynamicPositioning.min.js', 'src/javascripts/jquery.selectBoxIt.enable.min.js', 'src/javascripts/jquery.selectBoxIt.keyboardNavigation.min.js', 'src/javascripts/jquery.selectBoxIt.keyboardSearch.min.js', 'src/javascripts/jquery.selectBoxIt.setOption.min.js', 'src/javascripts/jquery.selectBoxIt.setOptions.min.js', 'src/javascripts/jquery.selectBoxIt.wait.min.js'],
         dest: 'src/javascripts/jquery.selectBoxIt.min.js'
       },
       unminified: {
-        src: ['src/javascripts/jquery.selectBoxIt.core.js', 'src/javascripts/jquery.selectBoxIt.ariaAccessibility.js', 'src/javascripts/jquery.selectBoxIt.destroy.js', 'src/javascripts/jquery.selectBoxIt.disable.js', 'src/javascripts/jquery.selectBoxIt.dynamicPositioning.js', 'src/javascripts/jquery.selectBoxIt.enable.js', 'src/javascripts/jquery.selectBoxIt.jqueryui.js', 'src/javascripts/jquery.selectBoxIt.keyboardNavigation.js', 'src/javascripts/jquery.selectBoxIt.keyboardSearch.js', 'src/javascripts/jquery.selectBoxIt.setOption.js', 'src/javascripts/jquery.selectBoxIt.setOptions.js', 'src/javascripts/jquery.selectBoxIt.wait.js'],
+        src: ['src/javascripts/jquery.selectBoxIt.core.js', 'src/javascripts/jquery.selectBoxIt.ariaAccessibility.js', 'src/javascripts/jquery.selectBoxIt.disable.js', 'src/javascripts/jquery.selectBoxIt.dynamicPositioning.js', 'src/javascripts/jquery.selectBoxIt.enable.js', 'src/javascripts/jquery.selectBoxIt.keyboardNavigation.js', 'src/javascripts/jquery.selectBoxIt.keyboardSearch.js', 'src/javascripts/jquery.selectBoxIt.setOption.js', 'src/javascripts/jquery.selectBoxIt.setOptions.js', 'src/javascripts/jquery.selectBoxIt.wait.js'],
         dest: 'src/javascripts/jquery.selectBoxIt.js'
       }
     },
@@ -52,7 +50,7 @@ module.exports = function(grunt) {
       }
     },
     lint: {
-      files: ['grunt.js','src/javascripts/jquery.selectBoxIt.ariaAccessibility.js', 'src/javascripts/jquery.selectBoxIt.core.js', 'src/javascripts/jquery.selectBoxIt.destroy.js', 'src/javascripts/jquery.selectBoxIt.disable.js', 'src/javascripts/jquery.selectBoxIt.dynamicPositioning.js', 'src/javascripts/jquery.selectBoxIt.enable.js', 'src/javascripts/jquery.selectBoxIt.jqueryui.js', 'src/javascripts/jquery.selectBoxIt.keyboardNavigation.js', 'src/javascripts/jquery.selectBoxIt.keyboardSearch.js', 'src/javascripts/jquery.selectBoxIt.setOption.js', 'src/javascripts/jquery.selectBoxIt.setOptions.js', 'src/javascripts/jquery.selectBoxIt.wait.js']
+      files: ['grunt.js','src/javascripts/jquery.selectBoxIt.ariaAccessibility.js', 'src/javascripts/jquery.selectBoxIt.core.js', 'src/javascripts/jquery.selectBoxIt.disable.js', 'src/javascripts/jquery.selectBoxIt.dynamicPositioning.js', 'src/javascripts/jquery.selectBoxIt.enable.js', 'src/javascripts/jquery.selectBoxIt.keyboardNavigation.js', 'src/javascripts/jquery.selectBoxIt.keyboardSearch.js', 'src/javascripts/jquery.selectBoxIt.setOption.js', 'src/javascripts/jquery.selectBoxIt.setOptions.js', 'src/javascripts/jquery.selectBoxIt.wait.js']
     },
     watch: {
       files: '<config:lint.files>',

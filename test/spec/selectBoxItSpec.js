@@ -67,6 +67,14 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             });
 
+            it("should add Twitter Bootstrap CSS classes by default", function() {
+
+                expect(selectBoxIt.div).toHaveClass("btn");
+
+                expect(selectBoxIt.list).toHaveClass("dropdown-menu");
+
+            });
+
             it("should create a new div element to nest inside of the top level div element", function() {
 
                 expect(selectBoxIt.divText).toExist();
@@ -159,18 +167,6 @@ describe('selectBoxIt jQuery Plugin', function () {
             it("should set the UL element tabindex attribute to -1", function() {
 
                 expect(selectBoxIt.list).toHaveAttr("tabindex", -1);
-
-            });
-
-            it("should set the correct jQueryUI classes if jQueryUI is being used", function() {
-
-                expect(selectBoxIt.div).toHaveClass("ui-widget");
-
-                expect(selectBoxIt.div).toHaveClass("ui-state-default");
-
-                expect(selectBoxIt.list).toHaveClass("ui-widget");
-
-                expect(selectBoxIt.list).toHaveClass("ui-widget-content");
 
             });
 

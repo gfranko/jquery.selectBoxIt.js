@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 1.0.0
+ * jquery.selectBoxIt.css 1.1.0
  * Author: @gregfranko
  */
 
@@ -16,7 +16,6 @@
   height: 30px; /* Height of the select box */
   cursor:pointer;
   white-space:nowrap;
-  /* Provide a background image here if you want to use an image for the down arrow */
 }
 
 /* Dropdown List Box and Dropdown Options List  */

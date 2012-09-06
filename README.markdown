@@ -56,7 +56,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
-`1.1.01 - September 5, 2012
+`1.1.0` - September 5, 2012
 
 - Added Twitter Bootstrap Theming Support
 

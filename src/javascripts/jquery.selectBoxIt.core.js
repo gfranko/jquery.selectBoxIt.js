@@ -1145,8 +1145,19 @@
 
             });
 
-            // Adds the jqueryUI down arrow icon CSS class to the down arrow div
-            this.downArrow.css({ "margin-top": this.downArrowContainer.height()/4 });
+            if(this.options.theme === "twitterbootstrap" && arrowClass === "caret") {
+
+                // Adds the jqueryUI down arrow icon CSS class to the down arrow div
+                this.downArrow.css({ "margin-top": this.downArrowContainer.height()/2 });
+
+            }
+
+            else {
+
+                // Adds the jqueryUI down arrow icon CSS class to the down arrow div
+                this.downArrow.css({ "margin-top": this.downArrowContainer.height()/4 });
+
+            }
 
             // Maintains chainability
             return this;
@@ -1167,7 +1178,7 @@
         //      Adds Twitter Bootstrap CSS classes
         _twitterbootstrap: function() {
 
-            this._addClasses("active", "", "icon-chevron-down", "btn", "dropdown-menu"); 
+            this._addClasses("active", "", "caret", "btn", "dropdown-menu"); 
 
         },
 

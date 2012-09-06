@@ -93,10 +93,10 @@ ul.selectboxit-options {
 }
 
 /* Dropdown List Down Arrow */
-.selectboxit-arrow {
+.selectboxit-arrow-container i.selectboxit-arrow {
   /* Horizontally centers the down arrow */
-  margin-right:auto;
-  margin-left:auto;
+  margin:0 auto;
+  display: block;
 }
 
 /* Dropdown List Individual Option Icon Positioning */

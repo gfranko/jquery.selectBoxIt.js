@@ -1,15 +1,13 @@
 jquery.selectBoxIt.js - jQuery Select Box Plugin
 ------------------------------------------------
 
-![Example](http://gregfranko.com/images/select.PNG)
-
-A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **ThemeRoller** and **jQueryUI/custom image icons**, and optionally animated with **jQueryUI show/hide effects**.
+A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **Twitter Bootstrap** or **jQueryUI ThemeRoller** and optionally animated with **jQueryUI show/hide effects**.
 
 [Homepage](http://gregfranko.com/jquery.selectBoxIt.js/)
 
-[Annotated Source Code](http://www.gregfranko.com/docs/jQuery.selectBoxIt.html)
+[Annotated Source Code](http://www.gregfranko.com/jquery.selectBoxIt.js/docs/jQuery.selectBoxIt.html)
 
-[Unit Test Suite](http://www.gregfranko.com/test/SpecRunner.html)
+[Unit Test Suite](http://www.gregfranko.com/jquery.selectBoxIt.js/test/SpecRunner.html)
 
 **Notable Features**
 
@@ -57,6 +55,14 @@ You'll find source code in the "src" subdirectory!
 If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the SelectBoxIt issue tracker, or fork SelectBoxIt on Github and easily extend SelectBoxIt to create your own widget!
 
 ##Change Log
+
+`1.1.01 - September 5, 2012
+
+- Added Twitter Bootstrap Theming Support
+
+- Added a **refresh** public method
+
+- Added the _destroy_ method into the SelectBoxIt core
 
 `1.0.0` - August 8, 2012 *Stable 1.0 release*
 

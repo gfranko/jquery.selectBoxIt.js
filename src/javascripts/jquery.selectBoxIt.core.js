@@ -252,7 +252,8 @@
                 iconClass,
 
                 // Declaring the variable that will hold all of the dropdown list option elements
-                currentItem = "",
+                currentItem = [],
+
                 // Creates an unordered list element
                 createdList = $("<ul/>", {
 
@@ -309,8 +310,8 @@
 
                 }
 
-                // Uses string concatenation instead of append for speed since the number of dropdown list options is unknown.
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><a><i class="' + iconClass + '"></i>' + $(this).text() + '</a></li>';
+                // Uses Array.join instead of string concatenation for speed
+                currentItem.push(optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><a><i class="' + iconClass + '"></i>' + $(this).text() + '</a></li>');
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -346,7 +347,7 @@
             }
 
             // Append the list item to the unordered list
-            createdList.append(currentItem);
+            createdList.append(currentItem.join(''));
 
             // Stores the dropdown list options list inside of the `list` instance variable
             this.list = createdList;

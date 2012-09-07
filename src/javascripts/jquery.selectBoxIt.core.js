@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v1.1.0 - 2012-09-05
+/* jquery Selectboxit - v1.2.0 - 2012-09-06
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        version: "1.1.0",
+        VERSION: "1.2.0",
 
         // These options will be used as defaults
         options: {
@@ -62,7 +62,10 @@
             downArrowIcon: "",
 
             // **theme**: Provides theming support for Twitter Bootstrap and jQueryUI
-            theme: "twitterbootstrap"
+            theme: "twitterbootstrap",
+
+            // **keydownOpen**: Opens the dropdown if the up or down key is pressed when the dropdown is focused
+            keydownOpen: true
 
         },
 
@@ -708,7 +711,7 @@
                 // `click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt": function() {
 
-                    if(!self.div.is(":focus")) {
+                    if(!$(":focus").is(self.div)) {
 
                         $(this).focus();
 
@@ -794,7 +797,7 @@
                     var currentKey = e.keyCode;
 
                     // Performs keyboard events if the dropdown list is focused
-                    if (self.div.is(":focus")) {
+                    if ($(":focus").is(self.div)) {
 
                         // Supports keyboard navigation
                         switch (currentKey) {
@@ -808,8 +811,34 @@
                                 // If the plugin options allow keyboard navigation
                                 if (self.moveDown) {
 
-                                    // Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
-                                    self.moveDown();
+                                    if(self.options.keydownOpen) {
+
+                                        if(self.list.is(":visible")) {
+
+                                            self.moveDown();
+
+                                        }
+
+                                        else {
+
+                                            self.open();
+
+                                        }
+
+                                    }
+
+                                    else {
+
+                                        // Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
+                                        self.moveDown();
+
+                                    }
+
+                                }
+
+                                if(self.options.keydownOpen) {
+
+                                    self.open();
 
                                 }
 
@@ -821,11 +850,37 @@
                                 // Prevents the page from moving up
                                 e.preventDefault();
 
-                                // If the plugin options allow keyboard navgiation
+                                // If the plugin options allow keyboard navigation
                                 if (self.moveUp) {
 
-                                    // Moves the focus up to the dropdown list option directly above the currently selected selectbox option
-                                    self.moveUp();
+                                    if(self.options.keydownOpen) {
+
+                                        if(self.list.is(":visible")) {
+
+                                            self.moveUp();
+
+                                        }
+
+                                        else {
+
+                                            self.open();
+
+                                        }
+
+                                    }
+
+                                    else {
+
+                                        // Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
+                                        self.moveUp();
+
+                                    }
+
+                                }
+
+                                if(self.options.keydownOpen) {
+
+                                    self.open();
 
                                 }
 
@@ -899,7 +954,7 @@
                 "keypress.selectBoxIt": function(e) {
 
                     // Performs a text search if the dropdown list is focused
-                    if (self.div.is(":focus")) {
+                    if ($(":focus").is(self.div)) {
 
                         // Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross
                         // browser support since IE uses `keyCode` instead of `charCode`.

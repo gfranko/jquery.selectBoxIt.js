@@ -37,7 +37,7 @@ jQuery 1.6.1+ (It is always recommended to use the latest version of jQuery)
 jQueryUI Widget Factory 1.8.19+ (It is always recommended to use the latest version of the jQueryUI Widget Factory)
 
 ##Browser Support
-IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+
+IE8+, Firefox 4+, Chrome, Safari 4+, and Opera 11+
 
 ##Unit Tests
 All unit tests are written using the Jasmine Framework
@@ -55,6 +55,12 @@ You'll find source code in the "src" subdirectory!
 If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the SelectBoxIt issue tracker, or fork SelectBoxIt on Github and easily extend SelectBoxIt to create your own widget!
 
 ##Change Log
+
+`1.2.0` - September 6, 2012
+
+- Fixed IE8 keyboard navigation and search bug
+
+- Added a **keydownOpen** option to allow the dropdown list to be visible if the use presses the up or down arrow key
 
 `1.1.0` - September 5, 2012
 

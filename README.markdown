@@ -60,7 +60,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 - Fixed IE8 keyboard navigation and search bug
 
-- Added a **keydownOpen** option to allow the dropdown list to be visible if the use presses the up or down arrow key
+- Added a **keydownOpen** option to allow the dropdown list to be visible if the user presses the up or down arrow key
 
 `1.1.0` - September 5, 2012
 

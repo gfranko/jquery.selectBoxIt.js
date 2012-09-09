@@ -56,6 +56,10 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`1.3.0` - September 9, 2012
+
+- Added the **changed** custom event
+
 `1.2.0` - September 6, 2012
 
 - Fixed IE8 keyboard navigation and search bug

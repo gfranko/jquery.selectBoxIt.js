@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v1.2.0 - 2012-09-06
+/* jquery Selectboxit - v1.3.0 - 2012-09-09
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "1.2.0",
+        VERSION: "1.3.0",
 
         // These options will be used as defaults
         options: {
@@ -310,7 +310,7 @@
 
                 }
 
-                // Uses string concatenation instead of append for speed since the number of dropdown list options is unknown.
+                // Uses Array.join instead of string concatenation for speed
                 currentItem.push(optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><a><i class="' + iconClass + '"></i>' + $(this).text() + '</a></li>');
 
                 // Stores all of the original select box options text inside of an array
@@ -1081,6 +1081,9 @@
 
                         self.divImage.attr("class", self.listItems.eq(self.currentFocus).find("i").attr("class")).addClass("selectboxit-default-icon");
                     }
+
+                    // Triggers a custom changed event on the original select box
+                    self.selectBox.trigger("changed");
                 },
 
                 // `disable` event with the `selectBoxIt` namespace

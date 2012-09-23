@@ -339,6 +339,7 @@
               <h2>Notable Features</h2>
               <br />
               <p class="well">
+              Supports <span class="headerDoc">Mobile, Tablet, and Desktop</span> browsers<br /><br />
               Themeable with <span class="headerDoc">Twitter Bootstrap</span> and <span class="headerDoc">jQueryUI</span><br /><br />
               Built-in <span class="headerDoc">ARIA support</span> (Accessible Rich Internet Applications)<br /><br />
               Full <span class="headerDoc">keyboard search and navigation support</span><br /><br />
@@ -349,9 +350,14 @@
               </p>
               <br />
 
-              <h2>Browser Support</h2>
+              <h2>Desktop Browser Support</h2>
               <br />
-              <p class="well">Tested in <span class="headerDoc">IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+</span></p>
+              <p class="well">Tested in <span class="headerDoc">IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+ </span></p>
+              <br />
+
+              <h2>Mobile/Tablet Browser Support</h2>
+              <br />
+              <p class="well">Tested in <span class="headerDoc">iOs 3+ and Android 2.1+ </span></p>
               <br />
 
               <h2>Getting Started</h2>
@@ -662,6 +668,12 @@
                   <td>Boolean</td>
                   <td>true</td>
                   <td>true or false</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="isMobile" data-content="The function used for mobile browser detection"><a href="#">isMobile</a></td>
+                  <td>Function</td>
+                  <td>Uses the script from detectmobilebrowsers.com</td>
+                  <td>Any function that returns true or false</td>
                 </tr>
               </table>
               <br />
@@ -997,6 +1009,42 @@
                   <td>Rebuilds the dropdown.  Useful for dynamic content.</td>
                 </tr>
               </table>
+              <br />
+              <h2>Mobile Browsers</h2>
+              <p class="well">
+              Selecting the dropdown will trigger the default <strong>wheel</strong> interface for all mobile devices.  This behavior improves usability for users.
+              </p>
+              <p class="well">
+              <span class="note">
+              By default, SelectBoxIt uses the mobile detection regex script from <a href="http://www.detectmobilebrowsers.com" target="_blank">www.detectmobilebrowsers.com</a>.  This script is fairly exhaustive, and will catch most mobile browsers.
+              <br /><br />
+              If you would like to customize which mobile browsers you would like to support, feel free to create your own mobile detection function inside of the <strong>isMobile</strong> option.  Below is an example of overriding the <strong>isMobile</strong> option to only support iPhones and iPads:
+              </span>
+              </p>
+              <pre class="prettyprint">
+              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+              $(function() {
+
+                  //Calls the selectBoxIt method on your HTML select box
+                  var selectBox = $("select#test").selectBoxIt({ isMobile: function() {
+
+                      if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPad/i))) {
+
+                          return true;
+
+                      }
+
+                      else {
+
+                          return false;
+
+                      }
+                  
+                  }});
+
+              });
+              </pre>
+
               <br />
               <h2>Contributing</h2>
               <p class="well">

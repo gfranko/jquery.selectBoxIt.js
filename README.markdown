@@ -1,7 +1,7 @@
 jquery.selectBoxIt.js - jQuery Select Box Plugin
 ------------------------------------------------
 
-A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **Twitter Bootstrap** or **jQueryUI ThemeRoller** and optionally animated with **jQueryUI show/hide effects**.
+A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **Twitter Bootstrap** or **jQueryUI ThemeRoller**, optionally animated with **jQueryUI show/hide effects**, and works on both Desktop, Tablet, and Mobile browsers.
 
 [Homepage](http://gregfranko.com/jquery.selectBoxIt.js/)
 
@@ -12,6 +12,8 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 **Notable Features**
 
    - Styleable with Twitter Bootstrap and jQueryUI Themeroller (optional)
+
+   - Supports Desktop, Tablet, and Mobile browsers
 
    - Supports all jQuery and jQueryUI show/hide effects (optional)
 
@@ -36,8 +38,12 @@ jQuery 1.6.1+ (It is always recommended to use the latest version of jQuery)
 
 jQueryUI Widget Factory 1.8.19+ (It is always recommended to use the latest version of the jQueryUI Widget Factory)
 
-##Browser Support
-IE8+, Firefox 4+, Chrome, Safari 4+, and Opera 11+
+##Desktop Browser Support
+IE8+, Firefox 4+, Chrome, Safari 4+, Opera 11+ (Other browsers may work, but I did not test on them)
+
+##Mobile/Tablet Browser Support
+iOs 3+, Android 2.1+ (Other browsers may work, but I did not test on them)
+
 
 ##Unit Tests
 All unit tests are written using the Jasmine Framework
@@ -55,6 +61,12 @@ You'll find source code in the "src" subdirectory!
 If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the SelectBoxIt issue tracker, or fork SelectBoxIt on Github and easily extend SelectBoxIt to create your own widget!
 
 ##Change Log
+
+`1.4.0` - September 23, 2012
+
+- **BIG NEWS:** Added Mobile and Tablet Support
+
+- Added the **isMobile** option
 
 `1.3.0` - September 9, 2012
 

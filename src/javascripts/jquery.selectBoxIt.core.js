@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v1.4.0 - 2012-09-23
+/* jquery Selectboxit - v1.5.0 - 2012-09-26
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -10,7 +10,7 @@
     "use strict";
 
     // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(jQuery, window, document);
+    selectBoxIt(window.jQuery, window, document);
 
 }
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "1.4.0",
+        VERSION: "1.5.0",
 
         // These options will be used as defaults
         options: {
@@ -1255,7 +1255,7 @@
         //      Adds Twitter Bootstrap CSS classes
         _twitterbootstrap: function() {
 
-            this._addClasses("active", "", "caret", "btn", "dropdown-menu"); 
+            this._addClasses("active", "", "caret", "btn", "dropdown-menu");
 
         },
 

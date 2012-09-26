@@ -62,6 +62,10 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`1.5.0` - September 26, 2012
+
+- Improved the search algorithm
+
 `1.4.0` - September 23, 2012
 
 - **BIG NEWS:** Added Mobile and Tablet Support

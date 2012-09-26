@@ -89,7 +89,7 @@ $(function() {
             }
 
             //Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
-            if (this.currentText.length < 2) {
+            if (this.currentText.length < 3) {
 
                 //If there is a match based on the first character
                 if ((this.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {

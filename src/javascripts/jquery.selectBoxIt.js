@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v1.5.0 - 2012-09-26
+/* jquery Selectboxit - v1.6.0 - 2012-09-28
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "1.5.0",
+        VERSION: "1.6.0",
 
         // These options will be used as defaults
         options: {
@@ -448,7 +448,7 @@
 
                 "line-height": this.div.css("height"),
 
-                "max-width": this.div.width() - (this.downArrowContainer.width() + this.divImage.width()) - 5
+                "max-width": this.div.width() - (this.downArrowContainer.width() + this.divImage.width())
             });
 
             this.divImage.css({

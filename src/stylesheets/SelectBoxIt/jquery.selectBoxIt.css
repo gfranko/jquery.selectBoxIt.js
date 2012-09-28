@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 1.4.0
+ * jquery.selectBoxIt.css 1.6.0
  * Author: @gregfranko
  */
 
@@ -20,7 +20,7 @@
 
 /* Dropdown List Box and Dropdown Options List  */
 .selectboxit, .selectboxit-options {
-  width: 280px; /* Width of the dropdown list box and dropdown list options*/
+  width: 180px; /* Width of the dropdown list box and dropdown list options*/
 }
 
 /* Dropdown list Default Icon Positioning */
@@ -59,6 +59,11 @@ ul.selectboxit-options {
   display:none;
   z-index:99999;
   outline:none;
+  min-width: auto;
+}
+
+ul.selectboxit-options a {
+  padding: 3px 15px;
 }
 
 /* Dropdown List Individual Options */

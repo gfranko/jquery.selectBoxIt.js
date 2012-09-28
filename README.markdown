@@ -62,6 +62,10 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`1.6.0` - September 28, 2012
+
+- Improved the CSS flexibility (can now more easily use auto widths)
+
 `1.5.0` - September 26, 2012
 
 - Improved the search algorithm

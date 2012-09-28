@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 1.0.0
+ * jquery.selectBoxIt.css 1.6.0
  * Author: @gregfranko
  */
 
@@ -16,7 +16,6 @@
   height: 30px; /* Height of the select box */
   cursor:pointer;
   white-space:nowrap;
-  /* Provide a background image here if you want to use an image for the down arrow */
 }
 
 /* Dropdown List Box and Dropdown Options List  */
@@ -48,7 +47,8 @@
 }
 
 /* Dropdown List Options List*/
-ul.selectboxit-options {
+ul.selectboxit-options { 
+  max-height: 180px; /* A vertical scrollbar appears if your select box options are taller than this */
   font: 14px Helvetica, Arial;
   margin:0;
   padding:0;
@@ -59,6 +59,11 @@ ul.selectboxit-options {
   display:none;
   z-index:99999;
   outline:none;
+  min-width: auto;
+}
+
+ul.selectboxit-options a {
+  padding: 3px 15px;
 }
 
 /* Dropdown List Individual Options */
@@ -93,10 +98,10 @@ ul.selectboxit-options {
 }
 
 /* Dropdown List Down Arrow */
-.selectboxit-arrow {
+.selectboxit-arrow-container i.selectboxit-arrow {
   /* Horizontally centers the down arrow */
-  margin-right:auto;
-  margin-left:auto;
+  margin:0 auto;
+  display: block;
 }
 
 /* Dropdown List Individual Option Icon Positioning */

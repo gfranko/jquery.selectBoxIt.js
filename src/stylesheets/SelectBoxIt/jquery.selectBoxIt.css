@@ -93,7 +93,7 @@ ul.selectboxit-options a {
 /* Dropdown List Down Arrow Container (if an image is not used) */
 .selectboxit-arrow-container {
   /* Positions the down arrow */
-  width: 19px;
+  width: 30px;
   float:right;
 }
 

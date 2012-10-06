@@ -730,12 +730,6 @@
                 // `click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt": function() {
 
-                    if(!$(":focus").is(self.div)) {
-
-                        $(this).focus();
-
-                    }
-
                     // The `click` handler logic will only be applied if the dropdown list is enabled
                     if (!self.originalElem.disabled) {
 
@@ -815,187 +809,185 @@
                     // Stores the `keycode` value in a local variable
                     var currentKey = e.keyCode;
 
-                    // Performs keyboard events if the dropdown list is focused
-                    if ($(":focus").is(self.div)) {
+                    // Supports keyboard navigation
+                    switch (currentKey) {
 
-                        // Supports keyboard navigation
-                        switch (currentKey) {
+                        // If the user presses the `down key`
+                        case downKey:
 
-                            // If the user presses the `down key`
-                            case downKey:
+                            // Prevents the page from moving down
+                            e.preventDefault();
 
-                                // Prevents the page from moving down
-                                e.preventDefault();
+                            // If the plugin options allow keyboard navigation
+                            if (self.moveDown) {
 
-                                // If the plugin options allow keyboard navigation
-                                if (self.moveDown) {
+                                if(self.options.keydownOpen) {
 
-                                    if(self.options.keydownOpen) {
+                                    if(self.list.is(":visible")) {
 
-                                        if(self.list.is(":visible")) {
-
-                                            self.moveDown();
-
-                                        }
-
-                                        else {
-
-                                            self.open();
-
-                                        }
-
-                                    }
-
-                                    else {
-
-                                        // Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
                                         self.moveDown();
 
                                     }
 
+                                    else {
+
+                                        self.open();
+
+                                    }
+
                                 }
+
+                                else {
+
+                                    // Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
+                                    self.moveDown();
+
+                                }
+
+                            }
+
+                            if(self.options.keydownOpen) {
+
+                                self.open();
+
+                            }
+
+                            break;
+
+                        //If the user presses the `up key`
+                        case upKey:
+
+                            // Prevents the page from moving up
+                            e.preventDefault();
+
+                            // If the plugin options allow keyboard navigation
+                            if (self.moveUp) {
 
                                 if(self.options.keydownOpen) {
 
-                                    self.open();
+                                    if(self.list.is(":visible")) {
 
-                                }
-
-                                break;
-
-                            //If the user presses the `up key`
-                            case upKey:
-
-                                // Prevents the page from moving up
-                                e.preventDefault();
-
-                                // If the plugin options allow keyboard navigation
-                                if (self.moveUp) {
-
-                                    if(self.options.keydownOpen) {
-
-                                        if(self.list.is(":visible")) {
-
-                                            self.moveUp();
-
-                                        }
-
-                                        else {
-
-                                            self.open();
-
-                                        }
+                                        self.moveUp();
 
                                     }
 
                                     else {
 
-                                        // Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
-                                        self.moveUp();
+                                        self.open();
 
                                     }
 
                                 }
 
-                                if(self.options.keydownOpen) {
+                                else {
 
-                                    self.open();
+                                    // Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
+                                    self.moveUp();
 
                                 }
 
-                                break;
+                            }
 
-                            // If the user presses the `enter key`
-                            case enterKey:
+                            if(self.options.keydownOpen) {
 
-                                // Prevents the default event from being triggered
-                                e.preventDefault();
+                                self.open();
 
-                                // Checks to see if the dropdown list options list is open
-                                if (self.list.is(":visible")) {
+                            }
 
-                                    // Closes the dropdown list options list
-                                    self.close();
-                                }
+                            break;
 
-                                // If the first dropdown list option is not shown in the options list, and the dropdown list has not been interacted with, then update the dropdown list value when the enter key is pressed
-                                if (!self.options.showFirstOption && self.div.text() === self.firstSelectItem.text() && self.currentFocus === 0 || (self.options.showFirstOption && self.options.defaultText) || (!self.options.showFirstOption && !self.listItems.eq(0).not("[data-disabled='true']"))) {
+                        // If the user presses the `enter key`
+                        case enterKey:
 
-                                    // Updates the dropdown list value
-                                    self.selectBox.val(self.listItems.eq(self.currentFocus).attr("data-val")).
+                            // Prevents the default event from being triggered
+                            e.preventDefault();
 
-                                    // Triggers a `change` event on the original select box
-                                    trigger("change");
-                                }
+                            // Checks to see if the dropdown list options list is open
+                            if (self.list.is(":visible")) {
 
-                                // Triggers the `enter` events on the original select box
-                                self.selectBox.trigger("enter");
-
-                                break;
-
-                            // If the user presses the `tab key`
-                            case tabKey:
-
-                                // Triggers the custom `tab-blur` event on the original select box
-                                self.selectBox.trigger("tab-blur");
-
-                                break;
-
-                            // If the user presses the `backspace key`
-                            case backspaceKey:
-
-                                // Prevents the browser from navigating to the previous page in its history
-                                e.preventDefault();
-
-                                // Triggers the custom `backspace` event on the original select box
-                                self.selectBox.trigger("backspace");
-
-                                break;
-
-                            // If the user presses the `escape key`
-                            case escKey:
-
-                                // Closes the dropdown options list
+                                // Closes the dropdown list options list
                                 self.close();
 
-                                break;
+                            }
 
-                            // Default is to break out of the switch statement
-                            default:
+                            // If the first dropdown list option is not shown in the options list, and the dropdown list has not been interacted with, then update the dropdown list value when the enter key is pressed
+                            if (!self.options.showFirstOption && self.div.text() === self.firstSelectItem.text() && self.currentFocus === 0 || (self.options.showFirstOption && self.options.defaultText) || (!self.options.showFirstOption && !self.listItems.eq(0).not("[data-disabled='true']"))) {
 
-                                break;
+                                // Updates the dropdown list value
+                                self.selectBox.val(self.listItems.eq(self.currentFocus).attr("data-val")).
 
-                        }
+                                // Triggers a `change` event on the original select box
+                                trigger("change");
+
+                            }
+
+                            // Triggers the `enter` events on the original select box
+                            self.selectBox.trigger("enter");
+
+                            break;
+
+                        // If the user presses the `tab key`
+                        case tabKey:
+
+                            // Triggers the custom `tab-blur` event on the original select box
+                            self.selectBox.trigger("tab-blur");
+
+                            break;
+
+                        // If the user presses the `backspace key`
+                        case backspaceKey:
+
+                            // Prevents the browser from navigating to the previous page in its history
+                            e.preventDefault();
+
+                            // Triggers the custom `backspace` event on the original select box
+                            self.selectBox.trigger("backspace");
+
+                            break;
+
+                        // If the user presses the `escape key`
+                        case escKey:
+
+                            // Closes the dropdown options list
+                            self.close();
+
+                            break;
+
+                        // Default is to break out of the switch statement
+                        default:
+
+                            break;
+
                     }
+
                 },
 
                 // `keypress` event with the `selectBoxIt` namespace.  Catches all user keyboard text searches since you can only reliably get character codes using the `keypress` event
                 "keypress.selectBoxIt": function(e) {
 
-                    // Performs a text search if the dropdown list is focused
-                    if ($(":focus").is(self.div)) {
+                    // Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross
+                    // browser support since IE uses `keyCode` instead of `charCode`.
+                    var currentKey = e.charCode || e.keyCode,
 
-                        // Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross
-                        // browser support since IE uses `keyCode` instead of `charCode`.
-                        var currentKey = e.charCode || e.keyCode,
+                        // Converts unicode values to characters
+                        alphaNumericKey = String.fromCharCode(currentKey);
 
-                            // Converts unicode values to characters
-                            alphaNumericKey = String.fromCharCode(currentKey);
+                    // If the user presses the `space bar`
+                    if (currentKey === spaceKey) {
 
-                        // If the user presses the `space bar`
-                        if (currentKey === spaceKey) {
+                        // Prevents the browser from scrolling to the bottom of the page
+                        e.preventDefault();
 
-                            // Prevents the browser from scrolling to the bottom of the page
-                            e.preventDefault();
-                        }
-
-                        // If the plugin options allow text searches
-                        if (self.search) {
-
-                            // Calls `search` and passes the character value of the user's text search
-                            self.search(alphaNumericKey, true, "");
-                        }
                     }
+
+                    // If the plugin options allow text searches
+                    if (self.search) {
+
+                        // Calls `search` and passes the character value of the user's text search
+                        self.search(alphaNumericKey, true, "");
+
+                    }
+
                 },
 
                 // `mousenter` event with the `selectBoxIt` namespace .The mouseenter JavaScript event is proprietary to Internet Explorer. Because of the event's general utility, jQuery simulates this event so that it can be used regardless of browser.
@@ -1003,6 +995,7 @@
 
                     // Trigger the `mouseenter` event on the original select box
                     self.selectBox.trigger("mouseenter");
+
                 },
 
                 // `mouseleave` event with the `selectBoxIt` namespace. The mouseleave JavaScript event is proprietary to Internet Explorer. Because of the event's general utility, jQuery simulates this event so that it can be used regardless of browser.
@@ -1010,6 +1003,7 @@
 
                     // Trigger the `mouseleave` event on the original select box
                     self.selectBox.trigger("mouseleave");
+
                 }
 
             });

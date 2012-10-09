@@ -328,8 +328,8 @@
 
                 }
 
-                // Uses Array.join instead of string concatenation for speed
-                currentItem.push(optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><a><i class="' + iconClass + '"></i>' + $(this).text() + '</a></li>');
+                // Uses Array.join instead of string concatenation for speed (applies HTML attribute encoding for quotes)
+                currentItem.push(optgroupElement + '<li id="' + index + '" data-val="' + this.value.replace(/\"/g,'&quot;') + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + '"><a><i class="' + iconClass + '"></i>' + $(this).text() + '</a></li>');
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)

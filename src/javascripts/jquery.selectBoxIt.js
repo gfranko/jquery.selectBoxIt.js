@@ -186,7 +186,7 @@
             this.divText = $("<span/>", {
 
                 // Dynamically sets the span `id` attribute
-                "id": this.originalElem.id + "SelectBoxItText",
+                "id": (this.originalElem.id || "") && this.originalElem.id + "SelectBoxItText",
 
                 "class": "selectboxit-text",
 
@@ -205,7 +205,7 @@
             this.divImage = $("<i/>", {
 
                 // Dynamically sets the span `id` attribute
-                "id": this.originalElem.id + "SelectBoxItDefaultIcon",
+                "id": (this.originalElem.id || "") && this.originalElem.id + "SelectBoxItDefaultIcon",
 
                 "class": "selectboxit-default-icon",
 
@@ -218,7 +218,7 @@
             this.div = $("<div/>", {
 
                 // Dynamically sets the div `id` attribute
-                "id": this.originalElem.id + "SelectBoxIt",
+                "id": (this.originalElem.id || "") && this.originalElem.id + "SelectBoxIt",
 
                 "class": "selectboxit",
 
@@ -239,7 +239,7 @@
             // Create the div container that will hold all of the dropdown list dom elements
             this.divContainer = $("<div/>", {
 
-                "id": this.originalElem.id + "SelectBoxItContainer",
+                "id": (this.originalElem.id || "") && this.originalElem.id + "SelectBoxItContainer",
 
                 "class": "selectboxit-container"
             }).
@@ -276,7 +276,7 @@
                 createdList = $("<ul/>", {
 
                     // Sets the unordered list `id` attribute
-                    "id": this.originalElem.id + "SelectBoxItOptions",
+                    "id": (this.originalElem.id || "") && this.originalElem.id + "SelectBoxItOptions",
 
                     "class": "selectboxit-options",
 
@@ -412,7 +412,7 @@
             this.downArrow = $("<i/>", {
 
                 // Dynamically sets the span `id` attribute of the dropdown list down arrow
-                "id": this.originalElem.id + "SelectBoxItArrow",
+                "id": (this.originalElem.id || "") && this.originalElem.id + "SelectBoxItArrow",
 
                 "class": "selectboxit-arrow",
 
@@ -425,7 +425,7 @@
             this.downArrowContainer = $("<span/>", {
 
                 // Dynamically sets the span `id` attribute for the down arrow container element
-                "id": this.originalElem.id + "SelectBoxItArrowContainer",
+                "id": (this.originalElem.id || "") && this.originalElem.id + "SelectBoxItArrowContainer",
 
                 "class": "selectboxit-arrow-container",
 

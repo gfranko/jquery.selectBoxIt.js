@@ -1097,8 +1097,7 @@
                     // If the user called the change method
                     else {
 
-                        var text,
-                            currentOption = self.list.find('li[data-val="' + self.originalElem.value + '"]');
+                        var currentOption = self.list.find('li[data-val="' + self.originalElem.value + '"]');
 
                         // If there is a dropdown option with the same value as the original select box element
                         if(currentOption.length) {

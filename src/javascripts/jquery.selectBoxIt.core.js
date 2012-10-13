@@ -1100,24 +1100,13 @@
                         var text,
                             currentOption = self.list.find('li[data-val="' + self.originalElem.value + '"]');
 
-                        // If there is a dropdown option with the smae value as the original select box element
+                        // If there is a dropdown option with the same value as the original select box element
                         if(currentOption.length) {
 
                             self.currentFocus = currentOption.attr("id");
 
                             // Sets the new dropdown list text to the value of the current option
                             self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
-
-                        }
-
-                        // If there is not a dropdown option with the same value as the original select box element
-                        else {
-
-                            // The currently selected option text
-                            text = $(self.originalElem).find("option:selected").text();
-
-                            // Sets the new dropdown list text to the value of the original dropdown list selected option text (or value if there is no text)
-                            self.divText.text(text || self.originalElem.value).attr("data-val", self.originalElem.value);
 
                         }
 

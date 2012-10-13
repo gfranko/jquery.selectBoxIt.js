@@ -62,6 +62,18 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`1.7.0` - October 12, 2012
+
+**Multiple Bug Fixes**
+
+- Allow users to programmatically change the value of the select element [#28](https://github.com/gfranko/jquery.selectBoxIt.js/issues/28)
+
+- Removed unique id attributes from select boxes that do not originally include an id attribute [#27](https://github.com/gfranko/jquery.selectBoxIt.js/issues/27)
+
+- Applied HTML attribute encoding for quotes inside of option values [#8](https://github.com/gfranko/jquery.selectBoxIt.js/issues/8)
+
+- Fixed jQuery 1.8.2 keyboard compatibility bug [#26](https://github.com/gfranko/jquery.selectBoxIt.js/issues/26)
+
 `1.6.0` - September 28, 2012
 
 - Improved the CSS flexibility (can now more easily use auto widths)

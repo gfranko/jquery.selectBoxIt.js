@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v1.6.0 - 2012-09-28
+/* jquery Selectboxit - v1.7.0 - 2012-09-28
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "1.6.0",
+        VERSION: "1.7.0",
 
         // These options will be used as defaults
         options: {
@@ -917,7 +917,7 @@
                                 self.selectBox.val(self.listItems.eq(self.currentFocus).attr("data-val")).
 
                                 // Triggers a `change` event on the original select box
-                                trigger("change");
+                                trigger("change", true);
 
                             }
 
@@ -1054,7 +1054,7 @@
                     // Triggers the dropdown list `change` event if a value change occurs
                     if (self.originalElem.value !== self.divText.attr("data-val")) {
 
-                        self.selectBox.trigger("change");
+                        self.selectBox.trigger("change", true);
 
                     }
 
@@ -1074,7 +1074,7 @@
                     // Triggers the dropdown list `change` event if a value change occurs
                     if (self.originalElem.value !== self.divText.attr("data-val")) {
 
-                        self.selectBox.trigger("change");
+                        self.selectBox.trigger("change", true);
 
                     }
                 }
@@ -1084,10 +1084,23 @@
             this.selectBox.bind({
 
                 // `change` event handler with the `selectBoxIt` namespace
-                "change.selectBoxIt": function() {
+                "change.selectBoxIt": function(event, internal) {
 
-                    // Sets the new dropdown list text to the value of the original dropdown list
-                    self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
+                    // If the plugin called the change method
+                    if(internal) {
+
+                        // Sets the new dropdown list text to the value of the original dropdown list
+                        self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
+
+                    }
+
+                    // If the user called the change method
+                    else {
+
+                        // Sets the new dropdown list text to the value of the original dropdown list
+                        self.divText.text(self.originalElem.value).attr("data-val", self.originalElem.value);
+
+                    }
 
                     if(self.listItems.eq(self.currentFocus).find("i").attr("class")) {
 

@@ -1102,6 +1102,8 @@
                         // If there is a dropdown option with the same value as the original select box element
                         if(currentOption.length) {
 
+                            self.listItems.eq(self.currentFocus).removeClass(self.focusClass);
+
                             self.currentFocus = currentOption.attr("id");
 
                             // Sets the new dropdown list text to the value of the current option
@@ -1153,6 +1155,8 @@
                 buttonClass = buttonClasses || "selectboxit-btn",
 
                 listClass = listClasses || "selectboxit-dropdown";
+
+            this.focusClass = focusClass;
 
             this.downArrow.addClass(this.selectBox.data("downarrow") || this.options.downArrowIcon || arrowClass);
 

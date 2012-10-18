@@ -107,6 +107,7 @@
              <h2>Examples</h2>
               <br />
               <h3>jQuery Show/Hide Support</h3>
+              <br />
               <div class="select">
                 Turns this
                 <br />
@@ -138,8 +139,9 @@
                   hideEffectSpeed: 600
               });
               </pre>
-              <br /><br />
+              <br />
               <h3>jQueryUI Show/Hide Support</h3>
+              <br />
               <div class="select">
                 Turns this
                 <br />
@@ -170,8 +172,9 @@
                   hideEffect: "explode"
               });
               </pre>
-              <br /><br />
+              <br />
               <h3>jQueryUI Theming Support</h3>
+              <br />
               <div class="select">
                 Turns this
                 <br />
@@ -204,7 +207,7 @@
                   hideEffectSpeed: 600
               });
               </pre>
-              <br /><br />
+              <br />
               <h3>Icon Support</h3>
               <br />
               <div class="select">
@@ -237,7 +240,7 @@
                   &lt;option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check"&gt;a Stateful UI Widget&lt;/option&gt;
                 &lt;/select&gt;
               </pre>
-              <br /><br />
+              <br />
               <h3>Selected and Disabled Support</h3>
               <br />
               <div class="select">
@@ -270,6 +273,7 @@
                   &lt;option value="a Stateful UI Widget" selected&gt;a Stateful UI Widget&lt;/option&gt;
                 &lt;/select&gt;
               </pre>
+              <br />
               <h3>Optgroup Support</h3>
               <br />
               <div class="select">
@@ -362,17 +366,20 @@
 
               <h2>Getting Started</h2>
               <br />
-              <p><h3><a href="customDownload.html">SelectBoxIt Custom Download</h3></a></p>
+              <h3>Downloads</h3>
+              <strong>Note: </strong>Feel free to look at the <a href="https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/demos/default.html" target="_blank">demo page</a> if you find that easier than reading these instructions.
+              <br /><br />
+              <p><h4><a href="http://www.jquery.com">1. jQuery</h4></a></p>
               <p class="well">
-              <span class="note">Only the <strong>SelectBoxIt Core</strong> is required.  Include any other additional components that you like.
+              <span class="note"><strong>jQuery: </strong>Download the latest version of jQuery.
               </span>
               <br /><br />
-              <a href="customDownload.html#javascript-downloads" target="_blank">
-                <img src="img/customDownload.PNG" title="SelectBoxIt Custom Download" >
+              <a href="http://www.jquery.com" target="_blank">
+                <img src="img/jquery.png" title="jQuery" >
               </a>
               </p>
               <br />
-              <p><h3><a href="http://jqueryui.com/download" target="_blank"> jQueryUI Custom Download</h3></a>.</p>
+              <p><h4><a href="http://jqueryui.com/download" target="_blank">2. jQueryUI Widget Factory</h4></a></p>
               <p class="well">
               <span class="note"><strong>jQuery Widget Factory: </strong>Check the jQueryUI Widget Factory box
               <strong>(Required)</strong>.
@@ -388,14 +395,43 @@
               <a href="http://jqueryui.com/download" target="_blank">
                 <img src="img/jqueryUIEffects.png" title="jQueryUI Effects" >
               </a>
-              <br /><br />
-              <span class="note"><strong>jQueryUI Themes: </strong>Download a default jQueryUI Theme or create a new jQueryUI Theme with ThemeRoller <strong>(Optional)</strong>, or write your own CSS.
+              </p>
+              <br />
+              <p><h4><a href="customDownload.html">3. SelectBoxIt</h4></a></p>
+              <p class="well">
+              <span class="note"><strong>SelectBoxIt CSS: </strong>Download the SelectBoxIt CSS <strong>(required)</strong>.
               <br /><br />
               </span>
-              <a href="http://jqueryui.com/themeroller" target="_blank">
-                <img src="img/themeroller.png" title="jQueryUI ThemeRoller" >
+              <a href="customDownload.html#css-downloads" target="_blank">
+                <img src="img/selectboxitcss.png" title="SelectBoxIt CSS" >
+              </a>
+              <br /><br />
+              <span class="note"><strong>SelectBoxIt JavaScript: </strong> <span class="note">Only the <em>SelectBoxIt Core</em> module is required.  Include any other additional components that you like.
+              </span>
+              <br /><br />
+              <a href="customDownload.html#javascript-downloads" target="_blank">
+                <img src="img/customDownload.PNG" title="SelectBoxIt Custom Download" >
               </a>
               </p>
+              <br />
+              <p><h4><a href="http://twitter.github.com/bootstrap/customize.html">4. Twitter Bootstrap or jQueryUI CSS</h4></a>
+                <strong>Note: </strong> These themes are optional.  If you don't want to use these themes, feel free to create your own CSS.
+              </p>
+              <p class="well">
+              <span class="note"><strong>Twitter Bootstrap: </strong>Check the Buttons and Dropdowns boxes
+              <strong>(Required)</strong>.
+              </span>
+              <br /><br />
+              <a href="http://twitter.github.com/bootstrap/customize.html" target="_blank">
+                <img src="img/bootstrap.png" title="Twitter Bootstrap" >
+              </a>
+              <br /><br />
+              <span class="note"><strong>jQueryUI CSS: </strong>Download a default jQueryUI CSS Theme or create a new jQueryUI CSS Theme.
+              <br /><br />
+              </span>
+              <a href="http://jqueryui.com/themeroller/" target="_blank">
+                <img src="img/themeroller.png" title="jQueryUI CSS" >
+              </a>
               <br />
               <p>
               <h3>Include CSS and JavaScript files</h3>
@@ -404,7 +440,7 @@
               <span class="note"><strong>CSS</strong></span>
               <pre class="prettyprint">
                 &lt;link type="text/css" rel="stylesheet" href="jquery.selectBoxIt.css" /&gt;
-                &lt;link type="text/css" rel="stylesheet" href="jquery-ui.custom.css" /&gt;
+                &lt;link type="text/css" rel="stylesheet" href="bootstrap.css" /&gt;
               </pre>
               <br />
               <span class="note"><strong>JavaScript</strong></span>
@@ -416,14 +452,14 @@
               </pre>
               <span class="note"><strong>Note:</strong> This assumes that you have downloaded the CSS and JavaScript files to the same folder as your HTML page. Modify the <strong>href</strong> and <strong>src</strong> attributes if you have a different folder structure.
               <br /><br />
-              Also, if you are using jQueryUI to style your dropdown list, then add all of the jQueryUI images to your <strong>images</strong> folder. Keep in mind that depending on your folder structure, you may need to update the image paths inside of the jQueryUI CSS file.
+              Also, if you are using Twitter Bootstrap or jQueryUI to style your dropdown list, add all of the required images. Keep in mind that depending on your folder structure, you may need to update the background image paths inside of your CSS files.
               </span>
               <br /><br />
               <p>
               <h3>HTML</h3>
               </p>
               <span class="note">
-              Create an <strong>HTML select box</strong> with <strong>id</strong> and <strong>name</strong> attributes. The name attribute from the HTML select box will be copied to the new dropdown list that the plugin creates (this allows you to easily interact with the new dropdown list without having to know a new <strong>id</strong> or <strong>class</strong> attribute). Each select box option should have a <strong>value</strong> attribute.
+              Create an <strong>HTML select box</strong> with <strong>id</strong>, <strong>class</strong>, or <strong>name</strong> attributes. If you include a <strong>name</strong> attribute, the name attribute will be copied to the new dropdown list that the plugin creates (this allows you to easily interact with the new dropdown list without having to know a new <strong>id</strong> or <strong>class</strong> attribute). If you include an <strong>id</strong> attribute, SelectBoxIt will create and copy a "unique" <strong>id</strong> attribute to the dropdown list.It is also best practice for each select box option to have a <strong>value</strong> attribute, but it is not required.
               </span>
               <br /><br />
               <pre class="prettyprint">

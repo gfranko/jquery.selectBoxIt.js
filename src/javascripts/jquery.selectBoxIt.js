@@ -226,7 +226,7 @@
                 "name": this.originalElem.name,
 
                 // Sets the div `tabindex` attribute to 0 to allow the div to be focusable
-                "tabindex": 0,
+                "tabindex": this.selectBox.attr("tabindex") || "0",
 
                 // IE specific attribute to not allow the element to be selected
                 "unselectable": "on"
@@ -241,9 +241,8 @@
 
                 "id": (this.originalElem.id || "") && this.originalElem.id + "SelectBoxItContainer",
 
-                "class": "selectboxit-container",
+                "class": "selectboxit-container"
 
-                "tabindex": this.selectBox.attr("tabindex")
             }).
 
             // Appends the inner dropdown list div element to the dropdown list container div element

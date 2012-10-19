@@ -241,7 +241,9 @@
 
                 "id": (this.originalElem.id || "") && this.originalElem.id + "SelectBoxItContainer",
 
-                "class": "selectboxit-container"
+                "class": "selectboxit-container",
+
+                "tabindex": this.selectBox.attr("tabindex")
             }).
 
             // Appends the inner dropdown list div element to the dropdown list container div element

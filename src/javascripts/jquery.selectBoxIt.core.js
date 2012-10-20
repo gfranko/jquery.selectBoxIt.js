@@ -1284,7 +1284,7 @@
         // ------
         //    Removes the plugin from the page
 
-        destroy: function(refresh, callback) {
+        destroy: function(callback, refresh) {
 
             //Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
             this.div.unbind(".selectBoxIt").
@@ -1321,11 +1321,11 @@
         refresh: function(callback) {
 
             // Destroys the plugin and then recreates the plugin
-            this.destroy(true, function() {
+            this.destroy(function() {
 
                 this._create();
 
-            });
+            }, true);
 
             //Maintains chainability
             return this;

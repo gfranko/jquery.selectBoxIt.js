@@ -1284,7 +1284,7 @@
         // ------
         //    Removes the plugin from the page
 
-        destroy: function(callback) {
+        destroy: function(refresh, callback) {
 
             //Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
             this.div.unbind(".selectBoxIt").
@@ -1298,8 +1298,13 @@
             //Triggers the custom `destroy` event on the original select box and then shows the original dropdown list
             this.selectBox.trigger("destroy").show();
 
-            // Calls the jQueryUI Widget Factory destroy method
-            $.Widget.prototype.destroy.call(this);
+            // If the refresh method is not being called
+            if(!refresh) {
+
+                // Calls the jQueryUI Widget Factory destroy method
+                $.Widget.prototype.destroy.call(this);
+
+            }
 
             //Provides callback function support
             this._callbackSupport(callback);
@@ -1316,7 +1321,7 @@
         refresh: function(callback) {
 
             // Destroys the plugin and then recreates the plugin
-            this.destroy(function() {
+            this.destroy(true, function() {
 
                 this._create();
 

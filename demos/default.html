@@ -33,26 +33,6 @@
 <script>
 $(function() {
     var selectBox = $("select.test").selectBoxIt().data("selectBoxIt");
-
-// Sets a timeout of two seconds
-setTimeout(function() {
-    
-    // Loops through all of the select box elements using SelectBoxIt
-    $(":selectBox-selectBoxIt").each(function() {
-        
-        // Changes the text of each select box option
-        $(this).find('option').first().text('Updated text');
-        
-        // Calls the refresh method on each select box element
-        $(this).data("selectBoxIt").refresh();
-        
-        $(this).find('option').first().text('Updated text again');
-        
-        $(this).data("selectBoxIt").refresh();
-            
-    });
-
-}, 2000);
 });
 </script>
  </body>

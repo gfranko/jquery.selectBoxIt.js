@@ -6,26 +6,28 @@ $(function() {
 
     $.selectBox.selectBoxIt.prototype.enable = function(callback) {
 
-            if(this.options.disabled) {
+        var self = this;
 
-                //Triggers a `enable` custom event on the original select box
-                this.selectBox.trigger("enable")
+        if(self.options.disabled) {
 
-                //Removes the `disabled` attribute from the original dropdown list
-                .removeAttr("disabled");
+            // Triggers a `enable` custom event on the original select box
+            self.selectBox.trigger("enable").
 
-                //Make the dropdown list focusable
-                this.div.attr("tabindex", 0).css("cursor", "pointer");
+            // Removes the `disabled` attribute from the original dropdown list
+            removeAttr("disabled");
 
-                $.Widget.prototype.enable.call(this);
+            // Make the dropdown list focusable
+            self.div.attr("tabindex", 0).css("cursor", "pointer");
 
-                //Provide callback function support
-                this._callbackSupport(callback);
+            $.Widget.prototype.enable.call(self);
+
+            // Provide callback function support
+            self._callbackSupport(callback);
 
             }
 
             //Maintains chainability
-            return this;
+            return self;
 
         };
 

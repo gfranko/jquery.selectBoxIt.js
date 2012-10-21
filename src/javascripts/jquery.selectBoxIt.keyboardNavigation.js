@@ -6,66 +6,69 @@ $(function() {
 
     $.selectBox.selectBoxIt.prototype.moveDown = function(callback) {
 
-        //Increments `currentFocus`, which represents the currently focused list item `id` attribute.
-        this.currentFocus += 1;
+        var self = this;
 
-        //Determines whether the dropdown option the user is trying to go to is currently disabled
-        var disabled = this.listItems.eq(this.currentFocus).data("disabled"),
+        // Increments `currentFocus`, which represents the currently focused list item `id` attribute.
+        self.currentFocus += 1;
 
-            hasNextEnabled = this.listItems.eq(this.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
+        // Determines whether the dropdown option the user is trying to go to is currently disabled
+        var disabled = self.listItems.eq(self.currentFocus).data("disabled"),
 
-        //If the user has reached the top of the list
-        if (this.currentFocus === this.listItems.length) {
+            hasNextEnabled = self.listItems.eq(self.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
 
-            //Does not allow the user to continue to go up the list
-            this.currentFocus -= 1;
+        // If the user has reached the top of the list
+        if (self.currentFocus === self.listItems.length) {
+
+            // Does not allow the user to continue to go up the list
+            self.currentFocus -= 1;
 
         }
 
-        //If the option the user is trying to go to is disabled, but there is another enabled option
+        // If the option the user is trying to go to is disabled, but there is another enabled option
         else if (disabled && hasNextEnabled) {
 
-            //Blur the previously selected option
-            this.listItems.eq(this.currentFocus - 1).blur();
+            // Blur the previously selected option
+            self.listItems.eq(self.currentFocus - 1).blur();
 
-            //Call the `moveDown` method again
-            this.moveDown();
+            // Call the `moveDown` method again
+            self.moveDown();
 
-            //Exit the method
+            // Exit the method
             return;
 
         }
 
-        //If the option the user is trying to go to is disabled, but there is not another enabled option
+        // If the option the user is trying to go to is disabled, but there is not another enabled option
         else if (disabled && !hasNextEnabled) {
 
-            this.currentFocus -= 1;
+            self.currentFocus -= 1;
 
         }
 
-        //If the user has not reached the bottom of the unordered list
+        // If the user has not reached the bottom of the unordered list
         else {
 
-            //Blurs the previously focused list item
-            //The jQuery `end()` method allows you to continue chaining while also using a different selector
-            this.listItems.eq(this.currentFocus - 1).blur().end().
+            // Blurs the previously focused list item
+            // The jQuery `end()` method allows you to continue chaining while also using a different selector
+            self.listItems.eq(self.currentFocus - 1).blur().end().
 
-            //Focuses the currently focused list item
-            eq(this.currentFocus).focus();
+            // Focuses the currently focused list item
+            eq(self.currentFocus).focus();
 
-            //Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
-            this._scrollToView("down");
+            // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
+            self._scrollToView("down");
 
-            //Triggers the custom `moveDown` event on the original select box
-            this.selectBox.trigger("moveDown");
+            // Triggers the custom `moveDown` event on the original select box
+            self.selectBox.trigger("moveDown");
 
         }
 
-        //Provide callback function support
-        this._callbackSupport(callback);
+        // Provide callback function support
+        self._callbackSupport(callback);
 
-        //Maintains chainability
-        return this;
+        // Maintains chainability
+        return self;
+
     };
 
     //Move Up
@@ -73,63 +76,66 @@ $(function() {
     //      Handles the up keyboard navigation logic
     $.selectBox.selectBoxIt.prototype.moveUp = function(callback) {
 
-        //Increments `currentFocus`, which represents the currently focused list item `id` attribute.
-        this.currentFocus -= 1;
+        var self = this;
 
-        //Determines whether the dropdown option the user is trying to go to is currently disabled
-        var disabled = this.listItems.eq(this.currentFocus).data("disabled"),
+        // Increments `currentFocus`, which represents the currently focused list item `id` attribute.
+        self.currentFocus -= 1;
 
-            hasPreviousEnabled = this.listItems.eq(this.currentFocus).prevAll("li").not("[data-disabled='true']").first().length;
+        // Determines whether the dropdown option the user is trying to go to is currently disabled
+        var disabled = self.listItems.eq(self.currentFocus).data("disabled"),
 
-        //If the user has reached the top of the list
-        if (this.currentFocus === -1) {
+            hasPreviousEnabled = self.listItems.eq(self.currentFocus).prevAll("li").not("[data-disabled='true']").first().length;
 
-            //Does not allow the user to continue to go up the list
-            this.currentFocus += 1;
+        // If the user has reached the top of the list
+        if (self.currentFocus === -1) {
+
+            // Does not allow the user to continue to go up the list
+            self.currentFocus += 1;
         }
 
-        //If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list
+        // If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list
         else if (disabled && hasPreviousEnabled) {
 
-            //Blur the previously selected option
-            this.listItems.eq(this.currentFocus + 1).blur();
+            // Blur the previously selected option
+            self.listItems.eq(self.currentFocus + 1).blur();
 
-            //Call the `moveUp` method again
-            this.moveUp();
+            // Call the `moveUp` method again
+            self.moveUp();
 
-            //Exit the method
+            // Exits the method
             return;
         }
 
         else if (disabled && !hasPreviousEnabled) {
 
-            this.currentFocus += 1;
+            self.currentFocus += 1;
 
         }
 
-        //If the user has not reached the top of the unordered list
+        // If the user has not reached the top of the unordered list
         else {
 
-            //Blurs the previously focused list item
-            //The jQuery `end()` method allows you to continue chaining while also using a different selector
-            this.listItems.eq(this.currentFocus + 1).blur().end().
+            // Blurs the previously focused list item
+            // The jQuery `end()` method allows you to continue chaining while also using a different selector
+            self.listItems.eq(this.currentFocus + 1).blur().end().
 
-            //Focuses the currently focused list item
-            eq(this.currentFocus).focus();
+            // Focuses the currently focused list item
+            eq(self.currentFocus).focus();
 
-            //Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
-            this._scrollToView("up");
+            // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
+            self._scrollToView("up");
 
-            //Triggers the custom `moveDown` event on the original select box
-            this.selectBox.trigger("moveUp");
+            // Triggers the custom `moveDown` event on the original select box
+            self.selectBox.trigger("moveUp");
 
         }
 
-        //Provide callback function support
-        this._callbackSupport(callback);
+        // Provide callback function support
+        self._callbackSupport(callback);
 
-        //Maintains chainability
-        return this;
+        // Maintains chainability
+        return self;
+
     };
 
 });

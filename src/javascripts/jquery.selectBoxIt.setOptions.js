@@ -7,48 +7,51 @@ $(function() {
 
     $.selectBox.selectBoxIt.prototype.setOptions = function(newOptions, callback) {
 
-            $.Widget.prototype._setOptions.apply(this, arguments);
+        var self = this;
 
-            //If the `showFirstOption` option is true
-            if (this.options.showFirstOption) {
+        $.Widget.prototype._setOptions.apply(self, arguments);
 
-                //Shows the first option in the dropdown list
-                this.listItems.eq(0).show();
+        // If the `showFirstOption` option is true
+        if (self.options.showFirstOption) {
 
-            }
+            // Shows the first option in the dropdown list
+            self.listItems.eq(0).show();
 
-            //If the `showFirstOption` option is false
-            else {
+        }
 
-                //Hides the first option in the dropdown list
-                this.listItems.eq(0).hide();
+        // If the `showFirstOption` option is false
+        else {
 
-            }
+            // Hides the first option in the dropdown list
+            self.listItems.eq(0).hide();
 
-            if(this.options.defaultIcon) {
+        }
 
-                this.divImage.attr("class", this.options.defaultIcon);
+        if(self.options.defaultIcon) {
 
-            }
+            self.divImage.attr("class", self.options.defaultIcon);
 
-            if(this.options.downArrowIcon) {
+        }
 
-                this.downArrow.attr("class", this.options.downArrowIcon);
+        if(self.options.downArrowIcon) {
 
-            }
+            self.downArrow.attr("class", self.options.downArrowIcon);
 
-            //If the defaultText option is set, make sure the dropdown list default text reflects this value
-            if (this.options.defaultText) {
+        }
 
-                this.divText.text(this.options.defaultText);
+        // If the defaultText option is set, make sure the dropdown list default text reflects this value
+        if (self.options.defaultText) {
 
-            }
+            self.divText.text(self.options.defaultText);
 
-            //Provide callback function support
-            this._callbackSupport(callback);
+        }
 
-            return this;
+        // Provide callback function support
+        self._callbackSupport(callback);
 
-        };
+        // Maintains chainability
+        return self;
+
+    };
 
 });

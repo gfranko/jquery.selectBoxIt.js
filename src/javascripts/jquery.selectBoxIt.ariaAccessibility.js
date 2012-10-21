@@ -10,7 +10,7 @@ $(function() {
         var self = this;
 
         //Adds `ARIA attributes` to the dropdown list
-        this.div.attr({
+        self.div.attr({
 
             //W3C `combobox` description: A presentation of a select; usually similar to a textbox where users can type ahead to select an option.
             "role": "combobox",
@@ -22,13 +22,13 @@ $(function() {
             "aria-expanded": "false",
 
             //W3C `aria-owns` description: The value of the aria-owns attribute is a space-separated list of IDREFS that reference one or more elements in the document by ID. The reason for adding aria-owns is to expose a parent/child contextual relationship to assistive technologies that is otherwise impossible to infer from the DOM.
-            "aria-owns": this.list.attr("id"),
+            "aria-owns": self.list.attr("id"),
 
             //W3C `aria-activedescendant` description: This is used when a composite widget is responsible for managing its current active child to reduce the overhead of having all children be focusable. Examples include: multi-level lists, trees, and grids.
-            "aria-activedescendant": this.listItems.eq(this.currentFocus).attr("id"),
+            "aria-activedescendant": self.listItems.eq(self.currentFocus).attr("id"),
 
             //W3C `aria-label` description:  It provides the user with a recognizable name of the object.
-            "aria-label": $("label[for='" + this.originalElem.id + "']").text() || "",
+            "aria-label": $("label[for='" + self.originalElem.id + "']").text() || "",
 
             //W3C `aria-live` description: Indicates that an element will be updated.
             //Use the assertive value when the update needs to be communicated to the user more urgently.
@@ -109,7 +109,7 @@ $(function() {
         });
 
         //Maintains chainability
-        return this;
+        return self;
 
     };
 

@@ -6,35 +6,37 @@ $(function() {
 
     $.selectBox.selectBoxIt.prototype._setCurrentSearchOption = function(currentOption) {
 
+        var self = this;
+
         // Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.
         // Otherwise, the current option value is updated
-        if (!(currentOption === 0 && !this.options.showFirstOption) && this.listItems.eq(currentOption).data("disabled") !== true) {
+        if (!(currentOption === 0 && !self.options.showFirstOption) && self.listItems.eq(currentOption).data("disabled") !== true) {
 
-            //Updates the default dropdown list text
-            this.divText.text(this.textArray[currentOption]);
+            // Updates the default dropdown list text
+            self.divText.text(self.textArray[currentOption]);
 
-            //Calls the `blur` event of the currently selected dropdown list option
-            this.listItems.eq(this.currentFocus).blur();
+            // Calls the `blur` event of the currently selected dropdown list option
+            self.listItems.eq(self.currentFocus).blur();
 
-            //Sets `currentIndex` to the currently selected dropdown list option
-            this.currentIndex = currentOption;
+            // Sets `currentIndex` to the currently selected dropdown list option
+            self.currentIndex = currentOption;
 
-            //Sets `currentFocus` to the currently selected dropdown list option
-            this.currentFocus = currentOption;
+            // Sets `currentFocus` to the currently selected dropdown list option
+            self.currentFocus = currentOption;
 
-            //Focuses the currently selected dropdown list option
-            this.listItems.eq(this.currentFocus).focus();
+            // Focuses the currently selected dropdown list option
+            self.listItems.eq(self.currentFocus).focus();
 
-            //Updates the scrollTop so that the currently selected dropdown list option is visible to the user
-            this._scrollToView("search");
+            // Updates the scrollTop so that the currently selected dropdown list option is visible to the user
+            self._scrollToView("search");
 
-            //Triggers the custom `search` event on the original select box
-            this.selectBox.trigger("search");
+            // Triggers the custom `search` event on the original select box
+            self.selectBox.trigger("search");
 
         }
 
         //Maintains chainability
-        return this;
+        return self;
 
     };
 
@@ -43,64 +45,66 @@ $(function() {
     //      Uses regular expressions to find text matches
     $.selectBox.selectBoxIt.prototype._searchAlgorithm = function(currentIndex, alphaNumeric) {
 
-        // Boolean to determine if a pattern match exists
-        var matchExists = false,
+        var self = this,
 
-            //Iteration variable used in the outermost for loop
+            // Boolean to determine if a pattern match exists
+            matchExists = false,
+
+            // Iteration variable used in the outermost for loop
             x,
 
-            //Iteration variable used in the nested for loop
+            // Iteration variable used in the nested for loop
             y,
 
-            //Variable used to cache the length of the text array (Small enhancement to speed up traversing)
+            // Variable used to cache the length of the text array (Small enhancement to speed up traversing)
             arrayLength;
 
-        //Loops through the text array to find a pattern match
-        for (x = currentIndex, arrayLength = this.textArray.length; x < arrayLength; x += 1) {
+        // Loops through the text array to find a pattern match
+        for (x = currentIndex, arrayLength = self.textArray.length; x < arrayLength; x += 1) {
 
-            //Nested for loop to help search for a pattern match with the currently traversed array item
+            // Nested for loop to help search for a pattern match with the currently traversed array item
             for (y = 0; y < arrayLength; y += 1) {
 
-                //Searches for a match
-                if (this.textArray[y].search(alphaNumeric) !== -1) {
+                // Searches for a match
+                if (self.textArray[y].search(alphaNumeric) !== -1) {
 
-                    //`matchExists` is set to true if there is a match
+                    // `matchExists` is set to true if there is a match
                     matchExists = true;
 
-                    //Exits the nested for loop
+                    // Exits the nested for loop
                     y = arrayLength;
 
                 }
 
-            } //End nested for loop
+            } // End nested for loop
 
             //If a match does not exist
             if (!matchExists) {
 
-                //Sets the current text to the last entered character
-                this.currentText = this.currentText.charAt(this.currentText.length - 1).
+                // Sets the current text to the last entered character
+                self.currentText = self.currentText.charAt(self.currentText.length - 1).
 
-                //Escapes the regular expression to make sure special characters are seen as literal characters instead of special commands
+                // Escapes the regular expression to make sure special characters are seen as literal characters instead of special commands
                 replace(/[|()\[{.+*?$\\]/g, "\\$0");
 
-                //Resets the regular expression with the new value of `self.currentText`
-                alphaNumeric = new RegExp(this.currentText, "gi");
+                // Resets the regular expression with the new value of `self.currentText`
+                alphaNumeric = new RegExp(self.currentText, "gi");
 
             }
 
-            //Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
-            if (this.currentText.length < 3) {
+            // Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
+            if (self.currentText.length < 3) {
 
-                alphaNumeric = new RegExp(this.currentText.charAt(0), "gi");
+                alphaNumeric = new RegExp(self.currentText.charAt(0), "gi");
 
                 //If there is a match based on the first character
-                if ((this.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {
+                if ((self.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {
 
                     //Sets properties of that dropdown list option to make it the currently selected option
-                    this._setCurrentSearchOption(x);
+                    self._setCurrentSearchOption(x);
 
                     //Increments the current index by one
-                    this.currentIndex += 1;
+                    self.currentIndex += 1;
 
                     //Exits the search
                     return false;
@@ -112,10 +116,10 @@ $(function() {
             else {
 
                 // If there is a match based on the entire string
-                if ((this.textArray[x].search(alphaNumeric) !== -1)) {
+                if ((self.textArray[x].search(alphaNumeric) !== -1)) {
 
                     // Sets properties of that dropdown list option to make it the currently selected option
-                    this._setCurrentSearchOption(x);
+                    self._setCurrentSearchOption(x);
 
                     // Exits the search
                     return false;
@@ -123,13 +127,13 @@ $(function() {
             }
 
             // If the current text search is an exact match
-            if (this.textArray[x].toLowerCase() === this.currentText.toLowerCase()) {
+            if (self.textArray[x].toLowerCase() === self.currentText.toLowerCase()) {
 
                 // Sets properties of that dropdown list option to make it the currently selected option
-                this._setCurrentSearchOption(x);
+                self._setCurrentSearchOption(x);
 
                 // Resets the current text search to a blank string to start fresh again
-                this.currentText = "";
+                self.currentText = "";
 
                 // Exits the search
                 return false;
@@ -146,41 +150,43 @@ $(function() {
     //      Calls searchAlgorithm()
     $.selectBox.selectBoxIt.prototype.search = function(alphaNumericKey, rememberPreviousSearch, callback) {
 
+        var self = this;
+
         // If the search method is being called internally by the plugin, and not externally as a method by a user
         if (rememberPreviousSearch) {
 
             // Continued search with history from past searches.  Properly escapes the regular expression
-            this.currentText += alphaNumericKey.replace(/[|()\[{.+*?$\\]/g, "\\$0");
+            self.currentText += alphaNumericKey.replace(/[|()\[{.+*?$\\]/g, "\\$0");
 
         }
 
         else {
 
             // Brand new search.  Properly escapes the regular expression
-            this.currentText = alphaNumericKey.replace(/[|()\[{.+*?$\\]/g, "\\$0");
+            self.currentText = alphaNumericKey.replace(/[|()\[{.+*?$\\]/g, "\\$0");
 
         }
 
         // Wraps the current user text search in a regular expression that is case insensitive and searches globally
-        var alphaNumeric = new RegExp(this.currentText, "gi"),
+        var alphaNumeric = new RegExp(self.currentText, "gi"),
 
             // Calls `searchAlgorithm` which searches an array that contains all of the dropdown list option values.
-            notFound = this._searchAlgorithm(this.currentIndex, alphaNumeric);
+            notFound = self._searchAlgorithm(self.currentIndex, alphaNumeric);
 
         // Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of the currently selected dropdown list option, and does not search the options before the current array indece.
         // If there are many similar dropdown list options, starting the search at the indece of the currently selected dropdown list option is needed to properly traverse the text array.
         if (notFound) {
 
             // Searches the dropdown list values starting from the beginning of the text array
-            this._searchAlgorithm(0, alphaNumeric);
+            self._searchAlgorithm(0, alphaNumeric);
 
         }
 
         // Provide callback function support
-        this._callbackSupport(callback);
+        self._callbackSupport(callback);
 
         // Maintains chainability
-        return this;
+        return self;
 
     };
 

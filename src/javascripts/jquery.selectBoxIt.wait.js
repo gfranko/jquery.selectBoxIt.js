@@ -9,19 +9,19 @@ $(function() {
 
         var self = this,
 
-            //The timeout variable stores a Deferred Object, which will be resolved after the time specified in the parameter
+            // The timeout variable stores a Deferred Object, which will be resolved after the time specified in the parameter
             timeout = this.returnTimeout(time);
 
-        //Once the Deferred object is resolved, call the callback function
+        // Once the Deferred object is resolved, call the callback function
         timeout.then(function() {
 
-            //Provide callback function support
+            // Provide callback function support
             self._callbackSupport(callback);
 
         });
         
-        //Maintains chainability
-        return this;
+        // Maintains chainability
+        return self;
 
     };
 

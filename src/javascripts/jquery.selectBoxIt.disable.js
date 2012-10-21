@@ -6,30 +6,32 @@ $(function() {
 
     $.selectBox.selectBoxIt.prototype.disable = function(callback) {
 
-            if(!this.options.disabled) {
+        var self = this;
 
-                //Makes sure the dropdown list is closed
-                this.close();
+        if(!self.options.disabled) {
 
-                //Triggers a `disable` custom event on the original select box
-                this.selectBox.trigger("disable")
+            //Makes sure the dropdown list is closed
+            self.close();
 
-                //Sets the `disabled` attribute on the original select box
-                .attr("disabled", "disabled");
+            //Triggers a `disable` custom event on the original select box
+            self.selectBox.trigger("disable").
 
-                //Makes the dropdown list not focusable by removing the `tabindex` attribute
-                this.div.removeAttr("tabindex").css("cursor", "default");
+            //Sets the `disabled` attribute on the original select box
+            attr("disabled", "disabled");
 
-                // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
-                $.Widget.prototype.disable.call(this);
+            //Makes the dropdown list not focusable by removing the `tabindex` attribute
+            self.div.removeAttr("tabindex").css("cursor", "default");
 
-                //Provides callback function support
-                this._callbackSupport(callback);
+            // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
+            $.Widget.prototype.disable.call(self);
 
-                //Maintains chainability
-                return this;
+            //Provides callback function support
+            self._callbackSupport(callback);
 
-            }
+            //Maintains chainability
+            return self;
+
+        }
 
     };
 
@@ -40,15 +42,17 @@ $(function() {
 
     $.selectBox.selectBoxIt.prototype._isDisabled = function(callback) {
 
+        var self = this;
+
         //If the original select box is disabled
-        if (this.originalElem.disabled) {
+        if (self.originalElem.disabled) {
 
             //Disables the dropdown list
-            this.disable();
+            self.disable();
         }
 
         //Maintains chainability
-        return this;
+        return self;
 
     };
 

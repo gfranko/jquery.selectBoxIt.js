@@ -174,6 +174,8 @@
             // Triggers a custom `create` event on the original dropdown list
             this.selectBox.trigger("create");
 
+            // Maintains chainability
+            return this;
         },
 
         // _Create Div
@@ -538,6 +540,9 @@
                 callback.call(this, this.div);
 
             }
+
+            // Maintains chainability
+            return this;
         },
 
         // Open
@@ -1269,6 +1274,8 @@
 
             this._addClasses("ui-state-focus", "ui-state-hover", "ui-icon ui-icon-triangle-1-s", "ui-widget ui-state-default", "ui-widget ui-widget-content");
 
+            // Maintains chainability
+            return this;
         },
 
         // _twitterbootstrap
@@ -1278,13 +1285,31 @@
 
             this._addClasses("active", "", "caret", "btn", "dropdown-menu");
 
+            // Maintains chainability
+            return this;
+
         },
 
         // Destroy
         // ------
         //    Removes the plugin from the page
 
-        destroy: function(callback, refresh) {
+        destroy: function(callback) {
+
+            this._destroySelectBoxIt();
+
+            // Calls the jQueryUI Widget Factory destroy method
+            $.Widget.prototype.destroy.call(this);
+
+            //Provides callback function support
+            this._callbackSupport(callback);
+
+            //Maintains chainability
+            return this;
+
+        },
+
+        _destroySelectBoxIt: function() {
 
             //Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
             this.div.unbind(".selectBoxIt").
@@ -1298,20 +1323,8 @@
             //Triggers the custom `destroy` event on the original select box and then shows the original dropdown list
             this.selectBox.trigger("destroy").show();
 
-            // If the refresh method is not being called
-            if(!refresh) {
-
-                // Calls the jQueryUI Widget Factory destroy method
-                $.Widget.prototype.destroy.call(this);
-
-            }
-
-            //Provides callback function support
-            this._callbackSupport(callback);
-
             //Maintains chainability
             return this;
-
         },
 
         // Refresh
@@ -1321,11 +1334,10 @@
         refresh: function(callback) {
 
             // Destroys the plugin and then recreates the plugin
-            this.destroy(function() {
+            this._destroySelectBoxIt()._create();
 
-                this._create();
-
-            }, true);
+            //Provides callback function support
+            this._callbackSupport(callback);
 
             //Maintains chainability
             return this;

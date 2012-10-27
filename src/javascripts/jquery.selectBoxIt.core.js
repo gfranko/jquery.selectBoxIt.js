@@ -751,6 +751,9 @@
                 // `click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt": function() {
 
+                    // Used to make sure the div becomes focused (fixes IE issue)
+                    self.div.focus();
+
                     // The `click` handler logic will only be applied if the dropdown list is enabled
                     if (!self.originalElem.disabled) {
 

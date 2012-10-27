@@ -1186,7 +1186,7 @@
             self.downArrow.addClass(self.selectBox.data("downarrow") || self.options.downArrowIcon || arrowClass);
 
             // Adds the default styling to the dropdown list
-            self.div.addClass(buttonClasses).css("padding", "0px");
+            self.div.addClass(buttonClasses).css({ "padding": "0px", "display": "block" });
 
             // Adds the default styling for the dropdown list options
             self.list.addClass(listClasses).css({ "top": "auto", "bottom": "auto", "left": "auto", "right": "auto" });

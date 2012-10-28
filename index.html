@@ -34,8 +34,8 @@
     <style>
 
     @media screen and (max-width: 968px) {
-        a#fork, div#code-editor-fluid-container, button#editor-button, button#test-code { 
-          display: none; 
+        a#fork, div#code-editor-fluid-container, .editor-buttons { 
+          display: none !important; 
         }
     }
 
@@ -91,8 +91,8 @@
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="customDownload.html">Custom Download</a></li>
             </ul>
-            <button class="btn btn-primary" type="button" id="editor-button">Show Editor</button>
-            <button class="btn" type="button" id="test-code">Run Code</button>
+            <button class="btn btn-primary editor-buttons" type="button" id="editor-button">Show Editor</button>
+            <button class="btn editor-buttons" type="button" id="test-code">Run Code</button>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -124,7 +124,7 @@
           <script>
             $(function() {
 
-              var selectBoxIt = $("select").selectBoxIt().data("selectBoxIt");
+              var selectBox = $("select").selectBoxIt().data("selectBoxIt");
 
             });
           </script>

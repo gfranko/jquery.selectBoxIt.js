@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 1.7.0
+ * jquery.selectBoxIt.css 1.8.0
  * Author: @gregfranko
  */
 
@@ -38,7 +38,10 @@ span.selectboxit-text {
   overflow:hidden;
   float:left;
   white-space:nowrap;
-  /* Prevents text selection */
+}
+
+span.selectboxit-text, span.selectboxit-arrow-container {
+    /* Prevents text selection */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;

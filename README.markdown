@@ -62,9 +62,21 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`1.8.0` - October 27, 2012
+
+    **Multiple Bug Fixes and Features Added:
+
+- Fixed IE7 focus bug
+
+- Removed all CSS attributes from the JS (to allow for maximum flexibility when changing styles) #34
+
+- SelectBoxIt now copies over all classes and inline styles from the original select box to the new drop down #34
+
+- Refresh method bug fix #32
+
 `1.7.0` - October 12, 2012
 
-**Multiple Bug Fixes**
+    **Multiple Bug Fixes**
 
 - Allow users to programmatically change the value of the select element [#28](https://github.com/gfranko/jquery.selectBoxIt.js/issues/28)
 

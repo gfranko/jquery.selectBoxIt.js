@@ -115,7 +115,11 @@
           <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
           <script src="http://gregfranko.com/jquery.selectBoxIt.js/js/jquery.selectBoxIt.min.js"></script>
           <script>
-            var selectBoxIt = $("select").selectBoxIt().data("selectBoxIt");
+            $(function() {
+
+              var selectBoxIt = $("select").selectBoxIt().data("selectBoxIt");
+
+            })
           </script>
         </body>
         </html>

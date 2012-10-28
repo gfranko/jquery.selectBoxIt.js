@@ -33,12 +33,19 @@
 
     <style>
 
-    @media (max-width: 767px) {
+    @media screen and (max-width: 968px) {
+        a#fork, div#code-editor-fluid-container, button#editor-button { 
+          display: none; 
+        }
+    }
+
+    @media screen and (max-width: 767px) {
         #toc {
             position: relative;
             width: 100%;
             margin: 0px 0px 20px 0px;
         }
+
     }
 
     .CodeMirror {
@@ -89,7 +96,7 @@
           </div><!--/.nav-collapse -->
         </div>
       </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id="code-editor-fluid-container">
       <div class="row-fluid" id="code-editor-fluid">
         <div class="span9">
         <textarea id="code" name="code">
@@ -119,7 +126,7 @@
 
               var selectBoxIt = $("select").selectBoxIt().data("selectBoxIt");
 
-            })
+            });
           </script>
         </body>
         </html>

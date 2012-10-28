@@ -335,7 +335,7 @@
                 }
 
                 // Uses Array.join instead of string concatenation for speed (applies HTML attribute encoding for quotes)
-                currentItem.push(optgroupElement + '<li id="' + index + '" data-val="' + this.value.replace(/\"/g,'&quot;') + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a><i class="' + iconClass + '"></i>' + $(this).text() + '</a></li>');
+                currentItem.push(optgroupElement + '<li id="' + index + '" data-val="' + this.value.replace(/\"/g,'&quot;') + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a><i class="' + iconClass + '"></i>' + $(this).text() + '</a></li>');
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -1185,11 +1185,11 @@
 
             self.downArrow.addClass(self.selectBox.data("downarrow") || self.options.downArrowIcon || arrowClass);
 
-            // Adds the default styling to the dropdown list
-            self.div.addClass(buttonClasses).css({ "padding": "0px", "display": "block" });
+            // Adds the correct class to the dropdown list
+            self.div.addClass(buttonClasses);
 
-            // Adds the default styling for the dropdown list options
-            self.list.addClass(listClasses).css({ "top": "auto", "bottom": "auto", "left": "auto", "right": "auto" });
+            // Adds the default class to the dropdown list options
+            self.list.addClass(listClasses);
 
             // Select box individual option events
             self.listItems.bind({

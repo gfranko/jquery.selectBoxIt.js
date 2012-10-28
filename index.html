@@ -1305,6 +1305,12 @@
         testCodeBtn = $("#test-code"),
         fork = $("#fork");
 
+      $("#editor-button, .editor-button").one("click", function() {
+
+        updatePreview();
+
+      });
+
       $("#editor-button, .editor-button").on("click", function() {
 
         if(codeEditor.is(":visible")) {
@@ -1319,8 +1325,6 @@
 
           editor.refresh();
 
-          updatePreview();
-
         }
 
         else {
@@ -1334,8 +1338,6 @@
           fork.hide();
 
           editor.refresh();
-
-          updatePreview();
 
         }
 

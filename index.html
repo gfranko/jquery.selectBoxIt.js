@@ -17,6 +17,7 @@
     <link href="css/jquery.tocify.css" rel="stylesheet">
     <link href="css/prettify.css" type="text/css" rel="stylesheet" />
     <link href="css/styles.css" type="text/css" rel="stylesheet" />
+    <link href="css/codemirror.css" type="text/css" rel="stylesheet" />
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -40,12 +41,34 @@
         }
     }
 
+    .CodeMirror {
+      border-right: 1px solid #ccc;
+    }
+    
+    iframe {
+      height: 300px;
+      border: none;
+    }
+
+    #code-editor-fluid {
+      display: block;
+      border-bottom: 1px solid #ccc;
+      background:#fff;
+      z-index:9999999999;
+      position:fixed;
+      left:0;
+    }
+
+    #test-code {
+      display: none;
+    }
+
     </style>
 
   </head>
 
   <body>
-<a href="https://github.com/gfranko/jquery.selectBoxIt.js" target="_blank" id="fork-me"><img style="position: fixed;top: 0; right: 0; border: 0;z-index:999999;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" alt="Fork me on GitHub"></a>
+<a id="fork" href="https://github.com/gfranko/jquery.selectBoxIt.js" target="_blank" id="fork-me"><img style="position: fixed;top: 0; right: 0; border: 0;z-index:999999;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" alt="Fork me on GitHub"></a>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -61,11 +84,49 @@
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="customDownload.html">Custom Download</a></li>
             </ul>
+            <button class="btn btn-primary" type="button" id="editor-button">Show Editor</button>
+            <button class="btn" type="button" id="test-code">Run Code</button>
           </div><!--/.nav-collapse -->
         </div>
       </div>
-    </div>
+    <div class="container-fluid">
+      <div class="row-fluid" id="code-editor-fluid">
+        <div class="span9">
+        <textarea id="code" name="code">
+        <!doctype html>
+        <html>
+        <head>
+          <meta charset=utf-8>
+          <title>SelectBoxIt demo</title>
+          <link rel="stylesheet" href="http://gregfranko.com/jquery.selectBoxIt.js/css/jquery.selectboxit.css" />
+          <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
+          <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css" />
+        </head>
+        <body>
 
+          <select name="test">
+            <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+            <option value="a jQuery Plugin">a jQuery Plugin</option>
+            <option value="a Select Box Replacement">a Select Box Replacement</option>
+            <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+          </select>
+
+          <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+          <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+          <script src="http://gregfranko.com/jquery.selectBoxIt.js/js/jquery.selectBoxIt.min.js"></script>
+          <script>
+            var selectBoxIt = $("select").selectBoxIt().data("selectBoxIt");
+          </script>
+        </body>
+        </html>
+      </textarea>
+    </div>
+    <div class="span2">
+      <iframe id="preview"></iframe>
+    </div>
+  </div>
+  </div>
+    </div>
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span3">
@@ -106,6 +167,7 @@
           </div>
              <h2>Examples</h2>
               <br />
+              <strong>Note: </strong> You can try all SelectBoxIt options, events, and methods inside of the HTML editor at the top of the page.  Just click the <button class="btn btn-primary btn-mini editor-button" type="button">Show Editor</button> button.
               <h3>jQuery Show/Hide Support</h3>
               <br />
               <div class="select">
@@ -1185,6 +1247,11 @@
     <script src="js/jquery.selectBoxIt.min.js"></script>
     <script src="js/prettify.js"></script>
     <script src="js/githubrepo.js"></script>
+    <script src="js/codemirror.js"></script>
+    <script src="js/xml.js"></script>
+    <script src="js/javascript.js"></script>
+    <script src="js/css.js"></script>
+    <script src="js/htmlmixed.js"></script>
     <script>
         $(function() {
 
@@ -1202,6 +1269,66 @@
             });
 
         });
+    </script>
+
+    <script>
+      var delay;
+      // Initialize CodeMirror editor with a nice html5 canvas demo.
+      var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+        mode: 'text/html',
+        tabMode: 'indent',
+        lineNumbers: true
+      });
+      
+      function updatePreview() {
+        var previewFrame = document.getElementById('preview');
+        var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
+        preview.open();
+        preview.write(editor.getValue());
+        preview.close();
+      }
+      updatePreview();
+
+      var codeEditor = $("#code-editor-fluid"),
+        editorButton = $("#editor-button"),
+        testCodeBtn = $("#test-code"),
+        fork = $("#fork");
+
+      codeEditor.hide();
+
+      $("#editor-button, .editor-button").on("click", function() {
+
+        if(codeEditor.is(":visible")) {
+
+          codeEditor.hide("fade");
+
+          testCodeBtn.hide();
+
+          editorButton.text("Show Editor");
+
+          fork.show();
+
+        }
+
+        else {
+
+          codeEditor.show("fade");
+
+          testCodeBtn.show();
+
+          editorButton.text("Hide Editor");
+
+          fork.hide();
+
+        }
+
+      });
+
+      testCodeBtn.on("click", function() {
+
+        updatePreview();
+
+      });
     </script>
 
     <script type="text/javascript">

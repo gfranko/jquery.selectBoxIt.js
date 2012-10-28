@@ -178,7 +178,7 @@
           </div>
              <h2>Examples</h2>
               <br />
-              <strong>Note: </strong> You can try all SelectBoxIt options, events, and methods inside of the HTML editor at the top of the page.  Just click the <button class="btn btn-primary btn-mini editor-button" type="button">Show Editor</button> button.
+              <span class="editor-instructions"><strong>Note: </strong> You can try all SelectBoxIt options, events, and methods inside of the HTML editor at the top of the page.  Just click the <button class="btn btn-primary btn-mini editor-button" type="button">Show Editor</button> button.</span>
               <h3>jQuery Show/Hide Support</h3>
               <br />
               <div class="select">
@@ -1283,6 +1283,9 @@
     </script>
 
     <script>
+      if($.browser.msie) { 
+        $("#editor-button, .editor-instructions").hide();
+      }
       var delay;
       // Initialize CodeMirror editor with a nice html5 canvas demo.
       var editor = CodeMirror.fromTextArea(document.getElementById('code'), {

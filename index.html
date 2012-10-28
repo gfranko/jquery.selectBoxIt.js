@@ -58,7 +58,7 @@
     }
 
     #code-editor-fluid {
-      display: block;
+      display: none;
       border-bottom: 1px solid #ccc;
       background:#fff;
       z-index:9999999999;
@@ -1305,8 +1305,6 @@
         testCodeBtn = $("#test-code"),
         fork = $("#fork");
 
-      codeEditor.hide();
-
       $("#editor-button, .editor-button").on("click", function() {
 
         if(codeEditor.is(":visible")) {
@@ -1319,6 +1317,10 @@
 
           fork.show();
 
+          editor.refresh();
+
+          updatePreview();
+
         }
 
         else {
@@ -1330,6 +1332,10 @@
           editorButton.text("Hide Editor");
 
           fork.hide();
+
+          editor.refresh();
+
+          updatePreview();
 
         }
 

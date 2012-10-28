@@ -1,10 +1,10 @@
 /*
- * jquery.selectBoxIt.css 1.6.0
+ * jquery.selectBoxIt.css 1.7.0
  * Author: @gregfranko
  */
 
 /* Div container holding the dropdown list */
-.selectboxit-container {
+div.selectboxit-container {
   display: inline-block;
   /* Hack for IE 6 and 7 to allow inline-block to work */
   *display: inline;
@@ -12,24 +12,26 @@
 }
 
 /* Dropdown List Box */
-.selectboxit {
+div.selectboxit {
   height: 30px; /* Height of the select box */
   cursor:pointer;
   white-space:nowrap;
+  padding: 0;
+  display: block;
 }
 
 /* Dropdown List Box and Dropdown Options List  */
-.selectboxit, .selectboxit-options {
+div.selectboxit, ul.selectboxit-options {
   width: 230px; /* Width of the dropdown list box and dropdown list options*/
 }
 
 /* Dropdown list Default Icon Positioning */
-.selectboxit-default-icon {
+i.selectboxit-default-icon {
   float: left;
 }
 
 /* Dropdown List Box Text */
-.selectboxit-text {
+span.selectboxit-text {
   font: 14px Helvetica, Arial;
   text-indent: 5px;
   line-height: 30px;
@@ -59,7 +61,10 @@ ul.selectboxit-options {
   display:none;
   z-index:99999;
   outline:none;
-  min-width: auto;
+  top: auto;
+  bottom: auto; 
+  left: auto;
+  right: auto;
 }
 
 ul.selectboxit-options a {
@@ -67,7 +72,7 @@ ul.selectboxit-options a {
 }
 
 /* Dropdown List Individual Options */
-.selectboxit-options li, .selectboxit-options .selectboxit-optgroup-header {
+ul.selectboxit-options li.selectboxit-option, ul.selectboxit-options div.selectboxit-optgroup-header {
   line-height: 30px; /* Height of Individual Select Box Options */
   text-indent: 5px; /* Horizontal Positioning of the select box option text */
   overflow:hidden;
@@ -76,35 +81,35 @@ ul.selectboxit-options a {
 }
 
 /* Dropdown List Optgroup Headers */
-.selectboxit-options .selectboxit-optgroup-header {
+ul.selectboxit-options div.selectboxit-optgroup-header {
   font-weight: bold;
 }
 
 /* Dropdown List Optgroup Options */
-.selectboxit-options .selectboxit-optgroup-option {
+ul.selectboxit-options div.selectboxit-optgroup-option {
   text-indent: 20px;
 }
 
 /* Dropdown List Optgroup Header hover psuedo class */
-.selectboxit-options .selectboxit-optgroup-header[data-disabled='true']:hover {
+ul.selectboxit-options div.selectboxit-optgroup-header[data-disabled='true']:hover {
   cursor: default;
 } 
 
 /* Dropdown List Down Arrow Container (if an image is not used) */
-.selectboxit-arrow-container {
+span.selectboxit-arrow-container {
   /* Positions the down arrow */
   width: 30px;
   float:right;
 }
 
 /* Dropdown List Down Arrow */
-.selectboxit-arrow-container i.selectboxit-arrow {
+span.selectboxit-arrow-container i.selectboxit-arrow {
   /* Horizontally centers the down arrow */
   margin:0 auto;
   display: block;
 }
 
 /* Dropdown List Individual Option Icon Positioning */
-.selectboxit-options li i {
+ul.selectboxit-options li i {
   float:left;
 }

@@ -461,8 +461,10 @@
               <h3>HTML</h3>
               </p>
               <span class="note">
-              Create an <strong>HTML select box</strong> with <strong>id</strong>, <strong>class</strong>, or <strong>name</strong> attributes. If you include a <strong>name</strong> attribute, the name attribute will be copied to the new dropdown list that the plugin creates (this allows you to easily interact with the new dropdown list without having to know a new <strong>id</strong> or <strong>class</strong> attribute). If you include an <strong>id</strong> attribute, SelectBoxIt will create and copy a "unique" <strong>id</strong> attribute to the dropdown list. It is also best practice for each select box option to have a <strong>value</strong> attribute, but it is not required.
+              Create an <strong>HTML select box</strong> with <strong>id</strong>, <strong>class</strong>, or <strong>name</strong> attributes. If you include an <strong>id</strong> attribute, SelectBoxIt will create and copy a "unique" <strong>id</strong> attribute to the dropdown list.  If you include a <strong>class</strong> and/or <strong>name</strong> attributes, the attributes will be copied to the new dropdown list that the plugin creates (this allows you to easily interact with the new dropdown list without having to know a new <strong>id</strong> attribute).  It is also best practice for each select box option to have a <strong>value</strong> attribute, but it is not required.
               </span>
+              <br /><br />
+              <strong>Note:</strong> All inline styles will also be copied to the new dropdown list.
               <br /><br />
               <pre class="prettyprint">
                 &lt;select id="test" name="test"&gt;
@@ -1186,7 +1188,7 @@
     <script>
         $(function() {
 
-            $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60, extendPage: false });
+            $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60 });
             $("select.test").selectBoxIt().data("selectBoxIt");
             $("select#jqueryui-theme").selectBoxIt({ theme: "jqueryui", showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600, downArrowIcon: "ui-icon ui-icon-triangle-1-s" }).data("selectBoxIt");
             $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 600, hideEffect: "fadeOut", hideEffectSpeed: 600 }).data("selectBoxIt");

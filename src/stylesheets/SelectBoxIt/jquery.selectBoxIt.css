@@ -18,20 +18,16 @@
   white-space:nowrap;
   padding: 0;
   display: block;
-}
-
-/* Dropdown List Box and Dropdown Options List  */
-.selectboxit-container .selectboxit, .selectboxit-container .selectboxit-options {
-  width: 180px; /* Width of the dropdown list box and dropdown list options*/
+  width: 180px; /* Width of the dropdown list box */
 }
 
 /* Dropdown list Default Icon Positioning */
-.selectboxit .selectboxit-default-icon {
+.selectboxit-default-icon {
   float: left;
 }
 
 /* Dropdown List Box Text */
-.selectboxit .selectboxit-text {
+.selectboxit-text {
   font: 14px Helvetica, Arial;
   text-indent: 5px;
   line-height: 30px;
@@ -40,7 +36,7 @@
   white-space:nowrap;
 }
 
-.selectboxit .selectboxit-text, .selectboxit .selectboxit-arrow-container {
+.selectboxit-container .selectboxit, .selectboxit-text, .selectboxit-arrow-container {
     /* Prevents text selection */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -68,14 +64,15 @@
   bottom: auto; 
   left: auto;
   right: auto;
+  width: 180px; /* Width of the dropdown list box options */
 }
 
-.selectboxit-options .selectboxit-options a {
+.selectboxit-options a {
   padding: 3px 15px;
 }
 
 /* Dropdown List Individual Options */
-.selectboxit-container .selectboxit-options .selectboxit-option, .selectboxit-container .selectboxit-options .selectboxit-optgroup-header {
+.selectboxit-option, .selectboxit-optgroup-header {
   line-height: 30px; /* Height of Individual Select Box Options */
   text-indent: 5px; /* Horizontal Positioning of the select box option text */
   overflow:hidden;
@@ -84,35 +81,35 @@
 }
 
 /* Dropdown List Optgroup Headers */
-.selectboxit-container .selectboxit-options .selectboxit-optgroup-header {
+.selectboxit-optgroup-header {
   font-weight: bold;
 }
 
 /* Dropdown List Optgroup Options */
-.selectboxit-container .selectboxit-options .selectboxit-optgroup-option {
+.selectboxit-optgroup-option {
   text-indent: 20px;
 }
 
 /* Dropdown List Optgroup Header hover psuedo class */
-.selectboxit-container .selectboxit-options .selectboxit-optgroup-header[data-disabled='true']:hover {
+.selectboxit-optgroup-header[data-disabled='true']:hover {
   cursor: default;
 } 
 
 /* Dropdown List Down Arrow Container (if an image is not used) */
-.selectboxit .selectboxit-arrow-container {
+.selectboxit-arrow-container {
   /* Positions the down arrow */
   width: 30px;
   float:right;
 }
 
 /* Dropdown List Down Arrow */
-.selectboxit .selectboxit-arrow-container .selectboxit-arrow {
+.selectboxit-arrow-container .selectboxit-arrow {
   /* Horizontally centers the down arrow */
   margin:0 auto;
   display: block;
 }
 
 /* Dropdown List Individual Option Icon Positioning */
-.selectboxit-container .selectboxit-options li i {
+.selectboxit-option i {
   float:left;
 }

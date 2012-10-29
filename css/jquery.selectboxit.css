@@ -48,7 +48,8 @@
 }
 
 /* Dropdown List Options List*/
-.selectboxit-container .selectboxit-options { 
+.selectboxit-container .selectboxit-options {
+  width: 230px; /* Width of the dropdown list box options */
   max-height: 180px; /* A vertical scrollbar appears if your select box options are taller than this */
   font: 14px Helvetica, Arial;
   margin:0;
@@ -64,7 +65,7 @@
   bottom: auto; 
   left: auto;
   right: auto;
-  width: 230px; /* Width of the dropdown list box options */
+  min-width: auto;
 }
 
 .selectboxit-options a {

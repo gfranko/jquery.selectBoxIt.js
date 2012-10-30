@@ -2,12 +2,13 @@
 <head>
   <meta charset="utf-8">
   <link type="text/css" rel="stylesheet" href="../src/stylesheets/SelectBoxIt/jquery.selectBoxIt.css" />
-  <link type="text/css" rel="stylesheet" href="css/bootstrap.css" />
+  <link type="text/css" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
   <link type="text/css" rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css" />
 </head>
 <body>
 <form>
-<select name="test">
+<p>
+<select class="btn-large" data-theme="twitterbootstrap">
   <option value="Select a Month">Select a Month</option>
   <option value="January">January</option>
   <option value="February">February</option>
@@ -23,16 +24,40 @@
   <option value="December">December</option>
 </select>
 
+<select data-theme="no-theme" class="legacy-theme">
+  <option value="Select a Month">Select a Month</option>
+  <option value="January">January</option>
+</select>
+
+<select data-theme="jqueryui" class="legacy-theme">  
+  <option value="Select a Month">Select a Month</option>
+  <option value="January">January</option>
+</select>
+</p>
+<p>
+  <span class="btn btn-large"><span style="display:inline-block;">control</span><span class="caret"></span>
+</p>
+<p>
+<span class="ui-widget ui-state-default" style="display: inline-block;">
+  <i></i>
+  <span style="display:inline-block; line-height: 30px;">Select a Month</span>
+  <span class="ui-icon ui-icon-triangle-1-s" style="display:inline-block;"></span>
+</span>
+</p>
+
 </form>
 
 <div id="example"></div>
 
           <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
           <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
-          <script src="http://gregfranko.com/jquery.selectBoxIt.js/js/jquery.selectBoxIt.min.js"></script>
+          <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 $(function() {
-    var selectBox = $("select").selectBoxIt().data("selectBoxIt");
+  $('select').each(function() {
+    var theme = $(this).data('theme');
+    $(this).selectBoxIt({ theme: theme });
+  })
 });
 </script>
  </body>

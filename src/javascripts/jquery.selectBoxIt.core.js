@@ -430,24 +430,8 @@
 
             });
 
-            // The down arrow container element of the dropdown list
-            self.downArrowContainer = $("<span/>", {
-
-                // Dynamically sets the span `id` attribute for the down arrow container element
-                "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItArrowContainer",
-
-                "class": "selectboxit-arrow-container",
-
-                // IE specific attribute to not allow the dropdown list text to be selected
-                "unselectable": "on"
-
-            }).
-
-            // Inserts the down arrow element inside of the down arrow container element
-            append(self.downArrow);
-
             // Appends the down arrow element to the dropdown list
-            self.div.append(self.downArrowContainer);
+            self.div.append(self.downArrow);
 
             // Maintains chainability
             return self;

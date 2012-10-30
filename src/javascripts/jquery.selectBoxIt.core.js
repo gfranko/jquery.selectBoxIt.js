@@ -1260,7 +1260,7 @@
 
             var self = this;
 
-            self._addClasses("active", "", "caret", "btn", "dropdown-menu");
+            self._addClasses("", "", "caret", "btn", "dropdown-menu");
 
             // Maintains chainability
             return self;

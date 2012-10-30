@@ -439,10 +439,7 @@
                 "class": "selectboxit-arrow-container",
 
                 // IE specific attribute to not allow the dropdown list text to be selected
-                "unselectable": "on",
-
-                // The dynamic CSS of the down arrow container element
-                "style": "height:" + height + "px;"
+                "unselectable": "on"
 
             }).
 
@@ -451,20 +448,6 @@
 
             // Appends the down arrow element to the dropdown list
             self.div.append(self.downArrowContainer);
-
-            // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
-            self.divText.css({
-
-                "line-height": self.div.css("height"),
-
-                "max-width": self.div.width() - (self.downArrowContainer.width() + self.divImage.width())
-            });
-
-            self.divImage.css({
-
-                "margin-top": height / 4
-
-            });
 
             // Maintains chainability
             return self;
@@ -1266,20 +1249,6 @@
                 }
 
             });
-
-            if(self.options.theme === "twitterbootstrap" && arrowClass === "caret") {
-
-                // Adds the jqueryUI down arrow icon CSS class to the down arrow div
-                self.downArrow.css({ "margin-top": self.downArrowContainer.height()/2 });
-
-            }
-
-            else {
-
-                // Adds the jqueryUI down arrow icon CSS class to the down arrow div
-                self.downArrow.css({ "margin-top": self.downArrowContainer.height()/4 });
-
-            }
 
             // Maintains chainability
             return self;

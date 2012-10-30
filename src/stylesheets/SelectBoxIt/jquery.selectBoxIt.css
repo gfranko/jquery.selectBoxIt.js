@@ -21,6 +21,10 @@
   display: block;
 }
 
+.selectboxit-container .selectboxit.selectboxit-disabled {
+  cursor: default;
+}
+
 /* Dropdown list Default Icon Positioning */
 .selectboxit-default-icon {
   float: left;

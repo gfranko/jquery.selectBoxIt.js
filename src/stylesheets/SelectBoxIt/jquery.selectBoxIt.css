@@ -12,32 +12,19 @@
 }
 
 /* Dropdown List Box */
-.selectboxit-container .selectboxit {
-  width: 180px; /* Width of the dropdown list box */
-  height: 30px; /* Height of the select box */
+.selectboxit {
   cursor:pointer;
-  white-space:nowrap;
-  padding: 0;
-  display: block;
 }
 
-/* Dropdown list Default Icon Positioning */
-.selectboxit-default-icon {
-  float: left;
+.selectboxit.selectboxit-disabled {
+  cursor: default;
 }
 
-/* Dropdown List Box Text */
-.selectboxit-text {
-  font: 14px Helvetica, Arial;
-  text-indent: 5px;
-  line-height: 30px;
-  overflow:hidden;
-  float:left;
-  white-space:nowrap;
-}
-
-.selectboxit-container .selectboxit, .selectboxit-text, .selectboxit-arrow-container {
-    /* Prevents text selection */
+.selectboxit,
+.selectboxit-default-icon,
+.selectboxit-text,
+.selectboxit-arrow {
+  display: inline-block;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -45,6 +32,7 @@
   ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  white-space:nowrap;
 }
 
 /* Dropdown List Options List*/
@@ -73,7 +61,8 @@
 }
 
 /* Dropdown List Individual Options */
-.selectboxit-option, .selectboxit-optgroup-header {
+.selectboxit-option,
+.selectboxit-optgroup-header {
   line-height: 30px; /* Height of Individual Select Box Options */
   text-indent: 5px; /* Horizontal Positioning of the select box option text */
   overflow:hidden;
@@ -96,21 +85,34 @@
   cursor: default;
 } 
 
-/* Dropdown List Down Arrow Container (if an image is not used) */
-.selectboxit-arrow-container {
-  /* Positions the down arrow */
-  width: 30px;
-  float:right;
-}
-
-/* Dropdown List Down Arrow */
-.selectboxit-arrow-container .selectboxit-arrow {
-  /* Horizontally centers the down arrow */
-  margin:0 auto;
-  display: block;
-}
-
 /* Dropdown List Individual Option Icon Positioning */
 .selectboxit-option i {
   float:left;
+}
+
+
+/* jqueryui support */
+.ui-widget.selectboxit .selectboxit-arrow {
+  display: inline-block;
+}
+
+/* this legacy-theme class can be used to provider backwards-compatibility */
+.legacy-theme.selectboxit .selectboxit-text {
+  font: 14px Helvetica, Arial;
+  line-height: 30px;
+  text-indent: 5px;
+  width: 150px;
+}
+
+/* turn off font customization if we're themed with jqueryui */
+.legacy-theme.ui-widget.selectboxit .selectboxit-text {
+  font-size: inherit;
+  font-family: inherit;
+}
+
+/* the old css had gave the arrow 30px width.  so does this */
+.legacy-theme.selectboxit .selectboxit-arrow {
+  margin-left: 7px;
+  margin-right: 7px;
+  width: 16px;
 }

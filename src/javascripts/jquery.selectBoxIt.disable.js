@@ -20,9 +20,12 @@ $(function() {
             attr("disabled", "disabled");
 
             //Makes the dropdown list not focusable by removing the `tabindex` attribute
-            self.div.removeAttr("tabindex").css("cursor", "default");
+            self.div.removeAttr("tabindex")
 
-            // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
+            //Enables styles for the disabled state
+            .toggleClass('selectboxit-disabled', true);
+
+            //Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
             $.Widget.prototype.disable.call(self);
 
             //Provides callback function support

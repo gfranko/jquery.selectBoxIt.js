@@ -217,7 +217,7 @@
             });
 
             // Creates a div to act as the new dropdown list
-            self.div = $("<div/>", {
+            self.div = $("<span/>", {
 
                 // Dynamically sets the div `id` attribute
                 "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxIt",
@@ -241,7 +241,7 @@
             append(self.divImage).append(self.divText);
 
             // Create the div container that will hold all of the dropdown list dom elements
-            self.divContainer = $("<div/>", {
+            self.divContainer = $("<span/>", {
 
                 "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItContainer",
 

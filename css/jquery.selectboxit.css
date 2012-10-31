@@ -9,16 +9,23 @@
   /* Hack for IE 6 and 7 to allow inline-block to work */
   *display: inline;
   zoom: 1;
+  /* Prevents text selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 /* Dropdown List Box */
 .selectboxit-container .selectboxit {
+  width: 230px; /* Width of the dropdown list box */
   height: 30px; /* Height of the select box */
   cursor:pointer;
-  white-space:nowrap;
   padding: 0;
   display: block;
-  width: 230px; /* Width of the dropdown list box */
 }
 
 /* Dropdown list Default Icon Positioning */
@@ -34,17 +41,6 @@
   overflow:hidden;
   float:left;
   white-space:nowrap;
-}
-
-.selectboxit-container .selectboxit, .selectboxit-text, .selectboxit-arrow-container {
-    /* Prevents text selection */
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: -moz-none;
-  ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
 }
 
 /* Dropdown List Options List*/
@@ -68,7 +64,7 @@
   min-width: auto;
 }
 
-.selectboxit-options a {
+.selectboxit-option .selectboxit-option-anchor {
   padding: 3px 15px;
 }
 
@@ -104,13 +100,13 @@
 }
 
 /* Dropdown List Down Arrow */
-.selectboxit-arrow-container .selectboxit-arrow {
+.selectboxit .selectboxit-arrow-container .selectboxit-arrow {
   /* Horizontally centers the down arrow */
   margin:0 auto;
   display: block;
 }
 
 /* Dropdown List Individual Option Icon Positioning */
-.selectboxit-option i {
+.selectboxit-option-icon {
   float:left;
 }

@@ -449,7 +449,7 @@
             append(self.downArrow);
 
             // Appends the down arrow element to the dropdown list
-            self.div.append(self.downArrowContainer);
+            self.div.append(this.options.nostyle ? self.downArrow : self.downArrowContainer);
 
             if (!self.options.nostyle) {
 

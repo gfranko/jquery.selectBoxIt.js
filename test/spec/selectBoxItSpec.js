@@ -25,7 +25,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 expect(selectBoxIt.div).toExist();
 
-                expect(selectBoxIt.div).toBe("div");
+                expect(selectBoxIt.div).toBe("span");
 
                 expect(selectBoxIt.div).toBeVisible();
 

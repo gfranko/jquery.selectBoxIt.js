@@ -17,8 +17,11 @@ $(function() {
             removeAttr("disabled");
 
             // Make the dropdown list focusable
-            self.div.attr("tabindex", 0).css("cursor", "pointer");
+            self.div.attr("tabindex", 0)
 
+            // Disable styling for disabled state
+            .removeClass("selectboxit-disabled");
+            
             $.Widget.prototype.enable.call(self);
 
             // Provide callback function support

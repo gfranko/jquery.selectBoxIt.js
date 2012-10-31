@@ -6,9 +6,6 @@
 /* Div container holding the dropdown list */
 .selectboxit-container {
   display: inline-block;
-  /* Hack for IE 6 and 7 to allow inline-block to work */
-  *display: inline;
-  zoom: 1;
   /* Prevents text selection */
   -webkit-touch-callout: none;
   -webkit-user-select: none;

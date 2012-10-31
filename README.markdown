@@ -62,6 +62,14 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`1.9.0` - October 31, 2012
+
+- Added **nostyle** option
+
+- Updated the CSS to remove tag names, remove IE7 hack, and improve CSS specificity
+
+- Thanks to @gavacho for the contributions
+
 `1.8.0` - October 27, 2012
 
     **Multiple Bug Fixes and Features Added:

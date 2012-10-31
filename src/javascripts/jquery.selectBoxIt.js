@@ -1370,6 +1370,8 @@
             // Destroys the plugin and then recreates the plugin
             self._destroySelectBoxIt()._create()._callbackSupport(callback);
 
+            self.selectBox.trigger("refresh");
+
             //Maintains chainability
             return self;
 

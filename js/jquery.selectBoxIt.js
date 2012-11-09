@@ -463,7 +463,7 @@
 
                     "line-height": self.div.css("height"),
 
-                    "max-width": self.div.width() - (self.downArrowContainer.width() + self.divImage.width())
+                    "max-width": self.div.outerWidth() - (self.downArrowContainer.outerWidth() + self.divImage.outerWidth())
                 });
 
                 self.divImage.css({
@@ -573,15 +573,17 @@
 
             var self = this;
 
+            if (self._dynamicPositioning) {
+                            
+                // Dynamically positions the dropdown list options list
+                self._dynamicPositioning();
+
+            }
+
             if(!this.list.is(":visible")) {
 
                 // Triggers a custom "open" event on the original select box
                 self.selectBox.trigger("open");
-
-                if (self._dynamicPositioning) {
-                    // Dynamically positions the dropdown list options list
-                    self._dynamicPositioning();
-                }
 
                 // Determines what jQuery effect to use when opening the dropdown list options list
                 switch (self.options.showEffect) {
@@ -833,6 +835,7 @@
                         self.selectBox.trigger("focus").trigger("focusin");
 
                     }
+
                 },
 
                 // `keydown` event with the `selectBoxIt` namespace.  Catches all user keyboard navigations
@@ -1167,6 +1170,7 @@
                     // Removes the `disabled` CSS class from the new dropdown list to visually show that it is enabled
                     self.div.removeClass("ui-state-disabled");
                 }
+
             });
 
             // Maintains chainability
@@ -1387,6 +1391,57 @@
             //Maintains chainability
             return self;
 
+        },
+
+        // Apply Native Select
+        // -------------------
+        //      The dropdown will use the native select box functionality
+
+        _applyNativeSelect: function() {
+
+            var self = this,
+                currentOption;
+
+            // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
+            self.selectBox.css({
+
+                "display": "block",
+
+                "width": self.div.outerWidth(),
+
+                "height": self.div.outerHeight(),
+
+                "opacity": "0",
+
+                "position": "absolute",
+
+                "top": self.div.offset().top,
+
+                "bottom": self.div.offset().bottom,
+
+                "left": self.div.offset().left,
+
+                "right": self.div.offset().right
+
+            }).bind({
+
+                "changed": function() {
+
+                    currentOption = self.selectBox.find("option").filter(":selected");
+
+                    // Sets the new dropdown list text to the value of the original dropdown list
+                    self.divText.text(currentOption.text());
+
+                    if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
+
+                        self.divImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
+
+                    }
+
+                }
+
+            });
+
         }
 
     });
@@ -1584,38 +1639,71 @@ $(function() {
             listOffsetTop = self.div.offset().top,
 
             // The height of the dropdown list options list
-            listHeight = self.list.height(),
+            listHeight = self.list.data("max-height") || self.list.outerHeight(),
 
             // The height of the dropdown list DOM element
-            selectBoxHeight = self.div.height();
+            selectBoxHeight = self.div.outerHeight(),
 
-        // Places the dropdown list options list on top of the dropdown list if the dropdown list options list does not fit on the page when opened
-        if ((listOffsetTop + selectBoxHeight + listHeight >= $(window).height() + $(window).scrollTop()) && (listOffsetTop - listHeight >= 0)) {
+            windowHeight = $(window).height(),
 
-            // If the dropdown list currently opens downward
-            if (!self.flipped) {
+            windowScrollTop = $(window).scrollTop(),
 
-                // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
-                self.list.css("top", (self.divContainer.position().top - self.list.height()) - 2);
+            topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= windowHeight + windowScrollTop),
 
-                //Sets the `flipped` instance variable to false to reflect that the dropdown list opens upward
-                self.flipped = true;
+            bottomReached = !topToBottom;
 
-            }
+        if(!self.list.data("max-height")) {
+
+            self.list.data("max-height", self.list.outerHeight());
 
         }
 
-        // If the dropdown list options have enough room on the page to open downward
+        // Makes sure the original select box is hidden
+        self.selectBox.css("display", "none");
+
+        // If there is room on the bottom of the viewport to display the drop down options
+        if (!bottomReached) {
+
+            self.list.css("max-height", self.list.data("max-height"));
+
+            // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
+            self.list.css("top", "auto");
+
+        }
+
+        // If there is room on the top of the viewport
+        else if((self.div.offset().top - windowScrollTop) >= listHeight) {
+
+            self.list.css("max-height", self.list.data("max-height"));
+
+            // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
+            self.list.css("top", (self.div.position().top - self.list.outerHeight()));
+
+        }
+
+        // If there is not enough room on the top or the bottom
         else {
 
-            // If the dropdown list is currently opening upward
-            if (self.flipped) {
+            var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (windowHeight + windowScrollTop)),
 
-                // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
-                self.list.css("top", (self.divContainer.position().top + self.div.height()) + 2);
+                outsideTopViewport = Math.abs((self.div.offset().top - windowScrollTop) - listHeight);
 
-                // Sets the `flipped` instance variable to false to reflect that the dropdown list opens downward
-                self.flipped = false;
+            // If there is more room on the bottom
+            if(outsideBottomViewport < outsideTopViewport) {
+
+                self.list.css("max-height", self.list.data("max-height") - outsideBottomViewport - (selectBoxHeight/2));
+
+                self.list.css("top", "auto");
+
+            }
+
+            // If there is more room on the top
+            else {
+
+                self.list.css("max-height", self.list.data("max-height") - outsideTopViewport - (selectBoxHeight/2));
+
+                // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
+                self.list.css("top", (self.div.position().top - self.list.outerHeight()));
 
             }
 
@@ -2006,45 +2094,14 @@ $(function() {
 
     $.selectBox.selectBoxIt.prototype._mobile = function(callback) {
 
-        var self = this,
-            currentOption;
+        if(this.options.isMobile()) {
 
-        if(self.options.isMobile()) {
-
-            // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
-            self.selectBox.css({
-
-                "display": "block",
-
-                "width": self.div.width(),
-
-                "opacity": "0",
-
-                "position": "absolute"
-
-            }).bind({
-
-                "changed": function() {
-
-                    currentOption = self.selectBox.find("option").filter(":selected");
-
-                    // Sets the new dropdown list text to the value of the original dropdown list
-                    self.divText.text(currentOption.text());
-
-                    if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
-
-                        self.divImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
-
-                    }
-
-                }
-
-            });
+            this._applyNativeSelect();
 
         }
 
         //Maintains chainability
-        return self;
+        return this;
 
     };
 

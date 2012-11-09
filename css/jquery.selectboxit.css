@@ -18,7 +18,7 @@
 
 /* Dropdown List Box */
 .selectboxit-container .selectboxit {
-  width: 200px; /* Width of the dropdown list box */
+  min-width: 200px; /* Minimum Width of the dropdown list box */
   height: 30px; /* Height of the select box */
   cursor:pointer;
   padding: 0;

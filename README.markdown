@@ -67,6 +67,8 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 - Greatly improved dynamic positioning.  SelectBoxIt now makes sure that the drop down list never runs off of the page (no matter how small the viewport is)
 
 - Improved support for enclosing a drop down arrow inside of a box (by setting a border)
+
+- Simplified mobile device checking for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices (Removed the long regex supplied by [detectmobilebrowsers.com](http://www.detectmobilebrowsers.com))
  
 
 `1.9.0` - October 31, 2012

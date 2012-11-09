@@ -12,38 +12,71 @@ $(function() {
             listOffsetTop = self.div.offset().top,
 
             // The height of the dropdown list options list
-            listHeight = self.list.height(),
+            listHeight = self.list.data("max-height") || self.list.outerHeight(),
 
             // The height of the dropdown list DOM element
-            selectBoxHeight = self.div.height();
+            selectBoxHeight = self.div.outerHeight(),
 
-        // Places the dropdown list options list on top of the dropdown list if the dropdown list options list does not fit on the page when opened
-        if ((listOffsetTop + selectBoxHeight + listHeight >= $(window).height() + $(window).scrollTop()) && (listOffsetTop - listHeight >= 0)) {
+            windowHeight = $(window).height(),
 
-            // If the dropdown list currently opens downward
-            if (!self.flipped) {
+            windowScrollTop = $(window).scrollTop(),
 
-                // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
-                self.list.css("top", (self.divContainer.position().top - self.list.height()) - 2);
+            topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= windowHeight + windowScrollTop),
 
-                //Sets the `flipped` instance variable to false to reflect that the dropdown list opens upward
-                self.flipped = true;
+            bottomReached = !topToBottom;
 
-            }
+        if(!self.list.data("max-height")) {
+
+            self.list.data("max-height", self.list.outerHeight());
 
         }
 
-        // If the dropdown list options have enough room on the page to open downward
+        // Makes sure the original select box is hidden
+        self.selectBox.css("display", "none");
+
+        // If there is room on the bottom of the viewport to display the drop down options
+        if (!bottomReached) {
+
+            self.list.css("max-height", self.list.data("max-height"));
+
+            // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
+            self.list.css("top", "auto");
+
+        }
+
+        // If there is room on the top of the viewport
+        else if((self.div.offset().top - windowScrollTop) >= listHeight) {
+
+            self.list.css("max-height", self.list.data("max-height"));
+
+            // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
+            self.list.css("top", (self.div.position().top - self.list.outerHeight()));
+
+        }
+
+        // If there is not enough room on the top or the bottom
         else {
 
-            // If the dropdown list is currently opening upward
-            if (self.flipped) {
+            var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (windowHeight + windowScrollTop)),
 
-                // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
-                self.list.css("top", (self.divContainer.position().top + self.div.height()) + 2);
+                outsideTopViewport = Math.abs((self.div.offset().top - windowScrollTop) - listHeight);
 
-                // Sets the `flipped` instance variable to false to reflect that the dropdown list opens downward
-                self.flipped = false;
+            // If there is more room on the bottom
+            if(outsideBottomViewport < outsideTopViewport) {
+
+                self.list.css("max-height", self.list.data("max-height") - outsideBottomViewport - (selectBoxHeight/2));
+
+                self.list.css("top", "auto");
+
+            }
+
+            // If there is more room on the top
+            else {
+
+                self.list.css("max-height", self.list.data("max-height") - outsideTopViewport - (selectBoxHeight/2));
+
+                // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
+                self.list.css("top", (self.div.position().top - self.list.outerHeight()));
 
             }
 

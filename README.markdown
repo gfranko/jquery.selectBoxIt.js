@@ -62,6 +62,13 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`2.0.0` - November 9th, 2012
+
+- Greatly improved dynamic positioning.  SelectBoxIt now makes sure that the drop down list never runs off of the page (no matter how small the viewport is)
+
+- Improved support for enclosing a drop down arrow inside of a box (by setting a border)
+ 
+
 `1.9.0` - October 31, 2012
 
 - Added **nostyle** option

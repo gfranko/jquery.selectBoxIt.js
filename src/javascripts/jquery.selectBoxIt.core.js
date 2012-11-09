@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v1.9.0 - 2012-10-31
+/* jquery Selectboxit - v2.0.0 - 2012-11-09
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "1.9.0",
+        VERSION: "2.0.0",
 
         // These options will be used as defaults
         options: {
@@ -463,7 +463,7 @@
 
                     "line-height": self.div.css("height"),
 
-                    "max-width": self.div.width() - (self.downArrowContainer.width() + self.divImage.width())
+                    "max-width": self.div.outerWidth() - (self.downArrowContainer.outerWidth() + self.divImage.outerWidth())
                 });
 
                 self.divImage.css({
@@ -573,15 +573,17 @@
 
             var self = this;
 
+            if (self._dynamicPositioning) {
+                            
+                // Dynamically positions the dropdown list options list
+                self._dynamicPositioning();
+
+            }
+
             if(!this.list.is(":visible")) {
 
                 // Triggers a custom "open" event on the original select box
                 self.selectBox.trigger("open");
-
-                if (self._dynamicPositioning) {
-                    // Dynamically positions the dropdown list options list
-                    self._dynamicPositioning();
-                }
 
                 // Determines what jQuery effect to use when opening the dropdown list options list
                 switch (self.options.showEffect) {
@@ -833,6 +835,7 @@
                         self.selectBox.trigger("focus").trigger("focusin");
 
                     }
+
                 },
 
                 // `keydown` event with the `selectBoxIt` namespace.  Catches all user keyboard navigations
@@ -1167,6 +1170,7 @@
                     // Removes the `disabled` CSS class from the new dropdown list to visually show that it is enabled
                     self.div.removeClass("ui-state-disabled");
                 }
+
             });
 
             // Maintains chainability
@@ -1386,6 +1390,57 @@
 
             //Maintains chainability
             return self;
+
+        },
+
+        // Apply Native Select
+        // -------------------
+        //      The dropdown will use the native select box functionality
+
+        _applyNativeSelect: function() {
+
+            var self = this,
+                currentOption;
+
+            // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
+            self.selectBox.css({
+
+                "display": "block",
+
+                "width": self.div.outerWidth(),
+
+                "height": self.div.outerHeight(),
+
+                "opacity": "0",
+
+                "position": "absolute",
+
+                "top": self.div.offset().top,
+
+                "bottom": self.div.offset().bottom,
+
+                "left": self.div.offset().left,
+
+                "right": self.div.offset().right
+
+            }).bind({
+
+                "changed": function() {
+
+                    currentOption = self.selectBox.find("option").filter(":selected");
+
+                    // Sets the new dropdown list text to the value of the original dropdown list
+                    self.divText.text(currentOption.text());
+
+                    if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
+
+                        self.divImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
+
+                    }
+
+                }
+
+            });
 
         }
 

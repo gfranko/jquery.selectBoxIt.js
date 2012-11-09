@@ -4,10 +4,31 @@
   <link type="text/css" rel="stylesheet" href="../src/stylesheets/SelectBoxIt/jquery.selectBoxIt.css" />
   <link type="text/css" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
   <link type="text/css" rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css" />
+  <style>
+  .selectboxit-container {
+    margin-top: 250px;
+  }
+  </style>
 </head>
 <body>
 <form>
-<select name="test">
+<select id="test">
+  <option value="Select a Month">Select a Month</option>
+  <option value="January">January</option>
+  <option value="February">February</option>
+  <option value="March">March</option>
+  <option value="April">April</option>
+  <option value="May">May</option>
+  <option value="June">June</option>
+  <option value="July">July</option>
+  <option value="August">August</option>
+  <option value="September">September</option>
+  <option value="October">October</option>
+  <option value="November">November</option>
+  <option value="December">December</option>
+</select>
+
+<select id="test1">
   <option value="Select a Month">Select a Month</option>
   <option value="January">January</option>
   <option value="February">February</option>
@@ -32,7 +53,8 @@
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 $(function() {
-    var selectBox = $("select").selectBoxIt().data("selectBoxIt");
+    var selectBox = $("#test").selectBoxIt({theme: "twitterbootstrap"}).data("selectBoxIt");
+    $('#test1').selectBoxIt({theme: "jqueryui"});
 });
 </script>
  </body>

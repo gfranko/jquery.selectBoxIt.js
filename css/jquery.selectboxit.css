@@ -18,7 +18,7 @@
 
 /* Dropdown List Box */
 .selectboxit-container .selectboxit {
-  width: 210px; /* Width of the dropdown list box */
+  width: 180px; /* Width of the dropdown list box */
   height: 30px; /* Height of the select box */
   cursor:pointer;
   padding: 0;
@@ -46,7 +46,7 @@
 
 /* Dropdown List Options List*/
 .selectboxit-container .selectboxit-options {
-  width: 210px; /* Width of the dropdown list box options */
+  min-width: 180px; /* Minimum Width of the dropdown list box options */
   font: 14px Helvetica, Arial;
   margin:0;
   padding:0;
@@ -55,13 +55,12 @@
   overflow:auto;
   cursor:pointer;
   display:none;
-  z-index:99999;
+  z-index:9999999999999;
   outline:none;
   top: auto;
-  bottom: auto; 
+  bottom: auto;
   left: auto;
   right: auto;
-  min-width: auto;
   -moz-box-shadow: none; /* Firefox */
   -webkit-box-shadow: none; /* Safari, Chrome */
   box-shadow: none; /* CSS3 */
@@ -79,6 +78,7 @@
   overflow:hidden;
   white-space:nowrap;
   list-style:none;
+  margin: 0;
 }
 
 /* Dropdown List Optgroup Headers */
@@ -94,7 +94,7 @@
 /* Dropdown List Optgroup Header hover psuedo class */
 .selectboxit-optgroup-header[data-disabled='true']:hover {
   cursor: default;
-} 
+}
 
 /* Dropdown List Down Arrow Container (if an image is not used) */
 .selectboxit-arrow-container {

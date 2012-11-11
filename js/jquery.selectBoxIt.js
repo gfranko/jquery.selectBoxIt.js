@@ -575,7 +575,7 @@
             var self = this;
 
             if (self._dynamicPositioning) {
-                            
+
                 // Dynamically positions the dropdown list options list
                 self._dynamicPositioning();
 
@@ -1140,7 +1140,7 @@
 
                             self.listItems.eq(self.currentFocus).removeClass(self.focusClass);
 
-                            self.currentFocus = currentOption.attr("id");
+                            self.currentFocus = +currentOption.attr("id");
 
                             // Sets the new dropdown list text to the value of the current option
                             self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);

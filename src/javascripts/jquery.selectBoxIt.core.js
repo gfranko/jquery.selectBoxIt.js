@@ -465,6 +465,7 @@
                     "line-height": self.div.css("height"),
 
                     "max-width": self.div.outerWidth() - (self.downArrowContainer.outerWidth() + self.divImage.outerWidth())
+                
                 });
 
                 self.divImage.css({

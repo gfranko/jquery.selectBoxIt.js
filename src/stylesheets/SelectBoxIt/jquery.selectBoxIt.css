@@ -66,6 +66,11 @@
   box-shadow: none; /* CSS3 */
 }
 
+/* Overrides Bootstrap drop down option style */
+.selectboxit-options .selectboxit-option.active .selectboxit-option-anchor {
+  color: #fff;
+}
+
 .selectboxit-option .selectboxit-option-anchor {
   padding: 0px 3px;
   line-height: 30px;

@@ -465,6 +465,7 @@
                     "line-height": self.div.css("height"),
 
                     "max-width": self.div.outerWidth() - (self.downArrowContainer.outerWidth() + self.divImage.outerWidth())
+                
                 });
 
                 self.divImage.css({
@@ -1122,16 +1123,8 @@
                 // `change` event handler with the `selectBoxIt` namespace
                 "change.selectBoxIt": function(event, internal) {
 
-                    // If the plugin called the change method
-                    if(internal) {
-
-                        // Sets the new dropdown list text to the value of the original dropdown list
-                        self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
-
-                    }
-
                     // If the user called the change method
-                    else {
+                    if(!internal) {
 
                         var currentOption = self.list.find('li[data-val="' + self.originalElem.value + '"]');
 
@@ -1142,12 +1135,14 @@
 
                             self.currentFocus = +currentOption.attr("id");
 
-                            // Sets the new dropdown list text to the value of the current option
-                            self.divText.text(self.listItems.eq(self.currentFocus).text()).attr("data-val", self.originalElem.value);
+
 
                         }
 
                     }
+
+                    // Sets the new dropdown list text to the value of the current option
+                    self.divText.text(self.listItems.eq(self.currentFocus).find("a").text()).attr("data-val", self.originalElem.value);
 
                     if(self.listItems.eq(self.currentFocus).find("i").attr("class")) {
 

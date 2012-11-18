@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <link type="text/css" rel="stylesheet" href="../src/stylesheets/SelectBoxIt/jquery.selectBoxIt.css" />
   <link type="text/css" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
-  <link type="text/css" rel="stylesheet" href="css/jquery-ui-1.8.23.custom.css" />
+  <link type="text/css" rel="stylesheet" href="css/jquery-ui-1.9.1.custom.css" />
   <style>
   .selectboxit-container {
     margin: 50px;
@@ -49,12 +49,13 @@
 <div id="example"></div>
 
 <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 $(function() {
     var selectBox = $("#test").selectBoxIt({theme: "twitterbootstrap" }).data("selectBoxIt");
-    $('#test1').selectBoxIt({theme: "jqueryui"});
+    $('#test1').selectBoxIt({theme: "jqueryui"}).data("selectBoxIt");
+
 });
 </script>
  </body>

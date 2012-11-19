@@ -1279,7 +1279,7 @@
 
             if (!self.options.nostyle) {
 
-                if(self.options.theme === "twitterbootstrap" && arrowClass === "caret") {
+                if(self.options.theme === "twitterbootstrap" && !self.option("downArrowIcon").length) {
 
                     // Adds the jqueryUI down arrow icon CSS class to the down arrow div
                     self.downArrow.css({ "margin-top": self.downArrowContainer.height()/2 });

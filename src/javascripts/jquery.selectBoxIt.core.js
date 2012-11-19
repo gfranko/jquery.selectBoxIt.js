@@ -1282,7 +1282,7 @@
                 if(self.options.theme === "twitterbootstrap" && !self.option("downArrowIcon").length) {
 
                     // Adds the jqueryUI down arrow icon CSS class to the down arrow div
-                    self.downArrow.add($(".selectboxit-option-icon")).css({ "margin-top": self.downArrowContainer.height()/2 });
+                    self.downArrow.css({ "margin-top": self.downArrowContainer.height()/2 });
 
                 }
 
@@ -1294,6 +1294,8 @@
                 }
 
             }
+
+            $(".selectboxit-option-icon").not(".selectboxit-default-icon").css("margin-top", self.downArrowContainer.height()/3);
 
             // Maintains chainability
             return self;

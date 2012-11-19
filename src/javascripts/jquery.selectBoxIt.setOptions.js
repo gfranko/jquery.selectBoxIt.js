@@ -29,13 +29,13 @@ $(function() {
 
         if(self.options.defaultIcon) {
 
-            self.divImage.attr("class", self.options.defaultIcon);
+            self.divImage.attr("class", self.options.defaultIcon + " selectboxit-arrow");
 
         }
 
         if(self.options.downArrowIcon) {
 
-            self.downArrow.attr("class", self.options.downArrowIcon);
+            self.downArrow.attr("class", self.options.downArrowIcon + " selectboxit-arrow");
 
         }
 

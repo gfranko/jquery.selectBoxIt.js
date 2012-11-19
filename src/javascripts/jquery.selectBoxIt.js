@@ -2133,13 +2133,13 @@ $(function() {
 
         else if(key === "defaultIcon" && value) {
 
-            self.divImage.attr("class", value);
+            self.divImage.attr("class", value + " selectboxit-arrow");
 
         }
 
         else if(key === "downArrowIcon" && value) {
 
-            self.downArrow.attr("class", value);
+            self.downArrow.attr("class", value + " selectboxit-arrow");
 
         }
 
@@ -2193,13 +2193,13 @@ $(function() {
 
         if(self.options.defaultIcon) {
 
-            self.divImage.attr("class", self.options.defaultIcon);
+            self.divImage.attr("class", self.options.defaultIcon + " selectboxit-arrow");
 
         }
 
         if(self.options.downArrowIcon) {
 
-            self.downArrow.attr("class", self.options.downArrowIcon);
+            self.downArrow.attr("class", self.options.downArrowIcon + " selectboxit-arrow");
 
         }
 

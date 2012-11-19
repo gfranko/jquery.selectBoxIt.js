@@ -27,13 +27,13 @@ $(function() {
 
         else if(key === "defaultIcon" && value) {
 
-            self.divImage.attr("class", value);
+            self.divImage.attr("class", value + " selectboxit-arrow");
 
         }
 
         else if(key === "downArrowIcon" && value) {
 
-            self.downArrow.attr("class", value);
+            self.downArrow.attr("class", value + " selectboxit-arrow");
 
         }
 

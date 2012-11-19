@@ -211,12 +211,21 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              //Calls the selectBoxIt method on your HTML select box
-              var selectBox = $("select").selectBoxIt({ 
+              // Calls the selectBoxIt method on your HTML select box
+              var selectBox = $("select").selectBoxIt({
+
+                  // Uses the jQuery 'fadeIn' effect when opening the drop down
                   showEffect: "fadeIn",
-                  showEffectSpeed: 600,
+
+                  // Sets the jQuery 'fadeIn' effect speed to 400 milleseconds
+                  showEffectSpeed: 400,
+
+                  // Uses the jQuery 'fadeOut' effect when closing the drop down
                   hideEffect: "fadeOut",
-                  hideEffectSpeed: 600
+
+                  // Sets the jQuery 'fadeOut' effect speed to 400 milleseconds
+                  hideEffectSpeed: 400
+
               });
               </pre>
               <br />
@@ -245,11 +254,18 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              //Calls the selectBoxIt method on your HTML select box
+              // Calls the selectBoxIt method on your HTML select box
               var selectBox = $("select").selectBoxIt({
+
+                  // Uses the jQueryUI 'shake' effect when opening the drop down
                   showEffect: "shake",
+
+                  // Sets jQueryUI options to shake 1 time when opening the drop down
                   showEffectOptions: { times: 1 },
+
+                  // Uses the jQueryUI 'explode' effect when closing the drop down
                   hideEffect: "explode"
+
               });
               </pre>
               <br />
@@ -278,15 +294,223 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              //Calls the selectBoxIt method on your HTML select box
+              // Calls the selectBoxIt method on your HTML select box
               var selectBox = $("select").selectBoxIt({
+
+                  // Uses the jQueryUI theme for the drop down
                   theme: "jqueryui",
-                  showEffect: "slideDown",
-                  showEffectSpeed: 600,
-                  hideEffect: "slideUp",
-                  hideEffectSpeed: 600
+
+                  // Uses the jQuery 'fadeIn' effect when opening the drop down
+                  showEffect: "fadeIn",
+
+                  // Sets the jQuery 'fadeIn' effect speed to 400 milleseconds
+                  showEffectSpeed: 400,
+
+                  // Uses the jQuery 'fadeOut' effect when closing the drop down
+                  hideEffect: "fadeOut",
+
+                  // Sets the jQuery 'fadeOut' effect speed to 400 milleseconds
+                  hideEffectSpeed: 400
+
               });
               </pre>
+              <br />
+              <h3>Hide the First Option</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="hide-first-option">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+              // Calls the selectBoxIt method on your HTML select box
+              var selectBox = $("select").selectBoxIt({
+
+                  // Hides the first select box option from appearing when the drop down is opened
+                  showFirstOption: false
+
+              });
+              </pre>
+              <br />
+              <br />
+              <h3>Set Default Text</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="set-default-text">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+              // Calls the selectBoxIt method on your HTML select box
+              var selectBox = $("select").selectBoxIt({
+
+                  // Sets default text to appear for the drop down
+                  defaultText: "Sample text here"
+
+              });
+              </pre>
+              <br />
+              <br />
+              <h3>Bootstrap Up/Down Arrow Support</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="bootstrap-up-down-arrow" class="bootstrap-up-down-arrow">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+              // Calls the selectBoxIt method on your HTML select box
+              $("select").selectBoxIt();
+
+              // Binds to the 'open' event on the original select box
+              $("select").bind("open", function() {
+
+                // Adds the Twitter Bootstrap 'dropup' class to the drop down
+                $(".selectboxit").addClass("dropup");
+
+              });
+
+              // Binds to the 'close' event on the original select box
+              $("select").bind("close", function() {
+
+                // Removes the Twitter Bootstrap 'dropup' class from the drop down
+                $(".selectboxit").removeClass("dropup");
+
+              });
+              </pre>
+              <br />
+              <br />
+              <h3>jQueryUI Up/Down Arrow Support</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="jqueryui-up-down-arrow" class="jqueryui-up-down-arrow">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+              // Calls the selectBoxIt method on your HTML select box and stores all selectBoxIt methods in a variable
+              var selectBox = $("select").selectBoxIt().data("selectBoxIt");
+
+              // Binds to the 'open' event on the original select box
+              $("select").bind("open", function() {
+
+                // Sets new CSS classes for the up arrow icon by using the 'setOption' method
+                selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
+
+              });
+
+              // Binds to the 'close' event on the original select box
+              $("select").bind("close", function() {
+
+                // Sets new CSS classes for the down arrow icon by using the 'setOption' method
+                selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
+
+              });
+              </pre>
+              <br />
+              <br />
+              <h3>Custom Down Arrow Support</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="custom-down-arrow" class="custom-down-arrow">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+              // Calls the selectBoxIt method on your HTML select box
+              $("select").selectBoxIt({ 
+
+                // Set a custom down arrow icon by adding new CSS class(s)
+                downArrowIcon: "icon-hand-down"
+
+              });
+              </pre>
+              <br />
               <br />
               <h3>Arrow Box Support</h3>
               <br />
@@ -320,12 +544,49 @@
               <h5>Example CSS Code</h5>
               <pre class="prettyprint">
                 .selectboxit-arrow-container {
+
                     /* Encloses the down arrow in a box */
                     border-left: 1px solid #ccc;
+
                 }
               </pre>
               <br />
-              <h3>Icon Support</h3>
+              <br />
+              <h3>Bootstrap Icon Support</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                  <option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check">a jQuery Plugin</option>
+                  <option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check">a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select class="test" name="test">
+                  <option value="SelectBoxIt is:" data-icon="icon-search">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin" data-icon="icon-ok">a jQuery Plugin</option>
+                  <option value="a Select Box Replacement" data-icon="icon-ok">a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget" data-icon="icon-ok">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+                &lt;select id="test" name="test"&gt;
+                  &lt;option value="SelectBoxIt is:" data-icon="icon-search"&gt;SelectBoxIt is:&lt;/option&gt;
+                  &lt;option value="a jQuery Plugin" data-icon="icon-ok"&gt;a jQuery Plugin&lt;/option&gt;
+                  &lt;option value="a Select Box Replacement" data-icon="icon-ok"&gt;a Select Box Replacement&lt;/option&gt;
+                  &lt;option value="a Stateful UI Widget" data-icon="icon-ok"&gt;a Stateful UI Widget&lt;/option&gt;
+                &lt;/select&gt;
+              </pre>
+              <br />
+              <br />
+              <h3>jQueryUI Icon Support</h3>
               <br />
               <div class="select">
                 Turns this
@@ -1323,10 +1584,39 @@
         $(function() {
 
             $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60 });
-            $("select.test, select.arrow-box").selectBoxIt().data("selectBoxIt");
-            $("select#jqueryui-theme").selectBoxIt({ theme: "jqueryui", showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600, downArrowIcon: "ui-icon ui-icon-triangle-1-s" }).data("selectBoxIt");
-            $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 600, hideEffect: "fadeOut", hideEffectSpeed: 600 }).data("selectBoxIt");
-            $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectOptions: {times: 1}, hideEffect: "explode" }).data("selectBoxIt");
+            $("select.test, select.arrow-box, select#bootstrap-up-down-arrow").selectBoxIt();
+            $("select#jqueryui-theme").selectBoxIt({ theme: "jqueryui", showEffect: "slideDown", showEffectSpeed: 600, hideEffect: "slideUp", hideEffectSpeed: 600, downArrowIcon: "ui-icon ui-icon-triangle-1-s" });
+            $("#hide-first-option").selectBoxIt({ showFirstOption: false });
+            $("#set-default-text").selectBoxIt({ defaultText: "Sample text here" });
+            $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 400, hideEffect: "fadeOut", hideEffectSpeed: 400 });
+            $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectOptions: {times: 1}, hideEffect: "explode" });
+            $("select.jqueryui-up-down-arrow").selectBoxIt({theme: "jqueryui"});
+
+              $("select.bootstrap-up-down-arrow").bind("open", function() {
+
+                $(".bootstrap-up-down-arrow.selectboxit").addClass("dropup");
+
+              });
+
+              $("select.bootstrap-up-down-arrow").bind("close", function() {
+
+                $(".bootstrap-up-down-arrow.selectboxit").removeClass("dropup");
+
+              });
+
+              $("select.jqueryui-up-down-arrow").bind("open", function() {
+
+                $(this).data("selectBoxIt").setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
+
+              });
+
+              $("select.jqueryui-up-down-arrow").bind("close", function() {
+
+                $(this).data("selectBoxIt").setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
+
+              });
+
+              $("select.custom-down-arrow").selectBoxIt({ downArrowIcon: "icon-hand-down" });
             prettyPrint();
             $(".optionName").popover({ trigger: "hover" });
             $("a[href='#']").click(function(event) {

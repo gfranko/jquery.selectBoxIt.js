@@ -279,7 +279,7 @@
                 iconClass,
 
                 // Declaring the variable that will hold all of the dropdown list option elements
-                currentItem = [],
+                currentItem = "",
 
                 // Creates an unordered list element
                 createdList = $("<ul/>", {
@@ -338,7 +338,7 @@
                 }
 
                 // Uses Array.join instead of string concatenation for speed (applies HTML attribute encoding for quotes)
-                currentItem.push(optgroupElement + '<li id="' + index + '" data-val="' + this.value.replace(/\"/g,'&quot;') + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + '"></i>' + $(this).text() + '</a></li>');
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value.replace(/\"/g,'&quot;') + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + '"></i>' + $(this).text() + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -374,7 +374,7 @@
             }
 
             // Append the list item to the unordered list
-            createdList.append(currentItem.join(''));
+            createdList.append(currentItem);
 
             // Stores the dropdown list options list inside of the `list` instance variable
             self.list = createdList;
@@ -456,7 +456,9 @@
 
                 // The dynamic CSS of the down arrow container element
                 self.downArrowContainer.css({
+
                     "height": height + "px"
+
                 });
 
                 // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
@@ -1277,7 +1279,7 @@
 
             if (!self.options.nostyle) {
 
-                if(self.options.theme === "twitterbootstrap" && arrowClass === "caret") {
+                if(self.options.theme === "twitterbootstrap" && !self.option("downArrowIcon").length) {
 
                     // Adds the jqueryUI down arrow icon CSS class to the down arrow div
                     self.downArrow.css({ "margin-top": self.downArrowContainer.height()/2 });
@@ -1287,11 +1289,13 @@
                 else {
 
                     // Adds the jqueryUI down arrow icon CSS class to the down arrow div
-                    self.downArrow.css({ "margin-top": self.downArrowContainer.height()/4 });
+                    self.downArrow.css({ "margin-top": self.downArrowContainer.height()/3 });
 
                 }
 
             }
+
+            $(".selectboxit-option-icon").not(".selectboxit-default-icon").css("margin-top", self.downArrowContainer.height()/4);
 
             // Maintains chainability
             return self;
@@ -2131,13 +2135,13 @@ $(function() {
 
         else if(key === "defaultIcon" && value) {
 
-            self.divImage.attr("class", value);
+            self.divImage.attr("class", value + " selectboxit-arrow");
 
         }
 
         else if(key === "downArrowIcon" && value) {
 
-            self.downArrow.attr("class", value);
+            self.downArrow.attr("class", value + " selectboxit-arrow");
 
         }
 
@@ -2191,13 +2195,13 @@ $(function() {
 
         if(self.options.defaultIcon) {
 
-            self.divImage.attr("class", self.options.defaultIcon);
+            self.divImage.attr("class", self.options.defaultIcon + " selectboxit-arrow");
 
         }
 
         if(self.options.downArrowIcon) {
 
-            self.downArrow.attr("class", self.options.downArrowIcon);
+            self.downArrow.attr("class", self.options.downArrowIcon + " selectboxit-arrow");
 
         }
 

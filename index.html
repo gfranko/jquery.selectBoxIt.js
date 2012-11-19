@@ -212,7 +212,7 @@
               <h5>Example Code</h5>
               <pre class="prettyprint">
               // Calls the selectBoxIt method on your HTML select box
-              var selectBox = $("select").selectBoxIt({
+              $("select").selectBoxIt({
 
                   // Uses the jQuery 'fadeIn' effect when opening the drop down
                   showEffect: "fadeIn",
@@ -255,7 +255,7 @@
               <h5>Example Code</h5>
               <pre class="prettyprint">
               // Calls the selectBoxIt method on your HTML select box
-              var selectBox = $("select").selectBoxIt({
+              $("select").selectBoxIt({
 
                   // Uses the jQueryUI 'shake' effect when opening the drop down
                   showEffect: "shake",
@@ -295,7 +295,7 @@
               <h5>Example Code</h5>
               <pre class="prettyprint">
               // Calls the selectBoxIt method on your HTML select box
-              var selectBox = $("select").selectBoxIt({
+              $("select").selectBoxIt({
 
                   // Uses the jQueryUI theme for the drop down
                   theme: "jqueryui"
@@ -329,7 +329,7 @@
               <h5>Example Code</h5>
               <pre class="prettyprint">
               // Calls the selectBoxIt method on your HTML select box
-              var selectBox = $("select").selectBoxIt({
+              $("select").selectBoxIt({
 
                   // Hides the first select box option from appearing when the drop down is opened
                   showFirstOption: false
@@ -364,7 +364,7 @@
               <h5>Example Code</h5>
               <pre class="prettyprint">
               // Calls the selectBoxIt method on your HTML select box
-              var selectBox = $("select").selectBoxIt({
+              $("select").selectBoxIt({
 
                   // Sets default text to appear for the drop down
                   defaultText: "Sample text here"
@@ -401,19 +401,23 @@
               // Calls the selectBoxIt method on your HTML select box
               $("select").selectBoxIt();
 
-              // Binds to the 'open' event on the original select box
-              $("select").bind("open", function() {
+              $("select").bind({
 
-                // Adds the Twitter Bootstrap 'dropup' class to the drop down
-                $(".selectboxit").addClass("dropup");
+                // Binds to the 'open' event on the original select box
+                "open": function() {
 
-              });
+                  // Adds the Twitter Bootstrap 'dropup' class to the drop down
+                  $(".selectboxit").addClass("dropup");
 
-              // Binds to the 'close' event on the original select box
-              $("select").bind("close", function() {
+                },
 
-                // Removes the Twitter Bootstrap 'dropup' class from the drop down
-                $(".selectboxit").removeClass("dropup");
+                // Binds to the 'close' event on the original select box
+                "close": function() {
+
+                  // Removes the Twitter Bootstrap 'dropup' class from the drop down
+                  $(".selectboxit").removeClass("dropup");
+
+                }
 
               });
               </pre>
@@ -448,18 +452,22 @@
               var selectBox = $("select").selectBoxIt().data("selectBoxIt");
 
               // Binds to the 'open' event on the original select box
-              $("select").bind("open", function() {
+              $("select").bind({
 
-                // Sets new CSS classes for the up arrow icon by using the 'setOption' method
-                selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
+                "open": function() {
 
-              });
+                  // Sets new CSS classes for the up arrow icon by using the 'setOption' method
+                  selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
 
-              // Binds to the 'close' event on the original select box
-              $("select").bind("close", function() {
+                },
 
-                // Sets new CSS classes for the down arrow icon by using the 'setOption' method
-                selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
+                // Binds to the 'close' event on the original select box
+                "close": function() {
+
+                  // Sets new CSS classes for the down arrow icon by using the 'setOption' method
+                  selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
+
+                }
 
               });
               </pre>
@@ -1580,27 +1588,43 @@
             $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectOptions: {times: 1}, hideEffect: "explode" });
             $("select.jqueryui-up-down-arrow").selectBoxIt({theme: "jqueryui"});
 
-              $("select.bootstrap-up-down-arrow").bind("open", function() {
+              $("select.bootstrap-up-down-arrow").bind({
 
-                $(".bootstrap-up-down-arrow.selectboxit").addClass("dropup");
+                // Binds to the 'open' event on the original select box
+                "open": function() {
+
+                  // Adds the Twitter Bootstrap 'dropup' class to the drop down
+                  $(".bootstrap-up-down-arrow.selectboxit").addClass("dropup");
+
+                },
+
+                // Binds to the 'close' event on the original select box
+                "close": function() {
+
+                  // Removes the Twitter Bootstrap 'dropup' class from the drop down
+                  $(".bootstrap-up-down-arrow.selectboxit").removeClass("dropup");
+
+                }
 
               });
 
-              $("select.bootstrap-up-down-arrow").bind("close", function() {
+              // Binds to the 'open' event on the original select box
+              $("select.jqueryui-up-down-arrow").bind({
 
-                $(".bootstrap-up-down-arrow.selectboxit").removeClass("dropup");
+                "open": function() {
 
-              });
+                  // Sets new CSS classes for the up arrow icon by using the 'setOption' method
+                  $(this).data("selectBoxIt").setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
 
-              $("select.jqueryui-up-down-arrow").bind("open", function() {
+                },
 
-                $(this).data("selectBoxIt").setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
+                // Binds to the 'close' event on the original select box
+                "close": function() {
 
-              });
+                  // Sets new CSS classes for the down arrow icon by using the 'setOption' method
+                  $(this).data("selectBoxIt").setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
 
-              $("select.jqueryui-up-down-arrow").bind("close", function() {
-
-                $(this).data("selectBoxIt").setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
+                }
 
               });
 

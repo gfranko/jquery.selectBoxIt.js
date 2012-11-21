@@ -337,8 +337,8 @@
 
                 }
 
-                // Uses Array.join instead of string concatenation for speed (applies HTML attribute encoding for quotes)
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value.replace(/\"/g,'&quot;') + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + '"></i>' + $(this).text() + '</a></li>';
+                // Uses Array.join instead of string concatenation for speed (applies HTML attribute encoding)
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + '"></i>' + self.htmlEscape($(this).text()) + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -1441,6 +1441,17 @@
                 }
 
             });
+
+        },
+
+        htmlEscape: function(str) {
+    
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
 
         }
 

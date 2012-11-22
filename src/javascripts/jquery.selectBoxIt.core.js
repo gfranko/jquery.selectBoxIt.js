@@ -337,7 +337,7 @@
 
                 }
 
-                // Uses Array.join instead of string concatenation for speed (applies HTML attribute encoding)
+                // Uses string concatenation for speed (applies HTML attribute encoding)
                 currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + '"></i>' + self.htmlEscape($(this).text()) + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array

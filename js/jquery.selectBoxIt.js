@@ -337,8 +337,8 @@
 
                 }
 
-                // Uses Array.join instead of string concatenation for speed (applies HTML attribute encoding for quotes)
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value.replace(/\"/g,'&quot;') + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + '"></i>' + $(this).text() + '</a></li>';
+                // Uses string concatenation for speed (applies HTML attribute encoding)
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + '"></i>' + self.htmlEscape($(this).text()) + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -384,6 +384,13 @@
 
             // Stores the individual dropdown list options inside of the `listItems` instance variable
             self.listItems = self.list.find("li");
+
+            // Sets the 'selectboxit-option-first' class name on the first drop down option
+            self.listItems.first().addClass("selectboxit-option-first");
+
+
+            // Sets the 'selectboxit-option-last' class name on the last drop down option
+            self.listItems.last().addClass("selectboxit-option-last");
 
             // Set the disabled CSS class for select box options
             self.list.find("li[data-disabled='true']").not(".optgroupHeader").addClass("ui-state-disabled");
@@ -1441,6 +1448,17 @@
                 }
 
             });
+
+        },
+
+        htmlEscape: function(str) {
+    
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
 
         }
 

@@ -385,6 +385,13 @@
             // Stores the individual dropdown list options inside of the `listItems` instance variable
             self.listItems = self.list.find("li");
 
+            // Sets the 'selectboxit-option-first' class name on the first drop down option
+            self.listItems.first().addClass("selectboxit-option-first");
+
+
+            // Sets the 'selectboxit-option-last' class name on the last drop down option
+            self.listItems.last().addClass("selectboxit-option-last");
+
             // Set the disabled CSS class for select box options
             self.list.find("li[data-disabled='true']").not(".optgroupHeader").addClass("ui-state-disabled");
 

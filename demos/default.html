@@ -13,7 +13,7 @@
 <body>
 <form>
 <select id="test">
-  <option value="Select a Month bithcesdjaldkjlakjs">Select a Month</option>
+  <option value="Select a Month yo">Select a Month</option>
   <option value="January">January</option>
   <option value="February">February</option>
   <option value="March">March</option>
@@ -53,7 +53,7 @@
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 $(function() {
-    var selectBox = $("#test").selectBoxIt({theme: "twitterbootstrap" }).data("selectBoxIt");
+    var selectBox = $("#test").selectBoxIt({ defaultText: "Sample Text Here" }).data("selectBoxIt");
     $('#test1').selectBoxIt({theme: "jqueryui"}).data("selectBoxIt");
 
 });

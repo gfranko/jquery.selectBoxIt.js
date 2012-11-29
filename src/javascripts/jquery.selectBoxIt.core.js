@@ -956,16 +956,7 @@
 
                             }
 
-                            // If the first dropdown list option is not shown in the options list, and the dropdown list has not been interacted with, then update the dropdown list value when the enter key is pressed
-                            if (!self.options.showFirstOption && self.div.text() === self.firstSelectItem.text() && self.currentFocus === 0 || (self.options.showFirstOption && self.options.defaultText) || (!self.options.showFirstOption && !self.listItems.eq(0).not("[data-disabled='true']"))) {
-
-                                // Updates the dropdown list value
-                                self.selectBox.val(self.listItems.eq(self.currentFocus).attr("data-val")).
-
-                                // Triggers a `change` event on the original select box
-                                trigger("change", true);
-
-                            }
+                            self._checkDefaultText();
 
                             // Triggers the `enter` events on the original select box
                             self.selectBox.trigger("enter");
@@ -1087,7 +1078,7 @@
                 if (!$(this).data("disabled")) {
 
                     // Sets the original dropdown list value and triggers the `change` event on the original select box
-                    self.originalElem.value = $(this).attr("data-val");
+                    self.selectBox.val($(this).attr("data-val"));
 
                     // Sets `currentFocus` to the currently focused dropdown list option.
                     // The unary `+` operator casts the string to a number
@@ -1103,6 +1094,8 @@
                         self.selectBox.trigger("change", true);
 
                     }
+
+                    self._checkDefaultText();
 
                     // Triggers the custom option-click event on the original select box
                     self.selectBox.trigger("option-click");
@@ -1130,7 +1123,7 @@
             self.selectBox.bind({
 
                 // `change` event handler with the `selectBoxIt` namespace
-                "change.selectBoxIt": function(event, internal) {
+                "change.selectBoxIt, internal-change.selectBoxIt": function(event, internal) {
 
                     // If the user called the change method
                     if(!internal) {
@@ -1160,6 +1153,7 @@
 
                     // Triggers a custom changed event on the original select box
                     self.selectBox.trigger("changed");
+
                 },
 
                 // `disable` event with the `selectBoxIt` namespace
@@ -1451,6 +1445,9 @@
 
         },
 
+        // HTML Escape
+        // -----------
+        //      HTML encodes a string
         htmlEscape: function(str) {
     
             return String(str)
@@ -1459,6 +1456,25 @@
                 .replace(/'/g, '&#39;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;');
+
+        },
+
+        // Check Default Text
+        // ------------------
+        //      Default Text Option Logic
+        _checkDefaultText: function() {
+
+            var self = this;
+
+            // If the default text option is set and the current drop down option is not disabled
+            if (self.options.defaultText && self.divText.text() === self.options.defaultText) {
+
+                // Updates the dropdown list value
+                self.divText.text(self.listItems.eq(self.currentFocus).text()).
+
+                trigger("internal-change", true);
+
+            }
 
         }
 

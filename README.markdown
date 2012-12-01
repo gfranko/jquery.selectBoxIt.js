@@ -51,7 +51,13 @@ All unit tests are written using the Jasmine Framework
 ##Contributing
 Take care to maintain the existing coding style. Add Jasmine unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
-If you plan to contribute to `SelectBoxIt` in the future, keep in mind that you should make sure your code passes the Grunt checks.  If you are on Windows (like me) remember you need to run the grunt command using `grunt.cmd`.  Also, if you have trouble getting the Jasmine Unit Tests to work with PhantomJS 1.5 (the current release), install PhantomJS 1.3.
+If you plan to contribute to `SelectBoxIt` in the future, keep in mind that you should make sure your code passes the Grunt checks.
+
+To set up the SelectBoxIt grunt/node.js dependencies, first make sure you have [PhantomJS](http://phantomjs.org/) installed, which is a headless browser. Unfortunately PhantomJS cannot be installed automatically.
+
+Next, navigate to within the **jquery.selectBoxIt.js** folder and type `npm install' (this should install grunt and a few other node.js libraries).
+
+**Note:** If you are on Windows, remember you need to run the grunt command using `grunt.cmd`.  Also, if you have trouble getting the Jasmine Unit Tests to work with PhantomJS 1.5 (the current release), install PhantomJS 1.3.
 
 After you have verified your code, send a pull request to the `SelectBoxIt` dev branch.  After you send a pull request, you will hear back from me shortly after I review your code.
 

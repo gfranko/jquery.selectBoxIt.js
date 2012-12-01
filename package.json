@@ -23,8 +23,9 @@
     }
   ],
   "dependencies": {
-    "jquery": "1.6.1",
-    "jqueryUI Widget Factory": "1.8.19"
+    "grunt": "0.3.17",
+    "grunt-jasmine-task": "0.2.3",
+    "temporary": "0.0.5"
   },
   "keywords": ["jQuery", "jQueryUI", "Select Box Plugin", "Twitter Bootstrap", "Twitter Bootstrap Select Box"]
 }

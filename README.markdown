@@ -68,6 +68,12 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`2.1.0` - December 3, 2012
+
+- Multiple bug fixes: [#53](https://github.com/gfranko/jquery.selectBoxIt.js/issues/53), [#54](https://github.com/gfranko/jquery.selectBoxIt.js/issues/54), [#55](https://github.com/gfranko/jquery.selectBoxIt.js/issues/55), [#56]*https://github.com/gfranko/jquery.selectBoxIt.js/issues/56
+
+- Added the **native** option: Allows you to trigger the native select box element when a user is interacting with the drop down
+
 `2.0.0` - November 9th, 2012
 
 - Greatly improved dynamic positioning.  SelectBoxIt now makes sure that the drop down list never runs off of the page (no matter how small the viewport is)

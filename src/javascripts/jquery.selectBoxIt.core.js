@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.0.0 - 2012-11-09
+/* jquery Selectboxit - v2.1.0 - 2012-12-03
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -78,7 +78,10 @@
 
             },
 
-            nostyle: false
+            nostyle: false,
+
+            // **native**: Triggers the native select box when a user interacts with the drop down
+            native: false
 
         },
 
@@ -142,14 +145,6 @@
 
             }
 
-            // If the Mobile Module has been included
-            if(self._mobile) {
-
-                // Adds mobile support
-                self._mobile();
-
-            }
-
             if(self.options.theme === "twitterbootstrap") {
 
                 // Adds Twitter Bootstrap classes to the dropdown list
@@ -168,6 +163,22 @@
 
                 // Adds regular classes to the dropdown list
                 self._addClasses();
+
+            }
+
+            // If the Mobile Module has been included
+            if(self._mobile) {
+
+                // Adds mobile support
+                self._mobile();
+
+            }
+
+            // If the native option is set to true
+            if(self.options.native) {
+
+                // Triggers the native select box when a user is interacting with the drop down
+                this._applyNativeSelect();
 
             }
 
@@ -1422,7 +1433,9 @@
 
                 "left": self.div.offset().left,
 
-                "right": self.div.offset().right
+                "right": self.div.offset().right,
+
+                "cursor": "pointer"
 
             }).bind({
 

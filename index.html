@@ -338,6 +338,41 @@
               </pre>
               <br />
               <br />
+              <h3>Trigger the Native Select Box</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="native-select" class="native-select">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+              // Calls the selectBoxIt method on your HTML select box
+              $("select").selectBoxIt({ 
+
+                // Triggers the native select box when a user interacts with the drop down
+                native: true
+
+              });
+              </pre>
+              <br />
+              <br />
               <h3>Set Default Text</h3>
               <br />
               <div class="select">
@@ -473,6 +508,7 @@
               </pre>
               <br />
               <br />
+
               <h3>Custom Down Arrow Support</h3>
               <br />
               <div class="select">
@@ -938,72 +974,6 @@
               <p class="well">The Options API allows you to customize the dropdown list by <strong>setting</strong> custom options and <strong>getting</strong> all current options.
               </p>
               <br />
-              <h3>Setting Options</h3>
-              <p class="well">
-              All options can be <strong>set</strong> when the plugin is called, or after the plugin is called, using the <strong>setOption()</strong> or <strong>setOptions()</strong> methods.</p>
-
-              <span class="note">Here is an example of setting a <strong>single option</strong> when the plugin is first invoked:</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
-                  var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
-              });
-              </pre>
-              <br />
-              <span class="note">Here is an example of setting <strong>multiple options</strong> after the plugin is called using the <strong>setOptions()</strong> method:</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
-                  // Updates both the showEffect and showEffectSpeed options
-                  selectBox.setOptions({ showEffect: "fadeIn", showEffectSpeed: "medium" });
-              });
-              </pre>
-              <br />
-              <span class="note">Here is an example of setting a <strong>single option</strong> after the plugin is called using the <strong>setOption()</strong> method:</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
-                  // Updates the showEffect option
-                  selectBox.setOption("showEffect", "fadeIn");
-              });
-              </pre>
-              <br />
-              <h3>Getting Options</h3>
-              <p class="well">
-              A single option can be <strong>retrieved</strong> by using the <strong>option()</strong> method.  All of the current options can be retrieved by referencing the <strong>options</strong> property.
-              </p>
-              <br />
-              <span class="note">Here is an example of retrieving a <strong>single option</strong> after the plugin is called using the <strong>option()</strong> method:</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
-                  // Writes the showFirstOption option to the console
-                  console.log(selectBoxIt.option("showFirstOption"));
-              });
-              </pre>
-              <br />
-              <span class="note">Here is an example of retrieving <strong>all current options</strong> after the plugin is called using the <strong>options</strong> property:</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
-                  // Writes all of the current plugin options to the console
-                  console.log(selectBoxIt.options);
-              });
-              </pre>
-              <br />
               <h3>Options</h3>
               <table class="table table-striped table-bordered table-condensed">
                 <tr>
@@ -1097,6 +1067,12 @@
                   <td>false</td>
                   <td>true or false</td>
                 </tr>
+                <tr>
+                  <td class="optionName" title="native" data-content="Allows you to trigger the native select box element when a user is interacting with the drop down"><a href="#">native</a></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>true or false</td>
+                </tr>
               </table>
               <br />
               <h3>HTML5 Data Attribute Options</h3>
@@ -1131,6 +1107,72 @@
                   <td>Any text may be used</td>
                 </tr>
               </table>
+              <br />
+              <h3>Setting Options</h3>
+              <p class="well">
+              All options can be <strong>set</strong> when the plugin is called, or after the plugin is called, using the <strong>setOption()</strong> or <strong>setOptions()</strong> methods.</p>
+
+              <span class="note">Here is an example of setting a <strong>single option</strong> when the plugin is first invoked:</span>
+              <pre class="prettyprint">
+              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+              $(function() {
+                  //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
+                  var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
+              });
+              </pre>
+              <br />
+              <span class="note">Here is an example of setting <strong>multiple options</strong> after the plugin is called using the <strong>setOptions()</strong> method:</span>
+              <pre class="prettyprint">
+              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+              $(function() {
+                  //Calls the selectBoxIt method on your HTML select box
+                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+
+                  // Updates both the showEffect and showEffectSpeed options
+                  selectBox.setOptions({ showEffect: "fadeIn", showEffectSpeed: "medium" });
+              });
+              </pre>
+              <br />
+              <span class="note">Here is an example of setting a <strong>single option</strong> after the plugin is called using the <strong>setOption()</strong> method:</span>
+              <pre class="prettyprint">
+              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+              $(function() {
+                  //Calls the selectBoxIt method on your HTML select box
+                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+
+                  // Updates the showEffect option
+                  selectBox.setOption("showEffect", "fadeIn");
+              });
+              </pre>
+              <br />
+              <h3>Getting Options</h3>
+              <p class="well">
+              A single option can be <strong>retrieved</strong> by using the <strong>option()</strong> method.  All of the current options can be retrieved by referencing the <strong>options</strong> property.
+              </p>
+              <br />
+              <span class="note">Here is an example of retrieving a <strong>single option</strong> after the plugin is called using the <strong>option()</strong> method:</span>
+              <pre class="prettyprint">
+              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+              $(function() {
+                  //Calls the selectBoxIt method on your HTML select box
+                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+
+                  // Writes the showFirstOption option to the console
+                  console.log(selectBoxIt.option("showFirstOption"));
+              });
+              </pre>
+              <br />
+              <span class="note">Here is an example of retrieving <strong>all current options</strong> after the plugin is called using the <strong>options</strong> property:</span>
+              <pre class="prettyprint">
+              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+              $(function() {
+                  //Calls the selectBoxIt method on your HTML select box
+                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+
+                  // Writes all of the current plugin options to the console
+                  console.log(selectBoxIt.options);
+              });
+              </pre>
 
               <h2>Events API</h2>
               <p class="well">The <strong>Events API</strong> allows your application to listen to user events triggered on the dropdown list.  All custom/default <strong>events are triggered on the original select box element</strong> (not the new dropdown list).
@@ -1585,7 +1627,9 @@
             $("#set-default-text").selectBoxIt({ defaultText: "Sample text here" });
             $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 400, hideEffect: "fadeOut", hideEffectSpeed: 400 });
             $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectOptions: {times: 1}, hideEffect: "explode" });
-            $("select.jqueryui-up-down-arrow").selectBoxIt({theme: "jqueryui"});
+            $("select.jqueryui-up-down-arrow").selectBoxIt({ theme: "jqueryui"});
+
+            $("select.native-select").selectBoxIt({ native: true });
 
               $("select.bootstrap-up-down-arrow").bind({
 

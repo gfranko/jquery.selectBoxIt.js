@@ -1,10 +1,11 @@
 /*
- * jquery.selectBoxIt.css 2.0.0
+ * jquery.selectBoxIt.css 2.1.0
  * Author: @gregfranko
  */
 
 /* Div container holding the dropdown list */
 .selectboxit-container {
+  position: relative;
   display: inline-block;
   /* Prevents text selection */
   -webkit-touch-callout: none;

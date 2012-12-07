@@ -5,6 +5,7 @@
 
 /* Div container holding the dropdown list */
 .selectboxit-container {
+  position: relative;
   display: inline-block;
   /* Prevents text selection */
   -webkit-touch-callout: none;

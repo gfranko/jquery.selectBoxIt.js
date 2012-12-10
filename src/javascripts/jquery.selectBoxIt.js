@@ -1414,6 +1414,12 @@
             var self = this,
                 currentOption;
 
+            self.divContainer.css({
+
+                "position": "static"
+
+            });
+
             // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
             self.selectBox.css({
 

@@ -1,7 +1,7 @@
 jquery.selectBoxIt.js - jQuery Select Box Plugin
 ------------------------------------------------
 
-A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **Twitter Bootstrap** or **jQueryUI ThemeRoller**, optionally animated with **jQueryUI show/hide effects**, and works on both Desktop, Tablet, and Mobile browsers.
+A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **Twitter Bootstrap**, **jQueryUI ThemeRoller**, or **jQuery Mobile**, optionally animated with **jQueryUI show/hide effects**, and works on Desktop, Tablet, and Mobile browsers.
 
 [Homepage](http://gregfranko.com/jquery.selectBoxIt.js/)
 
@@ -11,7 +11,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
 **Notable Features**
 
-   - Styleable with Twitter Bootstrap and jQueryUI Themeroller (optional)
+   - Styleable with Twitter Bootstrap, jQueryUI Themeroller, and jQuery Mobile
 
    - Supports Desktop, Tablet, and Mobile browsers
 
@@ -67,6 +67,12 @@ You'll find source code in the "src" subdirectory!
 If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the SelectBoxIt issue tracker, or fork SelectBoxIt on Github and easily extend SelectBoxIt to create your own widget!
 
 ##Change Log
+
+`2.2.0 RC1` - December 13, 2012
+
+- Added jQuery Mobile CSS Theming Support
+
+- Added the **selectOption()** method
 
 `2.1.0` - December 3, 2012
 

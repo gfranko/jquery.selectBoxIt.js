@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.1.0 - 2012-12-03
+/* jquery Selectboxit - v2.2.0 - 2012-12-13
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "2.1.0",
+        VERSION: "2.2.0",
 
         // These options will be used as defaults
         options: {
@@ -62,7 +62,7 @@
             downArrowIcon: "",
 
             // **theme**: Provides theming support for Twitter Bootstrap and jQueryUI
-            theme: "twitterbootstrap",
+            theme: "bootstrap",
 
             // **keydownOpen**: Opens the dropdown if the up or down key is pressed when the dropdown is focused
             keydownOpen: true,
@@ -145,7 +145,7 @@
 
             }
 
-            if(self.options.theme === "twitterbootstrap") {
+            if(self.options.theme === "bootstrap") {
 
                 // Adds Twitter Bootstrap classes to the dropdown list
                 self._twitterbootstrap();
@@ -156,6 +156,13 @@
 
                 // Adds jQueryUI classes to the dropdown list
                 self._jqueryui();
+
+            }
+
+            else if(this.options.theme === "jquerymobile") {
+
+                // Adds jQueryUI classes to the dropdown list
+                self._jquerymobile();
 
             }
 
@@ -1128,6 +1135,7 @@
 
                     }
                 }
+
             });
 
             // Original dropdown list events
@@ -1191,27 +1199,30 @@
         // _addClasses
         // -----------
         //      Adds SelectBoxIt CSS classes
-        _addClasses: function(focusClasses, hoverClasses, arrowClass, buttonClasses, listClasses) {
+        _addClasses: function(obj) {
 
             var self = this,
 
-                focusClass = focusClasses || "selectboxit-focus",
+                focusClass = obj.focusClasses || "selectboxit-focus",
 
-                hoverClass = hoverClasses || "selectboxit-hover",
+                hoverClass = obj.hoverClasses || "selectboxit-hover",
 
-                buttonClass = buttonClasses || "selectboxit-btn",
+                buttonClass = obj.buttonClasses || "selectboxit-btn",
 
-                listClass = listClasses || "selectboxit-dropdown";
+                listClass = obj.listClasses || "selectboxit-dropdown";
 
             self.focusClass = focusClass;
 
-            self.downArrow.addClass(self.selectBox.data("downarrow") || self.options.downArrowIcon || arrowClass);
+            self.downArrow.addClass(self.selectBox.data("downarrow") || self.options.downArrowIcon || obj.arrowClasses);
+
+            // Adds the correct container class to the dropdown list
+            self.divContainer.addClass(obj.containerClasses);
 
             // Adds the correct class to the dropdown list
-            self.div.addClass(buttonClasses);
+            self.div.addClass(buttonClass);
 
             // Adds the default class to the dropdown list options
-            self.list.addClass(listClasses);
+            self.list.addClass(listClass);
 
             // Select box individual option events
             self.listItems.bind({
@@ -1289,24 +1300,6 @@
 
             });
 
-            if (!self.options.nostyle) {
-
-                if(self.options.theme === "twitterbootstrap" && !self.option("downArrowIcon").length) {
-
-                    // Adds the jqueryUI down arrow icon CSS class to the down arrow div
-                    self.downArrow.css({ "margin-top": self.downArrowContainer.height()/2 });
-
-                }
-
-                else {
-
-                    // Adds the jqueryUI down arrow icon CSS class to the down arrow div
-                    self.downArrow.css({ "margin-top": self.downArrowContainer.height()/3 });
-
-                }
-
-            }
-
             $(".selectboxit-option-icon").not(".selectboxit-default-icon").css("margin-top", self.downArrowContainer.height()/4);
 
             // Maintains chainability
@@ -1321,7 +1314,21 @@
 
             var self = this;
 
-            self._addClasses("ui-state-focus", "ui-state-hover", "ui-icon ui-icon-triangle-1-s", "ui-widget ui-state-default", "ui-widget ui-widget-content");
+            self._addClasses({
+
+                focusClasses: "ui-state-focus",
+
+                hoverClasses: "ui-state-hover",
+
+                arrowClasses: "ui-icon ui-icon-triangle-1-s",
+
+                buttonClasses: "ui-widget ui-state-default",
+
+                listClasses: "ui-widget ui-widget-content",
+
+                containerClasses: ""
+
+            });
 
             // Maintains chainability
             return self;
@@ -1335,7 +1342,49 @@
 
             var self = this;
 
-            self._addClasses("active", "", "caret", "btn", "dropdown-menu");
+            self._addClasses({
+
+                focusClasses: "active",
+
+                hoverClasses: "",
+
+                arrowClasses: "caret",
+
+                buttonClasses: "btn",
+
+                listClasses: "dropdown-menu",
+
+                containerClasses: ""
+
+            });
+
+            // Maintains chainability
+            return self;
+
+        },
+
+        // _jquerymobile
+        // -------------
+        //      Adds jQuery Mobile CSS classes
+        _jquerymobile: function() {
+
+            var self = this;
+
+            self._addClasses({
+
+                focusClasses: "ui-btn-active-c ui-btn-down-c",
+
+                hoverClasses: "ui-btn-hover-c",
+
+                arrowClasses: "ui-icon ui-icon-arrow-d ui-icon-shadow",
+
+                buttonClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-c",
+
+                listClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-c",
+
+                containerClasses: ""
+
+            });
 
             // Maintains chainability
             return self;
@@ -1494,6 +1543,37 @@
                 trigger("internal-change", true);
 
             }
+
+        },
+
+        // Select Option
+        // -------------
+        //      Programatically selects a drop down option by either index or value
+        selectOption: function(val, callback) {
+
+            // Stores the plugin context inside of the self variable
+            var self = this;
+
+            // Makes sure the passed in position is a number
+            if(typeof val === "number") {
+
+                // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
+                self.selectBox.val(self.selectBox.find("option").eq(val).val()).change();
+
+            }
+
+            else if(typeof val === "string") {
+
+                // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
+                self.selectBox.val(val).change();
+
+            }
+
+            // Calls the callback function
+            self._callbackSupport(callback);
+
+            // Maintains chainability
+            return self;
 
         }
 

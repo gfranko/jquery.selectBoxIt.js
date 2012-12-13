@@ -25,6 +25,7 @@
   padding: 0;
   display: block;
   border-radius: 6px;
+  margin: 0;
 }
 
 .selectboxit-container .selectboxit.selectboxit-disabled {
@@ -67,6 +68,7 @@
   -webkit-box-shadow: none; /* Safari, Chrome */
   box-shadow: none; /* CSS3 */
   border-radius: 6px;
+  text-align: left;
 }
 
 /* Overrides Bootstrap drop down option style */
@@ -77,6 +79,10 @@
 .selectboxit-option .selectboxit-option-anchor {
   padding: 0px 3px;
   line-height: 30px;
+}
+
+.selectboxit-option .selectboxit-option-anchor:hover {
+  text-decoration: none;
 }
 
 /* Dropdown List Individual Options */
@@ -119,8 +125,9 @@
 /* Dropdown List Down Arrow Container (if an image is not used) */
 .selectboxit-arrow-container {
   /* Positions the down arrow */
-  width: 30px;
+  width: 20px;
   float: right;
+  position: relative;
 }
 
 /* Dropdown List Down Arrow */
@@ -128,6 +135,13 @@
   /* Horizontally centers the down arrow */
   margin: 0 auto;
   display: block;
+  position: absolute;
+  top: 50%;
+}
+
+/* Dropdown List Down Arrow For jQueryUI and jQuery Mobile */
+.selectboxit .selectboxit-arrow-container .selectboxit-arrow.ui-icon {
+  top: 30%;
 }
 
 /* Dropdown List Individual Option Icon Positioning */

@@ -1368,19 +1368,20 @@
         //      Adds jQuery Mobile CSS classes
         _jquerymobile: function() {
 
-            var self = this;
+            var self = this,
+                theme = self.selectBox.attr("data-theme") || "c";
 
             self._addClasses({
 
-                focusClasses: "ui-btn-active-c ui-btn-down-c",
+                focusClasses: "ui-btn-active-" + theme + " ui-btn-down-" + theme,
 
-                hoverClasses: "ui-btn-hover-c",
+                hoverClasses: "ui-btn-hover-" + theme,
 
                 arrowClasses: "ui-icon ui-icon-arrow-d ui-icon-shadow",
 
-                buttonClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-c",
+                buttonClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
 
-                listClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-c",
+                listClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
 
                 containerClasses: ""
 

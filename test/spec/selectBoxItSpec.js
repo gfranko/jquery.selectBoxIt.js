@@ -184,12 +184,6 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         });
 
-        it("should trigger a custom 'open' event on the original select box", function() {
-
-            expect("open").toHaveBeenTriggeredOn(selectBoxIt.selectBox);
-
-        });
-
         it("should make the select box options list visible", function() {
 
             expect(selectBoxIt.list).toBeVisible();

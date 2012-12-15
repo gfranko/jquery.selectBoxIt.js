@@ -125,7 +125,7 @@
 /* Dropdown List Down Arrow Container (if an image is not used) */
 .selectboxit-arrow-container {
   /* Positions the down arrow */
-  width: 20px;
+  width: 30px;
   float: right;
   position: relative;
 }
@@ -137,6 +137,7 @@
   display: block;
   position: absolute;
   top: 50%;
+  right: 40%;
 }
 
 /* Dropdown List Down Arrow For jQueryUI and jQuery Mobile */

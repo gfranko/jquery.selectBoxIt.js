@@ -84,4 +84,7 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', 'lint jasmine min concat');
 
+  // Travis CI task.
+  grunt.registerTask('travis', 'lint jasmine');
+
 };

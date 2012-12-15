@@ -27,5 +27,8 @@
     "grunt-jasmine-task": "0.2.3",
     "temporary": "0.0.5"
   },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  },
   "keywords": ["jQuery", "jQueryUI", "Select Box Plugin", "Twitter Bootstrap", "Twitter Bootstrap Select Box"]
 }

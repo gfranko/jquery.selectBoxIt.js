@@ -8,7 +8,7 @@ $(function() {
 
         var self = this;
 
-        if(!self.options.disabled) {
+        if(!self.options["disabled"]) {
 
             //Makes sure the dropdown list is closed
             self.close();

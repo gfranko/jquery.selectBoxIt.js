@@ -8,7 +8,7 @@ $(function() {
 
         var self = this;
 
-        if(self.options.disabled) {
+        if(self.options["disabled"]) {
 
             // Triggers a `enable` custom event on the original select box
             self.selectBox.trigger("enable").

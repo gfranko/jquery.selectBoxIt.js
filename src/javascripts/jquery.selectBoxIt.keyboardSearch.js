@@ -10,7 +10,7 @@ $(function() {
 
         // Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.
         // Otherwise, the current option value is updated
-        if (!(currentOption === 0 && !self.options.showFirstOption) && self.listItems.eq(currentOption).data("disabled") !== true) {
+        if (!(currentOption === 0 && !self.options["showFirstOption"]) && self.listItems.eq(currentOption).data("disabled") !== true) {
 
             // Updates the default dropdown list text
             self.divText.text(self.textArray[currentOption]);

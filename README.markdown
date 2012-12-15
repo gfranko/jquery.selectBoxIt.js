@@ -1,13 +1,13 @@
 jquery.selectBoxIt.js - jQuery Select Box Plugin
 ------------------------------------------------
 
+[![Build Status](https://travis-ci.org/gfranko/jquery.selectBoxIt.js.png?branch=dev)](https://travis-ci.org/gfranko/jquery.selectBoxIt.js)
+
 A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list.  The dropdown list can be optionally styled with **Twitter Bootstrap**, **jQueryUI ThemeRoller**, or **jQuery Mobile**, optionally animated with **jQueryUI show/hide effects**, and works on Desktop, Tablet, and Mobile browsers.
 
 [Homepage](http://gregfranko.com/jquery.selectBoxIt.js/)
 
 [Annotated Source Code](http://www.gregfranko.com/jquery.selectBoxIt.js/docs/jQuery.selectBoxIt.html)
-
-[Unit Test Suite](http://www.gregfranko.com/jquery.selectBoxIt.js/test/SpecRunner.html)
 
 **Notable Features**
 

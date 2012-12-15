@@ -608,4 +608,66 @@ describe('selectBoxIt jQuery Plugin', function () {
 
     });
 
+    describe("selectOption()", function() {
+
+        it("should set the correct dropdown value if an indece is passed", function() {
+
+            selectBoxIt.selectOption(3);
+
+            expect(selectBoxIt.divText.attr("data-val")).toEqual(selectBoxIt.selectBox.val());
+
+        });
+
+        it("should set the correct dropdown text if an indece is passed", function() {
+
+            selectBoxIt.selectOption(3);
+
+            expect(selectBoxIt.divText.text()).toEqual(selectBoxIt.selectBox.find("option:selected").text());
+
+        });
+
+        it("should set the correct dropdown value if a value is passed", function() {
+
+            selectBoxIt.selectOption("March");
+
+            expect(selectBoxIt.divText.attr("data-val")).toEqual(selectBoxIt.selectBox.val());
+
+        });
+
+        it("should set the correct dropdown text if a value is passed", function() {
+
+            selectBoxIt.selectOption("March");
+
+            expect(selectBoxIt.divText.text()).toEqual(selectBoxIt.selectBox.find("option:selected").text());
+
+        });
+
+    });
+
+    describe("refresh()", function() {
+
+        it("should dynamically add a drop down option", function() {
+
+            var length = selectBoxIt.selectBox.find("option").length;
+
+            selectBoxIt.selectBox.append("<option value='Fake Month'>Fake Month</option>");
+
+            expect(selectBoxIt.selectBox.find("option").length).toEqual(length + 1);
+
+        });
+
+        it("should update any drop down option text that changes", function() {
+
+            var elem = selectBoxIt.selectBox.find("option").eq(2);
+
+            elem.text("New Text");
+
+            selectBoxIt.refresh();
+
+            expect(selectBoxIt.listItems.eq(2).text()).toEqual(elem.text());
+
+        });
+
+    });
+
 });

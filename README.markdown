@@ -68,6 +68,10 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`2.2.0` - December 15, 2012
+
+- Added jQuery Mobile `data-theme` support
+
 `2.2.0 RC1` - December 13, 2012
 
 - Added jQuery Mobile CSS Theming Support

@@ -1672,7 +1672,7 @@ $(function() {
     // -------
     //      Disables the new dropdown list
 
-    $.selectBox.selectBoxIt.prototype.disable = function(index, callback) {
+    $.selectBox.selectBoxIt.prototype.disable = function(callback) {
 
         var self = this;
 

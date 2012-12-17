@@ -12,7 +12,7 @@ $(function() {
         self.currentFocus += 1;
 
         // Determines whether the dropdown option the user is trying to go to is currently disabled
-        var disabled = self.listItems.eq(self.currentFocus).data("disabled"),
+        var disabled = self.listItems.eq(self.currentFocus).attr("data-disabled") === "true" ? true: false,
 
             hasNextEnabled = self.listItems.eq(self.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
 
@@ -82,7 +82,7 @@ $(function() {
         self.currentFocus -= 1;
 
         // Determines whether the dropdown option the user is trying to go to is currently disabled
-        var disabled = self.listItems.eq(self.currentFocus).data("disabled"),
+        var disabled = self.listItems.eq(self.currentFocus).attr("data-disabled") === "true" ? true: false,
 
             hasPreviousEnabled = self.listItems.eq(self.currentFocus).prevAll("li").not("[data-disabled='true']").first().length;
 

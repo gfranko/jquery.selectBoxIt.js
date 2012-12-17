@@ -1093,7 +1093,7 @@
             // Select box individual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding individual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "click.selectBoxIt", function() {
 
-                if (!$(this).data("disabled")) {
+                if ($(this).attr("data-disabled") === "false") {
 
                     // Sets the original dropdown list value and triggers the `change` event on the original select box
                     self.selectBox.val($(this).attr("data-val"));
@@ -1123,7 +1123,7 @@
             // Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {
 
-                if (!$(this).data("disabled")) {
+                if ($(this).attr("data-disabled") === "false") {
 
                     // Sets the original select box current value and triggers the change event
                     self.originalElem.value = $(this).attr("data-val");

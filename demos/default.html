@@ -15,7 +15,7 @@
 <form>
 <select id="test">
   <option value="Select a Month">Select a Month</option>
-  <option value="January">January</option>
+  <option value="January" disabled>January</option>
   <option value="February">February</option>
   <option value="March">March</option>
   <option value="April">April</option>
@@ -31,7 +31,7 @@
 
 <select id="test1">
   <option value="Select a Month">Select a Month</option>
-  <option value="January">January</option>
+  <option value="January" disabled>January</option>
   <option value="February">February</option>
   <option value="March">March</option>
   <option value="April">April</option>
@@ -54,7 +54,7 @@
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 $(function() {
-    $("#test").selectBoxIt().data("selectBoxIt");
+    window.selectBox = $("#test").selectBoxIt().data("selectBoxIt");
     $('#test1').selectBoxIt({theme: "jqueryui"}).data("selectBoxIt");
 
 });

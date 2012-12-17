@@ -1849,7 +1849,11 @@
                 </tr>
                 <tr>
                   <td>disable</td>
-                  <td>A disable event will be triggered if a dropdown list becomes disabled.</td>
+                  <td>A disable event will be triggered if a dropdown list is disabled.</td>
+                </tr>
+                <tr>
+                  <td>disable-option</td>
+                  <td>A disable-option event will be triggered if a single dropdown list option is disabled.</td>
                 </tr>
                 <tr>
                   <td>enable</td>
@@ -1946,22 +1950,22 @@
                 </tr>
                 <tr>
                   <td>open</td>
-                  <td>none</td>
+                  <td>Function callback</td>
                   <td>Opens the dropdown options list.</td>
                 </tr>
                 <tr>
                   <td>close</td>
-                  <td>none</td>
+                  <td>Function callback</td>
                   <td>Closes the dropdown options list.</td>
                 </tr>
                 <tr>
                   <td>moveDown</td>
-                  <td>none</td>
+                  <td>Function callback</td>
                   <td>Selects the dropdown option directly beneath the currently selected option.</td>
                 </tr>
                 <tr>
                   <td>moveUp</td>
-                  <td>none</td>
+                  <td>Function callback</td>
                   <td>Selects the dropdown option directly above the currently selected option.</td>
                 </tr>
                 <tr>
@@ -1981,17 +1985,22 @@
                 </tr>
                 <tr>
                   <td>disable</td>
-                  <td>none</td>
+                  <td>Function callback</td>
+                  <td>Disables the dropdown/select box.</td>
+                </tr>
+                <tr>
+                  <td>disableOption</td>
+                  <td>Number index, Function callback</td>
                   <td>Disables the dropdown/select box.</td>
                 </tr>
                 <tr>
                   <td>enable</td>
-                  <td>none</td>
+                  <td>Function callback</td>
                   <td>Enables the dropdown/select box.</td>
                 </tr>
                 <tr>
                   <td>destroy</td>
-                  <td>none</td>
+                  <td>Function callback</td>
                   <td>Removes the dropdown from the DOM and makes the original select box element visible.</td>
                 </tr>
                 <tr>
@@ -2001,7 +2010,7 @@
                 </tr>
                 <tr>
                   <td>refresh</td>
-                  <td>none</td>
+                  <td>Function callback</td>
                   <td>Rebuilds the dropdown.  Useful for dynamic content.</td>
                 </tr>
                 <tr>

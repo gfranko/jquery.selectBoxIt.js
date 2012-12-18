@@ -1477,7 +1477,10 @@
               <p class="well">
               <span class="note">
                 <strong>Note:</strong> The SelectBoxIt CSS file uses CSS classes by default.  It is heavily commented to help you understand how to style your dropdown list.
-                If you have multiple select boxes on the page and want each select box to have unique styles, then you should instead make sure your HTML select box has an <strong>id</strong> attribute, since SelectBoxIt uses the <strong>id</strong> attribute to dynamically generate an id for each dropdown list.
+                <br /><br />
+                If you have multiple select boxes on the page and want each select box to have unique styles, then you can add an <strong>id</strong> attribute to your select box, since SelectBoxIt uses the <strong>id</strong> attribute on your select box and appends the word "SelectBoxIt" to the end.  For example, if your <strong>id</strong> attribute is <i>test</i>, then SelectBoxIt will create a <i>testSelectBoxIt</i> <strong>id</strong> attribute on your new drop down.
+                <br /><br />
+                You may also use <strong>class names</strong> or <strong>name</strong> attributes, since SelectBoxIt copies both over to the new drop down.
               </span>
               </p>
               <br />
@@ -1860,6 +1863,10 @@
                   <td>An enable event will be triggered if a dropdown list becomes enabled, or in other words, no longer disabled.</td>
                 </tr>
                 <tr>
+                  <td>enable-option</td>
+                  <td>A enable-option event will be triggered if a single dropdown list option is disabled.</td>
+                </tr>
+                <tr>
                   <td>destroy</td>
                   <td>A destroy event will be triggered if a dropdown list is destroyed</td>
                 </tr>
@@ -1991,12 +1998,17 @@
                 <tr>
                   <td>disableOption</td>
                   <td>Number index, Function callback</td>
-                  <td>Disables the dropdown/select box.</td>
+                  <td>Disables the dropdown/select box option</td>
                 </tr>
                 <tr>
                   <td>enable</td>
                   <td>Function callback</td>
                   <td>Enables the dropdown/select box.</td>
+                </tr>
+                <tr>
+                  <td>enableOption</td>
+                  <td>Number index, Function callback</td>
+                  <td>Enables the dropdown/select box option</td>
                 </tr>
                 <tr>
                   <td>destroy</td>

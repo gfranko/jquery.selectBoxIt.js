@@ -123,6 +123,31 @@
             // Whether or not the dropdown list opens up or down (depending on how much room is on the page)
             self.flipped = false;
 
+            self.disabledClasses = (function() {
+
+                if(self.options.theme === "bootstrap") {
+
+                    return "disabled";
+
+                }
+                else if(self.options.theme === "jqueryui") {
+
+                    return "ui-state-disabled";
+
+                }
+                else if(self.options.theme === "jquerymobile") {
+
+                    return "ui-disabled";
+
+                }
+                else {
+
+                    return "selectboxit-disabled";
+
+                }
+
+            }());
+
             // Creates the div elements that will become the dropdown
             // Creates the ul element that will become the dropdown options list
             // Hides the original select box and adds the new plugin DOM elements to the page
@@ -411,10 +436,10 @@
             self.listItems.last().addClass("selectboxit-option-last");
 
             // Set the disabled CSS class for select box options
-            self.list.find("li[data-disabled='true']").not(".optgroupHeader").addClass("ui-state-disabled");
+            self.list.find("li[data-disabled='true']").not(".optgroupHeader").addClass(self.disabledClasses);
 
             // If the first select box option is disabled, and the user has chosen to not show the first select box option
-            if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass("ui-state-disabled")) {
+            if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass(self.disabledClasses)) {
 
                 //Sets the default value of the dropdown list to the first option that is not disabled
                 self.currentFocus = +self.listItems.not(".ui-state-disabled").first().attr("id");
@@ -1179,14 +1204,14 @@
                 "disable.selectBoxIt": function() {
 
                     // Adds the `disabled` CSS class to the new dropdown list to visually show that it is disabled
-                    self.div.addClass("ui-state-disabled");
+                    self.div.addClass(self.disabledClasses);
                 },
 
                 // `enable` event with the `selectBoxIt` namespace
                 "enable.selectBoxIt": function() {
 
                     // Removes the `disabled` CSS class from the new dropdown list to visually show that it is enabled
-                    self.div.removeClass("ui-state-disabled");
+                    self.div.removeClass(self.disabledClasses);
                 }
 
             });
@@ -1285,15 +1310,21 @@
 
                 "mouseenter.selectBoxIt": function() {
 
-                    // Sets the dropdown list individual options back to the default state and sets the hover CSS class on the currently hovered option
-                    self.listItems.removeClass(focusClass);
+                    // If the currently moused over drop down option is not disabled
+                    if($(this).attr("data-disabled") === "false") {
 
-                    $(this).addClass(hoverClass);
+                        // Sets the dropdown list individual options back to the default state and sets the hover CSS class on the currently hovered option
+                        self.listItems.not($(this)).removeClass(focusClass);
+
+                        $(this).addClass(hoverClass);
+
+                    }
 
                 },
 
                 "mouseleave.selectBoxIt": function() {
 
+                    // Removes the hover class from the previous drop down option
                     $(this).removeClass(hoverClass);
 
                 }

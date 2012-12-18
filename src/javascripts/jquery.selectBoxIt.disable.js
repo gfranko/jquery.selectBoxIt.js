@@ -67,7 +67,7 @@ $(function() {
             self.listItems.eq(index).attr("data-disabled", "true").
 
             // Applies disabled styling for the drop down option
-            addClass("ui-state-disabled");
+            addClass(self.disabledClasses);
 
             // If the currently selected drop down option is the item being disabled
             if(self.currentFocus === index) {

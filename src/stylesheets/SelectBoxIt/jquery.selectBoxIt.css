@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 2.2.0
+ * jquery.selectBoxIt.css 2.3.0
  * Author: @gregfranko
  */
 
@@ -19,7 +19,7 @@
 
 /* Dropdown List Box */
 .selectboxit-container .selectboxit {
-  width: 210px; /* Width of the dropdown list box */
+  width: 220px; /* Width of the dropdown list box */
   height: 30px; /* Height of the select box */
   cursor: pointer;
   padding: 0;
@@ -49,7 +49,7 @@
 
 /* Dropdown List Options List*/
 .selectboxit-container .selectboxit-options {
-  min-width: 210px; /* Minimum Width of the dropdown list box options */
+  min-width: 220px; /* Minimum Width of the dropdown list box options */
   font: 14px Helvetica, Arial;
   margin: 0;
   padding: 0;

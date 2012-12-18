@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.2.0 - 2012-12-13
+/* jquery Selectboxit - v2.3.0 - 2012-12-18
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "2.2.0",
+        VERSION: "2.3.0",
 
         // These options will be used as defaults
         options: {
@@ -1140,8 +1140,10 @@
 
                     self._checkDefaultText();
 
-                    // Triggers the custom option-click event on the original select box
-                    self.selectBox.trigger("option-click");
+                    var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
+
+                    // Triggers the custom option-click event on the original select box and passes the select box option
+                    self.selectBox.trigger("option-click", { elem: self.selectBox.eq(currentIndex) });
                 }
             })
 

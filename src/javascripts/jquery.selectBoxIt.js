@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.2.0 - 2012-12-13
+/* jquery Selectboxit - v2.3.0 - 2012-12-18
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "2.2.0",
+        VERSION: "2.3.0",
 
         // These options will be used as defaults
         options: {
@@ -1140,8 +1140,10 @@
 
                     self._checkDefaultText();
 
-                    // Triggers the custom option-click event on the original select box
-                    self.selectBox.trigger("option-click");
+                    var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
+
+                    // Triggers the custom option-click event on the original select box and passes the select box option
+                    self.selectBox.trigger("option-click", { elem: self.selectBox.eq(currentIndex) });
                 }
             })
 
@@ -1756,8 +1758,8 @@ $(function() {
 
             currentIndex = self.options["showFirstOption"] ? index: ((index - 1) >= 0 ? index: 0 );
 
-            // Triggers a `disable-option` custom event on the original select box
-            self.selectBox.trigger("disable-option");
+            // Triggers a `disable-option` custom event on the original select box and passes the disabled option
+            self.selectBox.trigger("disable-option", currentSelectBoxOption);
 
             // Disables the targeted select box option
             currentSelectBoxOption.attr("disabled", "disabled");
@@ -1975,8 +1977,8 @@ $(function() {
 
             currentIndex = self.options["showFirstOption"] ? index: ((index - 1) >= 0 ? index: 0 );
 
-            // Triggers a `disable-option` custom event on the original select box
-            self.selectBox.trigger("enable-option");
+            // Triggers a `enable-option` custom event on the original select box and passes the enabled option
+            self.selectBox.trigger("enable-option", currentSelectBoxOption);
 
             // Disables the targeted select box option
             currentSelectBoxOption.removeAttr("disabled");
@@ -2058,8 +2060,10 @@ $(function() {
             // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
             self._scrollToView("down");
 
+            var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
+
             // Triggers the custom `moveDown` event on the original select box
-            self.selectBox.trigger("moveDown");
+            self.selectBox.trigger("moveDown", { elem: self.selectBox.eq(currentIndex) });
 
         }
 
@@ -2125,8 +2129,10 @@ $(function() {
             // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
             self._scrollToView("up");
 
+            var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
+
             // Triggers the custom `moveDown` event on the original select box
-            self.selectBox.trigger("moveUp");
+            self.selectBox.trigger("moveUp", { elem: self.selectBox.eq(currentIndex) });
 
         }
 
@@ -2171,8 +2177,10 @@ $(function() {
             // Updates the scrollTop so that the currently selected dropdown list option is visible to the user
             self._scrollToView("search");
 
+            var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
+
             // Triggers the custom `search` event on the original select box
-            self.selectBox.trigger("search");
+            self.selectBox.trigger("search", { elem: self.selectBox.eq(currentIndex) });
 
         }
 

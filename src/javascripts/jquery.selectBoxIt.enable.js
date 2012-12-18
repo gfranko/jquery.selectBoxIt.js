@@ -50,8 +50,8 @@ $(function() {
 
             currentIndex = self.options["showFirstOption"] ? index: ((index - 1) >= 0 ? index: 0 );
 
-            // Triggers a `disable-option` custom event on the original select box
-            self.selectBox.trigger("enable-option");
+            // Triggers a `enable-option` custom event on the original select box and passes the enabled option
+            self.selectBox.trigger("enable-option", currentSelectBoxOption);
 
             // Disables the targeted select box option
             currentSelectBoxOption.removeAttr("disabled");

@@ -68,6 +68,18 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`2.3.0` - December 18, 2012
+
+- Added the `disableOption()` and `enableOption()` methods
+
+- Fixed disabled state CSS class bug. Now allows all supported themes (Twitter Bootstrap, jQueryUI, and jQuery Mobile) CSS class's are able to take effect
+
+- Improved custom event handling.  The **moveDown**, **moveUp**, **search**, **option-click**, **disable-option**, and **enable-option** custom events now pass an object back in the second argument of the callback function event handler.  Within the _object.elem_ property, is the single select box option that was interacted with.
+
+- Added Travis CI testing support
+
+**Note:** If you are using Twitter Bootstrap as your theme, then it is recommended to upgrade to Twitter Bootstrap v2.2.0 or greater ()
+
 `2.2.0` - December 15, 2012
 
 - Added jQuery Mobile `data-theme` supporting

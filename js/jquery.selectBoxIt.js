@@ -315,9 +315,9 @@
 
                 dataDisabled,
 
-                optgroupClass = "",
+                optgroupClass,
 
-                optgroupElement = "",
+                optgroupElement,
 
                 iconClass,
 
@@ -348,6 +348,10 @@
             // into new list item elements of the new dropdown list
             self.selectItems.each(function(index) {
 
+                optgroupClass = "";
+
+                optgroupElement = "";
+
                 dataDisabled = $(this).prop("disabled");
 
                 iconClass = $(this).data("icon") || "";
@@ -363,20 +367,6 @@
                          optgroupElement = '<div class="selectboxit-optgroup-header" data-disabled="true">' + $(this).parent().first().attr("label") + '</div>';
 
                     }
-
-                    else {
-
-                        optgroupElement = "";
-
-                    }
-
-                }
-
-                // If the current option being traversed is not within an optgroup
-
-                else {
-
-                    optgroupClass = "";
 
                 }
 

@@ -1514,7 +1514,9 @@
 
                 "right": self.div.offset().right,
 
-                "cursor": "pointer"
+                "cursor": "pointer",
+
+                "z-index": "999999"
 
             }).bind({
 

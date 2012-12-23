@@ -117,13 +117,13 @@
             // Adds jQuery event handlers to the newly generated table of contents
             self._setEventHandlers();
 
-            // The setTimeout allows the correct offset() to be calculated
-            setTimeout(function() {
+            // The window onload events allows enough time for the correct offset to be calculated
+            window.addEventListener("load", function() {
 
-                // Set the active TOC item
+                // Sets the active TOC item
                 self._setActiveElement();
 
-            }, 0);
+            }, false);
 
         },
 
@@ -218,7 +218,7 @@
             if(hash.length) {
 
                 // Removes highlighting from all of the list item's
-                $("." + self.focusClass).removeClass(self.focusClass);
+                self.element.find("." + self.focusClass).removeClass(self.focusClass);
 
                 // Highlights the current list item that was clicked
                 elem.addClass(self.focusClass);
@@ -235,7 +235,7 @@
             else {
 
                 // Removes highlighting from all of the list item's
-                $("." + self.focusClass).removeClass(self.focusClass);
+                self.element.find("." + self.focusClass).removeClass(self.focusClass);
 
             }
 
@@ -371,7 +371,7 @@
                 }
 
                 // Removes highlighting from all of the list item's
-                $("." + self.focusClass).removeClass(self.focusClass);
+                self.element.find("." + self.focusClass).removeClass(self.focusClass);
 
                 // Highlights the current list item that was clicked
                 $(this).addClass(self.focusClass);
@@ -483,7 +483,7 @@
                                 if(self.options.highlightOnScroll && elem.length) {
 
                                     // Removes highlighting from all of the list item's
-                                    $("." + self.focusClass).removeClass(self.focusClass);
+                                    self.element.find("." + self.focusClass).removeClass(self.focusClass);
 
                                     // Highlights the corresponding list item
                                     elem.addClass(self.focusClass);
@@ -623,47 +623,44 @@
             // Stores the plugin context in the `self` variable
             var self = this;
 
-            // If the sub-header is already hidden
-            if (elem.is(":visible")) {
+            //Determines what jQuery effect to use
+            switch (self.options.hideEffect) {
 
-                //Determines what jQuery effect to use
-                switch (self.options.hideEffect) {
+                // Uses `no effect`
+                case "none":
 
-                    //Uses `no effect`
-                    case "none":
+                    elem.hide();
 
-                        elem.hide();
+                break;
 
-                    break;
+                // Uses the jQuery `hide` special effect
+                case "hide":
 
-                    //Uses the jQuery `hide` special effect
-                    case "hide":
+                    elem.hide(self.options.hideEffectSpeed);
 
-                        elem.hide(self.options.hideEffectSpeed);
+                break;
 
-                    break;
+                // Uses the jQuery `slideUp` special effect
+                case "slideUp":
 
-                    //Uses the jQuery `slideUp` special effect
-                    case "slideUp":
+                    elem.slideUp(self.options.hideEffectSpeed);
 
-                        elem.slideUp(self.options.hideEffectSpeed);
+                break;
 
-                    break;
+                // Uses the jQuery `fadeOut` special effect
+                case "fadeOut":
 
-                    //Uses the jQuery `fadeOut` special effect
-                    case "fadeOut":
+                    elem.fadeOut(self.options.hideEffectSpeed);
 
-                        elem.fadeOut(self.options.hideEffectSpeed);
+                break;
 
-                    break;
+                // If none of the above options were passed, then a `jqueryUI hide effect` is expected
+                default:
 
-                    //If none of the above options were passed, then a `jqueryUI hide effect` is expected
-                    default:
+                    elem.hide();
 
-                        elem.hide();
+                break;
 
-                    break;
-                }
             }
 
             // Maintains chainablity

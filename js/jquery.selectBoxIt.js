@@ -863,13 +863,18 @@
                     var mdown = $(this).data("mdown");
 
                     // Removes the jQuery data associated with the mousedown event
-                    $(this).removeData('mdown');
+                    $(this).removeData("mdown");
 
                     // If a mousedown event did not occur and no data was passed to the focus event (this correctly triggers the focus event), then the dropdown list gained focus from a tabstop
                     if (!mdown) {
 
-                        // Triggers the `tabFocus` custom event on the original select box
-                        self.selectBox.trigger("tab-focus");
+                        setTimeout(function() {
+
+                            // Triggers the `tabFocus` custom event on the original select box
+                            self.selectBox.trigger("tab-focus");
+
+                        }, 0);
+
                     }
 
                     // Only trigger the `focus` event on the original select box if the dropdown list is hidden (this verifies that only the correct `focus` events are used to trigger the event on the original select box

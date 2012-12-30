@@ -54,6 +54,8 @@
 $(function() {
     window.selectBox = $("#test").selectBoxIt().data("selectBoxIt");
 
+    $("select").bind("tab-focus", function() { $(this).data("selectBoxIt").open(); });
+
     $('#test1').selectBoxIt({theme: "jqueryui"}).data("selectBoxIt");
 
 });

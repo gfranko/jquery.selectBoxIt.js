@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 2.3.0
+ * jquery.selectBoxIt.css 2.4.0
  * Author: @gregfranko
  */
 
@@ -148,4 +148,16 @@
 /* Dropdown List Individual Option Icon Positioning */
 .selectboxit-option-icon {
   float: left;
+}
+
+/* Dropdown List Individual Option Image Positioning */
+.selectboxit-option-icon-url {
+  width: 18px;
+  height: 18px;
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+}
+
+.selectboxit-default-icon.selectboxit-option-icon-url {
+  margin-left: 5px;
 }

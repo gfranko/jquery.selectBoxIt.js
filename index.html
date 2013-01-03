@@ -1179,6 +1179,42 @@
                 &lt;/select&gt;
               </pre>
               <br />
+              <br />
+              <h3>Custom Icon Support</h3>
+              <br />
+              <strong> Note:</strong> This example uses absolute URL's, but you can also use relative URL's.  If you are using relative URL's, make sure the image path is relative to your HTML file, since the image is being included via the <i>style</i> HTML attribute.
+              <br /><br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                  <option value="SelectBoxIt themes:">SelectBoxIt themes:</option>
+                  <option value="Twitter Bootstrap" data-iconurl="http://blog.getbootstrap.com/public/ico/apple-touch-icon-144-precomposed.png">Twitter Bootstrap</option>
+                  <option value="jQuery UI">jQuery UI</option>
+                  <option value="jQuery Mobile" data-icon="ui-icon ui-icon-check">jQuery Mobile</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select class="test" name="test">
+                  <option value="SelectBoxIt themes:" data-iconurl="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-5/256/themes-icon.png">SelectBoxIt themes:</option>
+                  <option value="Twitter Bootstrap" data-iconurl="http://blog.getbootstrap.com/public/ico/apple-touch-icon-144-precomposed.png">Twitter Bootstrap</option>
+                  <option value="jQuery UI" data-iconurl="http://c747925.r25.cf2.rackcdn.com/blog/wp-content/uploads/2010/09/jquery-ui-logo.png">jQuery UI</option>
+                  <option value="jQuery Mobile" data-iconurl="https://twimg0-a.akamaihd.net/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33.png">jQuery Mobile</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+                &lt;select id="test" name="test"&gt;
+                  &lt;option value="SelectBoxIt themes:" data-iconurl="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-5/256/themes-icon.png"&gt;SelectBoxIt themes:&lt;/option&gt;
+                  &lt;option value="Twitter Bootstrap" data-iconurl="http://blog.getbootstrap.com/public/ico/apple-touch-icon-144-precomposed.png"&gt;Twitter Bootstrap&lt;/option&gt;
+                  &lt;option value="jQuery UI" data-iconurl="http://c747925.r25.cf2.rackcdn.com/blog/wp-content/uploads/2010/09/jquery-ui-logo.png"&gt;jQuery UI&lt;/option&gt;
+                  &lt;option value="jQuery Mobile" data-iconurl="https://twimg0-a.akamaihd.net/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33.png"&gt;jQuery Mobile&lt;/option&gt;
+                &lt;/select&gt;
+              </pre>
+              <br />
               <h3>Selected and Disabled Support</h3>
               <br />
               <div class="select">

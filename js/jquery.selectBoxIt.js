@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.3.0 - 2012-12-18
+/* jquery Selectboxit - v2.4.0 - 2013-1-2
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "2.3.0",
+        VERSION: "2.4.0",
 
         // These options will be used as defaults
         options: {
@@ -321,6 +321,12 @@
 
                 iconClass,
 
+                iconUrl,
+
+                iconUrlClass,
+
+                iconUrlStyle,
+
                 // Declaring the variable that will hold all of the dropdown list option elements
                 currentItem = "",
 
@@ -356,6 +362,12 @@
 
                 iconClass = $(this).data("icon") || "";
 
+                iconUrl = $(this).data("iconurl") || "";
+
+                iconUrlClass = iconUrl ? "selectboxit-option-icon-url": "";
+
+                iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "";
+
                 // If the current option being traversed is within an optgroup
 
                 if($(this).parent().is("optgroup")) {
@@ -371,7 +383,7 @@
                 }
 
                 // Uses string concatenation for speed (applies HTML attribute encoding)
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + '"></i>' + self.htmlEscape($(this).text()) + '</a></li>';
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + ' ' + iconUrlClass + '"' + iconUrlStyle + '></i>' + self.htmlEscape($(this).text()) + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -437,6 +449,8 @@
             }
 
             self.divImage.addClass(self.selectBox.data("icon") || self.options["defaultIcon"] || self.listItems.eq(self.currentFocus).find("i").attr("class"));
+
+            self.divImage.attr("style", self.listItems.eq(self.currentFocus).find("i").attr("style"));
 
             //Maintains chainability
             return self;
@@ -1190,6 +1204,8 @@
                     if(self.listItems.eq(self.currentFocus).find("i").attr("class")) {
 
                         self.divImage.attr("class", self.listItems.eq(self.currentFocus).find("i").attr("class")).addClass("selectboxit-default-icon");
+
+                        self.divImage.attr("style", self.listItems.eq(self.currentFocus).find("i").attr("style"));
                     }
 
                     // Triggers a custom changed event on the original select box

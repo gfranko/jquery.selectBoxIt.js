@@ -41,6 +41,8 @@ jQueryUI Widget Factory 1.8.19+ (It is always recommended to use the latest vers
 ##Desktop Browser Support
 IE8+, Firefox 4+, Chrome, Safari 4+, Opera 11+ (Other browsers may work, but I did not test on them)
 
+**Note:** The CSS3 `background-size` property is used for the icon images, which is only supported in IE9+
+
 ##Mobile/Tablet Browser Support
 iOs 3+, Android 2.1+ (Other browsers may work, but I did not test on them)
 
@@ -67,6 +69,10 @@ You'll find source code in the "src" subdirectory!
 If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the SelectBoxIt issue tracker, or fork SelectBoxIt on Github and easily extend SelectBoxIt to create your own widget!
 
 ##Change Log
+
+`2.4.0` - January 2, 2013
+
+- Added the **data-iconurl** HTML5 data attribute to support relative and absolute image url's
 
 `2.3.0` - December 18, 2012
 

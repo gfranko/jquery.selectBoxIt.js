@@ -2080,6 +2080,9 @@
     // Calls the selectBoxIt method on your HTML select box
     $("select#test").selectBoxIt({ isMobile: function() {
 
+      // Adapted from http://www.detectmobilebrowsers.com
+      var ua = navigator.userAgent || navigator.vendor || window.opera;
+
       // Checks for iOs mobile devices
       return (/iPhone|iPod|iPad/).test(ua);
                   

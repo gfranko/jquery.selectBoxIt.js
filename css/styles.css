@@ -40,3 +40,9 @@ span.note {
   }
 
 }
+.inline {
+  display: inline-block;
+  float: right;
+  margin-right: 150px;
+  margin-top: 5px;
+}

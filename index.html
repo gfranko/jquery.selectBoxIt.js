@@ -2078,7 +2078,7 @@
   $(function() {
 
     // Calls the selectBoxIt method on your HTML select box
-    var selectBox = $("select#test").selectBoxIt({ isMobile: function() {
+    $("select#test").selectBoxIt({ isMobile: function() {
 
       // Checks for iOs mobile devices
       return (/iPhone|iPod|iPad|/).test(ua);

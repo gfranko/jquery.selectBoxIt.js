@@ -2070,7 +2070,7 @@
               <span class="note">
               By default, SelectBoxIt uses a small mobile detection script that will catch most popular mobile browsers.
               <br /><br />
-              If you would like to customize which mobile browsers you would like to support, feel free to create your own mobile detection function by setting the <strong>isMobile</strong> option.  Below is an example of setting the <strong>isMobile</strong> option to only support iPhones and iPads:
+              If you would like to customize which mobile browsers you would like to support, feel free to create your own mobile detection function by setting the <strong>isMobile</strong> option.  Below is an example of setting the <strong>isMobile</strong> option to only support iPhones, iPods, and iPads:
               </span>
               </p>
               <pre class="prettyprint">
@@ -2080,17 +2080,8 @@
     // Calls the selectBoxIt method on your HTML select box
     var selectBox = $("select#test").selectBoxIt({ isMobile: function() {
 
-      if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPad/i))) {
-
-        return true;
-
-      }
-
-      else {
-
-        return false;
-
-      }
+      // Checks for iOs mobile devices
+      return (/iPhone|iPod|iPad|/).test(ua);
                   
     }});
 

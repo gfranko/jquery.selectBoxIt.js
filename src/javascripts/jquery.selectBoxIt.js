@@ -4,7 +4,7 @@
 
 // Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
 
-(function (selectBoxIt) {
+;(function (selectBoxIt) {
 
     //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
     "use strict";
@@ -198,13 +198,8 @@
 
             }
 
-            // If the Mobile Module has been included
-            if(self._mobile) {
-
-                // Adds mobile support
-                self._mobile();
-
-            }
+            // Adds mobile support
+            self._mobile();
 
             // If the native option is set to true
             if(self.options["native"]) {
@@ -1560,6 +1555,21 @@
 
         },
 
+        _mobile: function(callback) {
+
+            var self = this;
+
+            if(this.options["isMobile"]()) {
+
+                self._applyNativeSelect();
+
+            }
+
+            //Maintains chainability
+            return this;
+
+        },
+
         // HTML Escape
         // -----------
         //      HTML encodes a string
@@ -1596,7 +1606,27 @@
     });
 
 })); // End of core module
-$(function() {
+// Accessibility Module
+// ====================
+
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+
+(function (selectBoxIt) {
+
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
+
+}
+
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+
+(function ($, window, document, undefined) {
+
+    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
 
     //_ARIA Accessibility
     // ------------------
@@ -1711,8 +1741,28 @@ $(function() {
 
     };
 
-});
-$(function() {
+}));
+// Disable Module
+// ==============
+
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+
+(function (selectBoxIt) {
+
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
+
+}
+
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+
+(function ($, window, document, undefined) {
+
+    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
 
     // Disable
     // -------
@@ -1847,8 +1897,25 @@ $(function() {
 
     };
 
-});
-$(function() {
+}));
+// Dynamic Positioning Module
+// ==========================
+
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+
+(function (selectBoxIt) {
+
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
+
+}
+
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+
+(function ($, window, document, undefined) {
 
     //_Dynamic positioning
     // ------------------
@@ -1937,8 +2004,25 @@ $(function() {
 
     };
 
-});
-$(function() {
+}));
+// Enable Module
+// =============
+
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+
+(function (selectBoxIt) {
+
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
+
+}
+
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+
+(function ($, window, document, undefined) {
 
     //Enable
     // -----
@@ -2012,8 +2096,25 @@ $(function() {
 
     };
 
-});
-$(function() {
+}));
+// Keyboard Navigation Module
+// ==========================
+
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+
+(function (selectBoxIt) {
+
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
+
+}
+
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+
+(function ($, window, document, undefined) {
 
     //Move Down
     // --------
@@ -2157,8 +2258,25 @@ $(function() {
 
     };
 
-});
-$(function() {
+}));
+// Keyboard Search Module
+// ======================
+
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+
+(function (selectBoxIt) {
+
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
+
+}
+
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+
+(function ($, window, document, undefined) {
 
     // _Set Current Search Option
     // -------------------------
@@ -2352,28 +2470,25 @@ $(function() {
 
     };
 
-});
-$(function() {
+}));
+// Select Option Module
+// ====================
 
-    // Mobile
-    // ------
-    //      Supports mobile browsers
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
 
-    $.selectBox.selectBoxIt.prototype._mobile = function(callback) {
+(function (selectBoxIt) {
 
-        if(this.options["isMobile"]()) {
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
 
-            this._applyNativeSelect();
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
 
-        }
+}
 
-        //Maintains chainability
-        return this;
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
 
-    };
-
-});
-$(function() {
+(function ($, window, document, undefined) {
 
     // Select Option
     // -------------
@@ -2407,8 +2522,25 @@ $(function() {
 
     };
 
-});
-$(function() {
+}));
+// Set Option Module
+// =================
+
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+
+(function (selectBoxIt) {
+
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
+
+}
+
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+
+(function ($, window, document, undefined) {
 
     //Set Option
     // ----------
@@ -2465,8 +2597,25 @@ $(function() {
 
     };
 
-});
-$(function() {
+}));
+// Set Options Module
+// ==================
+
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+
+(function (selectBoxIt) {
+
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
+
+}
+
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+
+(function ($, window, document, undefined) {
 
     //Set Options
     // ----------
@@ -2522,11 +2671,28 @@ $(function() {
 
     };
 
-});
-$(function() {
+}));
+// Wait Module
+// ===========
 
-    //Wait
-    // ---
+// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+
+(function (selectBoxIt) {
+
+    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
+    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
+    selectBoxIt(window.jQuery, window, document);
+
+}
+
+// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+
+(function ($, window, document, undefined) {
+
+    // Wait
+    // ----
     //    Delays execution by the amount of time
     //    specified by the parameter
 
@@ -2567,4 +2733,4 @@ $(function() {
 
     };
 
-});
+}));

@@ -4,7 +4,7 @@
 
 // Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
 
-(function (selectBoxIt) {
+;(function (selectBoxIt) {
 
     //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
     "use strict";
@@ -198,13 +198,8 @@
 
             }
 
-            // If the Mobile Module has been included
-            if(self._mobile) {
-
-                // Adds mobile support
-                self._mobile();
-
-            }
+            // Adds mobile support
+            self._mobile();
 
             // If the native option is set to true
             if(self.options["native"]) {
@@ -1557,6 +1552,21 @@
                 }
 
             });
+
+        },
+
+        _mobile: function(callback) {
+
+            var self = this;
+
+            if(this.options["isMobile"]()) {
+
+                self._applyNativeSelect();
+
+            }
+
+            //Maintains chainability
+            return this;
 
         },
 

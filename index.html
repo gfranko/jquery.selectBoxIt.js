@@ -79,6 +79,10 @@
       max-height: 300px;
     }
 
+    pre {
+      font-size: 12px;
+    }
+
     </style>
 
   </head>
@@ -114,9 +118,9 @@
         <head>
           <meta charset=utf-8>
           <title>SelectBoxIt demo</title>
-          <link rel="stylesheet" href="http://gregfranko.com/jquery.selectBoxIt.js/css/jquery.selectboxit.css" />
-          <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
-          <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css" />
+          <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" />
+          <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" />
+          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.4.0/jquery.selectBoxIt.css" />
         </head>
         <body>
 
@@ -127,9 +131,9 @@
             <option value="a Stateful UI Widget">a Stateful UI Widget</option>
           </select>
 
-          <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-          <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
-          <script src="http://gregfranko.com/jquery.selectBoxIt.js/js/jquery.selectBoxIt.min.js"></script>
+          <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+          <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.4.0/jquery.selectBoxIt.min.js"></script>
           <script>
             $(function() {
 
@@ -216,22 +220,22 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              // Calls the selectBoxIt method on your HTML select box
-              $("select").selectBoxIt({
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
 
-                  // Uses the jQuery 'fadeIn' effect when opening the drop down
-                  showEffect: "fadeIn",
+    // Uses the jQuery 'fadeIn' effect when opening the drop down
+    showEffect: "fadeIn",
 
-                  // Sets the jQuery 'fadeIn' effect speed to 400 milleseconds
-                  showEffectSpeed: 400,
+    // Sets the jQuery 'fadeIn' effect speed to 400 milleseconds
+    showEffectSpeed: 400,
 
-                  // Uses the jQuery 'fadeOut' effect when closing the drop down
-                  hideEffect: "fadeOut",
+    // Uses the jQuery 'fadeOut' effect when closing the drop down
+    hideEffect: "fadeOut",
 
-                  // Sets the jQuery 'fadeOut' effect speed to 400 milleseconds
-                  hideEffectSpeed: 400
+    // Sets the jQuery 'fadeOut' effect speed to 400 milleseconds
+    hideEffectSpeed: 400
 
-              });
+  });
               </pre>
               <br />
               <h3>jQueryUI Show/Hide Support</h3>
@@ -259,19 +263,19 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              // Calls the selectBoxIt method on your HTML select box
-              $("select").selectBoxIt({
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
 
-                  // Uses the jQueryUI 'shake' effect when opening the drop down
-                  showEffect: "shake",
+    // Uses the jQueryUI 'shake' effect when opening the drop down
+    showEffect: "shake",
 
-                  // Sets jQueryUI options to shake 1 time when opening the drop down
-                  showEffectOptions: { times: 1 },
+    // Sets jQueryUI options to shake 1 time when opening the drop down
+    showEffectOptions: { times: 1 },
 
-                  // Uses the jQueryUI 'explode' effect when closing the drop down
-                  hideEffect: "explode"
+    // Uses the jQueryUI 'explode' effect when closing the drop down
+    hideEffect: "explode"
 
-              });
+  });
               </pre>
               <br />
               <h3>jQueryUI Theming Support</h3>
@@ -299,13 +303,13 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              // Calls the selectBoxIt method on your HTML select box
-              $("select").selectBoxIt({
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
 
-                  // Uses the jQueryUI theme for the drop down
-                  theme: "jqueryui"
+    // Uses the jQueryUI theme for the drop down
+    theme: "jqueryui"
 
-              });
+  });
               </pre>
               <br />
               <h3>Hide the First Option</h3>
@@ -333,13 +337,13 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              // Calls the selectBoxIt method on your HTML select box
-              $("select").selectBoxIt({
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
 
-                  // Hides the first select box option from appearing when the drop down is opened
-                  showFirstOption: false
+    // Hides the first select box option from appearing when the drop down is opened
+    showFirstOption: false
 
-              });
+  });
               </pre>
               <br />
               <h3>Long Lists</h3>
@@ -849,20 +853,19 @@
               <br /><br /><br />
               <h5>Example CSS Code</h5>
               <pre class="prettyprint">
-                .selectboxit-container .selectboxit-options {
+  .selectboxit-container .selectboxit-options {
 
-                    /* Set's the drop down options width to the same width as the drop down button */
-                    width: 210px;
+    /* Set's the drop down options width to the same width as the drop down button */
+    width: 210px;
+    
+    /* Set's the max-height property to only show a subset of the drop down items.
+       If you do not set a max-height property, SelectBoxIt will dynamically
+       position the dropdown (when opened) to make sure the drop down items are not
+       displayed outside of the current window viewport.
+    */
+    max-height: 240px;
 
-                    /* 
-                      Set's the max-height property to only show a subset of the drop down items.
-                      If you do not set a max-height property, SelectBoxIt will dynamically
-                      position the dropdown (when opened) to make sure the drop down items are not
-                      displayed outside of the current window viewport.
-                    */
-                    max-height: 240px;
-
-                }
+  }
               </pre>
               <br />
               <br />
@@ -891,13 +894,13 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              // Calls the selectBoxIt method on your HTML select box
-              $("select").selectBoxIt({ 
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({ 
 
-                // Triggers the native select box when a user interacts with the drop down
-                native: true
+    // Triggers the native select box when a user interacts with the drop down
+    native: true
 
-              });
+  });
               </pre>
               <br />
               <br />
@@ -926,13 +929,13 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              // Calls the selectBoxIt method on your HTML select box
-              $("select").selectBoxIt({
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
 
-                  // Sets default text to appear for the drop down
-                  defaultText: "Sample text here"
+    // Sets default text to appear for the drop down
+    defaultText: "Sample text here"
 
-              });
+  });
               </pre>
               <br />
               <br />
@@ -961,28 +964,28 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              // Calls the selectBoxIt method on your HTML select box
-              $("select").selectBoxIt();
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt();
 
-              $("select").bind({
+  $("select").bind({
 
-                // Binds to the 'open' event on the original select box
-                "open": function() {
+    // Binds to the 'open' event on the original select box
+    "open": function() {
 
-                  // Adds the Twitter Bootstrap 'dropup' class to the drop down
-                  $(".selectboxit").addClass("dropup");
+      // Adds the Twitter Bootstrap 'dropup' class to the drop down
+      $(".selectboxit").addClass("dropup");
 
-                },
+    },
 
-                // Binds to the 'close' event on the original select box
-                "close": function() {
+    // Binds to the 'close' event on the original select box
+    "close": function() {
 
-                  // Removes the Twitter Bootstrap 'dropup' class from the drop down
-                  $(".selectboxit").removeClass("dropup");
+      // Removes the Twitter Bootstrap 'dropup' class from the drop down
+      $(".selectboxit").removeClass("dropup");
 
-                }
+    }
 
-              });
+  });
               </pre>
               <br />
               <br />
@@ -1011,28 +1014,28 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              // Calls the selectBoxIt method on your HTML select box and stores all selectBoxIt methods in a variable
-              var selectBox = $("select").selectBoxIt().data("selectBoxIt");
+  // Calls the selectBoxIt method on your HTML select box and stores all selectBoxIt methods in a variable
+  var selectBox = $("select").selectBoxIt().data("selectBoxIt");
 
-              // Binds to the 'open' event on the original select box
-              $("select").bind({
+  // Binds to the 'open' event on the original select box
+  $("select").bind({
 
-                "open": function() {
+    "open": function() {
 
-                  // Sets new CSS classes for the up arrow icon by using the 'setOption' method
-                  selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
+      // Sets new CSS classes for the up arrow icon by using the 'setOption' method
+      selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
 
-                },
+    },
 
-                // Binds to the 'close' event on the original select box
-                "close": function() {
+    // Binds to the 'close' event on the original select box
+    "close": function() {
 
-                  // Sets new CSS classes for the down arrow icon by using the 'setOption' method
-                  selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
+      // Sets new CSS classes for the down arrow icon by using the 'setOption' method
+      selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
 
-                }
+    }
 
-              });
+  });
               </pre>
               <br />
               <br />
@@ -1062,13 +1065,13 @@
               <br /><br /><br />
               <h5>Example Code</h5>
               <pre class="prettyprint">
-              // Calls the selectBoxIt method on your HTML select box
-              $("select").selectBoxIt({ 
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({ 
 
-                // Set a custom down arrow icon by adding new CSS class(s)
-                downArrowIcon: "icon-hand-down"
+    // Set a custom down arrow icon by adding new CSS class(s)
+    downArrowIcon: "icon-hand-down"
 
-              });
+  });
               </pre>
               <br />
               <br />
@@ -1103,12 +1106,12 @@
               <br /><br /><br />
               <h5>Example CSS Code</h5>
               <pre class="prettyprint">
-                .selectboxit-arrow-container {
+  .selectboxit-arrow-container {
 
-                    /* Encloses the down arrow in a box */
-                    border-left: 1px solid #ccc;
+    /* Encloses the down arrow in a box */
+    border-left: 1px solid #ccc;
 
-                }
+  }
               </pre>
               <br />
               <br />
@@ -1137,12 +1140,12 @@
               <br /><br /><br />
               <h5>Example HTML Code</h5>
               <pre class="prettyprint">
-                &lt;select id="test" name="test"&gt;
-                  &lt;option value="SelectBoxIt is:" data-icon="icon-search"&gt;SelectBoxIt is:&lt;/option&gt;
-                  &lt;option value="a jQuery Plugin" data-icon="icon-ok"&gt;a jQuery Plugin&lt;/option&gt;
-                  &lt;option value="a Select Box Replacement" data-icon="icon-ok"&gt;a Select Box Replacement&lt;/option&gt;
-                  &lt;option value="a Stateful UI Widget" data-icon="icon-ok"&gt;a Stateful UI Widget&lt;/option&gt;
-                &lt;/select&gt;
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:" data-icon="icon-search"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin" data-icon="icon-ok"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement" data-icon="icon-ok"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget" data-icon="icon-ok"&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
               </pre>
               <br />
               <br />
@@ -1171,12 +1174,12 @@
               <br /><br /><br />
               <h5>Example HTML Code</h5>
               <pre class="prettyprint">
-                &lt;select id="test" name="test"&gt;
-                  &lt;option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search"&gt;SelectBoxIt is:&lt;/option&gt;
-                  &lt;option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check"&gt;a jQuery Plugin&lt;/option&gt;
-                  &lt;option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check"&gt;a Select Box Replacement&lt;/option&gt;
-                  &lt;option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check"&gt;a Stateful UI Widget&lt;/option&gt;
-                &lt;/select&gt;
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check"&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
               </pre>
               <br />
               <br />
@@ -1206,13 +1209,21 @@
               </div>
               <br /><br /><br />
               <h5>Example HTML Code</h5>
-              <pre class="prettyprint">
-                &lt;select id="test" name="test"&gt;
-                  &lt;option value="SelectBoxIt themes:" data-iconurl="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-5/256/themes-icon.png"&gt;SelectBoxIt themes:&lt;/option&gt;
-                  &lt;option value="Twitter Bootstrap" data-iconurl="http://blog.getbootstrap.com/public/ico/apple-touch-icon-144-precomposed.png"&gt;Twitter Bootstrap&lt;/option&gt;
-                  &lt;option value="jQuery UI" data-iconurl="http://c747925.r25.cf2.rackcdn.com/blog/wp-content/uploads/2010/09/jquery-ui-logo.png"&gt;jQuery UI&lt;/option&gt;
-                  &lt;option value="jQuery Mobile" data-iconurl="https://twimg0-a.akamaihd.net/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33.png"&gt;jQuery Mobile&lt;/option&gt;
-                &lt;/select&gt;
+              <pre class="prettyprint" style="font-size:11px;">
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt themes:" data-iconurl="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-5/256/themes-icon.png"&gt;
+    SelectBoxIt themes:
+    &lt;/option&gt;
+    &lt;option value="Twitter Bootstrap" data-iconurl="http://blog.getbootstrap.com/public/ico/apple-touch-icon-144-precomposed.png"&gt;
+    Twitter Bootstrap
+    &lt;/option&gt;
+    &lt;option value="jQuery UI" data-iconurl="http://c747925.r25.cf2.rackcdn.com/blog/wp-content/uploads/2010/09/jquery-ui-logo.png"&gt;
+    jQuery UI
+    &lt;/option&gt;
+    &lt;option value="jQuery Mobile" data-iconurl="https://twimg0-a.akamaihd.net/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33.png"&gt;
+    jQuery Mobile
+    &lt;/option&gt;
+  &lt;/select&gt;
               </pre>
               <br />
               <h3>Selected and Disabled Support</h3>
@@ -1240,12 +1251,12 @@
               <br /><br /><br />
               <h5>Example HTML Code</h5>
               <pre class="prettyprint">
-                &lt;select id="test" name="test"&gt;
-                  &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
-                  &lt;option value="a jQuery Plugin" disabled&gt;a jQuery Plugin&lt;/option&gt;
-                  &lt;option value="a Select Box Replacement" disabled&gt;a Select Box Replacement&lt;/option&gt;
-                  &lt;option value="a Stateful UI Widget" selected&gt;a Stateful UI Widget&lt;/option&gt;
-                &lt;/select&gt;
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin" disabled&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement" disabled&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget" selected&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
               </pre>
               <br />
               <h3>Optgroup Support</h3>
@@ -1285,31 +1296,31 @@
               <br /><br /><br />
               <h5>Example HTML Code</h5>
               <pre class="prettyprint">
-                &lt;select id="optgroups" name="optgroups"&gt;
-                    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
-                    &lt;optgroup label="Optgroup 1"&gt;
-                        &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
-                    &lt;/optgroup&gt;
-                    &lt;optgroup label="Optgroup 2"&gt;
-                        &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
-                    &lt;/optgroup&gt;
-                    &lt;optgroup label="Optgroup 3"&gt;
-                        &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
-                    &lt;/optgroup&gt;
-                &lt;/select&gt;
+  &lt;select id="optgroups" name="optgroups"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;optgroup label="Optgroup 1"&gt;
+    &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Optgroup 2"&gt;
+    &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Optgroup 3"&gt;
+    &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
+    &lt;/optgroup&gt;
+  &lt;/select&gt;
               </pre>
 
               <h2>Requirements</h2>
               <br />
-              <p class="well"><a href="http://jquery.com" target="_blank">jQuery 1.6.1+</a> (It is always recommended to use the latest version of jQuery)
+              <p><a href="http://jquery.com" target="_blank">jQuery 1.6.1+</a> (It is always recommended to use the latest version of jQuery)
                 <br /><br />
                 <a href="http://jqueryui.com/download" target="_blank">jQueryUI Widget Factory 1.8.20+</a> (It is always recommended to use the latest version of the jQueryUI Widget Factory)
               </p>
               <br />
               <h2>Optional Dependencies</h2>
               <br />
-              <p class="well">
-              <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a> or <a href="http://jqueryui.com/themeroller/" target="_blank">jQueryUI CSS Theme</a>
+              <p>
+              <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>, <a href="http://jqueryui.com/themeroller/" target="_blank">jQueryUI CSS Theme</a>, or <a href="http://jquerymobile.com/themeroller/index.php" target="_blank">jQuery Mobile Theme</a>
               <br /><br />
               <a href="http://jqueryui.com/download" target="_blank">jQueryUI effects</a> (only the custom Effects you use are required)
               </p>
@@ -1317,9 +1328,9 @@
 
               <h2>Notable Features</h2>
               <br />
-              <p class="well">
+              <p>
               Supports <span class="headerDoc">Mobile, Tablet, and Desktop</span> browsers<br /><br />
-              Themeable with <span class="headerDoc">Twitter Bootstrap</span> and <span class="headerDoc">jQueryUI</span><br /><br />
+              Themeable with <span class="headerDoc">Twitter Bootstrap</span>, <span class="headerDoc">jQueryUI</span>, and <span class="headerDoc">jQuery Mobile</span><br /><br />
               Built-in <span class="headerDoc">ARIA support</span> (Accessible Rich Internet Applications)<br /><br />
               Full <span class="headerDoc">keyboard search and navigation support</span><br /><br />
               An <span class="headerDoc">event API</span> triggered on the original select box element that calls the plugin<br /><br />
@@ -1331,106 +1342,48 @@
 
               <h2>Desktop Browser Support</h2>
               <br />
-              <p class="well">Tested in <span class="headerDoc">IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+ </span></p>
+              <p>Tested in <span class="headerDoc">IE7+, Firefox 4+, Chrome, Safari 4+, and Opera 11+ </span></p>
               <br />
 
               <h2>Mobile/Tablet Browser Support</h2>
               <br />
-              <p class="well">Tested in <span class="headerDoc">iOs 3+ and Android 2.1+ </span></p>
+              <p>Tested in <span class="headerDoc">iOs 3+ and Android 2.1+ </span></p>
               <br />
 
               <h2>Getting Started</h2>
               <br />
-              <h3>Downloads</h3>
-              <strong>Note: </strong>Feel free to look at the <a href="https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/demos/default.html" target="_blank">demo page</a> if you find that easier than reading these instructions.
-              <br /><br />
-              <p><h4><a href="http://www.jquery.com">1. jQuery</h4></a></p>
-              <p class="well">
-              <span class="note"><strong>jQuery: </strong>Download the latest version of jQuery.
-              </span>
-              <br /><br />
-              <a href="http://www.jquery.com" target="_blank">
-                <img src="img/jquery.png" title="jQuery" >
-              </a>
-              </p>
-              <br />
-              <p><h4><a href="http://jqueryui.com/download" target="_blank">2. jQueryUI Widget Factory</h4></a></p>
-              <p class="well">
-              <span class="note"><strong>jQuery Widget Factory: </strong>Check the jQueryUI Widget Factory box
-              <strong>(Required)</strong>.
-              </span>
-              <br /><br />
-              <a href="http://jqueryui.com/download" target="_blank">
-                <img src="img/widgetFactory.PNG" title="jQueryUI Widget Factory" >
-              </a>
-              <br /><br />
-              <span class="note"><strong>jQueryUI Effects: </strong>Check the Effects Core box, and any of the custom animations you would like to use <strong>(optional)</strong>.
-              <br /><br />
-              </span>
-              <a href="http://jqueryui.com/download" target="_blank">
-                <img src="img/jqueryUIEffects.png" title="jQueryUI Effects" >
-              </a>
-              </p>
-              <br />
-              <p><h4><a href="customDownload.html">3. SelectBoxIt</h4></a></p>
-              <p class="well">
-              <span class="note"><strong>SelectBoxIt CSS: </strong>Download the SelectBoxIt CSS <strong>(required)</strong>.
-              <br /><br />
-              </span>
-              <a href="customDownload.html#css-downloads" target="_blank">
-                <img src="img/selectboxitcss.png" title="SelectBoxIt CSS" >
-              </a>
-              <br /><br />
-              <span class="note"><strong>SelectBoxIt JavaScript: </strong> <span class="note">Only the <em>SelectBoxIt Core</em> module is required.  Include any other additional components that you like.
-              </span>
-              <br /><br />
-              <a href="customDownload.html#javascript-downloads" target="_blank">
-                <img src="img/customDownload.PNG" title="SelectBoxIt Custom Download" >
-              </a>
-              </p>
-              <br />
-              <p><h4><a href="http://twitter.github.com/bootstrap/customize.html">4. Twitter Bootstrap or jQueryUI CSS</h4></a>
-                <strong>Note: </strong> These themes are optional.  If you don't want to use these themes, feel free to create your own CSS.
-              </p>
-              <p class="well">
-              <span class="note"><strong>Twitter Bootstrap: </strong>Check the Buttons and Dropdowns boxes
-              <strong>(Required)</strong>.
-              <br /><br />
-              <strong>Note: </strong> The required Bootstrap stylesheet has been optimized by <a href="https://github.com/ShaneFire" target="_blank">Shane Fire</a> and is available <a href="https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/demos/css/bootstrap.css" target="_blank">here</a>.
-              </span>
-              <br /><br />
-              <a href="http://twitter.github.com/bootstrap/customize.html" target="_blank">
-                <img src="img/bootstrap.png" title="Twitter Bootstrap" >
-              </a>
-              <br /><br />
-              <span class="note"><strong>jQueryUI CSS: </strong>Download a default jQueryUI CSS Theme or create a new jQueryUI CSS Theme.
-              <br /><br />
-              </span>
-              <a href="http://jqueryui.com/themeroller/" target="_blank">
-                <img src="img/themeroller.png" title="jQueryUI CSS" >
-              </a>
+              <p>SelectBoxIt is proudly hosted by CloudFare CDN servers via the open source, <a href="http://cdnjs.com/" target="_blank">cdn.js project.</a> </p>
               <br />
               <p>
-              <h3>Include CSS and JavaScript files</h3>
+              <h3>Include CSS files</h3>
               </p>
               <br />
-              <span class="note"><strong>CSS</strong></span>
-              <pre class="prettyprint">
-                &lt;link type="text/css" rel="stylesheet" href="jquery.selectBoxIt.css" /&gt;
-                &lt;link type="text/css" rel="stylesheet" href="bootstrap.css" /&gt;
+              <h4>SelectBoxIt with Twitter Bootstrap</h4>
+              <pre class="prettyprint" style="font-size:12px;">
+&lt;link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.4.0/jquery.selectBoxIt.css" /&gt;
               </pre>
-              <br />
-              <span class="note"><strong>JavaScript</strong></span>
-
-              <pre class="prettyprint">
-                &lt;script src="jquery.min.js"&gt;&lt;/script&gt;
-                &lt;script src="jquery-ui.custom.min.js"&gt;&lt;/script&gt;
-                &lt;script src="jquery.selectBoxIt.min.js""&gt;&lt;/script&gt;
-              </pre>
-              <span class="note"><strong>Note:</strong> This assumes that you have downloaded the CSS and JavaScript files to the same folder as your HTML page. Modify the <strong>href</strong> and <strong>src</strong> attributes if you have a different folder structure.
               <br /><br />
-              Also, if you are using Twitter Bootstrap or jQueryUI to style your dropdown list, add all of the required images. Keep in mind that depending on your folder structure, you may need to update the background image paths inside of your CSS files.
-              </span>
+              <h4>SelectBoxIt with jQueryUI</h4>
+              <pre class="prettyprint" style="font-size:12px;">
+&lt;link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.4.0/jquery.selectBoxIt.css" /&gt;
+              </pre>
+<br /><br />
+              <h4>SelectBoxIt with jQuery Mobile</h4>
+              <pre class="prettyprint" style="font-size:12px;">
+&lt;link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.4.0/jquery.selectBoxIt.css" /&gt;
+              </pre>
+              <br /><br />
+<h3>Include JavaScript files</h3>
+              <br />
+
+              <pre class="prettyprint" style="font-size:12px;">
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.4.0/jquery.selectBoxIt.min.js"&gt;&lt;/script&gt;
+              </pre>
               <br /><br />
               <p>
               <h3>HTML</h3>
@@ -1442,46 +1395,46 @@
               <strong>Note:</strong> All inline styles will also be copied to the new dropdown list.
               <br /><br />
               <pre class="prettyprint">
-                &lt;select id="test" name="test"&gt;
-                  &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
-                  &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
-                  &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
-                  &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
-                &lt;/select&gt;
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
               </pre>
               <span class="note"><strong>Note: </strong> Your select box option <strong>value</strong> attributes and <strong>text</strong> do not have to be the same.</span>
               <br /><br />
               <h4>Selected and Disabled Support</h4>
               <br />
-              <p class="well">
+              <p>
               <span class="note">SelectBoxIt supports the <strong>selected</strong> and <strong>disabled</strong> HTML properties. Keep in mind that the last select box option to contain the <strong>selected</strong> property will be the select box option that the dropdown list uses as it’s default option. Also, the <strong>disabled</strong> property can be used to disable the entire dropdown or specific dropdown options.
               </p>
               <br />
               Here is an example of setting a select box option using the <strong>selected</strong> attribute:
               </span>
               <pre class="prettyprint">
-                &lt;select id="test" name="test"&gt;
-                  &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
-                  &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
-                  &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
-                  &lt;option value="a Stateful UI Widget" selected&gt;a Stateful UI Widget&lt;/option&gt;
-                &lt;/select&gt;
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget" selected&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
               </pre>
               <span class="note">
               Here is an example of setting the <strong>disabled</strong> property for multiple individual select box options:
               </span>
               <pre class="prettyprint">
-                &lt;select id="test" name="test"&gt;
-                  &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
-                  &lt;option value="a jQuery Plugin" disabled&gt;a jQuery Plugin&lt;/option&gt;
-                  &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
-                  &lt;option value="a Stateful UI Widget" disabled&gt;a Stateful UI Widget&lt;/option&gt;
-                &lt;/select&gt;
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin" disabled&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget" disabled&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
               </pre>
               <br />
               <h4>Optgroup Support</h4>
               <br />
-              <p class="well">
+              <p>
               <span class="note">
               SelectBoxIt supports <strong>optgroups</strong>. You have full control to style the optgroups by using the <em>optgroupHeader</em> and <em>optgroupOption</em> CSS classes.  There is no special syntax to use optgroups, just use them like you normally do.
               </span>
@@ -1492,53 +1445,54 @@
               </span>
               <br />
               <pre class="prettyprint">
-                &lt;select id="optgroups" name="optgroups"&gt;
-                &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
-                &lt;optgroup label="Optgroup 1"&gt;
-                  &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
-                &lt;/optgroup&gt;
-                &lt;optgroup label="Optgroup 2"&gt;
-                  &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
-                &lt;/optgroup&gt;
-                &lt;optgroup label="Optgroup 3"&gt;
-                  &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
-                &lt;/optgroup&gt;
-                &lt;/select&gt;
+  &lt;select id="optgroups" name="optgroups"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;optgroup label="Optgroup 1"&gt;
+      &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Optgroup 2"&gt;
+      &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Optgroup 3"&gt;
+      &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
+    &lt;/optgroup&gt;
+  &lt;/select&gt;
               </pre>
 
               </p>
               <p>
               <h3>CSS</h3>
               </p>
-              <p class="well">
+              <p>
               <span class="note">
-                <strong>Note:</strong> The SelectBoxIt CSS file uses CSS classes by default.  It is heavily commented to help you understand how to style your dropdown list.
+                <strong>Note:</strong> If you have multiple select boxes on the page and want each select box to have unique styles, then you can add an <strong>id</strong> attribute to your select box, since SelectBoxIt uses the <strong>id</strong> attribute on your select box and appends the word "SelectBoxIt" to the end.
                 <br /><br />
-                If you have multiple select boxes on the page and want each select box to have unique styles, then you can add an <strong>id</strong> attribute to your select box, since SelectBoxIt uses the <strong>id</strong> attribute on your select box and appends the word "SelectBoxIt" to the end.  For example, if your <strong>id</strong> attribute is <i>test</i>, then SelectBoxIt will create a <i>testSelectBoxIt</i> <strong>id</strong> attribute on your new drop down.
+                For example, if your <strong>id</strong> attribute is <i>test</i>, then SelectBoxIt will create a <i>testSelectBoxIt</i> <strong>id</strong> attribute on your new drop down and a <i>testSelectBoxItOptions</i> <strong>id</strong> attribute on your new drop down list.
+                <br /><br />Also, if you are interested in just using class names to style your drop downs, check out this <a href="http://jsfiddle.net/PgzDX/4/" target="_blank">jsfiddle</a>.
                 <br /><br />
-                You may also use <strong>class names</strong> or <strong>name</strong> attributes, since SelectBoxIt copies both over to the new drop down.
+                You may use <strong>class names</strong> or <strong>name</strong> attributes, since SelectBoxIt copies both over to the new drop down.
               </span>
               </p>
               <br />
               <p>
               <h3>JavaScript</h3>
               </p>
-              <p class="well">
+              <p>
               <span class="note">
                 <strong>Call the plugin: </strong> In your JavaScript code, call the <strong>selectBoxIt()</strong> method on your HTML select box.
               </span>
               </p>
 
               <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box.
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-              });
+  //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+    $(function() {
+      //Calls the selectBoxIt method on your HTML select box.
+      var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+    });
               </pre>
 
               <h2>Options API</h2>
-              <p class="well">The Options API allows you to customize the dropdown list by <strong>setting</strong> custom options and <strong>getting</strong> all current options.
+              <p>The Options API allows you to customize the dropdown list by <strong>setting</strong> custom options and <strong>getting</strong> all current options.
               </p>
               <br />
               <h3>Options</h3>
@@ -1644,7 +1598,7 @@
               <br />
               <h3>HTML5 Data Attribute Options</h3>
               <br />
-              <p class="well">
+              <p>
                   These options can be set on the select box or individual options directly within the HTML code
               </p>
 
@@ -1682,129 +1636,90 @@
               </table>
               <br />
               <h3>Setting Options</h3>
-              <p class="well">
+              <p>
               All options can be <strong>set</strong> when the plugin is called, or after the plugin is called, using the <strong>setOption()</strong> or <strong>setOptions()</strong> methods.</p>
 
               <span class="note">Here is an example of setting a <strong>single option</strong> when the plugin is first invoked:</span>
               <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
-                  var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
-              });
+  // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+    
+    //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
+    var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
+  
+  });
               </pre>
               <br />
               <span class="note">Here is an example of setting <strong>multiple options</strong> after the plugin is called using the <strong>setOptions()</strong> method:</span>
               <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+  // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+  
+    //Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
 
-                  // Updates both the showEffect and showEffectSpeed options
-                  selectBox.setOptions({ showEffect: "fadeIn", showEffectSpeed: "medium" });
-              });
+    // Updates both the showEffect and showEffectSpeed options
+    selectBox.setOptions({ showEffect: "fadeIn", showEffectSpeed: "medium" });
+  
+  });
               </pre>
               <br />
               <span class="note">Here is an example of setting a <strong>single option</strong> after the plugin is called using the <strong>setOption()</strong> method:</span>
               <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+  // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+    
+    //Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
 
-                  // Updates the showEffect option
-                  selectBox.setOption("showEffect", "fadeIn");
-              });
+    // Updates the showEffect option
+    selectBox.setOption("showEffect", "fadeIn");
+  
+  });
               </pre>
               <br />
               <h3>Getting Options</h3>
-              <p class="well">
+              <p>
               A single option can be <strong>retrieved</strong> by using the <strong>option()</strong> method.  All of the current options can be retrieved by referencing the <strong>options</strong> property.
               </p>
               <br />
               <span class="note">Here is an example of retrieving a <strong>single option</strong> after the plugin is called using the <strong>option()</strong> method:</span>
               <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+  // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+  
+    //Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
 
-                  // Writes the showFirstOption option to the console
-                  console.log(selectBoxIt.option("showFirstOption"));
-              });
+    // Writes the showFirstOption option to the console
+    console.log(selectBoxIt.option("showFirstOption"));
+    
+  });
               </pre>
               <br />
               <span class="note">Here is an example of retrieving <strong>all current options</strong> after the plugin is called using the <strong>options</strong> property:</span>
               <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+  // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+  
+    //Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
 
-                  // Writes all of the current plugin options to the console
-                  console.log(selectBoxIt.options);
-              });
+    // Writes all of the current plugin options to the console
+    console.log(selectBoxIt.options);
+    
+  });
               </pre>
 
               <h2>Events API</h2>
-              <p class="well">The <strong>Events API</strong> allows your application to listen to user events triggered on the dropdown list.  All custom/default <strong>events are triggered on the original select box element</strong> (not the new dropdown list).
+              <br />
+              <p>The <strong>Events API</strong> allows your application to listen to user events triggered on the dropdown list.  All custom/default <strong>events are triggered on the original select box element</strong> (not the new dropdown list).
               <br /><br />
               The original select box <strong>value</strong> attribute is also synced with the new dropdown list, so if a user selects a new value from the dropdown list, <strong>the original select box value will also be updated</strong>. <em>This allows your existing code to continue working inside of forms.</em>
               <br /><br />
               You can catch <strong>Default Events</strong> by using the jQuery <strong>bind()</strong> or <strong>on()</strong> methods, or by using jQuery convenience methods such as <strong>click()</strong>, <strong>change()</strong>, etc. <em>You must use the jQuery <strong>bind()</strong> or <strong>on()</strong> methods to catch <strong>Custom Events</strong></em>.
               </p>
 
-              <span class="note">Here is an example of catching a <strong>Default Event</strong> by using the jQuery <strong>bind()</strong> method:</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
-                  var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
-
-                  // Uses the jQuery bind method to bind to the focus event on the dropdown list
-                  $("select#test").bind({
-                      "focus": function() {
-                          // Do something when the focus event is triggered
-                      }
-                  });
-              });
-              </pre>
-              <br />
-              <span class="note">Here is an example of catching a <strong>Default Event</strong> by using the jQuery <strong>focus()</strong> convenience method:</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
-                  // Uses the jQuery focus convenience method to bind to the focus event on the dropdown list
-                  $("select#test").focus(function() {
-                      // Do something when the focus event is triggered
-                  });
-              });
-              </pre>
-              <br />
-              <span class="note">Here is an example of catching a <strong>Custom Event</strong> by using the jQuery <strong>bind()</strong> convenience method:</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
-                  // Uses the jQuery bind method to bind to the custom open event on the dropdown list
-                  $("select#test").bind({
-                      "open": function() {
-                          //Do something when the open event is triggered
-                      }
-                  });
-              });
-              </pre>
-              <span class="note"><strong>Note: </strong> If you don't want to have to explicitly list the <strong>id</strong> or <strong>classname</strong> attributes of the select box you are listening to events on, you can use the pseudo selector that SelectBoxIt provides you.
-              <br /><br />
-              SelectBoxIt provides <strong>$(":selectBox-selectBoxIt")</strong>, a <strong>custom jQuery pseudo selector</strong>, that returns all select box elements on the page that are using the SelectBoxIt plugin.
-              </span>
-              <br /><br />
               <h3>Default Events</h3>
               <table class="table table-striped table-bordered table-condensed">
                 <tr>
@@ -1926,69 +1841,64 @@
                 </tr>
               </table>
 
-              <h2>Method API</h2>
-              <p class="well">The <strong>Method API</strong> allows you to programmatically interact with the dropdown list after it is created. All methods can be called individually or chained.
+              <span class="note">Here is an example of catching a <strong>Default Event</strong> by using the jQuery <strong>bind()</strong> method:</span>
+              <pre class="prettyprint">
+  // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+    
+    //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
+    var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
+
+    // Uses the jQuery bind method to bind to the focus event on the dropdown list
+    $("select#test").bind({
+    
+      "focus": function() {
+      
+        // Do something when the focus event is triggered
+        
+      }
+      
+    });
+    
+  });
+              </pre>
+              <br />
+              <span class="note">Here is an example of catching a <strong>Default Event</strong> by using the jQuery <strong>focus()</strong> convenience method:</span>
+              <pre class="prettyprint">
+  //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+    //Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+
+    // Uses the jQuery focus convenience method to bind to the focus event on the dropdown list
+    $("select#test").focus(function() {
+      // Do something when the focus event is triggered
+    });
+  });
+              </pre>
+              <br />
+              <span class="note">Here is an example of catching a <strong>Custom Event</strong> by using the jQuery <strong>bind()</strong> convenience method:</span>
+              <pre class="prettyprint">
+  //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+    //Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+
+    // Uses the jQuery bind method to bind to the custom open event on the dropdown list
+    $("select#test").bind({
+      "open": function() {
+        //Do something when the open event is triggered
+      }
+    });
+  });
+              </pre>
+              <span class="note"><strong>Note: </strong> If you don't want to have to explicitly list the <strong>id</strong> or <strong>classname</strong> attributes of the select box you are listening to events on, you can use the pseudo selector that SelectBoxIt provides you.
               <br /><br />
-              </p>
+              SelectBoxIt provides <strong>$(":selectBox-selectBoxIt")</strong>, a <strong>custom jQuery pseudo selector</strong>, that returns all select box elements on the page that are using the SelectBoxIt plugin.
+              </span>
+              <br /><br />
 
-              <span class="note">Here is an example of <strong>chaining</strong> (calling multiple <strong>SelectBoxIt</strong> methods one after another):</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
-                  var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
-
-                  // Chaining
-                  selectBox.open().close().moveDown().disable();
-              });
-              </pre>
-              <br />
-              <span class="note">Here is an example of <strong>individual method calls</strong> :</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
-                  var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
-
-                  // Individual calls
-                  selectBox.open();
-
-                  selectBox.close();
-
-                  selectBox.moveDown();
-
-                  selectBox.disable();
-              });
-              </pre>
-              <br />
-              <span class="note">If you want to provide a delay (in milleseconds) before your methods are called, use the <strong>wait()</strong> method. Here is an example of the <strong>wait()</strong> method.</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
-                  // Opens the dropdown list for two seconds before closing the dropdown list
-                  selectBox.open().wait(2000, function() { this.close() })
-              });
-              </pre>
-              <br />
-              <span class="note"><strong>Note: </strong> You can pass a callback function to all of the methods. Inside of the callback function, the <strong>this</strong> keyword refers to the plugin object, which allows you to call another plugin method like so:</span>
-              <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
-                  // Calls the selectBoxIt open() method
-                  selectBox.open(function() {
-
-                      // The 'this' keyword references the selectBoxIt object
-                      this.moveDown();
-                  });
-              });
-              </pre>
-
+              <h2>Method API</h2>
               <br /><br />
               <h3>Methods</h3>
               <table class="table table-striped table-bordered table-condensed">
@@ -2074,11 +1984,77 @@
                 </tr>
               </table>
               <br />
+              <p>The <strong>Method API</strong> allows you to programmatically interact with the dropdown list after it is created. All methods can be called individually or chained.
+              <br /><br />
+              </p>
+
+              <span class="note">Here is an example of <strong>chaining</strong> (calling multiple <strong>SelectBoxIt</strong> methods one after another):</span>
+              <pre class="prettyprint">
+  //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+    //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
+    var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
+
+    // Chaining
+    selectBox.open().close().moveDown().disable();
+  });
+              </pre>
+              <br />
+              <span class="note">Here is an example of <strong>individual method calls</strong> :</span>
+              <pre class="prettyprint">
+  //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+    //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
+    var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
+
+    // Individual calls
+    selectBox.open();
+
+    selectBox.close();
+
+    selectBox.moveDown();
+
+    selectBox.disable();
+
+  });
+              </pre>
+              <br />
+              <span class="note">If you want to provide a delay (in milleseconds) before your methods are called, use the <strong>wait()</strong> method. Here is an example of the <strong>wait()</strong> method.</span>
+              <pre class="prettyprint">
+  //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+  
+    //Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+
+    // Opens the dropdown list for two seconds before closing the dropdown list
+    selectBox.open().wait(2000, function() { this.close() })
+
+  });
+              </pre>
+              <br />
+              <span class="note"><strong>Note: </strong> You can pass a callback function to all of the methods. Inside of the callback function, the <strong>this</strong> keyword refers to the plugin object, which allows you to call another plugin method like so:</span>
+              <pre class="prettyprint">
+  // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
+    
+    //Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+
+    // Calls the selectBoxIt open() method
+    selectBox.open(function() {
+
+      // The 'this' keyword references the selectBoxIt object
+      this.moveDown();
+    });
+  });
+              </pre>
+              <br />
               <h2>Mobile Browsers</h2>
-              <p class="well">
+              <p>
               Selecting the dropdown will trigger the default <strong>wheel</strong> interface for all mobile devices.  This behavior improves usability for users.
               </p>
-              <p class="well">
+              <p>
               <span class="note">
               By default, SelectBoxIt uses the mobile detection regex script from <a href="http://www.detectmobilebrowsers.com" target="_blank">www.detectmobilebrowsers.com</a>.  This script is fairly exhaustive, and will catch most mobile browsers.
               <br /><br />
@@ -2086,51 +2062,51 @@
               </span>
               </p>
               <pre class="prettyprint">
-              //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-              $(function() {
+  //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+  $(function() {
 
-                  //Calls the selectBoxIt method on your HTML select box
-                  var selectBox = $("select#test").selectBoxIt({ isMobile: function() {
+    // Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt({ isMobile: function() {
 
-                      if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPad/i))) {
+      if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPad/i))) {
 
-                          return true;
+        return true;
 
-                      }
+      }
 
-                      else {
+      else {
 
-                          return false;
+        return false;
 
-                      }
+      }
                   
-                  }});
+    }});
 
-              });
+  });
               </pre>
 
               <br />
               <h2>Contributing</h2>
-              <p class="well">
+              <p>
               Take care to maintain the existing coding style. Add <strong>Jasmine</strong> unit tests for any new or changed functionality. Lint and test your code using <strong>Grunt</strong>.
               </p>
-              <p class="well">
+              <p>
               <span class="note">
               If you plan to contribute to SelectBoxIt in the future, keep in mind that you should make sure your code passes the <strong>Grunt</strong> checks. If you are on Windows (like me) remember you need to run the Grunt command using <em>grunt.cmd</em>. Also, if you have trouble getting the Jasmine Unit Tests to work with <strong>PhantomJS</strong> 1.5 (the current release), install PhantomJS 1.3.
               </span>
               </p>
 
-              <p class="well">
+              <p>
               <span class="note">
               After you have verified your code, send a pull request to the SelectBoxIt <strong>dev branch</strong>.After you send a pull request, you will hear back from me shortly after I review your code.  You’ll find source code in the <code>src</code> subdirectory!
               </span>
               </p>
               <br />
              <h2>Extending</h2>
-              <p class="well">
+              <p>
               If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the <a href="https://github.com/gfranko/jquery.selectBoxIt.js/issues" target="_blank">Github issue tracker</a>, or <a href="https://github.com/gfranko/jquery.selectBoxIt.js" target="_blank">fork the project</a> and and easily extend SelectBoxIt to create your own widget!
               </p>
-              <p class="well">
+              <p>
               <span class="note">
               <strong>Note: </strong> Remember that you need to include <strong>jQuery</strong>, the <strong>jQueryUI Widget Factory</strong>, and <strong>SelectBoxIt</strong> before you include your new plugin file, since your plugin will depend on SelectBoxIt and all of its dependencies.
               </span>
@@ -2141,39 +2117,41 @@
               </span>
 
               <pre class="prettyprint">
-              // Plugin setup
-              (function ($) {
+  // Plugin setup
+  (function ($) {
 
-                  // Declaring a new jQueryUI Widget that extends SelectBoxIt
-                  $.widget('a.newPlugin', $.selectBox.selectBoxIt, {
+    // Declaring a new jQueryUI Widget that extends SelectBoxIt
+    $.widget('a.newPlugin', $.selectBox.selectBoxIt, {
 
-                      // Changing SelectBoxIt's default showEffect from 'none' to 'slide'
-                      options: {
-                          showEffect: "slide",
-                      },
+      // Changing SelectBoxIt's default showEffect from 'none' to 'slide'
+      options: {
+        
+        showEffect: "slide",
+        
+      },
 
-                      //Overwriting the SelectBoxIt open method
-                      open: function() {
+        // Overwriting the SelectBoxIt open method
+        open: function() {
 
-                         //Calling the default SelectBoxIt open method
-                         $.selectBox.selectBoxIt.prototype.open.call(this);
+          // Calling the default SelectBoxIt open method
+          $.selectBox.selectBoxIt.prototype.open.call(this);
 
-                        // Adding new logic
-                        console.log("Just opened my new plugin!");
+          // Adding new logic
+          console.log("Just opened my new plugin!");
 
-                      }
+        }
 
-                  });
+      });
 
-                  //Then call your new plugin like this
-                  var selectBox = $("select#test").newPlugin().data("newPlugin");
+      // Then call your new plugin like this
+      var selectBox = $("select#test").newPlugin().data("newPlugin");
 
-              }(jQuery));
+    }(jQuery));
               </pre>
               </p>
               <br />
              <h2>Donation</h2>
-              <p class="well">
+              <p>
               If you would like to support the SelectBoxIt project, please consider sending a donation to Greg Franko (the project maintainer).  All donations (small or large) are appreciated and help the continued development of the project. &nbsp;
               <iframe style="border: 0; margin: 0; padding: 0;" src="https://www.gittip.com/gfranko/widget.html" width="48pt" height="20pt"></iframe>
               </p>

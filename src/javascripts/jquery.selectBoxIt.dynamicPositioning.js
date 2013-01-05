@@ -17,6 +17,9 @@
 
 (function ($, window, document, undefined) {
 
+    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
+    "use strict";
+
     //_Dynamic positioning
     // ------------------
     //      Dynamically positions the dropdown list options list

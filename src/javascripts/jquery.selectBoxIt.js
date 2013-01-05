@@ -527,6 +527,9 @@
 
             }
 
+            // Positions the original select box directly over the new drop down (helpful for plugins like qtip)
+            self._applyNativeSelect(true);
+
             // Maintains chainability
             return self;
 
@@ -1469,7 +1472,7 @@
             self.divContainer.remove();
 
             //Triggers the custom `destroy` event on the original select box and then shows the original dropdown list
-            self.selectBox.trigger("destroy").show();
+            self.selectBox.trigger("destroy").removeAttr("style").show();
 
             //Maintains chainability
             return self;
@@ -1498,7 +1501,7 @@
         // -------------------
         //      The dropdown will use the native select box functionality
 
-        _applyNativeSelect: function() {
+        _applyNativeSelect: function(hide) {
 
             var self = this,
                 currentOption;
@@ -1512,7 +1515,7 @@
             // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
             self.selectBox.css({
 
-                "display": "block",
+                "display": hide ? "none": "block",
 
                 "width": self.div.outerWidth(),
 
@@ -1536,7 +1539,7 @@
 
             }).bind({
 
-                "changed": function() {
+                "changed.selectBoxIt": function() {
 
                     currentOption = self.selectBox.find("option").filter(":selected");
 

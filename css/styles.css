@@ -44,6 +44,7 @@ span.note {
   display: inline-block;
   float: right;
   width: 400px;
+  margin-top: 3px;
 }
 #editor-button {
   float: left;

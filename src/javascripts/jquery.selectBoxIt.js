@@ -530,9 +530,6 @@
 
             }
 
-            // Positions the original select box directly over the new drop down (helpful for plugins like qtip)
-            self._applyNativeSelect(true);
-
             // Maintains chainability
             return self;
 
@@ -1533,7 +1530,7 @@
             self.divContainer.remove();
 
             //Triggers the custom `destroy` event on the original select box and then shows the original dropdown list
-            self.selectBox.trigger("destroy").removeAttr("style").show();
+            self.selectBox.trigger("destroy").show();
 
             //Maintains chainability
             return self;

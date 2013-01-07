@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.4.0 - 2013-1-2
+/* jquery Selectboxit - v2.5.0 - 2013-1-6
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "2.4.0",
+        VERSION: "2.5.0",
 
         // These options will be used as defaults
         options: {
@@ -81,7 +81,10 @@
             "nostyle": false,
 
             // **native**: Triggers the native select box when a user interacts with the drop down
-            "native": false
+            "native": false,
+
+            // **aggressiveChange**: Will select a drop down item (and trigger a change event) when a user navigates to the item via the keyboard (up and down arrow or search), before a user selects an option with a click or the enter key
+            "aggressiveChange": false
 
         },
 
@@ -995,6 +998,18 @@
                         // If the user presses the `enter key`
                         case enterKey:
 
+                            var activeElem = self.list.find("li." + self.focusClass);
+            
+                            // If there is no active Elem yet
+                            if(!activeElem.length) {
+
+                                activeElem = self.listItems.first();
+
+                            }
+
+                            // Updates the dropdown list value
+                            self._update(activeElem);
+
                             // Prevents the default event from being triggered
                             e.preventDefault();
 
@@ -1005,8 +1020,6 @@
                                 self.close();
 
                             }
-
-                            self._checkDefaultText();
 
                             // Triggers the `enter` events on the original select box
                             self.selectBox.trigger("enter");
@@ -1125,49 +1138,35 @@
             // Select box individual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding individual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "click.selectBoxIt", function() {
 
+                self._update($(this));
+
+                var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
+
+                // Triggers the custom option-click event on the original select box and passes the select box option
+                self.selectBox.trigger("option-click", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
+
+                // If the current drop down option is not disabled
                 if ($(this).attr("data-disabled") === "false") {
 
-                    // Sets the original dropdown list value and triggers the `change` event on the original select box
-                    self.selectBox.val($(this).attr("data-val"));
-
-                    // Sets `currentFocus` to the currently focused dropdown list option.
-                    // The unary `+` operator casts the string to a number
-                    // [James Padolsey Blog Post](http://james.padolsey.com/javascript/terse-javascript-101-part-2/)
-                    self.currentFocus = +this.id;
-
-                    // Closes the list after selecting an option
+                    // Closes the drop down list
                     self.close();
 
-                    // Triggers the dropdown list `change` event if a value change occurs
-                    if (self.originalElem.value !== self.divText.attr("data-val")) {
-
-                        self.selectBox.trigger("change", true);
-
-                    }
-
-                    self._checkDefaultText();
-
-                    var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
-
-                    // Triggers the custom option-click event on the original select box and passes the select box option
-                    self.selectBox.trigger("option-click", { elem: self.selectBox.eq(currentIndex) });
                 }
+
             })
 
             // Delegates the `focus` event with the `selectBoxIt` namespace to the list items
             .delegate("li", "focus.selectBoxIt", function() {
 
-                if ($(this).attr("data-disabled") === "false") {
+                // Removes the hover class from the previous drop down option
+                self.listItems.not($(this)).removeAttr("data-active");
 
-                    // Sets the original select box current value and triggers the change event
-                    self.originalElem.value = $(this).attr("data-val");
+                $(this).attr("data-active", "");
 
-                    // Triggers the dropdown list `change` event if a value change occurs
-                    if (self.originalElem.value !== self.divText.attr("data-val")) {
+                if(self.options["aggressiveChange"]) {
 
-                        self.selectBox.trigger("change", true);
+                    self._update($(this));
 
-                    }
                 }
 
             });
@@ -1216,6 +1215,7 @@
 
                     // Adds the `disabled` CSS class to the new dropdown list to visually show that it is disabled
                     self.div.addClass(self.disabledClasses);
+
                 },
 
                 // `enable` event with the `selectBoxIt` namespace
@@ -1223,12 +1223,55 @@
 
                     // Removes the `disabled` CSS class from the new dropdown list to visually show that it is enabled
                     self.div.removeClass(self.disabledClasses);
+
                 }
 
             });
 
             // Maintains chainability
             return self;
+
+        },
+
+        // _update
+        // -------
+        //      Updates the drop down and select box with the current value
+        _update: function(elem) {
+
+            var self = this;
+
+            if (elem.attr("data-disabled") === "false") {
+
+                // If the default text option is set and the current drop down option is not disabled
+                if ((self.options["defaultText"] && self.divText.text() === self.options["defaultText"])) {
+
+                    // Updates the dropdown list value
+                    self.divText.text(self.listItems.eq(self.currentFocus).text()).
+
+                    trigger("internal-change", true);
+
+                }
+
+                else {
+
+                    // Sets the original dropdown list value and triggers the `change` event on the original select box
+                    self.selectBox.val(elem.attr("data-val"));
+
+                    // Sets `currentFocus` to the currently focused dropdown list option.
+                    // The unary `+` operator casts the string to a number
+                    // [James Padolsey Blog Post](http://james.padolsey.com/javascript/terse-javascript-101-part-2/)
+                    self.currentFocus = +elem.attr("id");
+
+                    // Triggers the dropdown list `change` event if a value change occurs
+                    if (self.originalElem.value !== self.divText.attr("data-val")) {
+
+                        self.selectBox.trigger("change", true);
+
+                    }
+
+                }
+
+            }
 
         },
 
@@ -1240,8 +1283,6 @@
             var self = this,
 
                 focusClass = obj.focusClasses || "selectboxit-focus",
-
-                hoverClass = obj.hoverClasses || "selectboxit-hover",
 
                 buttonClass = obj.buttonClasses || "selectboxit-btn",
 
@@ -1287,10 +1328,25 @@
                 // `click` event with the `selectBoxIt` namespace
                 "open.selectBoxIt": function() {
 
-                    // Removes the jQueryUI hover class from the dropdown list and adds the jQueryUI focus class for both the dropdown list and the currently selected dropdown list option
-                    self.div.removeClass(hoverClass).add(self.listItems.eq(self.currentFocus)).
+                    var currentElem = self.list.find("li[data-val='" + self.divText.attr("data-val") + "']");
 
-                    addClass(focusClass);
+                    // If no current element can be found, then select the first drop down option
+                    if(!currentElem.length) {
+
+                        currentElem = self.listItems.first();
+
+                    }
+
+                    self.currentFocus = +currentElem.attr("id");
+
+                    var activeElem = self.listItems.eq(self.currentFocus);
+
+                    // Removes the focus class from the dropdown list and adds the library focus class for both the dropdown list and the currently selected dropdown list option
+                    self.div.removeClass(focusClass);
+
+                    self.listItems.removeAttr("data-active").not(activeElem).removeClass(focusClass);
+
+                    activeElem.addClass(focusClass);
 
                 },
 
@@ -1303,15 +1359,15 @@
                 // `mousenter` event with the `selectBoxIt` namespace
                 "mouseenter.selectBoxIt": function() {
 
-                    self.div.addClass(hoverClass);
+                    self.div.addClass(focusClass);
 
                 },
 
                 // `mouseleave` event with the `selectBoxIt` namespace
                 "mouseleave.selectBoxIt": function() {
 
-                    // Removes the hover CSS class on the previously hovered dropdown list option
-                    self.div.removeClass(hoverClass);
+                    // Removes the focus CSS class on the previously hovered dropdown list option
+                    self.div.removeClass(focusClass);
 
                 }
 
@@ -1324,10 +1380,16 @@
                     // If the currently moused over drop down option is not disabled
                     if($(this).attr("data-disabled") === "false") {
 
-                        // Sets the dropdown list individual options back to the default state and sets the hover CSS class on the currently hovered option
+                        self.listItems.removeAttr("data-active");
+
+                        $(this).addClass(focusClass).attr("data-active", "");
+
+                        // Sets the dropdown list individual options back to the default state and sets the focus CSS class on the currently hovered option
                         self.listItems.not($(this)).removeClass(focusClass);
 
-                        $(this).addClass(hoverClass);
+                        $(this).addClass(focusClass);
+
+                        self.currentFocus = +$(this).attr("id");
 
                     }
 
@@ -1335,8 +1397,13 @@
 
                 "mouseleave.selectBoxIt": function() {
 
-                    // Removes the hover class from the previous drop down option
-                    $(this).removeClass(hoverClass);
+                    // If the currently moused over drop down option is not disabled
+                    if($(this).attr("data-disabled") === "false") {
+
+                        // Removes the focus class from the previous drop down option
+                        self.listItems.not($(this)).removeClass(focusClass).removeAttr("data-active");
+
+                    }
 
                 }
 
@@ -1359,8 +1426,6 @@
             self._addClasses({
 
                 focusClasses: "ui-state-focus",
-
-                hoverClasses: "ui-state-hover",
 
                 arrowClasses: "ui-icon ui-icon-triangle-1-s",
 
@@ -1388,8 +1453,6 @@
 
                 focusClasses: "active",
 
-                hoverClasses: "",
-
                 arrowClasses: "caret",
 
                 buttonClasses: "btn",
@@ -1416,8 +1479,6 @@
             self._addClasses({
 
                 focusClasses: "ui-btn-active-" + theme + " ui-btn-down-" + theme,
-
-                hoverClasses: "ui-btn-hover-" + theme,
 
                 arrowClasses: "ui-icon ui-icon-arrow-d ui-icon-shadow",
 
@@ -1584,25 +1645,6 @@
                 .replace(/'/g, '&#39;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;');
-
-        },
-
-        // Check Default Text
-        // ------------------
-        //      Default Text Option Logic
-        _checkDefaultText: function() {
-
-            var self = this;
-
-            // If the default text option is set and the current drop down option is not disabled
-            if (self.options["defaultText"] && self.divText.text() === self.options["defaultText"]) {
-
-                // Updates the dropdown list value
-                self.divText.text(self.listItems.eq(self.currentFocus).text()).
-
-                trigger("internal-change", true);
-
-            }
 
         }
 
@@ -2189,7 +2231,7 @@
             var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
 
             // Triggers the custom `moveDown` event on the original select box
-            self.selectBox.trigger("moveDown", { elem: self.selectBox.eq(currentIndex) });
+            self.selectBox.trigger("moveDown", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
 
         }
 
@@ -2258,7 +2300,7 @@
             var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
 
             // Triggers the custom `moveDown` event on the original select box
-            self.selectBox.trigger("moveUp", { elem: self.selectBox.eq(currentIndex) });
+            self.selectBox.trigger("moveUp", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
 
         }
 
@@ -2303,10 +2345,7 @@
 
         // Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.
         // Otherwise, the current option value is updated
-        if (!(currentOption === 0 && !self.options["showFirstOption"]) && self.listItems.eq(currentOption).data("disabled") !== true) {
-
-            // Updates the default dropdown list text
-            self.divText.text(self.textArray[currentOption]);
+        if (self.listItems.eq(currentOption).is(":visible") && self.listItems.eq(currentOption).data("disabled") !== true) {
 
             // Calls the `blur` event of the currently selected dropdown list option
             self.listItems.eq(self.currentFocus).blur();
@@ -2326,7 +2365,7 @@
             var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
 
             // Triggers the custom `search` event on the original select box
-            self.selectBox.trigger("search", { elem: self.selectBox.eq(currentIndex) });
+            self.selectBox.trigger("search", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
 
         }
 

@@ -200,7 +200,7 @@
             <p>SelectBoxIt allows you to replace ugly and hard to use HTML select boxes with gorgeous and feature rich drop downs.  <strong>Twitter Bootstrap</strong>, <strong>jQueryUI</strong>, and <strong>jQuery Mobile</strong> themes are supported right out of the box.  To use SelectBoxIt, you do not have to rewrite any of your existing form validation logic or event handling.  <strong>SelectBoxIt just works</strong>.
             </p>
             <br />
-            <p>The project is hosted on <a href="https://github.com/gfranko/jQuery.selectBoxIt.js" target="_blank" class="projectLinks">Github</a>, the <a href="http://www.gregfranko.com/jquery.selectBoxIt.js/docs/jQuery.selectBoxIt.html" target="_blank" class="projectLinks">annotated source code</a> is available, and an <a href="http://www.gregfranko.com/jquery.selectBoxIt.js/test/SpecRunner.html" target="_blank" class="projectLinks">online test suite</a> is also available.  SelectBoxIt is available for use under the <a href="https://github.com/gfranko/jQuery.selectBoxIt.js/blob/master/MIT-LICENSE.txt" target="_blank" class="projectLinks">MIT software license</a>.  You can report bugs and discuss features on the <a href="https://github.com/gfranko/jQuery.selectBoxIt.js/issues?sort=created&direction=desc&state=open" target="_blank">GitHub issues page</a>, or send tweets to <a href="http://www.twitter.com/gregfranko" target="_blank">@gregfranko</a>.
+            <p>The project is hosted on <a href="https://github.com/gfranko/jQuery.selectBoxIt.js" target="_blank" class="projectLinks">Github</a>, the <a href="http://www.gregfranko.com/jquery.selectBoxIt.js/docs/jQuery.selectBoxIt.html" target="_blank" class="projectLinks">annotated source code</a> is available, and an <a href="https://travis-ci.org/gfranko/jquery.selectBoxIt.js" target="_blank" class="projectLinks">online test suite</a> is also available via Travis CI.  SelectBoxIt is available for use under the <a href="https://github.com/gfranko/jQuery.selectBoxIt.js/blob/master/MIT-LICENSE.txt" target="_blank" class="projectLinks">MIT software license</a>.  You can report bugs and discuss features on the <a href="https://github.com/gfranko/jQuery.selectBoxIt.js/issues?sort=created&direction=desc&state=open" target="_blank">GitHub issues page</a>, or send tweets to <a href="http://www.twitter.com/gregfranko" target="_blank">@gregfranko</a>.
             </p>
             <p><a class="btn btn-primary btn-large" href="https://github.com/gfranko/jquery.selectBoxIt.js" target="_blank">Fork on Github &raquo;</a></p>
           </div>
@@ -951,6 +951,43 @@
               </pre>
               <br />
               <br />
+              <h3>Aggressive Change Mode</h3>
+              <br />
+              <strong>Note:</strong> Aggressive Change Mode will select a drop down option (and trigger the change event on the original select box) when a user navigates to an option using the up and down arrow keys via the keyboard, or searches for an option using the keyboard.
+              <br /><br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="aggressive-change-mode">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Sets default text to appear for the drop down
+    aggressiveChange: true
+
+  });
+              </pre>
+              <br />
+              <br />
               <h3>Bootstrap Up/Down Arrow Support</h3>
               <br />
               <div class="select">
@@ -1609,6 +1646,13 @@
                   <td>false</td>
                   <td>true or false</td>
                 </tr>
+
+                <tr>
+                  <td class="optionName" title="aggressiveChange" data-content="Aggressive Change Mode will select a drop down option (and trigger the change event on the original select box) when a user navigates to an option using the up and down arrow keys via the keyboard, or searches for an option using the keyboard."><a href="#">aggressiveChange</a></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>true or false</td>
+                </tr>
               </table>
               <br />
               <h3>HTML5 Data Attribute Options</h3>
@@ -2205,6 +2249,7 @@
             $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60 });
             $("select.test, select.long-list, select.arrow-box, select#bootstrap-up-down-arrow").selectBoxIt();
             $("select#jqueryui-theme").selectBoxIt({ theme: "jqueryui" });
+            $("select#aggressive-change-mode").selectBoxIt({ aggressiveChange: true });
             $("#hide-first-option").selectBoxIt({ showFirstOption: false });
             $("#set-default-text").selectBoxIt({ defaultText: "Sample text here" });
             $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 400, hideEffect: "fadeOut", hideEffectSpeed: 400 });

@@ -1559,7 +1559,7 @@
         // -------------------
         //      The dropdown will use the native select box functionality
 
-        _applyNativeSelect: function(hide) {
+        _applyNativeSelect: function() {
 
             var self = this,
                 currentOption;
@@ -1573,7 +1573,7 @@
             // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
             self.selectBox.css({
 
-                "display": hide ? "none": "block",
+                "display": "block",
 
                 "width": self.div.outerWidth(),
 

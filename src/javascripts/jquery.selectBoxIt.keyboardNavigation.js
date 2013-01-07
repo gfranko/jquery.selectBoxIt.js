@@ -81,7 +81,7 @@
             var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
 
             // Triggers the custom `moveDown` event on the original select box
-            self.selectBox.trigger("moveDown", { elem: self.selectBox.eq(currentIndex) });
+            self.selectBox.trigger("moveDown", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
 
         }
 
@@ -150,7 +150,7 @@
             var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
 
             // Triggers the custom `moveDown` event on the original select box
-            self.selectBox.trigger("moveUp", { elem: self.selectBox.eq(currentIndex) });
+            self.selectBox.trigger("moveUp", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
 
         }
 

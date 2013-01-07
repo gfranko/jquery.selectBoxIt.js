@@ -70,6 +70,16 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`2.5.0` - January 6, 2013
+
+**Default Behavior Change**
+
+- SelectBoxIt will no longer select a drop down option (and trigger the change event on the original select box) when a user navigates to an option using the up and down arrow keys via the keyboard, or searches for an option using the keyboard.  An option will only be `selected` when a user clicks an option or presses the `enter` key when an option is actively "focused".  [#85](https://github.com/gfranko/jquery.selectBoxIt.js/issues/85)
+
+- Added a new option, **aggressiveChange**, which _will_ select a drop down option (and trigger the change event on the original select box) when a user navigates to an option using the up and down arrow keys via the keyboard, or searchs for an option using the keyboard.
+
+- There is now always an "active" class when drop down options are moused over.  [#84](https://github.com/gfranko/jquery.selectBoxIt.js/issues/84)
+
 `2.4.0` - January 2, 2013
 
 - Added the **data-iconurl** HTML5 data attribute to support relative and absolute image url's

@@ -250,12 +250,6 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 expect("moveDown").toHaveBeenTriggeredOn(selectBoxIt.selectBox);
 
-                //Check to make sure the original select box value is set to the currently selected option
-                expect(selectBoxIt.selectBox).toHaveValue(selectBoxIt.listItems.eq(selectBoxIt.currentFocus).text());
-
-                //Check to make sure the select box text is updated to the currently selected option
-                expect(selectBoxIt.divText).toHaveText(selectBoxIt.listItems.eq(selectBoxIt.currentFocus).text());
-
             });
 
         });
@@ -298,41 +292,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 expect("moveUp").toHaveBeenTriggeredOn(selectBoxIt.selectBox);
 
-                //Check to make sure the original select box value is set to the currently selected option
-
-                expect(selectBoxIt.selectBox).toHaveValue(selectBoxIt.listItems.eq(selectBoxIt.currentFocus).attr("data-val"));
-
-                //Check to make sure the select box text is updated to the currently selected option
-                expect(selectBoxIt.divText).toHaveText(selectBoxIt.listItems.eq(selectBoxIt.currentFocus).text());
             });
-
-        });
-
-    });
-
-    describe("search()", function() {
-
-        beforeEach(function() {
-
-            spyOnEvent(selectBoxIt.selectBox, "search");
-
-            selectBoxIt.search("December");
-
-        });
-
-        it("should update the original select box value to the currently selected option", function() {
-
-            //The custom 'search' event to be called on the original select box
-            expect("search").toHaveBeenTriggeredOn(selectBoxIt.selectBox);
-
-            //The current focus instance variable should be set to the currently selected option
-            expect(selectBoxIt.currentFocus).toEqual(12);
-
-            //The value of the original select box should be set to the currently selected option
-            expect(selectBoxIt.selectBox).toHaveValue("December");
-
-            //The select box text should be updated to the currently selected option
-            expect(selectBoxIt.divText).toHaveText("December");
 
         });
 

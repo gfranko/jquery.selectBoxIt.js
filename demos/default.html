@@ -14,8 +14,8 @@
 <body>
 <form>
 <select id="test">
-  <option value="Select a Month">Select a Month</option>
-  <option value="January">January</option>
+  <option value="Select a Month" disabled>Select a Month</option>
+  <option value="January" disabled>January</option>
   <option value="February">February</option>
   <option value="March">March</option>
   <option value="April">April</option>
@@ -53,8 +53,6 @@
 <script>
 $(function() {
     window.selectBox = $("#test").selectBoxIt().data("selectBoxIt");
-
-    $("select").bind("tab-focus", function() { $(this).data("selectBoxIt").open(); });
 
     $('#test1').selectBoxIt({theme: "jqueryui"}).data("selectBoxIt");
 

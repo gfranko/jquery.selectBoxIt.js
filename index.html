@@ -79,6 +79,10 @@
       max-height: 300px;
     }
 
+    .selected-support + .selectboxit-options .selectboxit-selected {
+      background: #ADD8E6;
+    }
+
     pre {
       font-size: 12px;
     }
@@ -1159,6 +1163,45 @@
 
     /* Encloses the down arrow in a box */
     border-left: 1px solid #ccc;
+
+  }
+              </pre>
+              <br />
+              <br />
+              <h3>Selected Styling Support</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                  <optgroup label="Optgroup 1">
+                    <option value="a jQuery Plugin">a jQuery Plugin</option>
+                  </optgroup>
+                  <optgroup label="Optgroup 2">
+                    <option value="a Select Box Replacement">a Select Box Replacement</option>
+                  </optgroup>
+                  <optgroup label="Optgroup 3">
+                    <option value="a Stateful UI Widget">a Stateful UI Widget
+                    </option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select class="selected-support" name="test">
+                  <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin">a jQuery Plugin</option>
+                  <option value="a Select Box Replacement">a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example CSS Code</h5>
+              <pre class="prettyprint">
+  .selectboxit-selected {
+
+    background: #ADD8E6;
 
   }
               </pre>
@@ -2247,7 +2290,7 @@
         $(function() {
 
             $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60 });
-            $("select.test, select.long-list, select.arrow-box, select#bootstrap-up-down-arrow").selectBoxIt();
+            $("select.test, select.long-list, select.arrow-box, select#bootstrap-up-down-arrow, .selected-support").selectBoxIt();
             $("select#jqueryui-theme").selectBoxIt({ theme: "jqueryui" });
             $("select#aggressive-change-mode").selectBoxIt({ aggressiveChange: true });
             $("#hide-first-option").selectBoxIt({ showFirstOption: false });

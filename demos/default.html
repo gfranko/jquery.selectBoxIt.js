@@ -54,6 +54,12 @@
 $(function() {
     window.selectBox = $("#test").selectBoxIt().data("selectBoxIt");
 
+    $('#test').bind("destroy", function() {
+
+      console.log('select box destroy event triggered');
+
+    });
+
     $('#test1').selectBoxIt({theme: "jqueryui"}).data("selectBoxIt");
 
 });

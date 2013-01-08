@@ -70,6 +70,15 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+
+`2.6.0` - January 8, 2013
+
+- Added support for styling the currently `selected` drop down option via the **selectboxit-selected** CSS class [#86](https://github.com/gfranko/jquery.selectBoxIt.js/issues/86)
+
+- Fixed `refresh()` method mobile bug [#68](https://github.com/gfranko/jquery.selectBoxIt.js/issues/68)
+
+- Refactored and fixed bugs for SelectBoxIt internal event triggering:  All custom events now return an object containing both the currently selected select box and drop down options  
+
 `2.5.0` - January 6, 2013
 
 **Default Behavior Change**

@@ -47,10 +47,8 @@
             // Updates the scrollTop so that the currently selected dropdown list option is visible to the user
             self._scrollToView("search");
 
-            var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
-
             // Triggers the custom `search` event on the original select box
-            self.selectBox.trigger("search", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
+            self.triggerEvent("search");
 
         }
 

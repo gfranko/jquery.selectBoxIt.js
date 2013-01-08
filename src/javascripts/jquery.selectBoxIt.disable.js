@@ -34,10 +34,10 @@
             self.close();
 
             // Triggers a `disable` custom event on the original select box
-            self.selectBox.trigger("disable").
+            self.triggerEvent("disable");
 
             // Sets the `disabled` attribute on the original select box
-           attr("disabled", "disabled");
+           self.selectBox.attr("disabled", "disabled");
 
            // Makes the dropdown list not focusable by removing the `tabindex` attribute
            self.div.removeAttr("tabindex")
@@ -64,7 +64,7 @@
 
     $.selectBox.selectBoxIt.prototype.disableOption = function(index, callback) {
 
-        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
+        var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled;
 
         // If an index is passed to target an individual drop down option
         if(typeof index === "number") {
@@ -75,10 +75,8 @@
             // The select box option being targeted
             currentSelectBoxOption = self.selectBox.find("option").eq(index);
 
-            currentIndex = self.options["showFirstOption"] ? index: ((index - 1) >= 0 ? index: 0 );
-
             // Triggers a `disable-option` custom event on the original select box and passes the disabled option
-            self.selectBox.trigger("disable-option", currentSelectBoxOption);
+            self.triggerEvent("disable-option");
 
             // Disables the targeted select box option
             currentSelectBoxOption.attr("disabled", "disabled");

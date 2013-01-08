@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.5.0 - 2013-1-6
+/* jquery Selectboxit - v2.6.0 - 2013-1-8
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "2.5.0",
+        VERSION: "2.6.0",
 
         // These options will be used as defaults
         options: {
@@ -213,7 +213,7 @@
             }
 
             // Triggers a custom `create` event on the original dropdown list
-            self.selectBox.trigger("create");
+            self.triggerEvent("create");
 
             // Maintains chainability
             return self;
@@ -528,6 +528,9 @@
 
                 });
 
+                // Adds the `selectboxit-selected` class name to the currently selected drop down option
+                self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
+
             }
 
             // Maintains chainability
@@ -639,7 +642,7 @@
             if(!this.list.is(":visible")) {
 
                 // Triggers a custom "open" event on the original select box
-                self.selectBox.trigger("open");
+                self.triggerEvent("open");
 
                 // Determines what jQuery effect to use when opening the dropdown list options list
                 switch (self.options["showEffect"]) {
@@ -727,7 +730,7 @@
             if(self.list.is(":visible")) {
 
                 // Triggers a custom "close" event on the original select box
-                self.selectBox.trigger("close");
+                self.triggerEvent("close");
 
                 // Determines what jQuery effect to use when closing the dropdown list options list
                 switch (self.options["hideEffect"]) {
@@ -818,13 +821,13 @@
                 "click.selectBoxIt": function() {
 
                     // Used to make sure the div becomes focused (fixes IE issue)
-                    self.div.focus();
+                    self.div.trigger("focus", true);
 
                     // The `click` handler logic will only be applied if the dropdown list is enabled
                     if (!self.originalElem.disabled) {
 
                         // Triggers the `click` event on the original select box
-                        self.selectBox.trigger("click");
+                        self.triggerEvent("click");
 
                         // If the dropdown list options list is visible when a user clicks on the dropdown list
                         if (self.list.is(":visible")) {
@@ -856,10 +859,10 @@
                     if (self.blur) {
 
                         // Triggers both the `blur` and `focusout` events on the original select box.
-                        // The `focusout` event was also triggered because the event bubbles
+                        // The `focusout` event is also triggered because the event bubbles
                         // This event has to be used when using event delegation (such as the jQuery `delegate` or `on` methods)
                         // Popular open source projects such as Backbone.js utilize event delegation to bind events, so if you are using Backbone.js, use the `focusout` event instead of the `blur` event
-                        self.selectBox.trigger("blur").trigger("focusout");
+                        self.triggerEvent("blur");
 
                         //If the dropdown options list is visible
                         if (self.list.is(":visible")) {
@@ -869,7 +872,7 @@
                     }
                 },
 
-                "focus.selectBoxIt": function() {
+                "focus.selectBoxIt": function(event, internal) {
 
                     // Stores the data associated with the mousedown event inside of a local variable
                     var mdown = $(this).data("mdown");
@@ -878,22 +881,22 @@
                     $(this).removeData("mdown");
 
                     // If a mousedown event did not occur and no data was passed to the focus event (this correctly triggers the focus event), then the dropdown list gained focus from a tabstop
-                    if (!mdown) {
+                    if (!mdown && !internal) {
 
                         setTimeout(function() {
 
                             // Triggers the `tabFocus` custom event on the original select box
-                            self.selectBox.trigger("tab-focus");
+                            self.triggerEvent("tab-focus");
 
                         }, 0);
 
                     }
 
                     // Only trigger the `focus` event on the original select box if the dropdown list is hidden (this verifies that only the correct `focus` events are used to trigger the event on the original select box
-                    if(!self.list.is(":visible")) {
+                    if(!self.list.is(":visible") && !internal) {
 
                         //Triggers the `focus` default event on the original select box
-                        self.selectBox.trigger("focus").trigger("focusin");
+                        self.triggerEvent("focus");
 
                     }
 
@@ -1019,7 +1022,7 @@
                             }
 
                             // Triggers the `enter` events on the original select box
-                            self.selectBox.trigger("enter");
+                            self.triggerEvent("enter");
 
                             break;
 
@@ -1027,7 +1030,7 @@
                         case tabKey:
 
                             // Triggers the custom `tab-blur` event on the original select box
-                            self.selectBox.trigger("tab-blur");
+                            self.triggerEvent("tab-blur");
 
                             break;
 
@@ -1038,7 +1041,7 @@
                             e.preventDefault();
 
                             // Triggers the custom `backspace` event on the original select box
-                            self.selectBox.trigger("backspace");
+                            self.triggerEvent("backspace");
 
                             break;
 
@@ -1091,7 +1094,7 @@
                 "mouseenter.selectBoxIt": function() {
 
                     // Trigger the `mouseenter` event on the original select box
-                    self.selectBox.trigger("mouseenter");
+                    self.triggerEvent("mouseenter");
 
                 },
 
@@ -1099,7 +1102,7 @@
                 "mouseleave.selectBoxIt": function() {
 
                     // Trigger the `mouseleave` event on the original select box
-                    self.selectBox.trigger("mouseleave");
+                    self.triggerEvent("mouseleave");
 
                 }
 
@@ -1137,10 +1140,7 @@
 
                 self._update($(this));
 
-                var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
-
-                // Triggers the custom option-click event on the original select box and passes the select box option
-                self.selectBox.trigger("option-click", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
+                self.triggerEvent("option-click");
 
                 // If the current drop down option is not disabled
                 if ($(this).attr("data-disabled") === "false") {
@@ -1203,7 +1203,7 @@
                     }
 
                     // Triggers a custom changed event on the original select box
-                    self.selectBox.trigger("changed");
+                    self.triggerEvent("changed");
 
                 },
 
@@ -1245,7 +1245,7 @@
                     // Updates the dropdown list value
                     self.divText.text(self.listItems.eq(self.currentFocus).text()).
 
-                    trigger("internal-change", true);
+                    trigger("internal-change");
 
                 }
 
@@ -1262,7 +1262,7 @@
                     // Triggers the dropdown list `change` event if a value change occurs
                     if (self.originalElem.value !== self.divText.attr("data-val")) {
 
-                        self.selectBox.trigger("change", true);
+                        self.triggerEvent("change");
 
                     }
 
@@ -1286,6 +1286,8 @@
                 listClass = obj.listClasses || "selectboxit-dropdown";
 
             self.focusClass = focusClass;
+
+            self.selectedClass = "selectboxit-selected";
 
             self.downArrow.addClass(self.selectBox.data("downarrow") || self.options["downArrowIcon"] || obj.arrowClasses);
 
@@ -1341,9 +1343,11 @@
                     // Removes the focus class from the dropdown list and adds the library focus class for both the dropdown list and the currently selected dropdown list option
                     self.div.removeClass(focusClass);
 
+                    self.listItems.removeClass(self.selectedClass);
+
                     self.listItems.removeAttr("data-active").not(activeElem).removeClass(focusClass);
 
-                    activeElem.addClass(focusClass);
+                    activeElem.addClass(focusClass).addClass(self.selectedClass);
 
                 },
 
@@ -1363,7 +1367,7 @@
                 // `mouseleave` event with the `selectBoxIt` namespace
                 "mouseleave.selectBoxIt": function() {
 
-                    // Removes the focus CSS class on the previously hovered dropdown list option
+                    // Removes the focus CSS class on the previously hovered drop down list option
                     self.div.removeClass(focusClass);
 
                 }
@@ -1529,8 +1533,11 @@
             //Remove all of the `selectBoxIt` DOM elements from the page
             self.divContainer.remove();
 
-            //Triggers the custom `destroy` event on the original select box and then shows the original dropdown list
-            self.selectBox.trigger("destroy").show();
+            //Triggers the custom `destroy` event on the original select box
+            self.triggerEvent("destroy");
+
+            // Shows the original dropdown list
+            self.selectBox.removeAttr("style").show();
 
             //Maintains chainability
             return self;
@@ -1546,9 +1553,9 @@
             var self = this;
 
             // Destroys the plugin and then recreates the plugin
-            self._destroySelectBoxIt()._create()._callbackSupport(callback);
+            self._destroySelectBoxIt()._create(true)._callbackSupport(callback);
 
-            self.selectBox.trigger("refresh");
+            self.triggerEvent("refresh");
 
             //Maintains chainability
             return self;
@@ -1622,6 +1629,8 @@
 
             if(this.options["isMobile"]()) {
 
+                window.console.log('is mobile');
+
                 self._applyNativeSelect();
 
             }
@@ -1642,6 +1651,23 @@
                 .replace(/'/g, '&#39;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;');
+
+        },
+
+        // triggerEvent
+        // ------------
+        //      Trigger's an external event on the original select box
+        triggerEvent: function(eventName) {
+
+            var self = this,
+                // Finds the currently option index
+                currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
+
+            // Triggers the custom option-click event on the original select box and passes the select box option
+            self.selectBox.trigger(eventName, { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
+
+            // Maintains chainability
+            return self;
 
         }
 

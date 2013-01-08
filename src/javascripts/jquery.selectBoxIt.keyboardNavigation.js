@@ -78,10 +78,8 @@
             // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
             self._scrollToView("down");
 
-            var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
-
             // Triggers the custom `moveDown` event on the original select box
-            self.selectBox.trigger("moveDown", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
+            self.triggerEvent("moveDown");
 
         }
 
@@ -147,10 +145,8 @@
             // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
             self._scrollToView("up");
 
-            var currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
-
             // Triggers the custom `moveDown` event on the original select box
-            self.selectBox.trigger("moveUp", { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
+            self.triggerEvent("moveUp");
 
         }
 

@@ -857,6 +857,13 @@
 
                 },
 
+                // `mouseup` event with the `selectBoxIt` namespace
+                "mouseup.selectBoxIt": function() {
+
+                    self.triggerEvent("mouseup");
+
+                },
+
                 // `blur` event with the `selectBoxIt` namespace.  Uses special blur logic to make sure the dropdown list closes correctly
                 "blur.selectBoxIt": function() {
 

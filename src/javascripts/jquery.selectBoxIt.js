@@ -842,7 +842,9 @@
                             // Shows the dropdown list options list
                             self.open();
                         }
+
                     }
+
                 },
 
                 // `mousedown` event with the `selectBoxIt` namespace
@@ -850,6 +852,9 @@
 
                     // Stores data in the jQuery `data` method to help determine if the dropdown list gains focus from a click or tabstop.  The mousedown event fires before the focus event.
                     $(this).data("mdown", true);
+
+                    self.triggerEvent("mousedown");
+
                 },
 
                 // `blur` event with the `selectBoxIt` namespace.  Uses special blur logic to make sure the dropdown list closes correctly
@@ -866,10 +871,14 @@
 
                         //If the dropdown options list is visible
                         if (self.list.is(":visible")) {
+
                             //Closes the dropdown list options list
                             self.close();
+
                         }
+
                     }
+
                 },
 
                 "focus.selectBoxIt": function(event, internal) {
@@ -888,7 +897,7 @@
                             // Triggers the `tabFocus` custom event on the original select box
                             self.triggerEvent("tab-focus");
 
-                        }, 0);
+                        });
 
                     }
 
@@ -1663,8 +1672,9 @@
                 // Finds the currently option index
                 currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
 
-            // Triggers the custom option-click event on the original select box and passes the select box option
-            self.selectBox.trigger(eventName, { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
+                // Triggers the custom option-click event on the original select box and passes the select box option
+                self.selectBox.trigger(eventName, { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
+
 
             // Maintains chainability
             return self;

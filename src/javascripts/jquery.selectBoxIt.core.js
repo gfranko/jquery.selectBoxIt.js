@@ -897,7 +897,7 @@
                             // Triggers the `tabFocus` custom event on the original select box
                             self.triggerEvent("tab-focus");
 
-                        });
+                        }, 0);
 
                     }
 

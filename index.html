@@ -39,13 +39,25 @@
         }
     }
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 850px) {
         #toc {
-            position: relative;
-            width: 100%;
-            margin: 0px 0px 20px 0px;
+            display: none;
+        }
+        .row-fluid .span3 {
+          width: 0;
         }
 
+    }
+
+    @media screen and (max-width: 640px) {
+        .addthis_toolbox {
+          display: none;
+        }
+
+    }
+
+    .hero-unit {
+      background: none;
     }
 
     .CodeMirror {
@@ -1446,6 +1458,8 @@
               <br />
               <p>SelectBoxIt is proudly hosted by CloudFare CDN servers via the open source project, <a href="http://cdnjs.com/" target="_blank">cdn.js</a>.</p>
               <br />
+              <strong>Note:</strong> If a new SelectBoxIt version is not on the CDN yet (it usually takes within 1-3 days), you can get the latest JavaScript and CSS from Github <a href="https://github.com/gfranko/jquery.selectBoxIt.js/tree/master/src" target="_blank">here</a>.  The files you will most likely want are <a href="https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/src/javascripts/jquery.selectBoxIt.min.js" target="_blank">jquery.selectBoxIt.min.js</a> and <a href="https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/src/stylesheets/SelectBoxIt/jquery.selectBoxIt.css" target="_blank">jquery.selectBoxIt.css</a>.  You can also create a <a href="http://gregfranko.com/jquery.selectBoxIt.js/customDownload.html" target="_blank">custom SelectBoxIt build</a>.
+              <br /><br />
               <p>
               <h3>Include CSS files</h3>
               <br />
@@ -1859,6 +1873,14 @@
                 <tr>
                   <td>mouseleave</td>
                   <td>A mouseleave event will be triggered when a user’s mouse leaves an element. jQuery uses both mouseenter and mouseleave to simulate a hover event.</td>
+                </tr>
+                <tr>
+                  <td>mousedown</td>
+                  <td>A mousedown event will be triggered when a user clicks on the drop down</td>
+                </tr>
+                <tr>
+                  <td>mouseup</td>
+                  <td>A mouseup event will be triggered when a user clicks on the drop down</td>
                 </tr>
               </table>
 

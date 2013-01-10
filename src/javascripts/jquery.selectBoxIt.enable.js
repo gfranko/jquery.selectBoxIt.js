@@ -37,7 +37,7 @@
             self.selectBox.removeAttr("disabled");
 
             // Make the dropdown list focusable
-            self.div.attr("tabindex", 0)
+            self.dropdown.attr("tabindex", 0)
 
             // Disable styling for disabled state
             .removeClass(self.disabledClasses);
@@ -62,7 +62,7 @@
 
         var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
 
-        // If an index is passed to target an individual drop down option
+        // If an index is passed to target an indropdownidual drop down option
         if(typeof index === "number") {
 
             // The select box option being targeted

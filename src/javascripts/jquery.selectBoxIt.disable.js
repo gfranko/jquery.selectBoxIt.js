@@ -40,7 +40,7 @@
            self.selectBox.attr("disabled", "disabled");
 
            // Makes the dropdown list not focusable by removing the `tabindex` attribute
-           self.div.removeAttr("tabindex")
+           self.dropdown.removeAttr("tabindex")
 
            // Enabled styling for disabled state
            .addClass("selectboxit-disabled");
@@ -66,7 +66,7 @@
 
         var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled;
 
-        // If an index is passed to target an individual drop down option
+        // If an index is passed to target an indropdownidual drop down option
         if(typeof index === "number") {
 
             // Makes sure the dropdown list is closed

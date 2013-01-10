@@ -49,7 +49,7 @@
 
         if(self.options["defaultIcon"]) {
 
-            self.divImage.attr("class", self.options["defaultIcon"] + " selectboxit-arrow");
+            self.dropdownImage.attr("class", self.options["defaultIcon"] + " selectboxit-arrow");
 
         }
 
@@ -62,7 +62,7 @@
         // If the defaultText option is set, make sure the dropdown list default text reflects this value
         if (self.options["defaultText"]) {
 
-            self.divText.text(self.options["defaultText"]);
+            self.dropdownText.text(self.options["defaultText"]);
 
         }
 

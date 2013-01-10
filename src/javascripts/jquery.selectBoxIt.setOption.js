@@ -47,7 +47,7 @@
 
         else if(key === "defaultIcon" && value) {
 
-            self.divImage.attr("class", value + " selectboxit-arrow");
+            self.dropdownImage.attr("class", value + " selectboxit-arrow");
 
         }
 
@@ -61,7 +61,7 @@
         else if (key === "defaultText") {
 
             // Sets the new dropdown list default text
-            self.divText.text(value);
+            self.dropdownText.text(value);
 
         }
 

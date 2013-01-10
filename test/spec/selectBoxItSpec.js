@@ -21,67 +21,67 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             });
 
-            it("should create a new div element to replace the original select box", function() {
+            it("should create a new dropdown element to replace the original select box", function() {
 
-                expect(selectBoxIt.div).toExist();
+                expect(selectBoxIt.dropdown).toExist();
 
-                expect(selectBoxIt.div).toBe("span");
+                expect(selectBoxIt.dropdown).toBe("dropdown");
 
-                expect(selectBoxIt.div).toBeVisible();
-
-            });
-
-            it("should add a css class to the new div container element", function() {
-
-                expect(selectBoxIt.divContainer).toHaveClass("selectboxit-container");
+                expect(selectBoxIt.dropdown).toBeVisible();
 
             });
 
-            it("should add a css class to the new span text element", function() {
+            it("should add a css class to the new dropdown container element", function() {
 
-                expect(selectBoxIt.divText).toHaveClass("selectboxit-text");
-
-            });
-
-            it("should add a css class to the new span icon element", function() {
-
-                expect(selectBoxIt.divImage).toHaveClass("selectboxit-default-icon");
+                expect(selectBoxIt.dropdownContainer).toHaveClass("selectboxit-container");
 
             });
 
-            it("should add a css class to the new span arrow element", function() {
+            it("should add a css class to the new dropdown text element", function() {
+
+                expect(selectBoxIt.dropdownText).toHaveClass("selectboxit-text");
+
+            });
+
+            it("should add a css class to the new dropdown icon element", function() {
+
+                expect(selectBoxIt.dropdownImage).toHaveClass("selectboxit-default-icon");
+
+            });
+
+            it("should add a css class to the new dropdown arrow element", function() {
 
                 expect(selectBoxIt.downArrowContainer).toHaveClass("selectboxit-arrow-container");
 
             });
 
-            it("should add a css class to the new span arrow container element", function() {
+            it("should add a css class to the new dropdown arrow container element", function() {
 
                 expect(selectBoxIt.downArrow).toHaveClass("selectboxit-arrow");
 
             });
 
-            it("should add a css class to the new div element", function() {
+            it("should add a css class to the new dropdown element", function() {
 
-                expect(selectBoxIt.div).toHaveClass("selectboxit");
+                expect(selectBoxIt.dropdown).toHaveClass("selectboxit");
 
             });
 
             it("should add Twitter Bootstrap CSS classes by default", function() {
 
-                expect(selectBoxIt.div).toHaveClass("btn");
+                expect(selectBoxIt.dropdown).toHaveClass("btn");
 
                 expect(selectBoxIt.list).toHaveClass("dropdown-menu");
 
             });
 
-            it("should create a new div element to nest inside of the top level div element", function() {
+            it("should create a new dropdown element to nest inside of the top level dropdown element", function() {
 
-                expect(selectBoxIt.divText).toExist();
+                expect(selectBoxIt.dropdownText).toExist();
 
-                expect(selectBoxIt.divText).toBe("span");
+                expect(selectBoxIt.dropdownText).toBe("dropdown");
 
-                expect(selectBoxIt.div).toContain(selectBoxIt.divText);
+                expect(selectBoxIt.dropdown).toContain(selectBoxIt.dropdownText);
 
             });
 
@@ -89,13 +89,13 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 if(!selectBoxIt.defaultText && !selectBoxIt.selectBox.data("text")) {
 
-                    expect(selectBoxIt.divText).toHaveText(selectBoxIt.selectBox.val());
+                    expect(selectBoxIt.dropdownText).toHaveText(selectBoxIt.selectBox.val());
 
                 }
 
                 else {
 
-                    expect(selectBoxIt.divText).toHaveText(selectBoxIt.options.defaultText);
+                    expect(selectBoxIt.dropdownText).toHaveText(selectBoxIt.options.defaultText);
 
                 }
 
@@ -121,23 +121,23 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             });
 
-            it("should create a down arrow div container that holds the actual down arrow div element", function() {
+            it("should create a down arrow dropdown container that holds the actual down arrow dropdown element", function() {
 
                 expect(selectBoxIt.downArrowContainer).toExist();
 
-                expect(selectBoxIt.downArrowContainer).toBe("span");
+                expect(selectBoxIt.downArrowContainer).toBe("dropdown");
 
                 expect(selectBoxIt.downArrowContainer).toContain(selectBoxIt.downArrow);
 
             });
 
-            it("should create a down arrow div that holds the down arrow image", function() {
+            it("should create a down arrow dropdown that holds the down arrow image", function() {
 
                 if(selectBoxIt.options.jqueryUI) {
 
                     expect(selectBoxIt.downArrow).toExist();
 
-                    expect(selectBoxIt.downArrow).toBe("span");
+                    expect(selectBoxIt.downArrow).toBe("dropdown");
 
                 }
 
@@ -158,9 +158,9 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         describe('Setting the correct CSS and HTML attributes for the new select box', function () {
 
-            it("should set the DIV element 'tabindex' attribute to '0'", function() {
+            it("should set the dropdown element 'tabindex' attribute to '0'", function() {
 
-                expect(selectBoxIt.div).toHaveAttr("tabindex", 0);
+                expect(selectBoxIt.dropdown).toHaveAttr("tabindex", 0);
 
             });
 
@@ -386,7 +386,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         it("should remove the 'tabindex' html attribute from the select box", function() {
 
-            expect(selectBoxIt.div).not.toHaveAttr("tabindex");
+            expect(selectBoxIt.dropdown).not.toHaveAttr("tabindex");
 
         });
 
@@ -418,7 +418,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         it("should set the 'tabindex' html attribute for the select box to 0", function() {
 
-            expect(selectBoxIt.div).toHaveAttr("tabindex", 0);
+            expect(selectBoxIt.dropdown).toHaveAttr("tabindex", 0);
 
         });
 
@@ -434,7 +434,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             spyOn($.fn, "remove").andCallThrough();
 
-            spyOnEvent(selectBoxIt.div, "destroy");
+            spyOnEvent(selectBoxIt.dropdown, "destroy");
 
             spyOnEvent(selectBoxIt.selectBox, "destroy");
 
@@ -456,7 +456,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         it("should trigger a custom 'destroy' event on the select box", function() {
 
-            expect("destroy").toHaveBeenTriggeredOn(selectBoxIt.div);
+            expect("destroy").toHaveBeenTriggeredOn(selectBoxIt.dropdown);
 
         });
 
@@ -496,7 +496,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         it("should set the default icon if the HTML5 data-icon is specified", function() {
 
-            expect(selectBoxIt.divImage).toHaveClass("ui-icon ui-icon-power");
+            expect(selectBoxIt.dropdownImage).toHaveClass("ui-icon ui-icon-power");
 
         });
 
@@ -504,7 +504,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             selectBoxIt.setOption("defaultIcon", "ui-icon ui-icon-info");
 
-            expect(selectBoxIt.divImage).toHaveClass("ui-icon ui-icon-info");
+            expect(selectBoxIt.dropdownImage).toHaveClass("ui-icon ui-icon-info");
 
         });
 
@@ -512,7 +512,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             selectBoxIt.setOptions({ defaultIcon: "ui-icon ui-icon-info" });
 
-            expect(selectBoxIt.divImage).toHaveClass("ui-icon ui-icon-info");
+            expect(selectBoxIt.dropdownImage).toHaveClass("ui-icon ui-icon-info");
 
         });
 
@@ -538,7 +538,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             if(selectBoxIt.selectBox.data("text")) {
 
-                expect(selectBoxIt.divText.text()).toEqual(selectBoxIt.selectBox.data("text"));
+                expect(selectBoxIt.dropdownText.text()).toEqual(selectBoxIt.selectBox.data("text"));
 
             }
 
@@ -548,7 +548,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             selectBoxIt.setOption("defaultText", "Testing");
 
-            expect(selectBoxIt.divText.text()).toEqual("Testing");
+            expect(selectBoxIt.dropdownText.text()).toEqual("Testing");
 
         });
 
@@ -556,7 +556,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             selectBoxIt.setOptions({ defaultText: "Testing" });
 
-            expect(selectBoxIt.divText.text()).toEqual("Testing");
+            expect(selectBoxIt.dropdownText.text()).toEqual("Testing");
 
         });
 
@@ -568,7 +568,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             selectBoxIt.selectOption(3);
 
-            expect(selectBoxIt.divText.attr("data-val")).toEqual(selectBoxIt.selectBox.val());
+            expect(selectBoxIt.dropdownText.attr("data-val")).toEqual(selectBoxIt.selectBox.val());
 
         });
 
@@ -576,7 +576,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             selectBoxIt.selectOption(3);
 
-            expect(selectBoxIt.divText.text()).toEqual(selectBoxIt.selectBox.find("option:selected").text());
+            expect(selectBoxIt.dropdownText.text()).toEqual(selectBoxIt.selectBox.find("option:selected").text());
 
         });
 
@@ -584,7 +584,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             selectBoxIt.selectOption("March");
 
-            expect(selectBoxIt.divText.attr("data-val")).toEqual(selectBoxIt.selectBox.val());
+            expect(selectBoxIt.dropdownText.attr("data-val")).toEqual(selectBoxIt.selectBox.val());
 
         });
 
@@ -592,7 +592,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             selectBoxIt.selectOption("March");
 
-            expect(selectBoxIt.divText.text()).toEqual(selectBoxIt.selectBox.find("option:selected").text());
+            expect(selectBoxIt.dropdownText.text()).toEqual(selectBoxIt.selectBox.find("option:selected").text());
 
         });
 

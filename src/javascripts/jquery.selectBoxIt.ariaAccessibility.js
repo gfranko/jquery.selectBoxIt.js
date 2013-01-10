@@ -30,7 +30,7 @@
         var self = this;
 
         //Adds `ARIA attributes` to the dropdown list
-        self.div.attr({
+        self.dropdown.attr({
 
             //W3C `combobox` description: A presentation of a select; usually similar to a textbox where users can type ahead to select an option.
             "role": "combobox",
@@ -62,7 +62,7 @@
             "disable.selectBoxIt" : function() {
 
                 //W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
-                self.div.attr("aria-disabled", "true");
+                self.dropdown.attr("aria-disabled", "true");
 
             },
 
@@ -70,7 +70,7 @@
             "enable.selectBoxIt" : function() {
 
                 //W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
-                self.div.attr("aria-disabled", "false");
+                self.dropdown.attr("aria-disabled", "false");
 
             }
 
@@ -100,7 +100,7 @@
             "change.selectBoxIt": function() {
 
                 //Provides the user with a recognizable name of the object.
-                self.divText.attr("aria-label", self.originalElem.value);
+                self.dropdownText.attr("aria-label", self.originalElem.value);
 
             },
 
@@ -111,7 +111,7 @@
                 self.list.attr("aria-hidden", "false");
 
                 //Indicates that the dropdown list is currently expanded
-                self.div.attr("aria-expanded", "true");
+                self.dropdown.attr("aria-expanded", "true");
 
             },
 
@@ -122,7 +122,7 @@
                 self.list.attr("aria-hidden", "true");
 
                 //Indicates that the dropdown list is currently collapsed
-                self.div.attr("aria-expanded", "false");
+                self.dropdown.attr("aria-expanded", "false");
 
             }
 

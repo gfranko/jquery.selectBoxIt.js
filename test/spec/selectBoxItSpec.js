@@ -25,7 +25,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 expect(selectBoxIt.dropdown).toExist();
 
-                expect(selectBoxIt.dropdown).toBe("dropdown");
+                expect(selectBoxIt.dropdown).toBe("span");
 
                 expect(selectBoxIt.dropdown).toBeVisible();
 
@@ -79,7 +79,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 expect(selectBoxIt.dropdownText).toExist();
 
-                expect(selectBoxIt.dropdownText).toBe("dropdown");
+                expect(selectBoxIt.dropdownText).toBe("span");
 
                 expect(selectBoxIt.dropdown).toContain(selectBoxIt.dropdownText);
 
@@ -125,7 +125,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 expect(selectBoxIt.downArrowContainer).toExist();
 
-                expect(selectBoxIt.downArrowContainer).toBe("dropdown");
+                expect(selectBoxIt.downArrowContainer).toBe("span");
 
                 expect(selectBoxIt.downArrowContainer).toContain(selectBoxIt.downArrow);
 
@@ -137,7 +137,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                     expect(selectBoxIt.downArrow).toExist();
 
-                    expect(selectBoxIt.downArrow).toBe("dropdown");
+                    expect(selectBoxIt.downArrow).toBe("i");
 
                 }
 

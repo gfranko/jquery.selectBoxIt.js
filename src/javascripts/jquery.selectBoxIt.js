@@ -229,7 +229,7 @@
             var self = this;
 
             // Creates a dropdown element that contains the dropdown list text value
-            self.dropdownText = $("<dropdown/>", {
+            self.dropdownText = $("<span/>", {
 
                 // Dynamically sets the dropdown `id` attribute
                 "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItText",
@@ -261,7 +261,7 @@
             });
 
             // Creates a dropdown to act as the new dropdown list
-            self.dropdown = $("<dropdown/>", {
+            self.dropdown = $("<span/>", {
 
                 // Dynamically sets the dropdown `id` attribute
                 "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxIt",
@@ -285,7 +285,7 @@
             append(self.dropdownImage).append(self.dropdownText);
 
             // Create the dropdown container that will hold all of the dropdown list dom elements
-            self.dropdownContainer = $("<dropdown/>", {
+            self.dropdownContainer = $("<span/>", {
 
                 "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItContainer",
 
@@ -486,7 +486,7 @@
             });
 
             // The down arrow container element of the dropdown list
-            self.downArrowContainer = $("<dropdown/>", {
+            self.downArrowContainer = $("<span/>", {
 
                 // Dynamically sets the dropdown `id` attribute for the down arrow container element
                 "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItArrowContainer",

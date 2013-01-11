@@ -70,6 +70,9 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`2.7.0` - January 11, 2013
+
+- Refactored internal drop down DOM element property names.
 
 `2.6.0` - January 8, 2013
 

@@ -108,6 +108,10 @@
       display: inline;
     }
 
+    #custom-down-arrowSelectBoxIt.selectboxit .selectboxit-arrow-container .selectboxit-arrow {
+      top: 30%;
+    }
+
     </style>
 
   </head>
@@ -1127,7 +1131,7 @@
     "open": function() {
 
       // Adds the Twitter Bootstrap 'dropup' class to the drop down
-      $(".selectboxit").addClass("dropup");
+      $(this).data("selectBoxIt").dropdown.addClass("dropup");
 
     },
 
@@ -1135,57 +1139,7 @@
     "close": function() {
 
       // Removes the Twitter Bootstrap 'dropup' class from the drop down
-      $(".selectboxit").removeClass("dropup");
-
-    }
-
-  });
-              </pre>
-              <br />
-              <br />
-              <h4>jQueryUI Up/Down Arrow Support</h4>
-              <br />
-              <div class="select">
-                Turns this
-                <br />
-                <select name="test">
-                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
-                   <option value="a jQuery Plugin">a jQuery Plugin</option>
-                   <option value="a Select Box Replacement">a Select Box Replacement</option>
-                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
-                </select>
-              </div>
-              <div class="select2">
-               Into this
-                <br />
-                <select id="jqueryui-up-down-arrow" class="jqueryui-up-down-arrow">
-                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
-                   <option value="a jQuery Plugin">a jQuery Plugin</option>
-                   <option value="a Select Box Replacement">a Select Box Replacement</option>
-                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
-                </select>
-              </div>
-              <br /><br /><br />
-              <h5>Example Code</h5>
-              <pre class="prettyprint">
-  // Calls the selectBoxIt method on your HTML select box and stores all selectBoxIt methods in a variable
-  var selectBox = $("select").selectBoxIt().data("selectBoxIt");
-
-  // Binds to the 'open' event on the original select box
-  $("select").bind({
-
-    "open": function() {
-
-      // Sets new CSS classes for the up arrow icon by using the 'setOption' method
-      selectBox.setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-n");
-
-    },
-
-    // Binds to the 'close' event on the original select box
-    "close": function() {
-
-      // Sets new CSS classes for the down arrow icon by using the 'setOption' method
-      selectBox.setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-s");
+      $(this).data("selectBoxIt").dropdown.removeClass("dropup");
 
     }
 
@@ -1217,7 +1171,7 @@
                 </select>
               </div>
               <br /><br /><br />
-              <h5>Example Code</h5>
+              <h5>Example JavaScript Code</h5>
               <pre class="prettyprint">
   // Calls the selectBoxIt method on your HTML select box
   $("select").selectBoxIt({ 
@@ -1226,6 +1180,13 @@
     downArrowIcon: "icon-hand-down"
 
   });
+              </pre>
+              <br />
+              <h5>Example CSS Code</h5>
+              <pre class="prettyprint">
+.selectboxit .selectboxit-arrow-container .selectboxit-arrow {
+  top: 30%;
+}
               </pre>
               <br />
               <br />
@@ -2437,7 +2398,7 @@
                 "open": function() {
 
                   // Adds the Twitter Bootstrap 'dropup' class to the drop down
-                  $(".bootstrap-up-down-arrow.selectboxit").addClass("dropup");
+                  $(this).data("selectBoxIt").dropdown.addClass("dropup");
 
                 },
 
@@ -2445,7 +2406,7 @@
                 "close": function() {
 
                   // Removes the Twitter Bootstrap 'dropup' class from the drop down
-                  $(".bootstrap-up-down-arrow.selectboxit").removeClass("dropup");
+                  $(this).data("selectBoxIt").dropdown.removeClass("dropup");
 
                 }
 

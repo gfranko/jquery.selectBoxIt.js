@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 2.4.0
+ * jquery.selectBoxIt.css 2.8.0
  * Author: @gregfranko
  */
 
@@ -160,4 +160,14 @@
 
 .selectboxit-default-icon.selectboxit-option-icon-url {
   margin-left: 5px;
+}
+
+/* jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */
+.jqueryui .ui-icon {
+  background-color: inherit;
+}
+
+/* Another jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */
+.jqueryui .ui-icon-triangle-1-s {
+  background-position: -64px -16px;
 }

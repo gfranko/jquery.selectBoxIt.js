@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.7.0 - 2013-1-10
+/* jquery Selectboxit - v2.8.0 - 2013-1-12
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "2.7.0",
+        VERSION: "2.8.0",
 
         // These options will be used as defaults
         options: {
@@ -96,6 +96,14 @@
 
             var self = this;
 
+            // If the original select box is hidden
+            if(!self.element.is(":visible")) {
+
+                // Exits the plugin
+                return;
+
+            }
+
             // The original select box DOM element
             self.originalElem = self.element[0];
 
@@ -153,10 +161,10 @@
 
             // Creates the dropdown elements that will become the dropdown
             // Creates the ul element that will become the dropdown options list
-            // Hides the original select box and adds the new plugin DOM elements to the page
+            // Add's all attributes (excluding id, class names, and unselectable properties) to the drop down and drop down items list
             // Hides the original select box and adds the new plugin DOM elements to the page
             // Adds event handlers to the new dropdown list
-            self._createdropdown()._createUnorderedList()._replaceSelectBox()._eventHandlers();
+            self._createdropdown()._createUnorderedList()._addSelectBoxAttributes()._replaceSelectBox()._eventHandlers();
 
             if(self.originalElem.disabled && self.disable) {
 
@@ -268,8 +276,6 @@
 
                 "class": "selectboxit" + " " + (self.selectBox.attr("class") || ""),
 
-                "style": self.selectBox.attr("style"),
-
                 // Sets the dropdown `name` attribute to be the same name as the original select box
                 "name": self.originalElem.name,
 
@@ -374,14 +380,14 @@
 
                     if($(this).index() === 0) {
 
-                         optgroupElement = '<dropdown class="selectboxit-optgroup-header" data-disabled="true">' + $(this).parent().first().attr("label") + '</dropdown>';
+                         optgroupElement = '<span class="selectboxit-optgroup-header" data-disabled="true">' + $(this).parent().first().attr("label") + '</span>';
 
                     }
 
                 }
 
                 // Uses string concatenation for speed (applies HTML attribute encoding)
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option" + ($(this).attr("class") || "") + '" style="' + ($(this).attr("style") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + ' ' + iconUrlClass + '"' + iconUrlStyle + '></i>' + self.htmlEscape($(this).text()) + '</a></li>';
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + ' ' + iconUrlClass + '"' + iconUrlStyle + '></i>' + self.htmlEscape($(this).text()) + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -1376,7 +1382,13 @@
                 // `mousenter` event with the `selectBoxIt` namespace
                 "mouseenter.selectBoxIt": function() {
 
-                    self.dropdown.addClass(focusClass);
+                    // If the theme options is not Twitter Bootstrap
+                    if(self.options["theme"] !== "bootstrap") {
+
+                        // Adds the focus class to the drop down
+                        self.dropdown.addClass(focusClass);
+
+                    }
 
                 },
 
@@ -1450,7 +1462,7 @@
 
                 listClasses: "ui-widget ui-widget-content",
 
-                containerClasses: ""
+                containerClasses: "jqueryui"
 
             });
 
@@ -1476,7 +1488,7 @@
 
                 listClasses: "dropdown-menu",
 
-                containerClasses: ""
+                containerClasses: "bootstrap"
 
             });
 
@@ -1495,7 +1507,7 @@
 
             self._addClasses({
 
-                focusClasses: "ui-btn-active-" + theme + " ui-btn-down-" + theme,
+                focusClasses: "ui-btn-down-" + theme,
 
                 arrowClasses: "ui-icon ui-icon-arrow-d ui-icon-shadow",
 
@@ -1503,7 +1515,7 @@
 
                 listClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
 
-                containerClasses: ""
+                containerClasses: "jquerymobile"
 
             });
 
@@ -1682,6 +1694,68 @@
                 // Triggers the custom option-click event on the original select box and passes the select box option
                 self.selectBox.trigger(eventName, { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
 
+
+            // Maintains chainability
+            return self;
+
+        },
+
+        // addSelectBoxAttributes
+        // ----------------------
+        //      Add's all attributes (excluding id, class names, and the style attribute) from the default select box to the new drop down
+        _addSelectBoxAttributes: function(eventName) {
+
+            var self = this,
+                // Get's all of the properties associated with the select box and turns it into an array
+                selectBoxProperties = Array.prototype.slice.call(self.selectBox.prop("attributes")),
+                optionProperties;
+
+                // Add's all attributes to the currently traversed drop down option
+                self._addAttributes(selectBoxProperties, self.dropdown);
+
+            // Add's all attributes to the drop down items list
+            self.selectItems.each(function(iterator) {
+
+                // Get's all of the properties associated with currently traversed select box option and turns it into an array
+                optionProperties = Array.prototype.slice.call($(this).prop("attributes"));
+
+                // Add's all attributes to the currently traversed drop down option
+                self._addAttributes(optionProperties, self.listItems.eq(iterator));
+
+            });
+
+            // Maintains chainability
+            return self;
+
+        },
+
+        // addAttributes
+        // -------------
+        //  Add's attributes to a DOM element
+        _addAttributes: function(arr, elem) {
+
+            var self = this;
+
+            // If there are array properties
+            if(arr.length) {
+
+                // Iterates over all of array properties
+                $.each(arr, function(iterator, property) {
+
+                    // Get's the property name and property value of each property
+                    var propName = (property.name).toLowerCase(), propValue = property.value;
+
+                    // If the currently traversed property is not an id, class name, or style attribute
+                    if(propName !== "id" && propName !== "class" && propName !== "unselectable") {
+
+                        // Set's the currently traversed property on element
+                        elem.attr(propName, propValue);
+
+                    }
+
+                });
+
+            }
 
             // Maintains chainability
             return self;

@@ -13,6 +13,7 @@
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
     <link href="css/jquery.selectboxit.css" rel="stylesheet">
     <link href="css/jquery.tocify.css" rel="stylesheet">
     <link href="css/prettify.css" type="text/css" rel="stylesheet" />
@@ -232,7 +233,117 @@
               <br />
               <span class="editor-instructions"><strong>Note: </strong> You can try all SelectBoxIt options, events, and methods inside of the HTML editor at the top of the page.  Just click the <button class="btn btn-primary btn-mini editor-button" type="button">Show Editor</button> button.</span>
               <br /><br />
+              <h3>Theming Support</h3>
+              <br />
+              <h4>Bootstrap Theming Support</h4>
+              <br />
+              <strong>Note:</strong> Bootstrap is the default theme for SelectBoxIt.
+              <br /><br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select class="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Uses the Bootstrap theme for the drop down
+    theme: "bootstrap"
+
+  });
+              </pre>
+              <br />
+              <br />
+              <h4>jQueryUI Theming Support</h4>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="jqueryui-theme" name="test-jquery">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Uses the jQueryUI theme for the drop down
+    theme: "jqueryui"
+
+  });
+              </pre>
+              <br />
+              <h4>jQuery Mobile Theming Support</h4>
+              <br />
+              <strong>Note:</strong> SelectBoxIt supports the jQuery Mobile <strong>data-theme</strong> HTML5 data attribute.
+              <br /><br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="jquerymobile-theme" name="test-jquery">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Uses the jQueryUI theme for the drop down
+    theme: "jquerymobile"
+
+  });
+              </pre>
+              <br /><br />
               <h3>Show/Hide Animations </h3>
+              <br />
               <h4>jQuery Show/Hide Support</h4>
               <br />
               <div class="select">
@@ -312,40 +423,6 @@
 
     // Uses the jQueryUI 'explode' effect when closing the drop down
     hideEffect: "explode"
-
-  });
-              </pre>
-              <br />
-              <h3>jQueryUI Theming Support</h3>
-              <br />
-              <div class="select">
-                Turns this
-                <br />
-                <select name="test">
-                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
-                   <option value="a jQuery Plugin">a jQuery Plugin</option>
-                   <option value="a Select Box Replacement">a Select Box Replacement</option>
-                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
-                </select>
-              </div>
-              <div class="select2">
-               Into this
-                <br />
-                <select id="jqueryui-theme" name="test-jquery">
-                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
-                   <option value="a jQuery Plugin">a jQuery Plugin</option>
-                   <option value="a Select Box Replacement">a Select Box Replacement</option>
-                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
-                </select>
-              </div>
-              <br /><br /><br />
-              <h5>Example Code</h5>
-              <pre class="prettyprint">
-  // Calls the selectBoxIt method on your HTML select box
-  $("select").selectBoxIt({
-
-    // Uses the jQueryUI theme for the drop down
-    theme: "jqueryui"
 
   });
               </pre>
@@ -1015,6 +1092,7 @@
               <br />
               <br />
               <h3>Down Arrow Customization</h3>
+              <br />
               <h4>Bootstrap Up/Down Arrow Support</h4>
               <br />
               <div class="select">
@@ -1099,7 +1177,7 @@
     "open": function() {
 
       // Sets new CSS classes for the up arrow icon by using the 'setOption' method
-      selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
+      selectBox.setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-n");
 
     },
 
@@ -1107,7 +1185,7 @@
     "close": function() {
 
       // Sets new CSS classes for the down arrow icon by using the 'setOption' method
-      selectBox.setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
+      selectBox.setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-s");
 
     }
 
@@ -1231,73 +1309,6 @@
               <br />
               <br />
               <h3>Icons and Images</h3>
-              <h4>Bootstrap Icon Support</h4>
-              <br />
-              <div class="select">
-                Turns this
-                <br />
-                <select name="test">
-                  <option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search">SelectBoxIt is:</option>
-                  <option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check">a jQuery Plugin</option>
-                  <option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check">a Select Box Replacement</option>
-                  <option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check">a Stateful UI Widget</option>
-                </select>
-              </div>
-              <div class="select2">
-               Into this
-                <br />
-                <select class="test" name="test">
-                  <option value="SelectBoxIt is:" data-icon="icon-search">SelectBoxIt is:</option>
-                  <option value="a jQuery Plugin" data-icon="icon-ok">a jQuery Plugin</option>
-                  <option value="a Select Box Replacement" data-icon="icon-ok">a Select Box Replacement</option>
-                  <option value="a Stateful UI Widget" data-icon="icon-ok">a Stateful UI Widget</option>
-                </select>
-              </div>
-              <br /><br /><br />
-              <h5>Example HTML Code</h5>
-              <pre class="prettyprint">
-  &lt;select id="test" name="test"&gt;
-    &lt;option value="SelectBoxIt is:" data-icon="icon-search"&gt;SelectBoxIt is:&lt;/option&gt;
-    &lt;option value="a jQuery Plugin" data-icon="icon-ok"&gt;a jQuery Plugin&lt;/option&gt;
-    &lt;option value="a Select Box Replacement" data-icon="icon-ok"&gt;a Select Box Replacement&lt;/option&gt;
-    &lt;option value="a Stateful UI Widget" data-icon="icon-ok"&gt;a Stateful UI Widget&lt;/option&gt;
-  &lt;/select&gt;
-              </pre>
-              <br />
-              <br />
-              <h4>jQueryUI Icon Support</h4>
-              <br />
-              <div class="select">
-                Turns this
-                <br />
-                <select name="test">
-                  <option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search">SelectBoxIt is:</option>
-                  <option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check">a jQuery Plugin</option>
-                  <option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check">a Select Box Replacement</option>
-                  <option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check">a Stateful UI Widget</option>
-                </select>
-              </div>
-              <div class="select2">
-               Into this
-                <br />
-                <select class="test" name="test">
-                  <option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search">SelectBoxIt is:</option>
-                  <option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check">a jQuery Plugin</option>
-                  <option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check">a Select Box Replacement</option>
-                  <option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check">a Stateful UI Widget</option>
-                </select>
-              </div>
-              <br /><br /><br />
-              <h5>Example HTML Code</h5>
-              <pre class="prettyprint">
-  &lt;select id="test" name="test"&gt;
-    &lt;option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search"&gt;SelectBoxIt is:&lt;/option&gt;
-    &lt;option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check"&gt;a jQuery Plugin&lt;/option&gt;
-    &lt;option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check"&gt;a Select Box Replacement&lt;/option&gt;
-    &lt;option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check"&gt;a Stateful UI Widget&lt;/option&gt;
-  &lt;/select&gt;
-              </pre>
-              <br />
               <br />
               <h4>Custom Icon Support</h4>
               <br />
@@ -1341,7 +1352,89 @@
     &lt;/option&gt;
   &lt;/select&gt;
               </pre>
+              <br /><br />
+              <h4>Bootstrap Icon Support</h4>
               <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                  <option value="SelectBoxIt is:" data-icon="ui-icon ui-icon-search">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin" data-icon="ui-icon ui-icon-check">a jQuery Plugin</option>
+                  <option value="a Select Box Replacement" data-icon="ui-icon ui-icon-check">a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget" data-icon="ui-icon ui-icon-check">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select class="test" name="test">
+                  <option value="SelectBoxIt is:" data-icon="icon-search">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin" data-icon="icon-ok">a jQuery Plugin</option>
+                  <option value="a Select Box Replacement" data-icon="icon-ok">a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget" data-icon="icon-ok">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:" data-icon="icon-search"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin" data-icon="icon-ok"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement" data-icon="icon-ok"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget" data-icon="icon-ok"&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
+              </pre>
+              <br /><br />
+              <h3>Bootstrap Option Popovers</h3>
+              <br />
+              <strong>Note:</strong> This example requires the Twitter Bootstrap Tooltip and Popover plugins.
+              <br /><br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                  <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin">a jQuery Plugin</option>
+                  <option value="a Select Box Replacement">a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select class="test" name="test">
+                  <option value="SelectBoxIt is:" rel="popover" title="SelectBoxIt" data-content="A jQuery Select Box Plugin for Mobile, Tablet, and Desktop">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin" rel="popover" title="SelectBoxIt" data-content="a jQuery plugin">a jQuery Plugin</option>
+                  <option value="a Select Box Replacement" rel="popover" title="SelectBoxIt" data-content="a SelectBox Replacement">a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget" rel="popover" title="SelectBoxIt" data-content="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:" rel="popover" title="SelectBoxIt" data-content="A jQuery Select Box Plugin for Mobile, Tablet, and Desktop"&gt;
+    SelectBoxIt is:
+    &lt;/option&gt;
+    &lt;option value="a jQuery Plugin" rel="popover" title="SelectBoxIt" data-content="a jQuery plugin"&gt;
+    a jQuery Plugin
+    &lt;/option&gt;
+    &lt;option value="a Select Box Replacement" rel="popover" title="SelectBoxIt" data-content="a SelectBox Replacement"&gt;
+    a Select Box Replacement
+    &lt;/option&gt;
+    &lt;option value="a Stateful UI Widget" rel="popover" title="SelectBoxIt" data-content="a Stateful UI Widget"&gt;
+    a Stateful UI Widget
+    &lt;/option&gt;
+  &lt;/select&gt;
+              </pre>
+              <br />
+              <h5>Example JavaScript Code</h5>
+              <pre class="prettyprint">
+  // Calls the Twitter Bootstrap popover method
+  $("[rel='popover']").popover({ trigger: "hover" });
+              </pre>
+<br /><br />
               <h3>Selected and Disabled Support</h3>
               <br />
               <div class="select">
@@ -2325,7 +2418,8 @@
 
             $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60 });
             $("select.test, select.long-list, select.arrow-box, select#bootstrap-up-down-arrow, .selected-support").selectBoxIt();
-            $("select#jqueryui-theme").selectBoxIt({ theme: "jqueryui" });
+            $("select#jqueryui-theme, select.jqueryui-theme").selectBoxIt({ theme: "jqueryui" });
+            $("select#jquerymobile-theme").selectBoxIt({ theme: "jquerymobile" });
             $("select#aggressive-change-mode").selectBoxIt({ aggressiveChange: true });
             $("#hide-first-option").selectBoxIt({ showFirstOption: false });
             $("#set-default-text").selectBoxIt({ defaultText: "Sample text here" });
@@ -2334,6 +2428,8 @@
             $("select.jqueryui-up-down-arrow").selectBoxIt({ theme: "jqueryui"});
 
             $("select.native-select").selectBoxIt({ "native": true });
+
+            $("[rel='popover']").popover({ trigger: "hover" });
 
               $("select.bootstrap-up-down-arrow").bind({
 
@@ -2361,7 +2457,7 @@
                 "open": function() {
 
                   // Sets new CSS classes for the up arrow icon by using the 'setOption' method
-                  $(this).data("selectBoxIt").setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-n");
+                  $(this).data("selectBoxIt").setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-n");
 
                 },
 
@@ -2369,7 +2465,7 @@
                 "close": function() {
 
                   // Sets new CSS classes for the down arrow icon by using the 'setOption' method
-                  $(this).data("selectBoxIt").setOption("downArrowIcon", "ui-icon ui-icon-triangle-1-s");
+                  $(this).data("selectBoxIt").setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-s");
 
                 }
 

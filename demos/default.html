@@ -15,38 +15,12 @@
 <body>
 <form>
 <select id="test" rel="test" data-test="test">
-  <option value="" disabled>Select a Month</option>
+  <option value="">Select a Month</option>
   <option value="January">January</option>
   <option value="February">February</option>
-  <option value="March" disabled>March</option>
+  <option value="March">March</option>
   <option value="April">April</option>
-  <option value="May" disabled>May</option>
-  <option value="June">June</option>
-  <option value="July">July</option>
-  <option value="August">August</option>
-  <option value="September">September</option>
-  <option value="October">October</option>
-  <option value="November">November</option>
-  <option value="December">December</option>
-  <option value="" disabled>Select a Month</option>
-  <option value="January">January</option>
-  <option value="February">February</option>
-  <option value="March" disabled>March</option>
-  <option value="April">April</option>
-  <option value="May" disabled>May</option>
-  <option value="June">June</option>
-  <option value="July">July</option>
-  <option value="August">August</option>
-  <option value="September">September</option>
-  <option value="October">October</option>
-  <option value="November">November</option>
-  <option value="December">December</option>
-  <option value="" disabled>Select a Month</option>
-  <option value="January">January</option>
-  <option value="February">February</option>
-  <option value="March" disabled>March</option>
-  <option value="April">April</option>
-  <option value="May" disabled>May</option>
+  <option value="May">May</option>
   <option value="June">June</option>
   <option value="July">July</option>
   <option value="August">August</option>
@@ -58,7 +32,7 @@
 
 <select id="test1">
   <option value="Select a Month">Select a Month</option>
-  <option value="January" disabled>January</option>
+  <option value="January">January</option>
   <option value="February">February</option>
   <option value="March">March</option>
   <option value="April">April</option>
@@ -74,7 +48,7 @@
 
 <select id="test2">
   <option value="Select a Month">Select a Month</option>
-  <option value="January" disabled>January</option>
+  <option value="January">January</option>
   <option value="February">February</option>
   <option value="March">March</option>
   <option value="April">April</option>
@@ -95,11 +69,11 @@
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 $(function() {
-  window.selectBox = $("#test").selectBoxIt().data("selectBoxIt");
+  $("#test").selectBoxIt().data("selectBoxIt");
 
-  $('#test1').selectBoxIt({theme: "jqueryui"}).data("selectBoxIt");
+  $('#test1').selectBoxIt({theme: "jqueryui"});
 
-  $('#test2').selectBoxIt({theme: "jquerymobile"}).data("selectBoxIt");
+  $('#test2').selectBoxIt({theme: "jquerymobile"});
 
 });
 </script>

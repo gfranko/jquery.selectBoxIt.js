@@ -4,6 +4,7 @@
   <link type="text/css" rel="stylesheet" href="../src/stylesheets/SelectBoxIt/jquery.selectBoxIt.css" />
   <link type="text/css" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
   <link type="text/css" rel="stylesheet" href="css/jquery-ui-1.9.1.custom.css" />
+  <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
   <!--<link type="text/css" rel="stylesheet" href="css/jqm.css" /> -->
   <style>
   .selectboxit-container {
@@ -71,6 +72,22 @@
   <option value="December">December</option>
 </select>
 
+<select id="test2">
+  <option value="Select a Month">Select a Month</option>
+  <option value="January" disabled>January</option>
+  <option value="February">February</option>
+  <option value="March">March</option>
+  <option value="April">April</option>
+  <option value="May">May</option>
+  <option value="June">June</option>
+  <option value="July">July</option>
+  <option value="August">August</option>
+  <option value="September">September</option>
+  <option value="October">October</option>
+  <option value="November">November</option>
+  <option value="December">December</option>
+</select>
+
 </form>
 
 <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
@@ -78,9 +95,11 @@
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 $(function() {
-    window.selectBox = $("#test").selectBoxIt().data("selectBoxIt");
+  window.selectBox = $("#test").selectBoxIt().data("selectBoxIt");
 
-    $('#test1').selectBoxIt({theme: "jqueryui"}).data("selectBoxIt");
+  $('#test1').selectBoxIt({theme: "jqueryui"}).data("selectBoxIt");
+
+  $('#test2').selectBoxIt({theme: "jquerymobile"}).data("selectBoxIt");
 
 });
 </script>

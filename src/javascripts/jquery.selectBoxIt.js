@@ -1462,7 +1462,7 @@
 
                 listClasses: "ui-widget ui-widget-content",
 
-                containerClasses: ""
+                containerClasses: "jqueryui"
 
             });
 
@@ -1488,7 +1488,7 @@
 
                 listClasses: "dropdown-menu",
 
-                containerClasses: ""
+                containerClasses: "bootstrap"
 
             });
 
@@ -1507,7 +1507,7 @@
 
             self._addClasses({
 
-                focusClasses: "ui-btn-active-" + theme + " ui-btn-down-" + theme,
+                focusClasses: "ui-btn-down-" + theme,
 
                 arrowClasses: "ui-icon ui-icon-arrow-d ui-icon-shadow",
 
@@ -1515,7 +1515,7 @@
 
                 listClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
 
-                containerClasses: ""
+                containerClasses: "jquerymobile"
 
             });
 

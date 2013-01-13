@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.7.0 - 2013-1-10
+/* jquery Selectboxit - v2.8.0 - 2013-1-12
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "2.7.0",
+        VERSION: "2.8.0",
 
         // These options will be used as defaults
         options: {
@@ -95,6 +95,14 @@
         _create: function() {
 
             var self = this;
+
+            // If the original select box is hidden
+            if(!self.element.is(":visible")) {
+
+                // Exits the plugin
+                return;
+
+            }
 
             // The original select box DOM element
             self.originalElem = self.element[0];
@@ -1374,7 +1382,13 @@
                 // `mousenter` event with the `selectBoxIt` namespace
                 "mouseenter.selectBoxIt": function() {
 
-                    self.dropdown.addClass(focusClass);
+                    // If the theme options is not Twitter Bootstrap
+                    if(self.options["theme"] !== "bootstrap") {
+
+                        // Adds the focus class to the drop down
+                        self.dropdown.addClass(focusClass);
+
+                    }
 
                 },
 

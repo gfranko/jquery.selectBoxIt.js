@@ -28,6 +28,10 @@
   margin: 0;
 }
 
+.selectboxit-container .selectboxit:focus {
+  outline: 0;
+}
+
 .selectboxit-container .selectboxit.selectboxit-disabled {
   cursor: default;
 }

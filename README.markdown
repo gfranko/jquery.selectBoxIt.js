@@ -73,7 +73,6 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 `2.8.0` - January 12, 2013
 
 - All attributes on the original select box and select box options are now being copied over to the new drop down.
-- Fixed hidden select box bug [#94](https://github.com/gfranko/jquery.selectBoxIt.js/issues/94)
 
 `2.7.0` - January 11, 2013
 

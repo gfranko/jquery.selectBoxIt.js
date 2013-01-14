@@ -96,14 +96,6 @@
 
             var self = this;
 
-            // If the original select box is hidden
-            if(!self.element.is(":visible")) {
-
-                // Exits the plugin
-                return;
-
-            }
-
             // The original select box DOM element
             self.originalElem = self.element[0];
 

@@ -51,12 +51,6 @@
   white-space: nowrap;
 }
 
- .selectboxit-selected {
-
-    background: #ADD8E6;
-
-  }
-
 /* Dropdown List Options List*/
 .selectboxit-container .selectboxit-options {
   min-width: 220px; /* Minimum Width of the dropdown list box options */

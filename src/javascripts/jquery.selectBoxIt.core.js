@@ -1402,16 +1402,35 @@
 
                 "mouseenter.selectBoxIt": function() {
 
-                    // Sets the dropdown list individual options back to the default state and sets the hover CSS class on the currently hovered option
-                    self.listItems.removeClass(focusClass);
+                    // If the currently moused over drop down option is not disabled
+                    if($(this).attr("data-disabled") === "false") {
 
-                    $(this).addClass(hoverClass);
+                        self.listItems.removeAttr("data-active");
+
+                        $(this).addClass(focusClass).attr("data-active", "");
+
+                        // Sets the dropdown list indropdownidual options back to the default state and sets the focus CSS class on the currently hovered option
+                        self.listItems.not($(this)).removeClass(focusClass);
+
+                        $(this).addClass(focusClass);
+
+                        self.currentFocus = +$(this).attr("id");
+
+                    }
 
                 },
 
                 "mouseleave.selectBoxIt": function() {
 
-                    $(this).removeClass(hoverClass);
+                    // If the currently moused over drop down option is not disabled
+                    if($(this).attr("data-disabled") === "false") {
+
+                        // Removes the focus class from the previous drop down option
+                        self.listItems.not($(this)).removeClass(focusClass).removeAttr("data-active");
+
+                        $(this).addClass(focusClass);
+
+                    }
 
                 }
 

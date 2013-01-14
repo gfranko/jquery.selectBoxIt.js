@@ -1705,7 +1705,19 @@
 
             var self = this,
                 // Get's all of the properties associated with the select box and turns it into an array
-                selectBoxProperties = Array.prototype.slice.call(self.selectBox.prop("attributes")),
+                selectBoxProperties = (function() {
+
+                    var arr = [], x, attrs = self.selectBox.prop("attributes");
+
+                    for(x = 0; x <= attrs.length; x += 1) {
+
+                        arr.push(attrs[x]);
+
+                    }
+
+                    return attrs;
+
+                }()),
                 optionProperties;
 
                 // Add's all attributes to the currently traversed drop down option
@@ -1714,8 +1726,20 @@
             // Add's all attributes to the drop down items list
             self.selectItems.each(function(iterator) {
 
+                var arr = [], x, attrs = $(this).prop("attributes");
+
                 // Get's all of the properties associated with currently traversed select box option and turns it into an array
-                optionProperties = Array.prototype.slice.call($(this).prop("attributes"));
+                optionProperties = (function() {
+
+                    for(x = 0; x <= attrs.length; x += 1) {
+
+                        arr.push(attrs[x]);
+
+                    }
+
+                    return attrs;
+
+                }());
 
                 // Add's all attributes to the currently traversed drop down option
                 self._addAttributes(optionProperties, self.listItems.eq(iterator));

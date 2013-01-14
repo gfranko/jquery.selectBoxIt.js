@@ -96,6 +96,14 @@
 
             var self = this;
 
+            // If the element calling SelectBoxIt is not a select box
+            if(self.element[0].nodeName.toLowerCase() !== "select") {
+
+                // Exits the plugin
+                return;
+
+            }
+
             // The original select box DOM element
             self.originalElem = self.element[0];
 

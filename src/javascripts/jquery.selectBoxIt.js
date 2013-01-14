@@ -1618,13 +1618,13 @@
 
                 "position": "absolute",
 
-                "top": self.dropdown.offset().top,
+                "top": self.dropdown.position().top,
 
-                "bottom": self.dropdown.offset().bottom,
+                "bottom": self.dropdown.position().bottom,
 
-                "left": self.dropdown.offset().left,
+                "left": self.dropdown.position().left,
 
-                "right": self.dropdown.offset().right,
+                "right": self.dropdown.position().right,
 
                 "cursor": "pointer",
 
@@ -1656,8 +1656,6 @@
             var self = this;
 
             if(this.options["isMobile"]()) {
-
-                window.console.log('is mobile');
 
                 self._applyNativeSelect();
 

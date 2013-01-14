@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.8.0 - 2013-1-12
+/* jquery Selectboxit - v2.9.0 - 2013-1-14
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -96,8 +96,8 @@
 
             var self = this;
 
-            // If the original select box is hidden
-            if(!self.element.is(":visible")) {
+            // If the element calling SelectBoxIt is not a select box
+            if(self.element[0].nodeName.toLowerCase() !== "select") {
 
                 // Exits the plugin
                 return;
@@ -1303,6 +1303,8 @@
 
                 focusClass = obj.focusClasses || "selectboxit-focus",
 
+                hoverClass = obj.hoverClasses || "selectboxit-hover",
+
                 buttonClass = obj.buttonClasses || "selectboxit-btn",
 
                 listClass = obj.listClasses || "selectboxit-dropdown";
@@ -1322,7 +1324,7 @@
             // Adds the default class to the dropdown list options
             self.list.addClass(listClass);
 
-            // Select box indropdownidual option events
+            // Select box individual option events
             self.listItems.bind({
 
                 // `focus` event with the `selectBoxIt` namespace
@@ -1363,7 +1365,7 @@
                     var activeElem = self.listItems.eq(self.currentFocus);
 
                     // Removes the focus class from the dropdown list and adds the library focus class for both the dropdown list and the currently selected dropdown list option
-                    self.dropdown.removeClass(focusClass);
+                    self.dropdown.removeClass(hoverClass).addClass(focusClass);
 
                     self.listItems.removeClass(self.selectedClass);
 
@@ -1382,21 +1384,15 @@
                 // `mousenter` event with the `selectBoxIt` namespace
                 "mouseenter.selectBoxIt": function() {
 
-                    // If the theme options is not Twitter Bootstrap
-                    if(self.options["theme"] !== "bootstrap") {
-
-                        // Adds the focus class to the drop down
-                        self.dropdown.addClass(focusClass);
-
-                    }
+                    self.dropdown.addClass(hoverClass);
 
                 },
 
                 // `mouseleave` event with the `selectBoxIt` namespace
                 "mouseleave.selectBoxIt": function() {
 
-                    // Removes the focus CSS class on the previously hovered drop down list option
-                    self.dropdown.removeClass(focusClass);
+                    // Removes the hover CSS class on the previously hovered dropdown list option
+                    self.dropdown.removeClass(hoverClass);
 
                 }
 
@@ -1432,6 +1428,8 @@
                         // Removes the focus class from the previous drop down option
                         self.listItems.not($(this)).removeClass(focusClass).removeAttr("data-active");
 
+                        $(this).addClass(focusClass);
+
                     }
 
                 }
@@ -1455,6 +1453,8 @@
             self._addClasses({
 
                 focusClasses: "ui-state-focus",
+
+                hoverClasses: "ui-state-hover",
 
                 arrowClasses: "ui-icon ui-icon-triangle-1-s",
 
@@ -1482,6 +1482,8 @@
 
                 focusClasses: "active",
 
+                hoverClasses: "",
+
                 arrowClasses: "caret",
 
                 buttonClasses: "btn",
@@ -1508,6 +1510,8 @@
             self._addClasses({
 
                 focusClasses: "ui-btn-down-" + theme,
+
+                hoverClasses: "ui-btn-hover-" + theme,
 
                 arrowClasses: "ui-icon ui-icon-arrow-d ui-icon-shadow",
 

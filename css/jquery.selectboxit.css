@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 2.8.0
+ * jquery.selectBoxIt.css 2.9.0
  * Author: @gregfranko
  */
 
@@ -26,6 +26,10 @@
   display: block;
   border-radius: 6px;
   margin: 0;
+}
+
+.selectboxit-container .selectboxit:focus {
+  outline: 0;
 }
 
 .selectboxit-container .selectboxit.selectboxit-disabled {

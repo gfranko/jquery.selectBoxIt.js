@@ -70,11 +70,11 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
-`2.8.0` - January 12, 2013
+`2.9.0` - January 15, 2013
 
-- Removed outline from appearing around drop down
+- Removed outline from appearing around the drop down
 - Fixed non select box bug [#94](https://github.com/gfranko/jquery.selectBoxIt.js/issues/94)
-- Fixed IE 8 bug from copying over all select box attributes to the new drop down
+- Fixed IE 8 bug from copying over all select box attributes to the new drop down [#95](https://github.com/gfranko/jquery.selectBoxIt.js/issues/95)
 
 `2.8.0` - January 12, 2013
 

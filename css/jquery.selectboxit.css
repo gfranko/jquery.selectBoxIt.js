@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 2.9.0
+ * jquery.selectBoxIt.css 2.9.9
  * Author: @gregfranko
  */
 
@@ -54,6 +54,8 @@
 /* Dropdown List Options List*/
 .selectboxit-container .selectboxit-options {
   min-width: 220px; /* Minimum Width of the dropdown list box options */
+  /* IE7 hack */
+  *width: 220px;
   font: 14px Helvetica, Arial;
   margin: 0;
   padding: 0;
@@ -142,6 +144,10 @@
   position: absolute;
   top: 50%;
   right: 40%;
+}
+
+.jqueryui .selectboxit .selectboxit-arrow-container .selectboxit-arrow {
+  right: 25%;
 }
 
 /* Dropdown List Down Arrow For jQueryUI and jQuery Mobile */

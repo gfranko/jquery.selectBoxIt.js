@@ -1,4 +1,4 @@
-/* jquery Selectboxit - v2.9.0 - 2013-1-14
+/* jquery SelectBoxIt - v2.9.9 - 2013-1-20
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -26,7 +26,7 @@
 
         // Plugin version
 
-        VERSION: "2.8.0",
+        VERSION: "2.9.9",
 
         // These options will be used as defaults
         options: {
@@ -84,7 +84,10 @@
             "native": false,
 
             // **aggressiveChange**: Will select a drop down item (and trigger a change event) when a user navigates to the item via the keyboard (up and down arrow or search), before a user selects an option with a click or the enter key
-            "aggressiveChange": false
+            "aggressiveChange": false,
+
+            // **selectWhenHidden: Will allow a user to select an option using the keyboard when the drop down list is hidden but focused
+            "selectWhenHidden": true
 
         },
 
@@ -391,7 +394,7 @@
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
-                self.textArray[index] = $(this).text();
+                self.textArray[index] = dataDisabled ? "": $(this).text();
 
                 // Checks the original select box option for the `selected` attribute
                 if (this.selected) {
@@ -915,7 +918,7 @@
                     }
 
                     // Only trigger the `focus` event on the original select box if the dropdown list is hidden (this verifies that only the correct `focus` events are used to trigger the event on the original select box
-                    if(!self.list.is(":visible") && !internal) {
+                    if(!internal) {
 
                         //Triggers the `focus` default event on the original select box
                         self.triggerEvent("focus");
@@ -1139,6 +1142,7 @@
 
                     // Prevents the dropdown list options list from closing
                     self.blur = false;
+
                 },
 
                 // `mouseout` event with the `selectBoxIt` namespace
@@ -1146,13 +1150,14 @@
 
                     // Allows the dropdown list options list to close
                     self.blur = true;
+
                 },
 
                 // `focusin` event with the `selectBoxIt` namespace
                 "focusin.selectBoxIt": function() {
 
                     // Prevents the default browser outline border to flicker, which results because of the `blur` event
-                    self.dropdown.focus();
+                    self.dropdown.trigger("focus", true);
                 }
 
             })
@@ -1175,14 +1180,14 @@
             })
 
             // Delegates the `focus` event with the `selectBoxIt` namespace to the list items
-            .delegate("li", "focus.selectBoxIt", function() {
+            .delegate("li", "focusin.selectBoxIt", function() {
 
                 // Removes the hover class from the previous drop down option
                 self.listItems.not($(this)).removeAttr("data-active");
 
                 $(this).attr("data-active", "");
 
-                if(self.options["aggressiveChange"]) {
+                if((self.options["searchWhenHidden"] && self.list.is(":hidden")) || self.options["aggressiveChange"] || (self.list.is(":hidden") && self.options["selectWhenHidden"])) {
 
                     self._update($(this));
 
@@ -1262,7 +1267,7 @@
             if (elem.attr("data-disabled") === "false") {
 
                 // If the default text option is set and the current drop down option is not disabled
-                if ((self.options["defaultText"] && self.dropdownText.text() === self.options["defaultText"])) {
+                if ((self.options["defaultText"] && self.dropdownText.text() === self.options["defaultText"]) && self.selectBox.val() === elem.attr("data-val")) {
 
                     // Updates the dropdown list value
                     self.dropdownText.text(self.listItems.eq(self.currentFocus).text()).
@@ -1328,7 +1333,7 @@
             self.listItems.bind({
 
                 // `focus` event with the `selectBoxIt` namespace
-                "focus.selectBoxIt": function() {
+                "focusin.selectBoxIt": function() {
 
                     // Adds the focus CSS class to the currently focused dropdown list option
                     $(this).addClass(focusClass);
@@ -1429,6 +1434,8 @@
                         self.listItems.not($(this)).removeClass(focusClass).removeAttr("data-active");
 
                         $(this).addClass(focusClass);
+
+                        self.currentFocus = +$(this).attr("id");
 
                     }
 
@@ -1707,46 +1714,16 @@
         //      Add's all attributes (excluding id, class names, and the style attribute) from the default select box to the new drop down
         _addSelectBoxAttributes: function(eventName) {
 
-            var self = this,
-                // Get's all of the properties associated with the select box and turns it into an array
-                selectBoxProperties = (function() {
+            var self = this;
 
-                    var arr = [], x, attrs = self.selectBox.prop("attributes");
-
-                    for(x = 0; x <= attrs.length; x += 1) {
-
-                        arr.push(attrs[x]);
-
-                    }
-
-                    return attrs;
-
-                }()),
-                optionProperties;
-
-                // Add's all attributes to the currently traversed drop down option
-                self._addAttributes(selectBoxProperties, self.dropdown);
+            // Add's all attributes to the currently traversed drop down option
+            self._addAttributes(self.selectBox.prop("attributes"), self.dropdown);
 
             // Add's all attributes to the drop down items list
             self.selectItems.each(function(iterator) {
 
-                var arr = [], x, attrs = $(this).prop("attributes");
-
-                // Get's all of the properties associated with currently traversed select box option and turns it into an array
-                optionProperties = (function() {
-
-                    for(x = 0; x <= attrs.length; x += 1) {
-
-                        arr.push(attrs[x]);
-
-                    }
-
-                    return attrs;
-
-                }());
-
                 // Add's all attributes to the currently traversed drop down option
-                self._addAttributes(optionProperties, self.listItems.eq(iterator));
+                self._addAttributes($(this).prop("attributes"), self.listItems.eq(iterator));
 
             });
 
@@ -1760,7 +1737,24 @@
         //  Add's attributes to a DOM element
         _addAttributes: function(arr, elem) {
 
-            var self = this;
+            var self = this,
+                blacklist = [
+
+                    "null",
+
+                    "value",
+
+                    "disabled",
+
+                    "style",
+
+                    "id",
+
+                    "class",
+
+                    "unselectable"
+
+                ];
 
             // If there are array properties
             if(arr.length) {
@@ -1771,8 +1765,8 @@
                     // Get's the property name and property value of each property
                     var propName = (property.name).toLowerCase(), propValue = property.value;
 
-                    // If the currently traversed property is not an id, class name, or style attribute
-                    if(propName !== "id" && propName !== "class" && propName !== "unselectable") {
+                    // If the currently traversed property is not on the blacklist and the value is not "null"
+                    if(propValue !== "null" && $.inArray(propName, blacklist) === -1) {
 
                         // Set's the currently traversed property on element
                         elem.attr(propName, propValue);
@@ -2359,7 +2353,7 @@
             self.listItems.eq(self.currentFocus - 1).blur().end().
 
             // Focuses the currently focused list item
-            eq(self.currentFocus).focus();
+            eq(self.currentFocus).focusin();
 
             // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
             self._scrollToView("down");
@@ -2426,7 +2420,7 @@
             self.listItems.eq(this.currentFocus + 1).blur().end().
 
             // Focuses the currently focused list item
-            eq(self.currentFocus).focus();
+            eq(self.currentFocus).focusin();
 
             // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
             self._scrollToView("up");
@@ -2477,7 +2471,7 @@
 
         // Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.
         // Otherwise, the current option value is updated
-        if (self.listItems.eq(currentOption).is(":visible") && self.listItems.eq(currentOption).data("disabled") !== true) {
+        if ((self.options["aggressiveChange"] || self.options["selectWhenHidden"] || self.listItems.eq(currentOption).is(":visible")) && self.listItems.eq(currentOption).data("disabled") !== true) {
 
             // Calls the `blur` event of the currently selected dropdown list option
             self.listItems.eq(self.currentFocus).blur();
@@ -2489,7 +2483,7 @@
             self.currentFocus = currentOption;
 
             // Focuses the currently selected dropdown list option
-            self.listItems.eq(self.currentFocus).focus();
+            self.listItems.eq(self.currentFocus).focusin();
 
             // Updates the scrollTop so that the currently selected dropdown list option is visible to the user
             self._scrollToView("search");
@@ -2616,6 +2610,12 @@
 
         var self = this;
 
+        if(self.currentText === undefined) {
+
+            self.currentText = "";
+
+        }
+
         // If the search method is being called internally by the plugin, and not externally as a method by a user
         if (rememberPreviousSearch) {
 
@@ -2631,18 +2631,15 @@
 
         }
 
-        // Wraps the current user text search in a regular expression that is case insensitive and searches globally
-        var alphaNumeric = new RegExp(self.currentText, "gi"),
-
-            // Calls `searchAlgorithm` which searches an array that contains all of the dropdown list option values.
-            notFound = self._searchAlgorithm(self.currentIndex, alphaNumeric);
+        // Searches globally
+        var notFound = self._searchAlgorithm(self.currentIndex, self.currentText);
 
         // Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of the currently selected dropdown list option, and does not search the options before the current array indece.
         // If there are many similar dropdown list options, starting the search at the indece of the currently selected dropdown list option is needed to properly traverse the text array.
         if (notFound) {
 
             // Searches the dropdown list values starting from the beginning of the text array
-            self._searchAlgorithm(0, alphaNumeric);
+            self._searchAlgorithm(0, self.currentText);
 
         }
 

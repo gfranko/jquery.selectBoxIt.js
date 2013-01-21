@@ -70,6 +70,14 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`2.9.9` - January 20, 2013
+
+- Fixed [#98](https://github.com/gfranko/jquery.selectBoxIt.js/issues/98)
+- Fixed keyboard search with disabled options bug and keyboard search accuracy
+- Refactored attribute copy logic
+- Added the **selectWhenHidden** option to allow drop down options to be selected with the keyboard when the drop down is hidden
+- Added back **IE 7 support** in this release after numerous requests
+
 `2.9.0` - January 15, 2013
 
 - Removed outline from appearing around the drop down

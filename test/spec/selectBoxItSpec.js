@@ -237,7 +237,7 @@ describe('selectBoxIt jQuery Plugin', function () {
                 spyOnEvent(previous, "blur");
 
                 //Spy on the focus event for the next list item element to be focused
-                spyOnEvent(next, "focus");
+                spyOnEvent(next, "focusin");
 
                 //Call the moveUp() method
                 selectBoxIt.moveDown();
@@ -246,7 +246,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
                 expect("blur").toHaveBeenTriggeredOn(previous);
 
-                expect("focus").toHaveBeenTriggeredOn(next);
+                expect("focusin").toHaveBeenTriggeredOn(next);
 
                 expect("moveDown").toHaveBeenTriggeredOn(selectBoxIt.selectBox);
 
@@ -280,7 +280,7 @@ describe('selectBoxIt jQuery Plugin', function () {
                 spyOnEvent(previous, "blur");
 
                 //Spy on the focus event for the next list item element to be focused
-                spyOnEvent(next, "focus");
+                spyOnEvent(next, "focusin");
 
                 //Call the moveUp() method
                 selectBoxIt.moveUp();
@@ -288,7 +288,7 @@ describe('selectBoxIt jQuery Plugin', function () {
                 //Check to make sure the blur and focus events were properly triggered on the correct elements
                 expect("blur").toHaveBeenTriggeredOn(previous);
 
-                expect("focus").toHaveBeenTriggeredOn(next);
+                expect("focusin").toHaveBeenTriggeredOn(next);
 
                 expect("moveUp").toHaveBeenTriggeredOn(selectBoxIt.selectBox);
 

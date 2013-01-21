@@ -30,7 +30,7 @@
 
         // Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.
         // Otherwise, the current option value is updated
-        if (self.listItems.eq(currentOption).is(":visible") && self.listItems.eq(currentOption).data("disabled") !== true) {
+        if ((self.options["aggressiveChange"] || self.options["selectWhenHidden"] || self.listItems.eq(currentOption).is(":visible")) && self.listItems.eq(currentOption).data("disabled") !== true) {
 
             // Calls the `blur` event of the currently selected dropdown list option
             self.listItems.eq(self.currentFocus).blur();
@@ -42,7 +42,7 @@
             self.currentFocus = currentOption;
 
             // Focuses the currently selected dropdown list option
-            self.listItems.eq(self.currentFocus).focus();
+            self.listItems.eq(self.currentFocus).focusin();
 
             // Updates the scrollTop so that the currently selected dropdown list option is visible to the user
             self._scrollToView("search");
@@ -169,6 +169,12 @@
 
         var self = this;
 
+        if(self.currentText === undefined) {
+
+            self.currentText = "";
+
+        }
+
         // If the search method is being called internally by the plugin, and not externally as a method by a user
         if (rememberPreviousSearch) {
 
@@ -184,18 +190,15 @@
 
         }
 
-        // Wraps the current user text search in a regular expression that is case insensitive and searches globally
-        var alphaNumeric = new RegExp(self.currentText, "gi"),
-
-            // Calls `searchAlgorithm` which searches an array that contains all of the dropdown list option values.
-            notFound = self._searchAlgorithm(self.currentIndex, alphaNumeric);
+        // Searches globally
+        var notFound = self._searchAlgorithm(self.currentIndex, self.currentText);
 
         // Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of the currently selected dropdown list option, and does not search the options before the current array indece.
         // If there are many similar dropdown list options, starting the search at the indece of the currently selected dropdown list option is needed to properly traverse the text array.
         if (notFound) {
 
             // Searches the dropdown list values starting from the beginning of the text array
-            self._searchAlgorithm(0, alphaNumeric);
+            self._searchAlgorithm(0, self.currentText);
 
         }
 

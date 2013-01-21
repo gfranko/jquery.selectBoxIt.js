@@ -73,7 +73,7 @@
             self.listItems.eq(self.currentFocus - 1).blur().end().
 
             // Focuses the currently focused list item
-            eq(self.currentFocus).focus();
+            eq(self.currentFocus).focusin();
 
             // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
             self._scrollToView("down");
@@ -140,7 +140,7 @@
             self.listItems.eq(this.currentFocus + 1).blur().end().
 
             // Focuses the currently focused list item
-            eq(self.currentFocus).focus();
+            eq(self.currentFocus).focusin();
 
             // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
             self._scrollToView("up");

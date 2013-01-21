@@ -78,6 +78,8 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 `2.8.0` - January 12, 2013
 
+_IMPORTANT_: **Dropped IE7 support** - This does not mean new features will not work in IE7, but instead that they will not be tested in IE7.
+
 - All attributes on the original select box and select box options are now being copied over to the new drop down.
 
 `2.7.0` - January 11, 2013

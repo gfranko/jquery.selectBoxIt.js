@@ -86,7 +86,7 @@
             // **aggressiveChange**: Will select a drop down item (and trigger a change event) when a user navigates to the item via the keyboard (up and down arrow or search), before a user selects an option with a click or the enter key
             "aggressiveChange": false,
 
-            // **selectWhenHidden: Will allow a user to select an option using the keyboard when the drop down list is hidden but focused
+            // **selectWhenHidden: Will allow a user to select an option using the keyboard when the drop down list is hidden and focused
             "selectWhenHidden": true
 
         },
@@ -1745,8 +1745,6 @@
                     "value",
 
                     "disabled",
-
-                    "style",
 
                     "id",
 

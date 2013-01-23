@@ -1746,8 +1746,6 @@
 
                     "disabled",
 
-                    "style",
-
                     "id",
 
                     "class",

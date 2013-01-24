@@ -25,7 +25,6 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-
         VERSION: "2.9.9",
 
         // These options will be used as defaults

@@ -107,6 +107,12 @@
   border-top-left-radius: 6px;
 }
 
+/* The first drop down option */
+.selectboxit-optgroup-header + .selectboxit-option-first {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
 /* The last drop down option */
 .selectboxit-option-last {
   border-bottom-right-radius: 6px;
@@ -116,6 +122,7 @@
 /* Dropdown List Optgroup Headers */
 .selectboxit-optgroup-header {
   font-weight: bold;
+  padding: 5px;
 }
 
 /* Dropdown List Optgroup Options */

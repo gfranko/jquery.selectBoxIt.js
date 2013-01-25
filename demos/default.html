@@ -69,7 +69,8 @@
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 jQuery(function($) {
-  $("#test").selectBoxIt();
+
+  window.selectBox = $("#test").selectBoxIt().data("selectBoxIt");
 
   $('#test1').selectBoxIt({theme: "jqueryui"});
 

@@ -77,6 +77,9 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 - Refactored attribute copy logic
 - Added the **selectWhenHidden** option to allow drop down options to be selected with the keyboard when the drop down is hidden
 - Added back **IE 7 support** in this release after numerous requests
+- Fixed [#102](https://github.com/gfranko/jquery.selectBoxIt.js/issues/102)
+- Fixed optgroup mouse cursor
+- Upgrade CSS styles to support select boxes with options without text
 
 `2.9.0` - January 15, 2013
 

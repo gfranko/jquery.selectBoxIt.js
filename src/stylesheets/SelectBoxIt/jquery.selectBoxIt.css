@@ -102,6 +102,7 @@
   white-space: nowrap;
   list-style: none;
   margin: 0;
+  display: block;
 }
 
 /* The first drop down option */

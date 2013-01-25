@@ -45,6 +45,7 @@
 .selectboxit-text {
   font: 14px Helvetica, Arial;
   text-indent: 5px;
+  height: 30px;
   line-height: 30px;
   overflow: hidden;
   float: left;
@@ -85,6 +86,7 @@
 .selectboxit-option .selectboxit-option-anchor {
   padding: 0px 3px;
   line-height: 30px;
+  height: 30px;
 }
 
 .selectboxit-option .selectboxit-option-anchor:hover {
@@ -94,6 +96,7 @@
 /* Dropdown List Individual Options */
 .selectboxit-option, .selectboxit-optgroup-header {
   line-height: 30px; /* Height of Individual Select Box Options */
+  height: 30px;
   text-indent: 5px; /* Horizontal Positioning of the select box option text */
   overflow: hidden;
   white-space: nowrap;
@@ -131,7 +134,7 @@
 }
 
 /* Dropdown List Optgroup Header hover psuedo class */
-.selectboxit-optgroup-header[data-disabled='true']:hover {
+.selectboxit-optgroup-header:hover {
   cursor: default;
 }
 

@@ -285,9 +285,7 @@
                 "tabindex": self.selectBox.attr("tabindex") || "0",
 
                 // IE specific attribute to not allow the element to be selected
-                "unselectable": "on",
-
-                "data": $.extend({}, true, {}, self.selectBox.data())
+                "unselectable": "on"
 
             }).
 

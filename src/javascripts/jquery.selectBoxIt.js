@@ -99,7 +99,7 @@
             var self = this;
 
             // If the element calling SelectBoxIt is not a select box
-            if(self.element[0].nodeName.toLowerCase() !== "select") {
+            if(!self.element.is("select")) {
 
                 // Exits the plugin
                 return;

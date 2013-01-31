@@ -408,20 +408,14 @@
             });
 
             // If the `defaultText` option is being used
-            if (self.options["defaultText"]) {
+            if ((self.options["defaultText"] || self.selectBox.data("text")) && !self.selectBox.find("option[selected]").length) {
+
+                var defaultedText = self.options["defaultText"] || self.selectBox.data("text");
 
                 //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
-                self.dropdownText.text(self.options["defaultText"]);
-            }
+                self.dropdownText.text(defaultedText);
 
-            // If the `defaultText` HTML5 data attribute is being used
-            if (self.selectBox.data("text")) {
-
-                // Overrides the current dropdown default text with the value from the HTML5 `defaultText` value
-                self.dropdownText.text(self.selectBox.data("text"));
-
-                self.options["defaultText"] = self.selectBox.data("text");
-
+                self.options["defaultText"] = defaultedText;
             }
 
             // Append the list item to the unordered list

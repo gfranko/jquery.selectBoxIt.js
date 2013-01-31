@@ -99,7 +99,7 @@
             var self = this;
 
             // If the element calling SelectBoxIt is not a select box
-            if(self.element[0].nodeName.toLowerCase() !== "select") {
+            if(!self.element.is("select")) {
 
                 // Exits the plugin
                 return;
@@ -285,9 +285,7 @@
                 "tabindex": self.selectBox.attr("tabindex") || "0",
 
                 // IE specific attribute to not allow the element to be selected
-                "unselectable": "on",
-
-                "data": $.extend({}, true, {}, self.selectBox.data())
+                "unselectable": "on"
 
             }).
 
@@ -410,20 +408,14 @@
             });
 
             // If the `defaultText` option is being used
-            if (self.options["defaultText"]) {
+            if ((self.options["defaultText"] || self.selectBox.data("text")) && !self.selectBox.find("option[selected]").length) {
+
+                var defaultedText = self.options["defaultText"] || self.selectBox.data("text");
 
                 //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
-                self.dropdownText.text(self.options["defaultText"]);
-            }
+                self.dropdownText.text(defaultedText);
 
-            // If the `defaultText` HTML5 data attribute is being used
-            if (self.selectBox.data("text")) {
-
-                // Overrides the current dropdown default text with the value from the HTML5 `defaultText` value
-                self.dropdownText.text(self.selectBox.data("text"));
-
-                self.options["defaultText"] = self.selectBox.data("text");
-
+                self.options["defaultText"] = defaultedText;
             }
 
             // Append the list item to the unordered list

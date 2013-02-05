@@ -182,7 +182,23 @@
 
                     }
 
-                    _gaq.push(['_trackEvent', 'CSS Downloads', 'CSS', 'CSS Download Click']);
+                    if(window.localStorage) {
+
+                      if(!window.localStorage.getItem("css-download")) {
+
+                        window.localStorage.setItem("css-download");
+
+                        _gaq.push(['_trackEvent', 'CSS Downloads', 'CSS', 'CSS Download Click']);
+
+                      }
+
+                      else {
+
+                        _gaq.push(['_trackEvent', 'Repeat CSS Downloads', 'CSS', 'CSS Download Click']);
+
+                      }
+
+                    }
 
                 });
 
@@ -206,7 +222,23 @@
 
                     }
 
-                    _gaq.push(['_trackEvent', 'JavaScript Downloads', 'JavaScript', 'JavaScript Download Click']);
+                    if(window.localStorage) {
+
+                      if(!window.localStorage.getItem("javascript-download")) {
+
+                        window.localStorage.setItem("javascript-download");
+
+                        _gaq.push(['_trackEvent', 'JavaScript Downloads', 'JavaScript', 'JavaScript Download Click']);
+
+                      }
+
+                      else {
+
+                        _gaq.push(['_trackEvent', 'Repeat JavaScript Downloads', 'JavaScript', 'JavaScript Download Click']);
+
+                      }
+
+                    }
 
                 });
 

@@ -186,9 +186,9 @@
 
                       if(!window.localStorage.getItem("css-download")) {
 
-                        window.localStorage.setItem("css-download");
+                        window.localStorage.setItem("css-download", "true");
 
-                        _gaq.push(['_trackEvent', 'CSS Downloads', 'CSS', 'CSS Download Click']);
+                        _gaq.push(['_trackEvent', 'First Time CSS Downloads', 'CSS', 'CSS Download Click']);
 
                       }
 
@@ -226,9 +226,9 @@
 
                       if(!window.localStorage.getItem("javascript-download")) {
 
-                        window.localStorage.setItem("javascript-download");
+                        window.localStorage.setItem("javascript-download", "true");
 
-                        _gaq.push(['_trackEvent', 'JavaScript Downloads', 'JavaScript', 'JavaScript Download Click']);
+                        _gaq.push(['_trackEvent', 'First Time JavaScript Downloads', 'JavaScript', 'JavaScript Download Click']);
 
                       }
 
@@ -237,6 +237,16 @@
                         _gaq.push(['_trackEvent', 'Repeat JavaScript Downloads', 'JavaScript', 'JavaScript Download Click']);
 
                       }
+
+                      var clicked = "";
+
+                      $("#javascript-downloads").find("label").each(function() {
+
+                        clicked += $(this).text() + ":" + $(this).find(":checkbox").is("checked") + ";"
+
+                      });
+
+                      _gaq.push(['_trackEvent', 'Custom JavaScript Download', 'JavaScript', clicked]);
 
                     }
 

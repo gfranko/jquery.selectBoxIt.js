@@ -242,9 +242,11 @@
 
                       $("#javascript-downloads").find("label").each(function() {
 
-                        clicked += $(this).text() + ":" + $(this).find(":checkbox").is("checked") + ";"
+                        clicked += $(this).text() + ":" + $(this).find("input").prop("checked") + ";"
 
                       });
+
+                      console.log('clicked', clicked);
 
                       _gaq.push(['_trackEvent', 'Custom JavaScript Download', 'JavaScript', clicked]);
 

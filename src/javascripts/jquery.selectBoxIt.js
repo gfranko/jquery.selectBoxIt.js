@@ -634,6 +634,13 @@
 
             var self = this;
 
+            // If there are no select box options, do not try to open the select box
+            if(!self.listItems.length) {
+
+                return self;
+
+            }
+
             if (self._dynamicPositioning) {
 
                 // Dynamically positions the dropdown list options list

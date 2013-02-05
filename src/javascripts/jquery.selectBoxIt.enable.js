@@ -63,7 +63,7 @@
         var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
 
         // If an index is passed to target an indropdownidual drop down option
-        if(typeof index === "number") {
+        if((typeof index).toLowerCase() === "number") {
 
             // The select box option being targeted
             currentSelectBoxOption = self.selectBox.find("option").eq(index);

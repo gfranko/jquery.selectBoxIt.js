@@ -67,7 +67,7 @@
         var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled;
 
         // If an index is passed to target an indropdownidual drop down option
-        if(typeof index === "number") {
+        if((typeof index).toLowerCase() === "number") {
 
             // Makes sure the dropdown list is closed
             self.close();

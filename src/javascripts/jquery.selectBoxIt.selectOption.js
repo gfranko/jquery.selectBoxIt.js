@@ -30,14 +30,14 @@
         var self = this;
 
         // Makes sure the passed in position is a number
-        if(typeof val === "number") {
+        if((typeof val).toLowerCase() === "number") {
 
             // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
             self.selectBox.val(self.selectBox.find("option").eq(val).val()).change();
 
         }
 
-        else if(typeof val === "string") {
+        else if((typeof val).toLowerCase() === "string") {
 
             // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
             self.selectBox.val(val).change();

@@ -85,7 +85,7 @@
             self.listItems.eq(index).attr("data-disabled", "true").
 
             // Applies disabled styling for the drop down option
-            addClass(self.disabledClasses);
+            addClass(self.theme["disabled"]);
 
             // If the currently selected drop down option is the item being disabled
             if(self.currentFocus === index) {

@@ -1,4 +1,4 @@
-/* jquery SelectBoxIt - v2.9.9 - 2013-1-20
+/* jquery SelectBoxIt - v2.9.9 - 2013-2-06
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -90,6 +90,104 @@
 
         },
 
+        // The index of the currently selected dropdown list option
+        "currentFocus": 0,
+
+        // Keeps track of which blur events will hide the dropdown list options
+        "blur": true,
+
+        // Array holding all of the original select box options text
+        "textArray": [],
+
+        // Maintains search order in the `search` method
+        "currentIndex": 0,
+
+        // Whether or not the dropdown list opens up or down (depending on how much room is on the page)
+        "flipped": false,
+
+        "getThemes": function() {
+
+            var self = this,
+                theme = $(self.element).attr("data-theme") || "c";
+
+            return {
+
+                "bootstrap": {
+
+                    "focus": "active",
+
+                    "hover": "",
+
+                    "disabled": "disabled",
+
+                    "arrow": "caret",
+
+                    "button": "btn",
+
+                    "list": "dropdown-menu",
+
+                    "container": "bootstrap"
+
+                },
+
+                "jqueryui": {
+
+                    "focus": "ui-state-focus",
+
+                    "hover": "ui-state-hover",
+
+                    "disabled": "ui-state-disabled",
+
+                    "arrow": "ui-icon ui-icon-triangle-1-s",
+
+                    "button": "ui-widget ui-state-default",
+
+                    "list": "ui-widget ui-widget-content",
+
+                    "container": "jqueryui"
+
+                },
+
+                "jquerymobile": {
+
+                    "focus": "ui-btn-down-" + theme,
+
+                    "hover": "ui-btn-hover-" + theme,
+
+                    "disabled": "ui-disabled",
+
+                    "arrow": "ui-icon ui-icon-arrow-d ui-icon-shadow",
+
+                    "button": "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
+
+                    "list": "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
+
+                    "container": "jquerymobile"
+
+                },
+
+                "default": {
+
+                    "focus": "selectboxit-focus",
+
+                    "hover": "selectboxit-hover",
+
+                    "disabled": "selectboxit-disabled",
+
+                    "arrow": "",
+
+                    "button": "selectboxit-btn",
+
+                    "list": "selectboxit-list",
+
+                    "container": "selectboxit-container"
+
+                }
+
+            };
+
+        },
+
         // _Create
         // -------
         //      Sets the Plugin Instance variables and
@@ -118,55 +216,17 @@
             // The first option in the original select box
             self.firstSelectItem = self.element.find("option").slice(0, 1);
 
-            // The index of the currently selected dropdown list option
-            self.currentFocus = 0;
-
-            // Keeps track of which blur events will hide the dropdown list options
-            self.blur = true;
-
             // The html document height
             self.documentHeight = $(document).height();
 
-            // Array holding all of the original select box options text
-            self.textArray = [];
-
-            // Maintains search order in the `search` method
-            self.currentIndex = 0;
-
-            // Whether or not the dropdown list opens up or down (depending on how much room is on the page)
-            self.flipped = false;
-
-            self.disabledClasses = (function() {
-
-                if(self.options.theme === "bootstrap") {
-
-                    return "disabled";
-
-                }
-                else if(self.options.theme === "jqueryui") {
-
-                    return "ui-state-disabled";
-
-                }
-                else if(self.options.theme === "jquerymobile") {
-
-                    return "ui-disabled";
-
-                }
-                else {
-
-                    return "selectboxit-disabled";
-
-                }
-
-            }());
+            self.theme = self.getThemes()[self.options["theme"]] || self.getThemes()["default"];
 
             // Creates the dropdown elements that will become the dropdown
             // Creates the ul element that will become the dropdown options list
             // Add's all attributes (excluding id, class names, and unselectable properties) to the drop down and drop down items list
             // Hides the original select box and adds the new plugin DOM elements to the page
             // Adds event handlers to the new dropdown list
-            self._createdropdown()._createUnorderedList()._addSelectBoxAttributes()._replaceSelectBox()._eventHandlers();
+            self._createdropdown()._createUnorderedList()._addSelectBoxAttributes()._replaceSelectBox()._addClasses(self.theme)._eventHandlers();
 
             if(self.originalElem.disabled && self.disable) {
 
@@ -180,34 +240,6 @@
 
                 // Adds ARIA accessibillity tags to the dropdown list
                 self._ariaAccessibility();
-
-            }
-
-            if(self.options["theme"] === "bootstrap") {
-
-                // Adds Twitter Bootstrap classes to the dropdown list
-                self._twitterbootstrap();
-
-            }
-
-            else if(this.options["theme"] === "jqueryui") {
-
-                // Adds jQueryUI classes to the dropdown list
-                self._jqueryui();
-
-            }
-
-            else if(this.options["theme"] === "jquerymobile") {
-
-                // Adds jQueryUI classes to the dropdown list
-                self._jquerymobile();
-
-            }
-
-            else {
-
-                // Adds regular classes to the dropdown list
-                self._addClasses();
 
             }
 
@@ -438,10 +470,10 @@
             self.listItems.last().addClass("selectboxit-option-last");
 
             // Set the disabled CSS class for select box options
-            self.list.find("li[data-disabled='true']").not(".optgroupHeader").addClass(self.disabledClasses);
+            self.list.find("li[data-disabled='true']").not(".optgroupHeader").addClass(self.theme["disabled"]);
 
             // If the first select box option is disabled, and the user has chosen to not show the first select box option
-            if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass(self.disabledClasses)) {
+            if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass(self.theme["disabled"])) {
 
                 //Sets the default value of the dropdown list to the first option that is not disabled
                 self.currentFocus = +self.listItems.not(".ui-state-disabled").first().attr("id");
@@ -1238,7 +1270,7 @@
                 "disable.selectBoxIt": function() {
 
                     // Adds the `disabled` CSS class to the new dropdown list to visually show that it is disabled
-                    self.dropdown.addClass(self.disabledClasses);
+                    self.dropdown.addClass(self.theme["disabled"]);
 
                 },
 
@@ -1246,7 +1278,7 @@
                 "enable.selectBoxIt": function() {
 
                     // Removes the `disabled` CSS class from the new dropdown list to visually show that it is enabled
-                    self.dropdown.removeClass(self.disabledClasses);
+                    self.dropdown.removeClass(self.theme["disabled"]);
 
                 }
 
@@ -1306,22 +1338,26 @@
 
             var self = this,
 
-                focusClass = obj.focusClasses || "selectboxit-focus",
+                focusClass = obj.focus,
 
-                hoverClass = obj.hoverClasses || "selectboxit-hover",
+                hoverClass = obj.hover,
 
-                buttonClass = obj.buttonClasses || "selectboxit-btn",
+                buttonClass = obj.button,
 
-                listClass = obj.listClasses || "selectboxit-dropdown";
+                listClass = obj.list,
+
+                arrowClass = obj.arrow,
+
+                containerClass = obj.container;
 
             self.focusClass = focusClass;
 
             self.selectedClass = "selectboxit-selected";
 
-            self.downArrow.addClass(self.selectBox.data("downarrow") || self.options["downArrowIcon"] || obj.arrowClasses);
+            self.downArrow.addClass(self.selectBox.data("downarrow") || self.options["downArrowIcon"] || arrowClass);
 
             // Adds the correct container class to the dropdown list
-            self.dropdownContainer.addClass(obj.containerClasses);
+            self.dropdownContainer.addClass(containerClass);
 
             // Adds the correct class to the dropdown list
             self.dropdown.addClass(buttonClass);
@@ -1444,91 +1480,6 @@
             });
 
             $(".selectboxit-option-icon").not(".selectboxit-default-icon").css("margin-top", self.downArrowContainer.height()/4);
-
-            // Maintains chainability
-            return self;
-
-        },
-
-        // _jqueryui
-        // ---------
-        //      Adds jQueryUI CSS classes
-        _jqueryui: function() {
-
-            var self = this;
-
-            self._addClasses({
-
-                focusClasses: "ui-state-focus",
-
-                hoverClasses: "ui-state-hover",
-
-                arrowClasses: "ui-icon ui-icon-triangle-1-s",
-
-                buttonClasses: "ui-widget ui-state-default",
-
-                listClasses: "ui-widget ui-widget-content",
-
-                containerClasses: "jqueryui"
-
-            });
-
-            // Maintains chainability
-            return self;
-
-        },
-
-        // _twitterbootstrap
-        // -----------------
-        //      Adds Twitter Bootstrap CSS classes
-        _twitterbootstrap: function() {
-
-            var self = this;
-
-            self._addClasses({
-
-                focusClasses: "active",
-
-                hoverClasses: "",
-
-                arrowClasses: "caret",
-
-                buttonClasses: "btn",
-
-                listClasses: "dropdown-menu",
-
-                containerClasses: "bootstrap"
-
-            });
-
-            // Maintains chainability
-            return self;
-
-        },
-
-        // _jquerymobile
-        // -------------
-        //      Adds jQuery Mobile CSS classes
-        _jquerymobile: function() {
-
-            var self = this,
-                theme = self.selectBox.attr("data-theme") || "c";
-
-            self._addClasses({
-
-                focusClasses: "ui-btn-down-" + theme,
-
-                hoverClasses: "ui-btn-hover-" + theme,
-
-                arrowClasses: "ui-icon ui-icon-arrow-d ui-icon-shadow",
-
-                buttonClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
-
-                listClasses: "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
-
-                containerClasses: "jquerymobile"
-
-            });
 
             // Maintains chainability
             return self;

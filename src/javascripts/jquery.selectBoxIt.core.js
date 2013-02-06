@@ -174,7 +174,7 @@
 
                     "disabled": "selectboxit-disabled",
 
-                    "arrow": "",
+                    "arrow": "selectboxit-arrow",
 
                     "button": "selectboxit-btn",
 

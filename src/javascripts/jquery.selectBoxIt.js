@@ -1,4 +1,4 @@
-/* jquery SelectBoxIt - v2.9.9 - 2013-1-20
+/* jquery SelectBoxIt - v2.9.9 - 2013-2-06
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -174,7 +174,7 @@
 
                     "disabled": "selectboxit-disabled",
 
-                    "arrow": "",
+                    "arrow": "selectboxit-arrow",
 
                     "button": "selectboxit-btn",
 

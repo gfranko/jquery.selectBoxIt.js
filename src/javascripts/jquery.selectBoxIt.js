@@ -1306,22 +1306,38 @@
 
             var self = this,
 
-                focusClass = obj.focusClasses || "selectboxit-focus",
+                classObj = obj || {
 
-                hoverClass = obj.hoverClasses || "selectboxit-hover",
+                    focusClasses: "active",
 
-                buttonClass = obj.buttonClasses || "selectboxit-btn",
+                    hoverClasses: "jsHover",
 
-                listClass = obj.listClasses || "selectboxit-dropdown";
+                    arrowClasses: "caret",
+
+                    buttonClasses: "sBoxBtn",
+
+                    listClasses: "dropdown-menu",
+
+                    containerClasses: "sBoxCustomTheme"
+
+                },
+
+                focusClass = classObj.focusClasses || "selectboxit-focus",
+
+                hoverClass = classObj.hoverClasses || "selectboxit-hover",
+
+                buttonClass = classObj.buttonClasses || "selectboxit-btn",
+
+                listClass = classObj.listClasses || "selectboxit-dropdown";
 
             self.focusClass = focusClass;
 
             self.selectedClass = "selectboxit-selected";
 
-            self.downArrow.addClass(self.selectBox.data("downarrow") || self.options["downArrowIcon"] || obj.arrowClasses);
+            self.downArrow.addClass(self.selectBox.data("downarrow") || self.options["downArrowIcon"] || classObj.arrowClasses);
 
             // Adds the correct container class to the dropdown list
-            self.dropdownContainer.addClass(obj.containerClasses);
+            self.dropdownContainer.addClass(classObj.containerClasses);
 
             // Adds the correct class to the dropdown list
             self.dropdown.addClass(buttonClass);

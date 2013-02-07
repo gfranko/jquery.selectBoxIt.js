@@ -1,0 +1,34 @@
+{
+    "name": "selectboxit",
+    "title": "jQuery SelectBoxIt",
+    "description": "A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list. The dropdown list can be optionally styled with Twitter Bootstrap, jQueryUI ThemeRoller, or jQuery Mobile, optionally animated with jQueryUI show/hide effects, and works on Desktop, Tablet, and Mobile browsers.",
+    "keywords": [
+        "select box",
+        "forms"
+    ],
+    "version": "2.9.9",
+    "author": {
+        "name": "Greg Franko",
+        "url": "http://gregfranko.com"
+    },
+    "maintainers": [
+        {
+            "name": "Greg Franko",
+            "email": "gregfranko5@gmail.com",
+            "url": "http://gregfranko.com"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/LICENSE-MIT"
+        }
+    ],
+    "bugs": "https://github.com/gfranko/jquery.selectBoxIt.js/issues",
+    "homepage": "http://gregfranko.com/jquery.selectBoxIt.js",
+    "docs": "http://gregfranko.com/jquery.selectBoxIt.js",
+    "download": "http://gregfranko.com/jquery.selectBoxIt.js/js/jquery.selectBoxIt.js",
+    "dependencies": {
+        "jquery": ">=1.6.1"
+    }
+}

@@ -1,53 +1,54 @@
-// Destroy Module
-// ==============
 
-// Destroy
-// -------
-//    Removes the plugin from the page
+    // Destroy Module
+    // ==============
 
-$.selectBox.selectBoxIt.prototype.destroy = function(callback) {
+    // Destroy
+    // -------
+    //    Removes the plugin from the page
 
-    // Stores the plugin context inside of the self variable
-    var self = this;
+    $.selectBox.selectBoxIt.prototype.destroy = function(callback) {
 
-    self._destroySelectBoxIt();
+        // Stores the plugin context inside of the self variable
+        var self = this;
 
-    // Calls the jQueryUI Widget Factory destroy method
-    $.Widget.prototype.destroy.call(self);
+        self._destroySelectBoxIt();
 
-    // Provides callback function support
-    self._callbackSupport(callback);
+        // Calls the jQueryUI Widget Factory destroy method
+        $.Widget.prototype.destroy.call(self);
 
-    // Maintains chainability
-    return self;
+        // Provides callback function support
+        self._callbackSupport(callback);
 
-};
+        // Maintains chainability
+        return self;
 
-// Internal Destroy Method
-// -----------------------
-//    Removes the plugin from the page
+    };
 
-$.selectBox.selectBoxIt.prototype._destroySelectBoxIt = function() {
+    // Internal Destroy Method
+    // -----------------------
+    //    Removes the plugin from the page
 
-    // Stores the plugin context inside of the self variable
-    var self = this;
+    $.selectBox.selectBoxIt.prototype._destroySelectBoxIt = function() {
 
-    // Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
-    self.dropdown.unbind(".selectBoxIt").
+        // Stores the plugin context inside of the self variable
+        var self = this;
 
-    // Undelegates all of the dropdown list event handlers with the `selectBoxIt` namespace
-    undelegate(".selectBoxIt");
+        // Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
+        self.dropdown.unbind(".selectBoxIt").
 
-    // Remove all of the `selectBoxIt` DOM elements from the page
-    self.dropdownContainer.remove();
+        // Undelegates all of the dropdown list event handlers with the `selectBoxIt` namespace
+        undelegate(".selectBoxIt");
 
-    // Triggers the custom `destroy` event on the original select box
-    self.triggerEvent("destroy");
+        // Remove all of the `selectBoxIt` DOM elements from the page
+        self.dropdownContainer.remove();
 
-    // Shows the original dropdown list
-    self.selectBox.removeAttr("style").show();
+        // Triggers the custom `destroy` event on the original select box
+        self.triggerEvent("destroy");
 
-    // Maintains chainability
-    return self;
+        // Shows the original dropdown list
+        self.selectBox.removeAttr("style").show();
 
-};
+        // Maintains chainability
+        return self;
+
+    };

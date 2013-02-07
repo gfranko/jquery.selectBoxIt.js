@@ -1,56 +1,57 @@
-// Set Options Module
-// ==================
 
-// Set Options
-// ----------
-//      Accepts an object to replace plugin options
-//      properties of the plugin options object
+    // Set Options Module
+    // ==================
 
-$.selectBox.selectBoxIt.prototype.setOptions = function(newOptions, callback) {
+    // Set Options
+    // ----------
+    //      Accepts an object to replace plugin options
+    //      properties of the plugin options object
 
-    var self = this;
+    $.selectBox.selectBoxIt.prototype.setOptions = function(newOptions, callback) {
 
-    $.Widget.prototype._setOptions.apply(self, arguments);
+        var self = this;
 
-    // If the `showFirstOption` option is true
-    if (self.options["showFirstOption"]) {
+        $.Widget.prototype._setOptions.apply(self, arguments);
 
-        // Shows the first option in the dropdown list
-        self.listItems.eq(0).show();
+        // If the `showFirstOption` option is true
+        if (self.options["showFirstOption"]) {
 
-    }
+            // Shows the first option in the dropdown list
+            self.listItems.eq(0).show();
 
-    // If the `showFirstOption` option is false
-    else {
+        }
 
-        // Hides the first option in the dropdown list
-        self.listItems.eq(0).hide();
+        // If the `showFirstOption` option is false
+        else {
 
-    }
+            // Hides the first option in the dropdown list
+            self.listItems.eq(0).hide();
 
-    if(self.options["defaultIcon"]) {
+        }
 
-        self.dropdownImage.attr("class", self.options["defaultIcon"] + " selectboxit-arrow");
+        if(self.options["defaultIcon"]) {
 
-    }
+            self.dropdownImage.attr("class", self.options["defaultIcon"] + " selectboxit-arrow");
 
-    if(self.options["downArrowIcon"]) {
+        }
 
-        self.downArrow.attr("class", self.options["downArrowIcon"] + " selectboxit-arrow");
+        if(self.options["downArrowIcon"]) {
 
-    }
+            self.downArrow.attr("class", self.options["downArrowIcon"] + " selectboxit-arrow");
 
-    // If the defaultText option is set, make sure the dropdown list default text reflects this value
-    if (self.options["defaultText"]) {
+        }
 
-        self.dropdownText.text(self.options["defaultText"]);
+        // If the defaultText option is set, make sure the dropdown list default text reflects this value
+        if (self.options["defaultText"]) {
 
-    }
+            self.dropdownText.text(self.options["defaultText"]);
 
-    // Provide callback function support
-    self._callbackSupport(callback);
+        }
 
-    // Maintains chainability
-    return self;
+        // Provide callback function support
+        self._callbackSupport(callback);
 
-};
+        // Maintains chainability
+        return self;
+
+    };

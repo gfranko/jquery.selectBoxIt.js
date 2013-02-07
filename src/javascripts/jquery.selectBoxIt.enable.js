@@ -1,72 +1,73 @@
-// Enable Module
-// =============
 
-// Enable
-// -----
-//      Enables the new dropdown list
+    // Enable Module
+    // =============
 
-$.selectBox.selectBoxIt.prototype.enable = function(callback) {
+    // Enable
+    // -----
+    //      Enables the new dropdown list
 
-    var self = this;
+    $.selectBox.selectBoxIt.prototype.enable = function(callback) {
 
-    if(self.options["disabled"]) {
+        var self = this;
 
-        // Triggers a `enable` custom event on the original select box
-        self.triggerEvent("enable");
+        if(self.options["disabled"]) {
 
-        // Removes the `disabled` attribute from the original dropdown list
-        self.selectBox.removeAttr("disabled");
+            // Triggers a `enable` custom event on the original select box
+            self.triggerEvent("enable");
 
-        // Make the dropdown list focusable
-        self.dropdown.attr("tabindex", 0).
+            // Removes the `disabled` attribute from the original dropdown list
+            self.selectBox.removeAttr("disabled");
 
-        // Disable styling for disabled state
-        removeClass(self.disabledClasses);
+            // Make the dropdown list focusable
+            self.dropdown.attr("tabindex", 0).
+
+            // Disable styling for disabled state
+            removeClass(self.disabledClasses);
                 
-        $.Widget.prototype.enable.call(self);
+            $.Widget.prototype.enable.call(self);
 
-        // Provide callback function support
+            // Provide callback function support
+            self._callbackSupport(callback);
+
+        }
+
+        // Maintains chainability
+        return self;
+
+    };
+
+    // Enable Option
+    // -------------
+    //      Disables a single drop down option
+
+    $.selectBox.selectBoxIt.prototype.enableOption = function(index, callback) {
+
+        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
+
+        // If an index is passed to target an indropdownidual drop down option
+        if((typeof index).toLowerCase() === "number") {
+
+            // The select box option being targeted
+            currentSelectBoxOption = self.selectBox.find("option").eq(index);
+
+            // Triggers a `enable-option` custom event on the original select box and passes the enabled option
+            self.triggerEvent("enable-option");
+
+            // Disables the targeted select box option
+            currentSelectBoxOption.removeAttr("disabled");
+
+            // Disables the drop down option
+            self.listItems.eq(index).attr("data-disabled", "false").
+
+            // Applies disabled styling for the drop down option
+            removeClass(self.disabledClasses);
+
+        }
+
+        // Provides callback function support
         self._callbackSupport(callback);
 
-    }
+        // Maintains chainability
+        return self;
 
-    // Maintains chainability
-    return self;
-
-};
-
-// Enable Option
-// -------------
-//      Disables a single drop down option
-
-$.selectBox.selectBoxIt.prototype.enableOption = function(index, callback) {
-
-    var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
-
-    // If an index is passed to target an indropdownidual drop down option
-    if((typeof index).toLowerCase() === "number") {
-
-        // The select box option being targeted
-        currentSelectBoxOption = self.selectBox.find("option").eq(index);
-
-        // Triggers a `enable-option` custom event on the original select box and passes the enabled option
-        self.triggerEvent("enable-option");
-
-        // Disables the targeted select box option
-        currentSelectBoxOption.removeAttr("disabled");
-
-        // Disables the drop down option
-        self.listItems.eq(index).attr("data-disabled", "false").
-
-        // Applies disabled styling for the drop down option
-        removeClass(self.disabledClasses);
-
-    }
-
-    // Provides callback function support
-    self._callbackSupport(callback);
-
-    // Maintains chainability
-    return self;
-
-};
+    };

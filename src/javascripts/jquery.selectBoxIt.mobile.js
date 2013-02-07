@@ -1,84 +1,85 @@
-// Mobile Module
-// =============
 
-// Apply Native Select
-// -------------------
-//      Applies the original select box directly over the new drop down
+    // Mobile Module
+    // =============
 
-$.selectBox.selectBoxIt.prototype._applyNativeSelect = function() {
+    // Apply Native Select
+    // -------------------
+    //      Applies the original select box directly over the new drop down
 
-    // Stores the plugin context inside of the self variable
-    var self = this,
-        currentOption;
+    $.selectBox.selectBoxIt.prototype._applyNativeSelect = function() {
 
-    self.dropdownContainer.css({
+        // Stores the plugin context inside of the self variable
+        var self = this,
+            currentOption;
 
-        "position": "static"
+        self.dropdownContainer.css({
 
-    });
+            "position": "static"
 
-    // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
-    self.selectBox.css({
+        });
 
-        "display": "block",
+        // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
+        self.selectBox.css({
 
-        "width": self.dropdown.outerWidth(),
+            "display": "block",
 
-        "height": self.dropdown.outerHeight(),
+            "width": self.dropdown.outerWidth(),
 
-        "opacity": "0",
+            "height": self.dropdown.outerHeight(),
 
-        "position": "absolute",
+            "opacity": "0",
 
-        "top": self.dropdown.position().top,
+            "position": "absolute",
 
-        "bottom": self.dropdown.position().bottom,
+            "top": self.dropdown.position().top,
 
-        "left": self.dropdown.position().left,
+            "bottom": self.dropdown.position().bottom,
 
-        "right": self.dropdown.position().right,
+            "left": self.dropdown.position().left,
 
-        "cursor": "pointer",
+            "right": self.dropdown.position().right,
 
-        "z-index": "999999"
+            "cursor": "pointer",
 
-    }).bind({
+            "z-index": "999999"
 
-        "changed.selectBoxIt": function() {
+        }).bind({
 
-            currentOption = self.selectBox.find("option").filter(":selected");
+            "changed.selectBoxIt": function() {
 
-            // Sets the new dropdown list text to the value of the original dropdown list
-            self.dropdownText.text(currentOption.text());
+                currentOption = self.selectBox.find("option").filter(":selected");
 
-            if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
+                // Sets the new dropdown list text to the value of the original dropdown list
+               self.dropdownText.text(currentOption.text());
 
-                self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
+                if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
+
+                   self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
+
+                }
 
             }
 
-        }
+        });
 
-    });
+    };
 
-};
+    // Mobile
+    // ------
+    //      Applies the native "wheel" interface when a mobile user is interacting with the dropdown
 
-// Mobile
-// ------
-//      Applies the native "wheel" interface when a mobile user is interacting with the dropdown
+    $.selectBox.selectBoxIt.prototype._mobile = function(callback) {
 
-$.selectBox.selectBoxIt.prototype._mobile = function(callback) {
+        // Stores the plugin context inside of the self variable
+        var self = this;
 
-    // Stores the plugin context inside of the self variable
-    var self = this;
+            if(self.options["isMobile"]()) {
 
-        if(self.options["isMobile"]()) {
+                self._applyNativeSelect();
 
-            self._applyNativeSelect();
+            }
 
-        }
+            // Maintains chainability
+            return this;
 
-        // Maintains chainability
-        return this;
-
-};
+    };

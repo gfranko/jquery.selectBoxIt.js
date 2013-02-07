@@ -1,57 +1,58 @@
-// Set Option Module
-// =================
 
-// Set Option
-// ----------
-//      Accepts an string key, a value, and a callback function to replace a single
-//      property of the plugin options object
+    // Set Option Module
+    // =================
 
-$.selectBox.selectBoxIt.prototype.setOption = function(key, value, callback) {
+    // Set Option
+    // ----------
+    //      Accepts an string key, a value, and a callback function to replace a single
+    //      property of the plugin options object
 
-    var self = this;
+    $.selectBox.selectBoxIt.prototype.setOption = function(key, value, callback) {
 
-    // If a user sets the `showFirstOption` to false
-    if (key === "showFirstOption" && !value) {
+        var self = this;
 
-        // Hides the first option in the dropdown list
-        self.listItems.eq(0).hide();
+        // If a user sets the `showFirstOption` to false
+        if (key === "showFirstOption" && !value) {
 
-    }
+            // Hides the first option in the dropdown list
+            self.listItems.eq(0).hide();
 
-    // If a user sets the `showFirstOption` to true
-    else if (key === "showFirstOption" && value) {
+        }
 
-        // Shows the first option in the dropdown list
-        self.listItems.eq(0).show();
+        // If a user sets the `showFirstOption` to true
+        else if (key === "showFirstOption" && value) {
 
-    }
+            // Shows the first option in the dropdown list
+            self.listItems.eq(0).show();
 
-    else if(key === "defaultIcon" && value) {
+        }
 
-        self.dropdownImage.attr("class", value + " selectboxit-arrow");
+        else if(key === "defaultIcon" && value) {
 
-    }
+            self.dropdownImage.attr("class", value + " selectboxit-arrow");
 
-    else if(key === "downArrowIcon" && value) {
+        }
 
-        self.downArrow.attr("class", value + " selectboxit-arrow");
+        else if(key === "downArrowIcon" && value) {
 
-    }
+            self.downArrow.attr("class", value + " selectboxit-arrow");
 
-    // If a user sets the defaultText option
-    else if (key === "defaultText") {
+        }
 
-        // Sets the new dropdown list default text
-        self.dropdownText.text(value);
+        // If a user sets the defaultText option
+        else if (key === "defaultText") {
 
-    }
+            // Sets the new dropdown list default text
+            self.dropdownText.text(value);
 
-    $.Widget.prototype._setOption.apply(self, arguments);
+        }
 
-    // Provides callback function support
-    self._callbackSupport(callback);
+        $.Widget.prototype._setOption.apply(self, arguments);
 
-    // Maintains chainability
-    return self;
+        // Provides callback function support
+        self._callbackSupport(callback);
 
-};
+        // Maintains chainability
+        return self;
+
+    };

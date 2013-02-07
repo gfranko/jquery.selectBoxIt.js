@@ -1,44 +1,45 @@
-// Wait Module
-// ===========
 
-// Wait
-// ----
-//    Delays execution by the amount of time
-//    specified by the parameter
+    // Wait Module
+    // ===========
 
-$.selectBox.selectBoxIt.prototype.wait = function(time, callback) {
+    // Wait
+    // ----
+    //    Delays execution by the amount of time
+    //    specified by the parameter
 
-    var self = this,
+    $.selectBox.selectBoxIt.prototype.wait = function(time, callback) {
 
-        // The timeout variable stores a Deferred Object, which will be resolved after the time specified in the parameter
-        timeout = this.returnTimeout(time);
+        var self = this,
 
-    // Once the Deferred object is resolved, call the callback function
-    timeout.then(function() {
+            // The timeout variable stores a Deferred Object, which will be resolved after the time specified in the parameter
+            timeout = this.returnTimeout(time);
 
-        // Provide callback function support
-        self._callbackSupport(callback);
+        // Once the Deferred object is resolved, call the callback function
+        timeout.then(function() {
 
-    });
+            // Provide callback function support
+            self._callbackSupport(callback);
+
+        });
         
-    // Maintains chainability
-    return self;
+        // Maintains chainability
+        return self;
 
-};
+    };
 
-// Return timeout
-// -------------
-//    Returns a Deferred Object after the time
-//    specified by the parameter
+    // Return timeout
+    // -------------
+    //    Returns a Deferred Object after the time
+    //    specified by the parameter
 
-$.selectBox.selectBoxIt.prototype.returnTimeout = function(time) {
+    $.selectBox.selectBoxIt.prototype.returnTimeout = function(time) {
 
-    // Returns a Deferred Object
-    return $.Deferred(function(dfd) {
+        // Returns a Deferred Object
+        return $.Deferred(function(dfd) {
 
-        // Call the JavaScript `setTimeout function and resolve the Deferred Object
-        setTimeout(dfd.resolve, time);
+            // Call the JavaScript `setTimeout function and resolve the Deferred Object
+            setTimeout(dfd.resolve, time);
 
-    });
+        });
 
-};
+    };

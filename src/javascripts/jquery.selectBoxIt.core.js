@@ -226,7 +226,7 @@
             // Add's all attributes (excluding id, class names, and unselectable properties) to the drop down and drop down items list
             // Hides the original select box and adds the new plugin DOM elements to the page
             // Adds event handlers to the new dropdown list
-            self._createdropdown()._createUnorderedList()._addSelectBoxAttributes()._replaceSelectBox()._addClasses(self.theme)._eventHandlers();
+            self._createdropdown()._createUnorderedList()._copyAttributes()._replaceSelectBox()._addClasses(self.theme)._eventHandlers();
 
             if(self.originalElem.disabled && self.disable) {
 
@@ -243,8 +243,12 @@
 
             }
 
-            // Adds mobile support
-            self._mobile();
+            if(self._mobile) {
+
+                // Adds mobile support
+                self._mobile();
+
+            }
 
             // If the native option is set to true
             if(self.options["native"]) {
@@ -1486,54 +1490,6 @@
 
         },
 
-        // Destroy
-        // -------
-        //    Removes the plugin from the page
-
-        destroy: function(callback) {
-
-            var self = this;
-
-            self._destroySelectBoxIt();
-
-            // Calls the jQueryUI Widget Factory destroy method
-            $.Widget.prototype.destroy.call(self);
-
-            //Provides callback function support
-            self._callbackSupport(callback);
-
-            //Maintains chainability
-            return self;
-
-        },
-
-        // Internal Destroy Method
-        // -----------------------
-        //    Removes the plugin from the page
-        _destroySelectBoxIt: function() {
-
-            var self = this;
-
-            //Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
-            self.dropdown.unbind(".selectBoxIt").
-
-            //Undelegates all of the dropdown list event handlers with the `selectBoxIt` namespace
-            undelegate(".selectBoxIt");
-
-            //Remove all of the `selectBoxIt` DOM elements from the page
-            self.dropdownContainer.remove();
-
-            //Triggers the custom `destroy` event on the original select box
-            self.triggerEvent("destroy");
-
-            // Shows the original dropdown list
-            self.selectBox.removeAttr("style").show();
-
-            //Maintains chainability
-            return self;
-
-        },
-
         // Refresh
         // -------
         //    The dropdown will rebuild itself.  Useful for dynamic content.
@@ -1542,89 +1498,17 @@
 
             var self = this;
 
-            // Destroys the plugin and then recreates the plugin
-            self._destroySelectBoxIt()._create(true)._callbackSupport(callback);
+            if(self._destroySelectBoxIt) {
 
-            self.triggerEvent("refresh");
+                // Destroys the plugin and then recreates the plugin
+                self._destroySelectBoxIt()._create(true)._callbackSupport(callback);
 
-            //Maintains chainability
-            return self;
-
-        },
-
-        // Apply Native Select
-        // -------------------
-        //      The dropdown will use the native select box functionality
-
-        _applyNativeSelect: function() {
-
-            var self = this,
-                currentOption;
-
-            self.dropdownContainer.css({
-
-                "position": "static"
-
-            });
-
-            // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
-            self.selectBox.css({
-
-                "display": "block",
-
-                "width": self.dropdown.outerWidth(),
-
-                "height": self.dropdown.outerHeight(),
-
-                "opacity": "0",
-
-                "position": "absolute",
-
-                "top": self.dropdown.position().top,
-
-                "bottom": self.dropdown.position().bottom,
-
-                "left": self.dropdown.position().left,
-
-                "right": self.dropdown.position().right,
-
-                "cursor": "pointer",
-
-                "z-index": "999999"
-
-            }).bind({
-
-                "changed.selectBoxIt": function() {
-
-                    currentOption = self.selectBox.find("option").filter(":selected");
-
-                    // Sets the new dropdown list text to the value of the original dropdown list
-                    self.dropdownText.text(currentOption.text());
-
-                    if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
-
-                        self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
-
-                    }
-
-                }
-
-            });
-
-        },
-
-        _mobile: function(callback) {
-
-            var self = this;
-
-            if(this.options["isMobile"]()) {
-
-                self._applyNativeSelect();
+                self.triggerEvent("refresh");
 
             }
 
             //Maintains chainability
-            return this;
+            return self;
 
         },
 
@@ -1660,77 +1544,18 @@
 
         },
 
-        // addSelectBoxAttributes
-        // ----------------------
-        //      Add's all attributes (excluding id, class names, and the style attribute) from the default select box to the new drop down
-        _addSelectBoxAttributes: function(eventName) {
+        _copyAttributes: function() {
 
             var self = this;
 
-            // Add's all attributes to the currently traversed drop down option
-            self._addAttributes(self.selectBox.prop("attributes"), self.dropdown);
+            if(self._addSelectBoxAttributes) {
 
-            // Add's all attributes to the drop down items list
-            self.selectItems.each(function(iterator) {
-
-                // Add's all attributes to the currently traversed drop down option
-                self._addAttributes($(this).prop("attributes"), self.listItems.eq(iterator));
-
-            });
-
-            // Maintains chainability
-            return self;
-
-        },
-
-        // addAttributes
-        // -------------
-        //  Add's attributes to a DOM element
-        _addAttributes: function(arr, elem) {
-
-            var self = this,
-                blacklist = [
-
-                    "null",
-
-                    "value",
-
-                    "disabled",
-
-                    "id",
-
-                    "class",
-
-                    "unselectable"
-
-                ];
-
-            // If there are array properties
-            if(arr.length) {
-
-                // Iterates over all of array properties
-                $.each(arr, function(iterator, property) {
-
-                    // Get's the property name and property value of each property
-                    var propName = (property.name).toLowerCase(), propValue = property.value;
-
-                    // If the currently traversed property is not on the blacklist and the value is not "null"
-                    if(propValue !== "null" && $.inArray(propName, blacklist) === -1) {
-
-                        // Set's the currently traversed property on element
-                        elem.attr(propName, propValue);
-
-                    }
-
-                });
+                self._addSelectBoxAttributes();
 
             }
 
-            // Maintains chainability
             return self;
 
         }
 
     });
-
-})); // End of core module

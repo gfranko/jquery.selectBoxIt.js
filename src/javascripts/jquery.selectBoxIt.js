@@ -226,7 +226,7 @@
             // Add's all attributes (excluding id, class names, and unselectable properties) to the drop down and drop down items list
             // Hides the original select box and adds the new plugin DOM elements to the page
             // Adds event handlers to the new dropdown list
-            self._createdropdown()._createUnorderedList()._addSelectBoxAttributes()._replaceSelectBox()._addClasses(self.theme)._eventHandlers();
+            self._createdropdown()._createUnorderedList()._copyAttributes()._replaceSelectBox()._addClasses(self.theme)._eventHandlers();
 
             if(self.originalElem.disabled && self.disable) {
 
@@ -243,8 +243,12 @@
 
             }
 
-            // Adds mobile support
-            self._mobile();
+            if(self._mobile) {
+
+                // Adds mobile support
+                self._mobile();
+
+            }
 
             // If the native option is set to true
             if(self.options["native"]) {
@@ -1486,54 +1490,6 @@
 
         },
 
-        // Destroy
-        // -------
-        //    Removes the plugin from the page
-
-        destroy: function(callback) {
-
-            var self = this;
-
-            self._destroySelectBoxIt();
-
-            // Calls the jQueryUI Widget Factory destroy method
-            $.Widget.prototype.destroy.call(self);
-
-            //Provides callback function support
-            self._callbackSupport(callback);
-
-            //Maintains chainability
-            return self;
-
-        },
-
-        // Internal Destroy Method
-        // -----------------------
-        //    Removes the plugin from the page
-        _destroySelectBoxIt: function() {
-
-            var self = this;
-
-            //Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
-            self.dropdown.unbind(".selectBoxIt").
-
-            //Undelegates all of the dropdown list event handlers with the `selectBoxIt` namespace
-            undelegate(".selectBoxIt");
-
-            //Remove all of the `selectBoxIt` DOM elements from the page
-            self.dropdownContainer.remove();
-
-            //Triggers the custom `destroy` event on the original select box
-            self.triggerEvent("destroy");
-
-            // Shows the original dropdown list
-            self.selectBox.removeAttr("style").show();
-
-            //Maintains chainability
-            return self;
-
-        },
-
         // Refresh
         // -------
         //    The dropdown will rebuild itself.  Useful for dynamic content.
@@ -1542,89 +1498,17 @@
 
             var self = this;
 
-            // Destroys the plugin and then recreates the plugin
-            self._destroySelectBoxIt()._create(true)._callbackSupport(callback);
+            if(self._destroySelectBoxIt) {
 
-            self.triggerEvent("refresh");
+                // Destroys the plugin and then recreates the plugin
+                self._destroySelectBoxIt()._create(true)._callbackSupport(callback);
 
-            //Maintains chainability
-            return self;
-
-        },
-
-        // Apply Native Select
-        // -------------------
-        //      The dropdown will use the native select box functionality
-
-        _applyNativeSelect: function() {
-
-            var self = this,
-                currentOption;
-
-            self.dropdownContainer.css({
-
-                "position": "static"
-
-            });
-
-            // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
-            self.selectBox.css({
-
-                "display": "block",
-
-                "width": self.dropdown.outerWidth(),
-
-                "height": self.dropdown.outerHeight(),
-
-                "opacity": "0",
-
-                "position": "absolute",
-
-                "top": self.dropdown.position().top,
-
-                "bottom": self.dropdown.position().bottom,
-
-                "left": self.dropdown.position().left,
-
-                "right": self.dropdown.position().right,
-
-                "cursor": "pointer",
-
-                "z-index": "999999"
-
-            }).bind({
-
-                "changed.selectBoxIt": function() {
-
-                    currentOption = self.selectBox.find("option").filter(":selected");
-
-                    // Sets the new dropdown list text to the value of the original dropdown list
-                    self.dropdownText.text(currentOption.text());
-
-                    if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
-
-                        self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
-
-                    }
-
-                }
-
-            });
-
-        },
-
-        _mobile: function(callback) {
-
-            var self = this;
-
-            if(this.options["isMobile"]()) {
-
-                self._applyNativeSelect();
+                self.triggerEvent("refresh");
 
             }
 
             //Maintains chainability
-            return this;
+            return self;
 
         },
 
@@ -1660,1219 +1544,1175 @@
 
         },
 
-        // addSelectBoxAttributes
-        // ----------------------
-        //      Add's all attributes (excluding id, class names, and the style attribute) from the default select box to the new drop down
-        _addSelectBoxAttributes: function(eventName) {
+        _copyAttributes: function() {
 
             var self = this;
 
-            // Add's all attributes to the currently traversed drop down option
-            self._addAttributes(self.selectBox.prop("attributes"), self.dropdown);
+            if(self._addSelectBoxAttributes) {
 
-            // Add's all attributes to the drop down items list
-            self.selectItems.each(function(iterator) {
-
-                // Add's all attributes to the currently traversed drop down option
-                self._addAttributes($(this).prop("attributes"), self.listItems.eq(iterator));
-
-            });
-
-            // Maintains chainability
-            return self;
-
-        },
-
-        // addAttributes
-        // -------------
-        //  Add's attributes to a DOM element
-        _addAttributes: function(arr, elem) {
-
-            var self = this,
-                blacklist = [
-
-                    "null",
-
-                    "value",
-
-                    "disabled",
-
-                    "id",
-
-                    "class",
-
-                    "unselectable"
-
-                ];
-
-            // If there are array properties
-            if(arr.length) {
-
-                // Iterates over all of array properties
-                $.each(arr, function(iterator, property) {
-
-                    // Get's the property name and property value of each property
-                    var propName = (property.name).toLowerCase(), propValue = property.value;
-
-                    // If the currently traversed property is not on the blacklist and the value is not "null"
-                    if(propValue !== "null" && $.inArray(propName, blacklist) === -1) {
-
-                        // Set's the currently traversed property on element
-                        elem.attr(propName, propValue);
-
-                    }
-
-                });
+                self._addSelectBoxAttributes();
 
             }
 
-            // Maintains chainability
             return self;
 
         }
 
     });
-
-})); // End of core module
 // Accessibility Module
 // ====================
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// _ARIA Accessibility
+// ------------------
+//      Adds ARIA (Accessible Rich Internet Applications)
+//      Accessibility Tags to the Select Box
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype._ariaAccessibility = function() {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    var self = this;
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+    // Adds `ARIA attributes` to the dropdown list
+    self.dropdown.attr({
 
-}
+        // W3C `combobox` description: A presentation of a select; usually similar to a textbox where users can type ahead to select an option.
+        "role": "combobox",
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+        //W3C `aria-autocomplete` description: Indicates whether user input completion suggestions are provided.
+        "aria-autocomplete": "list",
 
-(function ($, window, document, undefined) {
+        // W3C `aria-expanded` description: Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.
+        "aria-expanded": "false",
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+        // W3C `aria-owns` description: The value of the aria-owns attribute is a space-separated list of IDREFS that reference one or more elements in the document by ID. The reason for adding aria-owns is to expose a parent/child contextual relationship to assistive technologies that is otherwise impossible to infer from the DOM.
+        "aria-owns": self.list.attr("id"),
 
-    //_ARIA Accessibility
-    // ------------------
-    //      Adds ARIA (Accessible Rich Internet Applications)
-    //      Accessibility Tags to the Select Box
+        // W3C `aria-activedescendant` description: This is used when a composite widget is responsible for managing its current active child to reduce the overhead of having all children be focusable. Examples include: multi-level lists, trees, and grids.
+        "aria-activedescendant": self.listItems.eq(self.currentFocus).attr("id"),
 
-    $.selectBox.selectBoxIt.prototype._ariaAccessibility = function() {
+        // W3C `aria-label` description:  It provides the user with a recognizable name of the object.
+        "aria-label": $("label[for='" + self.originalElem.id + "']").text() || "",
 
-        var self = this;
+        // W3C `aria-live` description: Indicates that an element will be updated.
+        // Use the assertive value when the update needs to be communicated to the user more urgently.
+        "aria-live": "assertive"
 
-        //Adds `ARIA attributes` to the dropdown list
-        self.dropdown.attr({
+    }).
 
-            //W3C `combobox` description: A presentation of a select; usually similar to a textbox where users can type ahead to select an option.
-            "role": "combobox",
+    // Dynamically adds `ARIA attributes` if the new dropdown list is enabled or disabled
+    bind({
 
-            //W3C `aria-autocomplete` description: Indicates whether user input completion suggestions are provided.
-            "aria-autocomplete": "list",
+        //Select box custom `disable` event with the `selectBoxIt` namespace
+        "disable.selectBoxIt" : function() {
 
-            //W3C `aria-expanded` description: Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.
-            "aria-expanded": "false",
+            // W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
+            self.dropdown.attr("aria-disabled", "true");
 
-            //W3C `aria-owns` description: The value of the aria-owns attribute is a space-separated list of IDREFS that reference one or more elements in the document by ID. The reason for adding aria-owns is to expose a parent/child contextual relationship to assistive technologies that is otherwise impossible to infer from the DOM.
-            "aria-owns": self.list.attr("id"),
+        },
 
-            //W3C `aria-activedescendant` description: This is used when a composite widget is responsible for managing its current active child to reduce the overhead of having all children be focusable. Examples include: multi-level lists, trees, and grids.
-            "aria-activedescendant": self.listItems.eq(self.currentFocus).attr("id"),
+        // Select box custom `enable` event with the `selectBoxIt` namespace
+        "enable.selectBoxIt" : function() {
 
-            //W3C `aria-label` description:  It provides the user with a recognizable name of the object.
-            "aria-label": $("label[for='" + self.originalElem.id + "']").text() || "",
+            // W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
+            self.dropdown.attr("aria-disabled", "false");
 
-            //W3C `aria-live` description: Indicates that an element will be updated.
-            //Use the assertive value when the update needs to be communicated to the user more urgently.
-            "aria-live": "assertive"
-        }).
+        }
 
-        //Dynamically adds `ARIA attributes` if the new dropdown list is enabled or disabled
-        bind({
+    });
 
-            //Select box custom `disable` event with the `selectBoxIt` namespace
-            "disable.selectBoxIt" : function() {
+    // Adds ARIA attributes to the dropdown list options list
+    self.list.attr({
 
-                //W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
-                self.dropdown.attr("aria-disabled", "true");
+        // W3C `listbox` description: A widget that allows the user to select one or more items from a list of choices.
+        "role": "listbox",
 
-            },
+        // Indicates that the dropdown list options list is currently hidden
+        "aria-hidden": "true"
 
-            //Select box custom `enable` event with the `selectBoxIt` namespace
-            "enable.selectBoxIt" : function() {
+    });
 
-                //W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
-                self.dropdown.attr("aria-disabled", "false");
+    // Adds `ARIA attributes` to the dropdown list options
+    self.listItems.attr({
+
+        // This must be set for each element when the container element role is set to `listbox`
+        "role": "option"
+
+    });
+
+    // Dynamically updates the new dropdown list `aria-label` attribute after the original dropdown list value changes
+    self.selectBox.bind({
+
+        // Custom `change` event with the `selectBoxIt` namespace
+        "change.selectBoxIt": function() {
+
+            // Provides the user with a recognizable name of the object.
+            self.dropdownText.attr("aria-label", self.originalElem.value);
+
+        },
+
+        // Custom `open` event with the `selectBoxIt` namespace
+        "open.selectBoxIt": function() {
+
+            // Indicates that the dropdown list options list is currently visible
+            self.list.attr("aria-hidden", "false");
+
+            // Indicates that the dropdown list is currently expanded
+            self.dropdown.attr("aria-expanded", "true");
+
+        },
+
+        // Custom `close` event with the `selectBoxIt` namespace
+        "close.selectBoxIt": function() {
+
+            // Indicates that the dropdown list options list is currently hidden
+            self.list.attr("aria-hidden", "true");
+
+            // Indicates that the dropdown list is currently collapsed
+            self.dropdown.attr("aria-expanded", "false");
+
+        }
+
+    });
+
+    // Maintains chainability
+    return self;
+
+};
+// Copy Attributes Module
+// ======================
+
+// addSelectBoxAttributes
+// ----------------------
+//      Add's all attributes (excluding id, class names, and the style attribute) from the default select box to the new drop down
+
+$.selectBox.selectBoxIt.prototype._addSelectBoxAttributes = function() {
+
+    // Stores the plugin context inside of the self variable
+    var self = this;
+
+    // Add's all attributes to the currently traversed drop down option
+    self._addAttributes(self.selectBox.prop("attributes"), self.dropdown);
+
+    // Add's all attributes to the drop down items list
+    self.selectItems.each(function(iterator) {
+
+        // Add's all attributes to the currently traversed drop down option
+        self._addAttributes($(this).prop("attributes"), self.listItems.eq(iterator));
+
+    });
+
+    // Maintains chainability
+    return self;
+
+};        
+
+// addAttributes
+// -------------
+//  Add's attributes to a DOM element
+$.selectBox.selectBoxIt.prototype._addAttributes = function(arr, elem) {
+
+    // Stores the plugin context inside of the self variable
+    var self = this,
+        blacklist = [
+
+            "null",
+
+            "value",
+
+            "disabled",
+
+            "id",
+
+            "class",
+
+            "unselectable"
+
+        ];
+
+    // If there are array properties
+    if(arr.length) {
+
+        // Iterates over all of array properties
+        $.each(arr, function(iterator, property) {
+
+            // Get's the property name and property value of each property
+            var propName = (property.name).toLowerCase(), propValue = property.value;
+
+            // If the currently traversed property is not on the blacklist and the value is not "null"
+            if(propValue !== "null" && $.inArray(propName, blacklist) === -1) {
+
+                // Set's the currently traversed property on element
+                elem.attr(propName, propValue);
 
             }
 
         });
 
-        //Adds ARIA attributes to the dropdown list options list
-        self.list.attr({
+    }
 
-            //W3C `listbox` description: A widget that allows the user to select one or more items from a list of choices.
-            "role": "listbox",
+    // Maintains chainability
+    return self;
 
-            //Indicates that the dropdown list options list is currently hidden
-            "aria-hidden": "true"
-        });
+};
+// Destroy Module
+// ==============
 
-        //Adds `ARIA attributes` to the dropdown list options
-        self.listItems.attr({
+// Destroy
+// -------
+//    Removes the plugin from the page
 
-            //This must be set for each element when the container element role is set to `listbox`
-            "role": "option"
-        });
+$.selectBox.selectBoxIt.prototype.destroy = function(callback) {
 
-        //Dynamically updates the new dropdown list `aria-label` attribute after the original dropdown list value changes
-        self.selectBox.bind({
+    // Stores the plugin context inside of the self variable
+    var self = this;
 
-            //Custom `change` event with the `selectBoxIt` namespace
-            "change.selectBoxIt": function() {
+    self._destroySelectBoxIt();
 
-                //Provides the user with a recognizable name of the object.
-                self.dropdownText.attr("aria-label", self.originalElem.value);
+    // Calls the jQueryUI Widget Factory destroy method
+    $.Widget.prototype.destroy.call(self);
 
-            },
+    // Provides callback function support
+    self._callbackSupport(callback);
 
-            //Custom `open` event with the `selectBoxIt` namespace
-            "open.selectBoxIt": function() {
+    // Maintains chainability
+    return self;
 
-                //Indicates that the dropdown list options list is currently visible
-                self.list.attr("aria-hidden", "false");
+};
 
-                //Indicates that the dropdown list is currently expanded
-                self.dropdown.attr("aria-expanded", "true");
+// Internal Destroy Method
+// -----------------------
+//    Removes the plugin from the page
 
-            },
+$.selectBox.selectBoxIt.prototype._destroySelectBoxIt = function() {
 
-            //Custom `close` event with the `selectBoxIt` namespace
-            "close.selectBoxIt": function() {
+    // Stores the plugin context inside of the self variable
+    var self = this;
 
-                //Indicates that the dropdown list options list is currently hidden
-                self.list.attr("aria-hidden", "true");
+    // Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
+    self.dropdown.unbind(".selectBoxIt").
 
-                //Indicates that the dropdown list is currently collapsed
-                self.dropdown.attr("aria-expanded", "false");
+    // Undelegates all of the dropdown list event handlers with the `selectBoxIt` namespace
+    undelegate(".selectBoxIt");
 
-            }
+    // Remove all of the `selectBoxIt` DOM elements from the page
+    self.dropdownContainer.remove();
 
-        });
+    // Triggers the custom `destroy` event on the original select box
+    self.triggerEvent("destroy");
 
-        //Maintains chainability
-        return self;
+    // Shows the original dropdown list
+    self.selectBox.removeAttr("style").show();
 
-    };
+    // Maintains chainability
+    return self;
 
-}));
+};
 // Disable Module
 // ==============
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// Disable
+// -------
+//      Disables the new dropdown list
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype.disable = function(callback) {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    var self = this;
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+    if(!self.options["disabled"]) {
 
-}
+        // Makes sure the dropdown list is closed
+        self.close();
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+        // Triggers a `disable` custom event on the original select box
+        self.triggerEvent("disable");
 
-(function ($, window, document, undefined) {
+        // Sets the `disabled` attribute on the original select box
+        self.selectBox.attr("disabled", "disabled");
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+        // Makes the dropdown list not focusable by removing the `tabindex` attribute
+        self.dropdown.removeAttr("tabindex").
 
-    // Disable
-    // -------
-    //      Disables the new dropdown list
+        // Enabled styling for disabled state
+        addClass("selectboxit-disabled");
 
-    $.selectBox.selectBoxIt.prototype.disable = function(callback) {
+        // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
+        $.Widget.prototype.disable.call(self);
 
-        var self = this;
+    }
 
-        if(!self.options["disabled"]) {
+    // Provides callback function support
+    self._callbackSupport(callback);
 
-            // Makes sure the dropdown list is closed
-            self.close();
+    // Maintains chainability
+    return self;
 
-            // Triggers a `disable` custom event on the original select box
-            self.triggerEvent("disable");
+};
 
-            // Sets the `disabled` attribute on the original select box
-           self.selectBox.attr("disabled", "disabled");
+// Disable Option
+// --------------
+//      Disables a single drop down option
 
-           // Makes the dropdown list not focusable by removing the `tabindex` attribute
-           self.dropdown.removeAttr("tabindex")
+$.selectBox.selectBoxIt.prototype.disableOption = function(index, callback) {
 
-           // Enabled styling for disabled state
-           .addClass("selectboxit-disabled");
+    var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled;
 
-           // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
-           $.Widget.prototype.disable.call(self);
+    // If an index is passed to target an indropdownidual drop down option
+    if((typeof index).toLowerCase() === "number") {
 
-        }
+        // Makes sure the dropdown list is closed
+        self.close();
 
-        // Provides callback function support
-        self._callbackSupport(callback);
+        // The select box option being targeted
+        currentSelectBoxOption = self.selectBox.find("option").eq(index);
 
-        // Maintains chainability
-        return self;
+        // Triggers a `disable-option` custom event on the original select box and passes the disabled option
+        self.triggerEvent("disable-option");
 
-    };
+        // Disables the targeted select box option
+        currentSelectBoxOption.attr("disabled", "disabled");
 
-    // Disable Option
-    // --------------
-    //      Disables a single drop down option
+        // Disables the drop down option
+        self.listItems.eq(index).attr("data-disabled", "true").
 
-    $.selectBox.selectBoxIt.prototype.disableOption = function(index, callback) {
+        // Applies disabled styling for the drop down option
+        addClass(self.theme["disabled"]);
 
-        var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled;
+        // If the currently selected drop down option is the item being disabled
+        if(self.currentFocus === index) {
 
-        // If an index is passed to target an indropdownidual drop down option
-        if((typeof index).toLowerCase() === "number") {
+            hasNextEnabled = self.listItems.eq(self.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
 
-            // Makes sure the dropdown list is closed
-            self.close();
+            hasPreviousEnabled = self.listItems.eq(self.currentFocus).prevAll("li").not("[data-disabled='true']").first().length;
 
-            // The select box option being targeted
-            currentSelectBoxOption = self.selectBox.find("option").eq(index);
+            // If there is a currently enabled option beneath the currently selected option
+            if(hasNextEnabled) {
 
-            // Triggers a `disable-option` custom event on the original select box and passes the disabled option
-            self.triggerEvent("disable-option");
+                // Selects the option beneath the currently selected option
+                self.moveDown();
 
-            // Disables the targeted select box option
-            currentSelectBoxOption.attr("disabled", "disabled");
+            }
 
-            // Disables the drop down option
-            self.listItems.eq(index).attr("data-disabled", "true").
+            // If there is a currently enabled option above the currently selected option
+            else if(hasPreviousEnabled) {
 
-            // Applies disabled styling for the drop down option
-            addClass(self.theme["disabled"]);
+                // Selects the option above the currently selected option
+                self.moveUp();
 
-            // If the currently selected drop down option is the item being disabled
-            if(self.currentFocus === index) {
+            }
 
-                hasNextEnabled = self.listItems.eq(self.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
+            // If there is not a currently enabled option
+            else {
 
-                hasPreviousEnabled = self.listItems.eq(self.currentFocus).prevAll("li").not("[data-disabled='true']").first().length;
-
-                // If there is a currently enabled option beneath the currently selected option
-                if(hasNextEnabled) {
-
-                    // Selects the option beneath the currently selected option
-                    self.moveDown();
-
-                }
-
-                // If there is a currently enabled option above the currently selected option
-                else if(hasPreviousEnabled) {
-
-                    // Selects the option above the currently selected option
-                    self.moveUp();
-
-                }
-
-                // If there is not a currently enabled option
-                else {
-
-                    // Disables the entire drop down list
-                    self.disable();
-
-                }
+                // Disables the entire drop down list
+                self.disable();
 
             }
 
         }
 
-        // Provides callback function support
-        self._callbackSupport(callback);
+    }
 
-        // Maintains chainability
-        return self;
+    // Provides callback function support
+    self._callbackSupport(callback);
 
-    };
+    // Maintains chainability
+    return self;
 
-    //_Is Disabled
-    // -----------
-    //      Checks the original select box for the
-    //    disabled attribute
+};
 
-    $.selectBox.selectBoxIt.prototype._isDisabled = function(callback) {
+// _Is Disabled
+// -----------
+//      Checks the original select box for the
+//    disabled attribute
 
-        var self = this;
+$.selectBox.selectBoxIt.prototype._isDisabled = function(callback) {
 
-        //If the original select box is disabled
-        if (self.originalElem.disabled) {
+    var self = this;
 
-            //Disables the dropdown list
-            self.disable();
-        }
+    // If the original select box is disabled
+    if (self.originalElem.disabled) {
 
-        //Maintains chainability
-        return self;
+        // Disables the dropdown list
+        self.disable();
 
-    };
+    }
 
-}));
+    // Maintains chainability
+    return self;
+
+};
 // Dynamic Positioning Module
 // ==========================
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// _Dynamic positioning
+// ------------------
+//      Dynamically positions the dropdown list options list
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype._dynamicPositioning = function() {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    var self = this,
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+        // Returns the x and y coordinates of the dropdown list options list relative to the document
+        listOffsetTop = self.dropdown.offset().top,
 
-}
+        // The height of the dropdown list options list
+        listHeight = self.list.data("max-height") || self.list.outerHeight(),
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+        // The height of the dropdown list DOM element
+        selectBoxHeight = self.dropdown.outerHeight(),
 
-(function ($, window, document, undefined) {
+        windowHeight = $(window).height(),
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+        windowScrollTop = $(window).scrollTop(),
 
-    //_Dynamic positioning
-    // ------------------
-    //      Dynamically positions the dropdown list options list
+        topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= windowHeight + windowScrollTop),
 
-    $.selectBox.selectBoxIt.prototype._dynamicPositioning = function() {
+        bottomReached = !topToBottom;
 
-        var self = this,
+    if(!self.list.data("max-height")) {
 
-            // Returns the x and y coordinates of the dropdown list options list relative to the document
-            listOffsetTop = self.dropdown.offset().top,
+        self.list.data("max-height", self.list.outerHeight());
 
-            // The height of the dropdown list options list
-            listHeight = self.list.data("max-height") || self.list.outerHeight(),
+    }
 
-            // The height of the dropdown list DOM element
-            selectBoxHeight = self.dropdown.outerHeight(),
+    // Makes sure the original select box is hidden
+    self.selectBox.css("display", "none");
 
-            windowHeight = $(window).height(),
+    // If there is room on the bottom of the viewport to display the drop down options
+    if (!bottomReached) {
 
-            windowScrollTop = $(window).scrollTop(),
+        self.list.css("max-height", self.list.data("max-height"));
 
-            topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= windowHeight + windowScrollTop),
+        // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
+        self.list.css("top", "auto");
 
-            bottomReached = !topToBottom;
+    }
 
-        if(!self.list.data("max-height")) {
+    // If there is room on the top of the viewport
+    else if((self.dropdown.offset().top - windowScrollTop) >= listHeight) {
 
-            self.list.data("max-height", self.list.outerHeight());
+        self.list.css("max-height", self.list.data("max-height"));
 
-        }
+        // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
+        self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
-        // Makes sure the original select box is hidden
-        self.selectBox.css("display", "none");
+    }
 
-        // If there is room on the bottom of the viewport to display the drop down options
-        if (!bottomReached) {
+    // If there is not enough room on the top or the bottom
+    else {
 
-            self.list.css("max-height", self.list.data("max-height"));
+        var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (windowHeight + windowScrollTop)),
 
-            // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
+            outsideTopViewport = Math.abs((self.dropdown.offset().top - windowScrollTop) - listHeight);
+
+        // If there is more room on the bottom
+        if(outsideBottomViewport < outsideTopViewport) {
+
+            self.list.css("max-height", self.list.data("max-height") - outsideBottomViewport - (selectBoxHeight/2));
+
             self.list.css("top", "auto");
 
         }
 
-        // If there is room on the top of the viewport
-        else if((self.dropdown.offset().top - windowScrollTop) >= listHeight) {
+        // If there is more room on the top
+        else {
 
-            self.list.css("max-height", self.list.data("max-height"));
+            self.list.css("max-height", self.list.data("max-height") - outsideTopViewport - (selectBoxHeight/2));
 
             // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
             self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
         }
 
-        // If there is not enough room on the top or the bottom
-        else {
+    }
 
-            var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (windowHeight + windowScrollTop)),
+    // Maintains chainability
+    return self;
 
-                outsideTopViewport = Math.abs((self.dropdown.offset().top - windowScrollTop) - listHeight);
-
-            // If there is more room on the bottom
-            if(outsideBottomViewport < outsideTopViewport) {
-
-                self.list.css("max-height", self.list.data("max-height") - outsideBottomViewport - (selectBoxHeight/2));
-
-                self.list.css("top", "auto");
-
-            }
-
-            // If there is more room on the top
-            else {
-
-                self.list.css("max-height", self.list.data("max-height") - outsideTopViewport - (selectBoxHeight/2));
-
-                // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
-                self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
-
-            }
-
-        }
-
-        // Maintains chainability
-        return self;
-
-    };
-
-}));
+};
 // Enable Module
 // =============
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// Enable
+// -----
+//      Enables the new dropdown list
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype.enable = function(callback) {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    var self = this;
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+    if(self.options["disabled"]) {
 
-}
+        // Triggers a `enable` custom event on the original select box
+        self.triggerEvent("enable");
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+        // Removes the `disabled` attribute from the original dropdown list
+        self.selectBox.removeAttr("disabled");
 
-(function ($, window, document, undefined) {
+        // Make the dropdown list focusable
+        self.dropdown.attr("tabindex", 0).
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
-
-    //Enable
-    // -----
-    //      Enables the new dropdown list
-
-    $.selectBox.selectBoxIt.prototype.enable = function(callback) {
-
-        var self = this;
-
-        if(self.options["disabled"]) {
-
-            // Triggers a `enable` custom event on the original select box
-            self.triggerEvent("enable");
-
-            // Removes the `disabled` attribute from the original dropdown list
-            self.selectBox.removeAttr("disabled");
-
-            // Make the dropdown list focusable
-            self.dropdown.attr("tabindex", 0)
-
-            // Disable styling for disabled state
-            .removeClass(self.disabledClasses);
+        // Disable styling for disabled state
+        removeClass(self.disabledClasses);
                 
-            $.Widget.prototype.enable.call(self);
+        $.Widget.prototype.enable.call(self);
 
-            // Provide callback function support
-            self._callbackSupport(callback);
-
-            }
-
-            //Maintains chainability
-            return self;
-
-        };
-
-    // Enable Option
-    // -------------
-    //      Disables a single drop down option
-
-    $.selectBox.selectBoxIt.prototype.enableOption = function(index, callback) {
-
-        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
-
-        // If an index is passed to target an indropdownidual drop down option
-        if((typeof index).toLowerCase() === "number") {
-
-            // The select box option being targeted
-            currentSelectBoxOption = self.selectBox.find("option").eq(index);
-
-            // Triggers a `enable-option` custom event on the original select box and passes the enabled option
-            self.triggerEvent("enable-option");
-
-            // Disables the targeted select box option
-            currentSelectBoxOption.removeAttr("disabled");
-
-            // Disables the drop down option
-            self.listItems.eq(index).attr("data-disabled", "false").
-
-            // Applies disabled styling for the drop down option
-            removeClass(self.disabledClasses);
-
-        }
-
-        // Provides callback function support
+        // Provide callback function support
         self._callbackSupport(callback);
 
-        // Maintains chainability
-        return self;
+    }
 
-    };
+    // Maintains chainability
+    return self;
 
-}));
+};
+
+// Enable Option
+// -------------
+//      Disables a single drop down option
+
+$.selectBox.selectBoxIt.prototype.enableOption = function(index, callback) {
+
+    var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
+
+    // If an index is passed to target an indropdownidual drop down option
+    if((typeof index).toLowerCase() === "number") {
+
+        // The select box option being targeted
+        currentSelectBoxOption = self.selectBox.find("option").eq(index);
+
+        // Triggers a `enable-option` custom event on the original select box and passes the enabled option
+        self.triggerEvent("enable-option");
+
+        // Disables the targeted select box option
+        currentSelectBoxOption.removeAttr("disabled");
+
+        // Disables the drop down option
+        self.listItems.eq(index).attr("data-disabled", "false").
+
+        // Applies disabled styling for the drop down option
+        removeClass(self.disabledClasses);
+
+    }
+
+    // Provides callback function support
+    self._callbackSupport(callback);
+
+    // Maintains chainability
+    return self;
+
+};
 // Keyboard Navigation Module
 // ==========================
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// Move Down
+// --------
+//      Handles the down keyboard navigation logic
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype.moveDown = function(callback) {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    var self = this;
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+    // Increments `currentFocus`, which represents the currently focused list item `id` attribute.
+    self.currentFocus += 1;
 
-}
+    // Determines whether the dropdown option the user is trying to go to is currently disabled
+    var disabled = self.listItems.eq(self.currentFocus).attr("data-disabled") === "true" ? true: false,
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+        hasNextEnabled = self.listItems.eq(self.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
 
-(function ($, window, document, undefined) {
+    // If the user has reached the top of the list
+    if (self.currentFocus === self.listItems.length) {
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
-
-    //Move Down
-    // --------
-    //      Handles the down keyboard navigation logic
-
-    $.selectBox.selectBoxIt.prototype.moveDown = function(callback) {
-
-        var self = this;
-
-        // Increments `currentFocus`, which represents the currently focused list item `id` attribute.
-        self.currentFocus += 1;
-
-        // Determines whether the dropdown option the user is trying to go to is currently disabled
-        var disabled = self.listItems.eq(self.currentFocus).attr("data-disabled") === "true" ? true: false,
-
-            hasNextEnabled = self.listItems.eq(self.currentFocus).nextAll("li").not("[data-disabled='true']").first().length;
-
-        // If the user has reached the top of the list
-        if (self.currentFocus === self.listItems.length) {
-
-            // Does not allow the user to continue to go up the list
-            self.currentFocus -= 1;
-
-        }
-
-        // If the option the user is trying to go to is disabled, but there is another enabled option
-        else if (disabled && hasNextEnabled) {
-
-            // Blur the previously selected option
-            self.listItems.eq(self.currentFocus - 1).blur();
-
-            // Call the `moveDown` method again
-            self.moveDown();
-
-            // Exit the method
-            return;
-
-        }
-
-        // If the option the user is trying to go to is disabled, but there is not another enabled option
-        else if (disabled && !hasNextEnabled) {
-
-            self.currentFocus -= 1;
-
-        }
-
-        // If the user has not reached the bottom of the unordered list
-        else {
-
-            // Blurs the previously focused list item
-            // The jQuery `end()` method allows you to continue chaining while also using a different selector
-            self.listItems.eq(self.currentFocus - 1).blur().end().
-
-            // Focuses the currently focused list item
-            eq(self.currentFocus).focusin();
-
-            // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
-            self._scrollToView("down");
-
-            // Triggers the custom `moveDown` event on the original select box
-            self.triggerEvent("moveDown");
-
-        }
-
-        // Provide callback function support
-        self._callbackSupport(callback);
-
-        // Maintains chainability
-        return self;
-
-    };
-
-    //Move Up
-    // ------
-    //      Handles the up keyboard navigation logic
-    $.selectBox.selectBoxIt.prototype.moveUp = function(callback) {
-
-        var self = this;
-
-        // Increments `currentFocus`, which represents the currently focused list item `id` attribute.
+        // Does not allow the user to continue to go up the list
         self.currentFocus -= 1;
 
-        // Determines whether the dropdown option the user is trying to go to is currently disabled
-        var disabled = self.listItems.eq(self.currentFocus).attr("data-disabled") === "true" ? true: false,
+    }
 
-            hasPreviousEnabled = self.listItems.eq(self.currentFocus).prevAll("li").not("[data-disabled='true']").first().length;
+    // If the option the user is trying to go to is disabled, but there is another enabled option
+    else if (disabled && hasNextEnabled) {
 
-        // If the user has reached the top of the list
-        if (self.currentFocus === -1) {
+        // Blur the previously selected option
+        self.listItems.eq(self.currentFocus - 1).blur();
 
-            // Does not allow the user to continue to go up the list
-            self.currentFocus += 1;
-        }
+        // Call the `moveDown` method again
+        self.moveDown();
 
-        // If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list
-        else if (disabled && hasPreviousEnabled) {
+        // Exit the method
+        return;
 
-            // Blur the previously selected option
-            self.listItems.eq(self.currentFocus + 1).blur();
+    }
 
-            // Call the `moveUp` method again
-            self.moveUp();
+    // If the option the user is trying to go to is disabled, but there is not another enabled option
+    else if (disabled && !hasNextEnabled) {
 
-            // Exits the method
-            return;
-        }
+        self.currentFocus -= 1;
 
-        else if (disabled && !hasPreviousEnabled) {
+    }
 
-            self.currentFocus += 1;
+    // If the user has not reached the bottom of the unordered list
+    else {
 
-        }
+        // Blurs the previously focused list item
+        // The jQuery `end()` method allows you to continue chaining while also using a different selector
+        self.listItems.eq(self.currentFocus - 1).blur().end().
 
-        // If the user has not reached the top of the unordered list
-        else {
+        // Focuses the currently focused list item
+        eq(self.currentFocus).focusin();
 
-            // Blurs the previously focused list item
-            // The jQuery `end()` method allows you to continue chaining while also using a different selector
-            self.listItems.eq(this.currentFocus + 1).blur().end().
+        // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
+        self._scrollToView("down");
 
-            // Focuses the currently focused list item
-            eq(self.currentFocus).focusin();
+        // Triggers the custom `moveDown` event on the original select box
+        self.triggerEvent("moveDown");
 
-            // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
-            self._scrollToView("up");
+    }
 
-            // Triggers the custom `moveDown` event on the original select box
-            self.triggerEvent("moveUp");
+    // Provide callback function support
+    self._callbackSupport(callback);
 
-        }
+    // Maintains chainability
+    return self;
 
-        // Provide callback function support
-        self._callbackSupport(callback);
+};
 
-        // Maintains chainability
-        return self;
+// Move Up
+// ------
+//      Handles the up keyboard navigation logic
+$.selectBox.selectBoxIt.prototype.moveUp = function(callback) {
 
-    };
+    var self = this;
 
-}));
+    // Increments `currentFocus`, which represents the currently focused list item `id` attribute.
+    self.currentFocus -= 1;
+
+    // Determines whether the dropdown option the user is trying to go to is currently disabled
+    var disabled = self.listItems.eq(self.currentFocus).attr("data-disabled") === "true" ? true: false,
+
+        hasPreviousEnabled = self.listItems.eq(self.currentFocus).prevAll("li").not("[data-disabled='true']").first().length;
+
+    // If the user has reached the top of the list
+    if (self.currentFocus === -1) {
+
+        // Does not allow the user to continue to go up the list
+        self.currentFocus += 1;
+
+    }
+
+    // If the option the user is trying to go to is disabled and the user is not trying to go up after the user has reached the top of the list
+    else if (disabled && hasPreviousEnabled) {
+
+        // Blur the previously selected option
+        self.listItems.eq(self.currentFocus + 1).blur();
+
+        // Call the `moveUp` method again
+        self.moveUp();
+
+        // Exits the method
+        return;
+
+    }
+
+    else if (disabled && !hasPreviousEnabled) {
+
+        self.currentFocus += 1;
+
+    }
+
+    // If the user has not reached the top of the unordered list
+    else {
+
+        // Blurs the previously focused list item
+        // The jQuery `end()` method allows you to continue chaining while also using a different selector
+        self.listItems.eq(this.currentFocus + 1).blur().end().
+
+        // Focuses the currently focused list item
+        eq(self.currentFocus).focusin();
+
+        // Calls `scrollToView` to make sure the `scrollTop` is correctly updated. The `down` user action
+        self._scrollToView("up");
+
+        // Triggers the custom `moveDown` event on the original select box
+        self.triggerEvent("moveUp");
+
+    }
+
+    // Provide callback function support
+    self._callbackSupport(callback);
+
+    // Maintains chainability
+    return self;
+
+};
 // Keyboard Search Module
 // ======================
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// _Set Current Search Option
+// -------------------------
+//      Sets the currently selected dropdown list search option
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype._setCurrentSearchOption = function(currentOption) {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    var self = this;
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+    // Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.
+    // Otherwise, the current option value is updated
+    if ((self.options["aggressiveChange"] || self.options["selectWhenHidden"] || self.listItems.eq(currentOption).is(":visible")) && self.listItems.eq(currentOption).data("disabled") !== true) {
 
-}
+        // Calls the `blur` event of the currently selected dropdown list option
+        self.listItems.eq(self.currentFocus).blur();
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+        // Sets `currentIndex` to the currently selected dropdown list option
+        self.currentIndex = currentOption;
 
-(function ($, window, document, undefined) {
+        // Sets `currentFocus` to the currently selected dropdown list option
+        self.currentFocus = currentOption;
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+        // Focuses the currently selected dropdown list option
+        self.listItems.eq(self.currentFocus).focusin();
 
-    // _Set Current Search Option
-    // -------------------------
-    //      Sets the currently selected dropdown list search option
+        // Updates the scrollTop so that the currently selected dropdown list option is visible to the user
+        self._scrollToView("search");
 
-    $.selectBox.selectBoxIt.prototype._setCurrentSearchOption = function(currentOption) {
+        // Triggers the custom `search` event on the original select box
+        self.triggerEvent("search");
 
-        var self = this;
+    }
 
-        // Does not change the current option if `showFirstOption` is false and the matched search item is the hidden first option.
-        // Otherwise, the current option value is updated
-        if ((self.options["aggressiveChange"] || self.options["selectWhenHidden"] || self.listItems.eq(currentOption).is(":visible")) && self.listItems.eq(currentOption).data("disabled") !== true) {
+    // Maintains chainability
+    return self;
 
-            // Calls the `blur` event of the currently selected dropdown list option
-            self.listItems.eq(self.currentFocus).blur();
+};
 
-            // Sets `currentIndex` to the currently selected dropdown list option
-            self.currentIndex = currentOption;
+// _Search Algorithm
+// -----------------
+//      Uses regular expressions to find text matches
+$.selectBox.selectBoxIt.prototype._searchAlgorithm = function(currentIndex, alphaNumeric) {
 
-            // Sets `currentFocus` to the currently selected dropdown list option
-            self.currentFocus = currentOption;
+    var self = this,
 
-            // Focuses the currently selected dropdown list option
-            self.listItems.eq(self.currentFocus).focusin();
+        // Boolean to determine if a pattern match exists
+        matchExists = false,
 
-            // Updates the scrollTop so that the currently selected dropdown list option is visible to the user
-            self._scrollToView("search");
+        // Iteration variable used in the outermost for loop
+        x,
 
-            // Triggers the custom `search` event on the original select box
-            self.triggerEvent("search");
+        // Iteration variable used in the nested for loop
+        y,
+
+        // Variable used to cache the length of the text array (Small enhancement to speed up traversing)
+        arrayLength;
+
+    // Loops through the text array to find a pattern match
+    for (x = currentIndex, arrayLength = self.textArray.length; x < arrayLength; x += 1) {
+
+        // Nested for loop to help search for a pattern match with the currently traversed array item
+        for (y = 0; y < arrayLength; y += 1) {
+
+            // Searches for a match
+            if (self.textArray[y].search(alphaNumeric) !== -1) {
+
+                // `matchExists` is set to true if there is a match
+                matchExists = true;
+
+                // Exits the nested for loop
+                y = arrayLength;
+
+            }
+
+        } // End nested for loop
+
+        // If a match does not exist
+        if (!matchExists) {
+
+            // Sets the current text to the last entered character
+            self.currentText = self.currentText.charAt(self.currentText.length - 1).
+
+            // Escapes the regular expression to make sure special characters are seen as literal characters instead of special commands
+            replace(/[|()\[{.+*?$\\]/g, "\\$0");
+
+            // Resets the regular expression with the new value of `self.currentText`
+            alphaNumeric = new RegExp(self.currentText, "gi");
 
         }
 
-        //Maintains chainability
-        return self;
+        // Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
+        if (self.currentText.length < 3) {
 
-    };
+            alphaNumeric = new RegExp(self.currentText.charAt(0), "gi");
 
-    // _Search Algorithm
-    // -----------------
-    //      Uses regular expressions to find text matches
-    $.selectBox.selectBoxIt.prototype._searchAlgorithm = function(currentIndex, alphaNumeric) {
-
-        var self = this,
-
-            // Boolean to determine if a pattern match exists
-            matchExists = false,
-
-            // Iteration variable used in the outermost for loop
-            x,
-
-            // Iteration variable used in the nested for loop
-            y,
-
-            // Variable used to cache the length of the text array (Small enhancement to speed up traversing)
-            arrayLength;
-
-        // Loops through the text array to find a pattern match
-        for (x = currentIndex, arrayLength = self.textArray.length; x < arrayLength; x += 1) {
-
-            // Nested for loop to help search for a pattern match with the currently traversed array item
-            for (y = 0; y < arrayLength; y += 1) {
-
-                // Searches for a match
-                if (self.textArray[y].search(alphaNumeric) !== -1) {
-
-                    // `matchExists` is set to true if there is a match
-                    matchExists = true;
-
-                    // Exits the nested for loop
-                    y = arrayLength;
-
-                }
-
-            } // End nested for loop
-
-            //If a match does not exist
-            if (!matchExists) {
-
-                // Sets the current text to the last entered character
-                self.currentText = self.currentText.charAt(self.currentText.length - 1).
-
-                // Escapes the regular expression to make sure special characters are seen as literal characters instead of special commands
-                replace(/[|()\[{.+*?$\\]/g, "\\$0");
-
-                // Resets the regular expression with the new value of `self.currentText`
-                alphaNumeric = new RegExp(self.currentText, "gi");
-
-            }
-
-            // Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
-            if (self.currentText.length < 3) {
-
-                alphaNumeric = new RegExp(self.currentText.charAt(0), "gi");
-
-                //If there is a match based on the first character
-                if ((self.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {
-
-                    //Sets properties of that dropdown list option to make it the currently selected option
-                    self._setCurrentSearchOption(x);
-
-                    //Increments the current index by one
-                    self.currentIndex += 1;
-
-                    //Exits the search
-                    return false;
-
-                }
-            }
-
-            // If `self.currentText` > 1 character
-            else {
-
-                // If there is a match based on the entire string
-                if ((self.textArray[x].search(alphaNumeric) !== -1)) {
-
-                    // Sets properties of that dropdown list option to make it the currently selected option
-                    self._setCurrentSearchOption(x);
-
-                    // Exits the search
-                    return false;
-                }
-            }
-
-            // If the current text search is an exact match
-            if (self.textArray[x].toLowerCase() === self.currentText.toLowerCase()) {
+            // If there is a match based on the first character
+            if ((self.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {
 
                 // Sets properties of that dropdown list option to make it the currently selected option
                 self._setCurrentSearchOption(x);
 
-                // Resets the current text search to a blank string to start fresh again
-                self.currentText = "";
+                // Increments the current index by one
+                self.currentIndex += 1;
 
                 // Exits the search
                 return false;
 
             }
-        }
-
-        //Returns true if there is not a match at all
-        return true;
-    };
-
-    // Search
-    // ------
-    //      Calls searchAlgorithm()
-    $.selectBox.selectBoxIt.prototype.search = function(alphaNumericKey, rememberPreviousSearch, callback) {
-
-        var self = this;
-
-        if(self.currentText === undefined) {
-
-            self.currentText = "";
 
         }
 
-        // If the search method is being called internally by the plugin, and not externally as a method by a user
-        if (rememberPreviousSearch) {
-
-            // Continued search with history from past searches.  Properly escapes the regular expression
-            self.currentText += alphaNumericKey.replace(/[|()\[{.+*?$\\]/g, "\\$0");
-
-        }
-
+        // If `self.currentText` > 1 character
         else {
 
-            // Brand new search.  Properly escapes the regular expression
-            self.currentText = alphaNumericKey.replace(/[|()\[{.+*?$\\]/g, "\\$0");
+            // If there is a match based on the entire string
+            if ((self.textArray[x].search(alphaNumeric) !== -1)) {
+
+                // Sets properties of that dropdown list option to make it the currently selected option
+                self._setCurrentSearchOption(x);
+
+                // Exits the search
+                return false;
+
+            }
 
         }
 
-        // Searches globally
-        var notFound = self._searchAlgorithm(self.currentIndex, self.currentText);
+        // If the current text search is an exact match
+        if (self.textArray[x].toLowerCase() === self.currentText.toLowerCase()) {
 
-        // Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of the currently selected dropdown list option, and does not search the options before the current array indece.
-        // If there are many similar dropdown list options, starting the search at the indece of the currently selected dropdown list option is needed to properly traverse the text array.
-        if (notFound) {
+            // Sets properties of that dropdown list option to make it the currently selected option
+            self._setCurrentSearchOption(x);
 
-            // Searches the dropdown list values starting from the beginning of the text array
-            self._searchAlgorithm(0, self.currentText);
+            // Resets the current text search to a blank string to start fresh again
+            self.currentText = "";
+
+            // Exits the search
+            return false;
 
         }
 
-        // Provide callback function support
-        self._callbackSupport(callback);
+    }
+
+    // Returns true if there is not a match at all
+    return true;
+
+};
+
+// Search
+// ------
+//      Calls searchAlgorithm()
+$.selectBox.selectBoxIt.prototype.search = function(alphaNumericKey, rememberPreviousSearch, callback) {
+
+    var self = this;
+
+    if(self.currentText === undefined) {
+
+        self.currentText = "";
+
+    }
+
+    // If the search method is being called internally by the plugin, and not externally as a method by a user
+    if (rememberPreviousSearch) {
+
+        // Continued search with history from past searches.  Properly escapes the regular expression
+        self.currentText += alphaNumericKey.replace(/[|()\[{.+*?$\\]/g, "\\$0");
+
+    }
+
+    else {
+
+        // Brand new search.  Properly escapes the regular expression
+        self.currentText = alphaNumericKey.replace(/[|()\[{.+*?$\\]/g, "\\$0");
+
+    }
+
+    // Searches globally
+    var notFound = self._searchAlgorithm(self.currentIndex, self.currentText);
+
+    // Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of the currently selected dropdown list option, and does not search the options before the current array indece.
+    // If there are many similar dropdown list options, starting the search at the indece of the currently selected dropdown list option is needed to properly traverse the text array.
+    if (notFound) {
+
+        // Searches the dropdown list values starting from the beginning of the text array
+        self._searchAlgorithm(0, self.currentText);
+
+    }
+
+    // Provide callback function support
+    self._callbackSupport(callback);
+
+    // Maintains chainability
+    return self;
+
+};
+// Mobile Module
+// =============
+
+// Apply Native Select
+// -------------------
+//      Applies the original select box directly over the new drop down
+
+$.selectBox.selectBoxIt.prototype._applyNativeSelect = function() {
+
+    // Stores the plugin context inside of the self variable
+    var self = this,
+        currentOption;
+
+    self.dropdownContainer.css({
+
+        "position": "static"
+
+    });
+
+    // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
+    self.selectBox.css({
+
+        "display": "block",
+
+        "width": self.dropdown.outerWidth(),
+
+        "height": self.dropdown.outerHeight(),
+
+        "opacity": "0",
+
+        "position": "absolute",
+
+        "top": self.dropdown.position().top,
+
+        "bottom": self.dropdown.position().bottom,
+
+        "left": self.dropdown.position().left,
+
+        "right": self.dropdown.position().right,
+
+        "cursor": "pointer",
+
+        "z-index": "999999"
+
+    }).bind({
+
+        "changed.selectBoxIt": function() {
+
+            currentOption = self.selectBox.find("option").filter(":selected");
+
+            // Sets the new dropdown list text to the value of the original dropdown list
+            self.dropdownText.text(currentOption.text());
+
+            if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
+
+                self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
+
+            }
+
+        }
+
+    });
+
+};
+
+// Mobile
+// ------
+//      Applies the native "wheel" interface when a mobile user is interacting with the dropdown
+
+$.selectBox.selectBoxIt.prototype._mobile = function(callback) {
+
+    // Stores the plugin context inside of the self variable
+    var self = this;
+
+        if(self.options["isMobile"]()) {
+
+            self._applyNativeSelect();
+
+        }
 
         // Maintains chainability
-        return self;
+        return this;
 
-    };
-
-}));
+};
 // Select Option Module
 // ====================
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// Select Option
+// -------------
+//      Programatically selects a drop down option by either index or value
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype.selectOption = function(val, callback) {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    // Stores the plugin context inside of the self variable
+    var self = this;
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+    // Makes sure the passed in position is a number
+    if((typeof val).toLowerCase() === "number") {
 
-}
+        // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
+        self.selectBox.val(self.selectBox.find("option").eq(val).val()).change();
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+    }
 
-(function ($, window, document, undefined) {
+    else if((typeof val).toLowerCase() === "string") {
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+        // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
+        self.selectBox.val(val).change();
 
-    // Select Option
-    // -------------
-    //      Programatically selects a drop down option by either index or value
+    }
 
-    $.selectBox.selectBoxIt.prototype.selectOption = function(val, callback) {
+    // Calls the callback function
+    self._callbackSupport(callback);
 
-        // Stores the plugin context inside of the self variable
-        var self = this;
+    // Maintains chainability
+    return self;
 
-        // Makes sure the passed in position is a number
-        if((typeof val).toLowerCase() === "number") {
-
-            // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
-            self.selectBox.val(self.selectBox.find("option").eq(val).val()).change();
-
-        }
-
-        else if((typeof val).toLowerCase() === "string") {
-
-            // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
-            self.selectBox.val(val).change();
-
-        }
-
-        // Calls the callback function
-        self._callbackSupport(callback);
-
-        // Maintains chainability
-        return self;
-
-    };
-
-}));
+};
 // Set Option Module
 // =================
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// Set Option
+// ----------
+//      Accepts an string key, a value, and a callback function to replace a single
+//      property of the plugin options object
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype.setOption = function(key, value, callback) {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    var self = this;
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+    // If a user sets the `showFirstOption` to false
+    if (key === "showFirstOption" && !value) {
 
-}
+        // Hides the first option in the dropdown list
+        self.listItems.eq(0).hide();
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+    }
 
-(function ($, window, document, undefined) {
+    // If a user sets the `showFirstOption` to true
+    else if (key === "showFirstOption" && value) {
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+        // Shows the first option in the dropdown list
+        self.listItems.eq(0).show();
 
-    //Set Option
-    // ----------
-    //      Accepts an string key, a value, and a callback function to replace a single
-    //      property of the plugin options object
+    }
 
-    $.selectBox.selectBoxIt.prototype.setOption = function(key, value, callback) {
+    else if(key === "defaultIcon" && value) {
 
-        var self = this;
+        self.dropdownImage.attr("class", value + " selectboxit-arrow");
 
-        // If a user sets the `showFirstOption` to false
-        if (key === "showFirstOption" && !value) {
+    }
 
-            //Hides the first option in the dropdown list
-            self.listItems.eq(0).hide();
+    else if(key === "downArrowIcon" && value) {
 
-        }
+        self.downArrow.attr("class", value + " selectboxit-arrow");
 
-        // If a user sets the `showFirstOption` to true
-        else if (key === "showFirstOption" && value) {
+    }
 
-            //Shows the first option in the dropdown list
-            self.listItems.eq(0).show();
+    // If a user sets the defaultText option
+    else if (key === "defaultText") {
 
-        }
+        // Sets the new dropdown list default text
+        self.dropdownText.text(value);
 
-        else if(key === "defaultIcon" && value) {
+    }
 
-            self.dropdownImage.attr("class", value + " selectboxit-arrow");
+    $.Widget.prototype._setOption.apply(self, arguments);
 
-        }
+    // Provides callback function support
+    self._callbackSupport(callback);
 
-        else if(key === "downArrowIcon" && value) {
+    // Maintains chainability
+    return self;
 
-            self.downArrow.attr("class", value + " selectboxit-arrow");
-
-        }
-
-        // If a user sets the defaultText option
-        else if (key === "defaultText") {
-
-            // Sets the new dropdown list default text
-            self.dropdownText.text(value);
-
-        }
-
-        $.Widget.prototype._setOption.apply(self, arguments);
-
-        // Provides callback function support
-        self._callbackSupport(callback);
-
-        // Maintains chainability
-        return self;
-
-    };
-
-}));
+};
 // Set Options Module
 // ==================
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// Set Options
+// ----------
+//      Accepts an object to replace plugin options
+//      properties of the plugin options object
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype.setOptions = function(newOptions, callback) {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    var self = this;
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+    $.Widget.prototype._setOptions.apply(self, arguments);
 
-}
+    // If the `showFirstOption` option is true
+    if (self.options["showFirstOption"]) {
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+        // Shows the first option in the dropdown list
+        self.listItems.eq(0).show();
 
-(function ($, window, document, undefined) {
+    }
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    // If the `showFirstOption` option is false
+    else {
 
-    //Set Options
-    // ----------
-    //      Accepts an object to replace plugin options
-    //      properties of the plugin options object
+        // Hides the first option in the dropdown list
+        self.listItems.eq(0).hide();
 
-    $.selectBox.selectBoxIt.prototype.setOptions = function(newOptions, callback) {
+    }
 
-        var self = this;
+    if(self.options["defaultIcon"]) {
 
-        $.Widget.prototype._setOptions.apply(self, arguments);
+        self.dropdownImage.attr("class", self.options["defaultIcon"] + " selectboxit-arrow");
 
-        // If the `showFirstOption` option is true
-        if (self.options["showFirstOption"]) {
+    }
 
-            // Shows the first option in the dropdown list
-            self.listItems.eq(0).show();
+    if(self.options["downArrowIcon"]) {
 
-        }
+        self.downArrow.attr("class", self.options["downArrowIcon"] + " selectboxit-arrow");
 
-        // If the `showFirstOption` option is false
-        else {
+    }
 
-            // Hides the first option in the dropdown list
-            self.listItems.eq(0).hide();
+    // If the defaultText option is set, make sure the dropdown list default text reflects this value
+    if (self.options["defaultText"]) {
 
-        }
+        self.dropdownText.text(self.options["defaultText"]);
 
-        if(self.options["defaultIcon"]) {
+    }
 
-            self.dropdownImage.attr("class", self.options["defaultIcon"] + " selectboxit-arrow");
+    // Provide callback function support
+    self._callbackSupport(callback);
 
-        }
+    // Maintains chainability
+    return self;
 
-        if(self.options["downArrowIcon"]) {
+};
+// Wait Module
+// ===========
 
-            self.downArrow.attr("class", self.options["downArrowIcon"] + " selectboxit-arrow");
+// Wait
+// ----
+//    Delays execution by the amount of time
+//    specified by the parameter
 
-        }
+$.selectBox.selectBoxIt.prototype.wait = function(time, callback) {
 
-        // If the defaultText option is set, make sure the dropdown list default text reflects this value
-        if (self.options["defaultText"]) {
+    var self = this,
 
-            self.dropdownText.text(self.options["defaultText"]);
+        // The timeout variable stores a Deferred Object, which will be resolved after the time specified in the parameter
+        timeout = this.returnTimeout(time);
 
-        }
+    // Once the Deferred object is resolved, call the callback function
+    timeout.then(function() {
 
         // Provide callback function support
         self._callbackSupport(callback);
 
-        // Maintains chainability
-        return self;
-
-    };
-
-}));
-// Wait Module
-// ===========
-
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
-
-(function (selectBoxIt) {
-
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
-
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
-
-}
-
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
-
-(function ($, window, document, undefined) {
-
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
-
-    // Wait
-    // ----
-    //    Delays execution by the amount of time
-    //    specified by the parameter
-
-    $.selectBox.selectBoxIt.prototype.wait = function(time, callback) {
-
-        var self = this,
-
-            // The timeout variable stores a Deferred Object, which will be resolved after the time specified in the parameter
-            timeout = this.returnTimeout(time);
-
-        // Once the Deferred object is resolved, call the callback function
-        timeout.then(function() {
-
-            // Provide callback function support
-            self._callbackSupport(callback);
-
-        });
+    });
         
-        // Maintains chainability
-        return self;
+    // Maintains chainability
+    return self;
 
-    };
+};
 
-    //Return timeout
-    // -------------
-    //    Returns a Deferred Object after the time
-    //    specified by the parameter
+// Return timeout
+// -------------
+//    Returns a Deferred Object after the time
+//    specified by the parameter
 
-    $.selectBox.selectBoxIt.prototype.returnTimeout = function(time) {
+$.selectBox.selectBoxIt.prototype.returnTimeout = function(time) {
 
-        //Returns a Deferred Object
-        return $.Deferred(function(dfd) {
+    // Returns a Deferred Object
+    return $.Deferred(function(dfd) {
 
-            //Call the JavaScript `setTimeout function and resolve the Deferred Object
-            setTimeout(dfd.resolve, time);
+        // Call the JavaScript `setTimeout function and resolve the Deferred Object
+        setTimeout(dfd.resolve, time);
 
-        });
+    });
 
-    };
-
-}));
+};
+})); // End of all modules

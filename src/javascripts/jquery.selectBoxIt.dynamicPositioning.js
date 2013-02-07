@@ -1,110 +1,89 @@
 // Dynamic Positioning Module
 // ==========================
 
-// Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
+// _Dynamic positioning
+// ------------------
+//      Dynamically positions the dropdown list options list
 
-(function (selectBoxIt) {
+$.selectBox.selectBoxIt.prototype._dynamicPositioning = function() {
 
-    //ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+    var self = this,
 
-    // Calls the second IIFE and locally passes in the global jQuery, window, and document objects
-    selectBoxIt(window.jQuery, window, document);
+        // Returns the x and y coordinates of the dropdown list options list relative to the document
+        listOffsetTop = self.dropdown.offset().top,
 
-}
+        // The height of the dropdown list options list
+        listHeight = self.list.data("max-height") || self.list.outerHeight(),
 
-// Locally passes in `jQuery`, the `window` object, the `document` object, and an `undefined` variable.  The `jQuery`, `window` and `document` objects are passed in locally, to improve performance, since javascript first searches for a variable match within the local variables set before searching the global variables set.  All of the global variables are also passed in locally to be minifier friendly. `undefined` can be passed in locally, because it is not a reserved word in JavaScript.
+        // The height of the dropdown list DOM element
+        selectBoxHeight = self.dropdown.outerHeight(),
 
-(function ($, window, document, undefined) {
+        windowHeight = $(window).height(),
 
-    // ECMAScript 5 Strict Mode: [John Resig Blog Post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)
-    "use strict";
+        windowScrollTop = $(window).scrollTop(),
 
-    //_Dynamic positioning
-    // ------------------
-    //      Dynamically positions the dropdown list options list
+        topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= windowHeight + windowScrollTop),
 
-    $.selectBox.selectBoxIt.prototype._dynamicPositioning = function() {
+        bottomReached = !topToBottom;
 
-        var self = this,
+    if(!self.list.data("max-height")) {
 
-            // Returns the x and y coordinates of the dropdown list options list relative to the document
-            listOffsetTop = self.dropdown.offset().top,
+        self.list.data("max-height", self.list.outerHeight());
 
-            // The height of the dropdown list options list
-            listHeight = self.list.data("max-height") || self.list.outerHeight(),
+    }
 
-            // The height of the dropdown list DOM element
-            selectBoxHeight = self.dropdown.outerHeight(),
+    // Makes sure the original select box is hidden
+    self.selectBox.css("display", "none");
 
-            windowHeight = $(window).height(),
+    // If there is room on the bottom of the viewport to display the drop down options
+    if (!bottomReached) {
 
-            windowScrollTop = $(window).scrollTop(),
+        self.list.css("max-height", self.list.data("max-height"));
 
-            topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= windowHeight + windowScrollTop),
+        // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
+        self.list.css("top", "auto");
 
-            bottomReached = !topToBottom;
+    }
 
-        if(!self.list.data("max-height")) {
+    // If there is room on the top of the viewport
+    else if((self.dropdown.offset().top - windowScrollTop) >= listHeight) {
 
-            self.list.data("max-height", self.list.outerHeight());
+        self.list.css("max-height", self.list.data("max-height"));
 
-        }
+        // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
+        self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
-        // Makes sure the original select box is hidden
-        self.selectBox.css("display", "none");
+    }
 
-        // If there is room on the bottom of the viewport to display the drop down options
-        if (!bottomReached) {
+    // If there is not enough room on the top or the bottom
+    else {
 
-            self.list.css("max-height", self.list.data("max-height"));
+        var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (windowHeight + windowScrollTop)),
 
-            // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
+            outsideTopViewport = Math.abs((self.dropdown.offset().top - windowScrollTop) - listHeight);
+
+        // If there is more room on the bottom
+        if(outsideBottomViewport < outsideTopViewport) {
+
+            self.list.css("max-height", self.list.data("max-height") - outsideBottomViewport - (selectBoxHeight/2));
+
             self.list.css("top", "auto");
 
         }
 
-        // If there is room on the top of the viewport
-        else if((self.dropdown.offset().top - windowScrollTop) >= listHeight) {
+        // If there is more room on the top
+        else {
 
-            self.list.css("max-height", self.list.data("max-height"));
+            self.list.css("max-height", self.list.data("max-height") - outsideTopViewport - (selectBoxHeight/2));
 
             // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
             self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
         }
 
-        // If there is not enough room on the top or the bottom
-        else {
+    }
 
-            var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (windowHeight + windowScrollTop)),
+    // Maintains chainability
+    return self;
 
-                outsideTopViewport = Math.abs((self.dropdown.offset().top - windowScrollTop) - listHeight);
-
-            // If there is more room on the bottom
-            if(outsideBottomViewport < outsideTopViewport) {
-
-                self.list.css("max-height", self.list.data("max-height") - outsideBottomViewport - (selectBoxHeight/2));
-
-                self.list.css("top", "auto");
-
-            }
-
-            // If there is more room on the top
-            else {
-
-                self.list.css("max-height", self.list.data("max-height") - outsideTopViewport - (selectBoxHeight/2));
-
-                // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
-                self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
-
-            }
-
-        }
-
-        // Maintains chainability
-        return self;
-
-    };
-
-}));
+};

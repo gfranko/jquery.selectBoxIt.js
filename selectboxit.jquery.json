@@ -2,7 +2,7 @@
     "title": "SelectBoxIt",
     "name": "selectboxit",
     "version": "2.9.9",
-    "description": "Gorgeous drop downs that can be styled with Twitter Bootstrap, jQueryUI, or jQuery Mobile",
+    "description": "A jQuery Select Box Plugin for Mobile, Tablet, and Desktop.  SelectBoxIt allows you to replace ugly and hard to use HTML select boxes with gorgeous and feature rich drop downs. Twitter Bootstrap, jQueryUI, and jQuery Mobile themes are supported right out of the box. To use SelectBoxIt, you do not have to rewrite any of your existing form validation logic or event handling. SelectBoxIt just works. SelectBoxIt also provides first-class support for mobile, tablet, and desktop browsers, triggering the native "wheel" interface for mobile and tablet devices.",
     "keywords": [
         "select box",
         "drop downs",

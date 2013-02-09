@@ -1748,7 +1748,7 @@
                     var propName = (property.name).toLowerCase(), propValue = property.value;
 
                     // If the currently traversed property value is not "null", is on the whitelist, or is an HTML 5 data attribute
-                    if(propValue !== "null" && ($.inArray(propName, whitelist) !== -1 || propName.indexOf("data-") !== -1)) {
+                    if(propValue !== "null" && ($.inArray(propName, whitelist) !== -1 || propName.indexOf("data") !== -1)) {
 
                         // Set's the currently traversed property on element
                         elem.attr(propName, propValue);

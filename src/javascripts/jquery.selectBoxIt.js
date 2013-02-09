@@ -1734,7 +1734,9 @@
                 // Attributes that will be copied over to the new drop down
                 whitelist = [
 
-                    "title"
+                    "title",
+
+                    "rel"
 
                 ];
 

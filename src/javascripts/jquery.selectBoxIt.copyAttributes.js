@@ -25,7 +25,7 @@
         // Maintains chainability
         return self;
 
-    };        
+    };
 
     // addAttributes
     // -------------
@@ -34,19 +34,12 @@
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            blacklist = [
+            // Attributes that will be copied over to the new drop down
+            whitelist = [
 
-                "null",
+                "title",
 
-                "value",
-
-                "disabled",
-
-                "id",
-
-                "class",
-
-                "unselectable"
+                "rel"
 
             ];
 
@@ -59,8 +52,8 @@
                 // Get's the property name and property value of each property
                 var propName = (property.name).toLowerCase(), propValue = property.value;
 
-                // If the currently traversed property is not on the blacklist and the value is not "null"
-                if(propValue !== "null" && $.inArray(propName, blacklist) === -1) {
+                // If the currently traversed property value is not "null", is on the whitelist, or is an HTML 5 data attribute
+                if(propValue !== "null" && ($.inArray(propName, whitelist) !== -1 || propName.indexOf("data") !== -1)) {
 
                     // Set's the currently traversed property on element
                     elem.attr(propName, propValue);

@@ -18,7 +18,8 @@ Developers might want to start with the
 [annotated source code](http://www.gregfranko.com/jquery.selectBoxIt.js/docs/jQuery.selectBoxIt.html).
 
 ## Unit Tests
-All unit tests are written using the Jasmine Framework
+All unit tests are written using the [Jasmine](http://pivotal.github.com/jasmine/) Framework.  
+See the linked pages for a great introduction.
 
 ## Setting up the SelectBoxIt build environment
 
@@ -28,7 +29,7 @@ who wants to delve into the code.
 
 If you just want to use SelectBoxIt, then visit the 
 [SelectBoxIt home page](http://gregfranko.com/jquery.selectBoxIt.js/) or go to 
-the [ReadMe](https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/README.md) 
+the [ReadMe](https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/README.markdown) 
 on GitHub.
 
 ### Developer tools
@@ -39,9 +40,9 @@ SelectBoxIt uses the following development tools:
 
    - [Grunt](http://gruntjs.com): to run the build script.
 
-   - [Jasmine](http://pivotal.github.com/jasmine/): testing framework
+   - [Jasmine](http://pivotal.github.com/jasmine/): unit testing framework.
 
-   - [PhantomJS](http://phantomjs.org): headless WebKit browser for testing
+   - [PhantomJS](http://phantomjs.org): headless WebKit browser for testing.
 
 ### Setting up the developement environment
 
@@ -55,16 +56,7 @@ SelectBoxIt uses the following development tools:
 **Note:** If you are on Windows, remember you need to run the grunt command 
 using `grunt.cmd`.
 
-3. Install [Jasmine](http://pivotal.github.com/jasmine/) 
-   You can install this manually by visiting the Jasmine web site.
-   You can also use npm to install Jasmine via the 
-   [jasmine-node](https://github.com/mhevery/jasmine-node) package:
-   
-          npm install -g jasmine-node
-   If you have trouble getting the Jasmine Unit Tests 
-   to work with PhantomJS 1.5 (the current release), install PhantomJS 1.3.
-
-6. Install PhantomJS from its [home page](http://phantomjs.org).  This means 
+3. Install PhantomJS from its [home page](http://phantomjs.org).  This means 
    downloading the appropriate file, uncompressing it, and then copying the 
    `phantomjs` file to a location in your path.  On MacOSX, this looks 
    _something_ like the following after downloading:
@@ -74,7 +66,7 @@ using `grunt.cmd`.
 
 ## Contributing.md Change Log
 
-`1.0.0` - 11 Feb 2013
+`1.0.0` - 12 Feb 2013
 
 - Initial instructions, based on my building SelectBoxIt for the first time.
 
@@ -84,7 +76,7 @@ Greg Franko - [@gfranko](https://github.com/gfranko)
 
 Thomas von Deyen - [@tvdeyen](https://github.com/tvdeyen)
 
-Ron 'coyote' Lussier - [@lenscraft](https://github.com/ronlussier)
+Ron 'coyote' Lussier - [@tlenscraft](https://github.com/ronlussier)
 
 ## License
 Copyright (c) 2012 Greg Franko  

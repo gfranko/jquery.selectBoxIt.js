@@ -28,7 +28,7 @@ who wants to delve into the code.
 
 If you just want to use SelectBoxIt, then visit the 
 [SelectBoxIt home page](http://gregfranko.com/jquery.selectBoxIt.js/) or go to 
-the [ReadMe](https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/README.markdown) 
+the [ReadMe](https://github.com/gfranko/jquery.selectBoxIt.js/blob/master/README.md) 
 on GitHub.
 
 ### Developer tools

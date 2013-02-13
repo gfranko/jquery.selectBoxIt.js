@@ -818,14 +818,15 @@
         //      Methods to use when the keydown event is triggered
         _keydownMethods: function() {
 
-            var self = this;
+            var self = this,
+                moveToOption = self.list.is(":visible") || (self.options["aggressiveChange"] && !self.options["keydownOpen"]);
 
             return {
 
                 "40": function() {
 
                     // If the plugin options allow keyboard navigation
-                    if (self.moveDown && (self.list.is(":visible") || (self.options["aggressiveChange"] && !self.options["keydownOpen"]))) {
+                    if (self.moveDown && moveToOption) {
 
                         self.moveDown();
 
@@ -836,7 +837,7 @@
                 "38": function() {
 
                      // If the plugin options allow keyboard navigation
-                    if (self.moveUp && (self.list.is(":visible") || (self.options["aggressiveChange"] && !self.options["keydownOpen"]))) {
+                    if (self.moveUp && moveToOption) {
 
                         self.moveUp();
 

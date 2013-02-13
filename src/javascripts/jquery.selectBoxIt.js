@@ -819,7 +819,7 @@
         _keydownMethods: function() {
 
             var self = this,
-                moveToOption = self.list.is(":visible") || (self.options["aggressiveChange"] && !self.options["keydownOpen"]);
+                moveToOption = self.list.is(":visible") || !self.options["keydownOpen"];
 
             return {
 

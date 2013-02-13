@@ -70,7 +70,7 @@
 <script>
 jQuery(function($) {
 
-  $("#test").selectBoxIt();
+  window.selectbox = $("#test").selectBoxIt().data('selectBoxIt');
 
   $('#test1').selectBoxIt({ theme: "jqueryui" });
 

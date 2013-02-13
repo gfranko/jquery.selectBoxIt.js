@@ -583,14 +583,16 @@
 
             var self = this,
 
+                currentOption = self.listItems.eq(self.currentFocus),
+
                 // The current scroll positioning of the dropdown list options list
                 listScrollTop = self.list.scrollTop(),
 
                 // The height of the currently selected dropdown list option
-                currentItemHeight = self.listItems.eq(self.currentFocus).height(),
+                currentItemHeight = currentOption.height(),
 
                 // The relative distance from the currently selected dropdown list option to the the top of the dropdown list options list
-                currentTopPosition = self.listItems.eq(self.currentFocus).position().top,
+                currentTopPosition = currentOption.position().top,
 
                 // The height of the dropdown list option list
                 listHeight = self.list.height();
@@ -621,7 +623,7 @@
                 // Decreases the dropdown list option list `scrollTop` if a user is navigating to an element that is not visible
                 if (currentTopPosition < -1) {
 
-                    self.list.scrollTop(listScrollTop - Math.abs(self.listItems.eq(self.currentFocus).position().top));
+                    self.list.scrollTop(listScrollTop - Math.abs(currentTopPosition));
 
                 }
             }
@@ -633,7 +635,7 @@
                 if (listHeight - currentTopPosition < currentItemHeight) {
 
                     // Increases the dropdown list options `scrollTop` by the height of the current option item.
-                    self.list.scrollTop((listScrollTop + (Math.abs(self.listItems.eq(self.currentFocus).position().top) - listHeight + currentItemHeight)));
+                    self.list.scrollTop((listScrollTop + (Math.abs(currentTopPosition) - listHeight + currentItemHeight)));
 
                 }
             }
@@ -668,7 +670,10 @@
         //      Opens the dropdown list options list
         open: function(callback) {
 
-            var self = this;
+            var self = this,
+                showEffect = self.options["showEffect"],
+                showEffectSpeed = self.options["showEffectSpeed"],
+                showEffectOptions = self.options["showEffectOptions"];
 
             // If there are no select box options, do not try to open the select box
             if(!self.listItems.length) {
@@ -677,83 +682,64 @@
 
             }
 
-            if (self._dynamicPositioning) {
-
-                // Dynamically positions the dropdown list options list
-                self._dynamicPositioning();
-
-            }
-
             if(!this.list.is(":visible")) {
 
                 // Triggers a custom "open" event on the original select box
                 self.triggerEvent("open");
 
-                // Determines what jQuery effect to use when opening the dropdown list options list
-                switch (self.options["showEffect"]) {
+                if (self._dynamicPositioning) {
 
-                    // Uses `no effect`
-                    case "none":
-
-                        // Does not require a callback function because this animation will complete before the call to `scrollToView`
-                        self.list.show();
-
-                       // Updates the list `scrollTop` attribute
-                       self._scrollToView("search");
-
-                    break;
-
-                    // Uses the jQuery `show` special effect
-                    case "show":
-
-                        // Requires a callback function to determine when the `show` animation is complete
-                        self.list.show(self.options["showEffectSpeed"], function() {
-
-                            // Updates the list `scrollTop` attribute
-                            self._scrollToView("search");
-
-                        });
-
-                    break;
-
-                   // Uses the jQuery `slideDown` special effect
-                   case "slideDown":
-
-                       // Requires a callback function to determine when the `slideDown` animation is complete
-                       self.list.slideDown(self.options["showEffectSpeed"], function() {
-
-                           // Updates the list `scrollTop` attribute
-                           self._scrollToView("search");
-
-                       });
-
-                   break;
-
-                  // Uses the jQuery `fadeIn` special effect
-                  case "fadeIn":
-
-                      // Does not require a callback function because this animation will complete before the call to `scrollToView`
-                      self.list.fadeIn(self.options["showEffectSpeed"]);
-
-                      // Updates the list `scrollTop` attribute
-                      self._scrollToView("search");
-
-                  break;
-
-                  // If none of the above options were passed, then a `jqueryUI show effect` is expected
-                  default:
-
-                     // Allows for custom show effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/show/)
-                     self.list.show(self.options["showEffect"], self.options["showEffectOptions"], self.options["showEffectSpeed"], function() {
-
-                         // Updates the list `scrollTop` attribute
-                         self._scrollToView("search");
-
-                     });
-
-                 break;
+                    // Dynamically positions the dropdown list options list
+                    self._dynamicPositioning();
 
                 }
+
+                // Uses `no effect`
+                if(showEffect === "none") {
+
+                    // Does not require a callback function because this animation will complete before the call to `scrollToView`
+                    self.list.show();
+
+                }
+
+                // Uses the jQuery `show` special effect
+                else if(showEffect === "show") {
+
+                    // Requires a callback function to determine when the `show` animation is complete
+                    self.list.show(showEffectSpeed);
+
+                }
+
+                // Uses the jQuery `slideDown` special effect
+                else if(showEffect === "slideDown") {
+
+                    // Requires a callback function to determine when the `slideDown` animation is complete
+                    self.list.slideDown(showEffectSpeed);
+
+                }
+
+                // Uses the jQuery `fadeIn` special effect
+                else if(showEffect === "fadeIn") {
+
+                    // Does not require a callback function because this animation will complete before the call to `scrollToView`
+                    self.list.fadeIn(showEffectSpeed);
+
+                }
+
+                // If none of the above options were passed, then a `jqueryUI show effect` is expected
+                else {
+
+                    // Allows for custom show effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/show/)
+                    self.list.show(showEffect, showEffectOptions, showEffectSpeed);
+
+                }
+
+                self.list.promise().done(function() {
+
+                    // Updates the list `scrollTop` attribute
+                    self._scrollToView("search");
+
+                });
 
             }
 
@@ -770,60 +756,51 @@
         //      Closes the dropdown list options list
         close: function(callback) {
 
-            var self = this;
+            var self = this,
+                hideEffect = self.options["hideEffect"],
+                hideEffectSpeed = self.options["hideEffectSpeed"],
+                hideEffectOptions = self.options["hideEffectOptions"];
 
             if(self.list.is(":visible")) {
 
                 // Triggers a custom "close" event on the original select box
                 self.triggerEvent("close");
 
-                // Determines what jQuery effect to use when closing the dropdown list options list
-                switch (self.options["hideEffect"]) {
+                // Uses `no effect`
+                if(hideEffect === "none") {
 
-                    // Uses `no effect`
-                    case "none":
+                    // Does not require a callback function because this animation will complete before the call to `scrollToView`
+                    self.list.hide();
 
-                        // Does not require a callback function because this animation will complete before the call to `scrollToView`
-                        self.list.hide();
+                }
 
-                        // Updates the list `scrollTop` attribute
-                        self._scrollToView("search");
+                // Uses the jQuery `hide` special effect
+                else if(hideEffect === "hide") {
 
-                    break;
+                    self.list.hide(hideEffectSpeed);
 
-                    // Uses the jQuery `hide` special effect
-                    case "hide":
+                }
 
-                        self.list.hide(self.options["hideEffectSpeed"]);
+                // Uses the jQuery `slideUp` special effect
+                else if(hideEffect === "slideUp") {
 
-                    break;
+                    self.list.slideUp(hideEffectSpeed);
 
-                    // Uses the jQuery `slideUp` special effect
-                    case "slideUp":
+                }
 
-                    self.list.slideUp(self.options["hideEffectSpeed"]);
+                // Uses the jQuery `fadeOut` special effect
+                else if(hideEffect === "fadeOut") {
 
-                    break;
+                    self.list.fadeOut(hideEffectSpeed);
 
-                    // Uses the jQuery `fadeOut` special effect
-                    case "fadeOut":
+                }
 
-                        self.list.fadeOut(self.options["hideEffectSpeed"]);
+                // If none of the above options were passed, then a `jqueryUI hide effect` is expected
+                else {
 
-                    break;
+                    // Allows for custom hide effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/hide/)
+                    self.list.hide(hideEffect, hideEffectOptions, hideEffectSpeed);
 
-                    // If none of the above options were passed, then a `jqueryUI hide effect` is expected
-                    default:
-
-                        // Allows for custom hide effects via the [jQueryUI core effects](http://http://jqueryui.com/demos/hide/)
-                        self.list.hide(self.options["hideEffect"], self.options["hideEffectOptions"], self.options["hideEffectSpeed"], function() {
-
-                            //Updates the list `scrollTop` attribute
-                            self._scrollToView("search");
-
-                        });
-
-                    break;
                 }
 
             }
@@ -834,6 +811,89 @@
             // Maintains chainability
             return self;
 
+        },
+
+        // _Key Down Methods
+        // -----------------
+        //      Methods to use when the keydown event is triggered
+        _keydownMethods: function() {
+
+            var self = this;
+
+            return {
+
+                "40": function() {
+
+                    // If the plugin options allow keyboard navigation
+                    if (self.moveDown && self.list.is(":visible")) {
+
+                        self.moveDown();
+
+                    }
+
+                },
+
+                "38": function() {
+
+                     // If the plugin options allow keyboard navigation
+                    if (self.moveUp && self.list.is(":visible")) {
+
+                        self.moveUp();
+
+                    }
+
+                },
+
+                "13": function() {
+
+                    var activeElem = self.list.find("li." + self.focusClass);
+            
+                    // If there is no active Elem yet
+                    if(!activeElem.length) {
+
+                        activeElem = self.listItems.first();
+
+                    }
+
+                    // Updates the dropdown list value
+                    self._update(activeElem);
+
+                    // Checks to see if the dropdown list options list is open
+                    if (self.list.is(":visible")) {
+
+                        // Closes the dropdown list options list
+                        self.close();
+
+                    }
+
+                    // Triggers the `enter` events on the original select box
+                    self.triggerEvent("enter");
+
+                },
+
+                "9": function() {
+
+                    // Triggers the custom `tab-blur` event on the original select box
+                    self.triggerEvent("tab-blur");
+
+                },
+
+                "8": function() {
+
+                    // Triggers the custom `backspace` event on the original select box
+                    self.triggerEvent("backspace");
+
+                },
+
+                "27": function() {
+
+                    // Closes the dropdown options list
+                    self.close();
+
+                }
+
+            };
+            
         },
 
 
@@ -966,160 +1026,28 @@
                 // `keydown` event with the `selectBoxIt` namespace.  Catches all user keyboard navigations
                 "keydown.selectBoxIt": function(e) {
 
-                    // Stores the `keycode` value in a local variable
-                    var currentKey = e.keyCode;
+                    setTimeout(function() {
 
-                    // Supports keyboard navigation
-                    switch (currentKey) {
+                        // Stores the `keycode` value in a local variable
+                        var currentKey = e.keyCode,
 
-                        // If the user presses the `down key`
-                        case downKey:
+                            keydownMethod = self._keydownMethods()[currentKey];
 
-                            // Prevents the page from moving down
+                        if(keydownMethod) {
+
                             e.preventDefault();
 
-                            // If the plugin options allow keyboard navigation
-                            if (self.moveDown) {
+                            keydownMethod();
 
-                                if(self.options["keydownOpen"]) {
-
-                                    if(self.list.is(":visible")) {
-
-                                        self.moveDown();
-
-                                    }
-
-                                    else {
-
-                                        self.open();
-
-                                    }
-
-                                }
-
-                                else {
-
-                                    // Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
-                                    self.moveDown();
-
-                                }
-
-                            }
-
-                            if(self.options["keydownOpen"]) {
+                            if(self.options["keydownOpen"] && (currentKey === upKey || currentKey === downKey)) {
 
                                 self.open();
 
                             }
 
-                            break;
+                        }
 
-                        //If the user presses the `up key`
-                        case upKey:
-
-                            // Prevents the page from moving up
-                            e.preventDefault();
-
-                            // If the plugin options allow keyboard navigation
-                            if (self.moveUp) {
-
-                                if(self.options["keydownOpen"]) {
-
-                                    if(self.list.is(":visible")) {
-
-                                        self.moveUp();
-
-                                    }
-
-                                    else {
-
-                                        self.open();
-
-                                    }
-
-                                }
-
-                                else {
-
-                                    // Moves the focus down to the dropdown list option directly beneath the currently selected selectbox option
-                                    self.moveUp();
-
-                                }
-
-                            }
-
-                            if(self.options["keydownOpen"]) {
-
-                                self.open();
-
-                            }
-
-                            break;
-
-                        // If the user presses the `enter key`
-                        case enterKey:
-
-                            var activeElem = self.list.find("li." + self.focusClass);
-            
-                            // If there is no active Elem yet
-                            if(!activeElem.length) {
-
-                                activeElem = self.listItems.first();
-
-                            }
-
-                            // Updates the dropdown list value
-                            self._update(activeElem);
-
-                            // Prevents the default event from being triggered
-                            e.preventDefault();
-
-                            // Checks to see if the dropdown list options list is open
-                            if (self.list.is(":visible")) {
-
-                                // Closes the dropdown list options list
-                                self.close();
-
-                            }
-
-                            // Triggers the `enter` events on the original select box
-                            self.triggerEvent("enter");
-
-                            break;
-
-                        // If the user presses the `tab key`
-                        case tabKey:
-
-                            // Triggers the custom `tab-blur` event on the original select box
-                            self.triggerEvent("tab-blur");
-
-                            break;
-
-                        // If the user presses the `backspace key`
-                        case backspaceKey:
-
-                            // Prevents the browser from navigating to the previous page in its history
-                            e.preventDefault();
-
-                            // Triggers the custom `backspace` event on the original select box
-                            self.triggerEvent("backspace");
-
-                            break;
-
-                        // If the user presses the `escape key`
-                        case escKey:
-
-                            // Closes the dropdown options list
-                            self.close();
-
-                            break;
-
-                        // Default is to break out of the switch statement
-                        default:
-
-                            break;
-
-                    }
+                    }, 0);
 
                 },
 
@@ -1535,9 +1463,8 @@
                 // Finds the currently option index
                 currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
 
-                // Triggers the custom option-click event on the original select box and passes the select box option
-                self.selectBox.trigger(eventName, { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
-
+            // Triggers the custom option-click event on the original select box and passes the select box option
+            self.selectBox.trigger(eventName, { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
 
             // Maintains chainability
             return self;

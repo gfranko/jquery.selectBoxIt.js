@@ -64,7 +64,7 @@
 
 </form>
 
-<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
@@ -72,9 +72,14 @@ jQuery(function($) {
 
   $("#test").selectBoxIt();
 
-  $('#test1').selectBoxIt({theme: "jqueryui"});
+  $('#test').bind('focus', function() {
+    console.log('focus');
 
-  $('#test2').selectBoxIt({theme: "jquerymobile"});
+  });
+
+  $('#test1').selectBoxIt({ theme: "jqueryui" });
+
+  $('#test2').selectBoxIt({ theme: "jquerymobile" });
 
 });
 </script>

@@ -3,7 +3,7 @@
     // ==========================
 
     // _Dynamic positioning
-    // ------------------
+    // --------------------
     //      Dynamically positions the dropdown list options list
 
     $.selectBox.selectBoxIt.prototype._dynamicPositioning = function() {
@@ -32,9 +32,6 @@
             self.list.data("max-height", self.list.outerHeight());
 
         }
-
-        // Makes sure the original select box is hidden
-        self.selectBox.css("display", "none");
 
         // If there is room on the bottom of the viewport to display the drop down options
         if (!bottomReached) {

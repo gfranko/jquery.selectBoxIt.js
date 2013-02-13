@@ -825,7 +825,7 @@
                 "40": function() {
 
                     // If the plugin options allow keyboard navigation
-                    if (self.moveDown && self.list.is(":visible")) {
+                    if (self.moveDown && (self.list.is(":visible") || (self.options["aggressiveChange"] && !self.options["keydownOpen"]))) {
 
                         self.moveDown();
 
@@ -836,7 +836,7 @@
                 "38": function() {
 
                      // If the plugin options allow keyboard navigation
-                    if (self.moveUp && self.list.is(":visible")) {
+                    if (self.moveUp && (self.list.is(":visible") || (self.options["aggressiveChange"] && !self.options["keydownOpen"]))) {
 
                         self.moveUp();
 

@@ -86,7 +86,10 @@
             "aggressiveChange": false,
 
             // **selectWhenHidden: Will allow a user to select an option using the keyboard when the drop down list is hidden and focused
-            "selectWhenHidden": true
+            "selectWhenHidden": true,
+
+            // **viewport**: Allows for a custom domnode used for the viewport. Accepts a selector.  Default is $(window).
+            "viewport": $(window)
 
         },
 
@@ -557,7 +560,7 @@
                     "line-height": self.dropdown.css("height"),
 
                     "max-width": self.dropdown.outerWidth() - (self.downArrowContainer.outerWidth() + self.dropdownImage.outerWidth())
-                
+
                 });
 
                 self.dropdownImage.css({
@@ -848,7 +851,7 @@
                 "13": function() {
 
                     var activeElem = self.list.find("li." + self.focusClass);
-            
+
                     // If there is no active Elem yet
                     if(!activeElem.length) {
 
@@ -894,7 +897,7 @@
                 }
 
             };
-            
+
         },
 
 
@@ -1445,7 +1448,7 @@
         // -----------
         //      HTML encodes a string
         htmlEscape: function(str) {
-    
+
             return String(str)
                 .replace(/&/g, '&amp;')
                 .replace(/"/g, '&quot;')

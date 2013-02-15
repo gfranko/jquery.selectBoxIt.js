@@ -19,9 +19,7 @@
             // The height of the dropdown list DOM element
             selectBoxHeight = self.dropdown.outerHeight(),
 
-            viewportNode = self.options["viewport"];
-
-            viewport = $.isEmptyObject(viewportNode) ? $(window) : $(viewportNode);
+            viewport = self.options["viewport"];
 
             viewportHeight = viewport.height(),
 

@@ -37,11 +37,15 @@
             // The height of the dropdown list DOM element
             selectBoxHeight = self.dropdown.outerHeight(),
 
-            windowHeight = $(window).height(),
+            viewportNode = self.options["viewport"];
 
-            windowScrollTop = $(window).scrollTop(),
+            viewport = $.isEmptyObject(viewportNode) ? $(window) : $(viewportNode);
 
-            topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= windowHeight + windowScrollTop),
+            viewPortHeight = viewport.height(),
+
+            viewportScrollTop = $.isWindow(viewport.get(0)) ? viewport.scrollTop() : viewport.offset().top,
+
+            topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= viewPortHeight + viewportScrollTop),
 
             bottomReached = !topToBottom;
 
@@ -65,7 +69,7 @@
         }
 
         // If there is room on the top of the viewport
-        else if((self.dropdown.offset().top - windowScrollTop) >= listHeight) {
+        else if((self.dropdown.offset().top - viewportScrollTop) >= listHeight) {
 
             self.list.css("max-height", self.list.data("max-height"));
 
@@ -77,9 +81,9 @@
         // If there is not enough room on the top or the bottom
         else {
 
-            var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (windowHeight + windowScrollTop)),
+            var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (viewPortHeight + viewportScrollTop)),
 
-                outsideTopViewport = Math.abs((self.dropdown.offset().top - windowScrollTop) - listHeight);
+                outsideTopViewport = Math.abs((self.dropdown.offset().top - viewportScrollTop) - listHeight);
 
             // If there is more room on the bottom
             if(outsideBottomViewport < outsideTopViewport) {

@@ -3,7 +3,7 @@
  * Author: @gregfranko
  */
 
-/* Div container holding the dropdown list */
+/* Drop Down container */
 .selectboxit-container {
   position: relative;
   display: inline-block;
@@ -15,44 +15,54 @@
   ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  vertical-align: middle;
 }
 
-/* Dropdown List Box */
+/* Drop Down Button */
 .selectboxit-container .selectboxit {
   width: 220px; /* Width of the dropdown list box */
-  height: 30px; /* Height of the select box */
   cursor: pointer;
+  margin: 0;
   padding: 0;
   display: block;
   border-radius: 6px;
-  margin: 0;
+  overflow: hidden;
 }
 
+/* Drop Down Button and Drop Down Text */
+.selectboxit, .selectboxit .selectboxit-text {
+  height: 30px; /* Height of the drop down */
+  line-height: 30px; /* Vertically positions the drop down text */
+}
+
+/* Drop Down focus pseudo selector */
 .selectboxit-container .selectboxit:focus {
   outline: 0;
 }
 
+/* Drop Down disabled mouse interaction */
 .selectboxit-container .selectboxit.selectboxit-disabled {
   cursor: default;
 }
 
-/* Dropdown list Default Icon Positioning */
-.selectboxit-default-icon {
-  float: left;
-}
-
-/* Dropdown List Box Text */
+/* Drop Down Text */
 .selectboxit-text {
   font: 14px Helvetica, Arial;
   text-indent: 5px;
-  height: 30px;
-  line-height: 30px;
+  height: 100%;
   overflow: hidden;
+  text-overflow: ellipsis;
   float: left;
   white-space: nowrap;
+  max-width: 85%;
 }
 
-/* Dropdown List Options List*/
+/* Drop Down Text with image */
+.selectboxit-default-icon + .selectboxit-text {
+  max-width: 75%;
+}
+
+/* Drop Down Options List */
 .selectboxit-container .selectboxit-options {
   min-width: 220px; /* Minimum Width of the dropdown list box options */
   /* IE7 hack */
@@ -83,17 +93,19 @@
   color: #fff;
 }
 
+/* Drop Down individual option */
 .selectboxit-option .selectboxit-option-anchor {
   padding: 0px 3px;
   line-height: 30px;
   height: 30px;
 }
 
+/* Drop Down individual option hover pseudo selector */
 .selectboxit-option .selectboxit-option-anchor:hover {
   text-decoration: none;
 }
 
-/* Dropdown List Individual Options */
+/* Drop Down Individual option and optgroup header */
 .selectboxit-option, .selectboxit-optgroup-header {
   line-height: 30px; /* Height of Individual Select Box Options */
   height: 30px;
@@ -105,80 +117,80 @@
   display: block;
 }
 
-/* The first drop down option */
+/* The first Drop Down option */
 .selectboxit-option-first {
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
 
-/* The first drop down option */
+/* The first Drop Down option optgroup */
 .selectboxit-optgroup-header + .selectboxit-option-first {
   border-top-right-radius: 0px;
   border-top-left-radius: 0px;
 }
 
-/* The last drop down option */
+/* The last Drop Down option */
 .selectboxit-option-last {
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
 }
 
-/* Dropdown List Optgroup Headers */
+/* Drop Down optgroup headers */
 .selectboxit-optgroup-header {
   font-weight: bold;
   padding: 5px;
 }
 
-/* Dropdown List Optgroup Options */
+/* Drop Down optgroup options */
 .selectboxit-optgroup-option {
   text-indent: 20px;
 }
 
-/* Dropdown List Optgroup Header hover psuedo class */
+/* Drop Down optgroup header hover psuedo class */
 .selectboxit-optgroup-header:hover {
   cursor: default;
 }
 
-/* Dropdown List Down Arrow Container (if an image is not used) */
+/* Drop Down down arrow container */
 .selectboxit-arrow-container {
   /* Positions the down arrow */
-  width: 30px;
-  float: right;
-  position: relative;
+  width: 13%;
+  height: 100%;
+  position: absolute;
+  right: 0;
 }
 
-/* Dropdown List Down Arrow */
+/* Drop Down down arrow */
 .selectboxit .selectboxit-arrow-container .selectboxit-arrow {
   /* Horizontally centers the down arrow */
   margin: 0 auto;
   display: block;
   position: absolute;
   top: 50%;
-  right: 40%;
+  right: 0;
+  left: 0;
 }
 
-.jqueryui .selectboxit .selectboxit-arrow-container .selectboxit-arrow {
-  right: 25%;
-}
-
-/* Dropdown List Down Arrow For jQueryUI and jQuery Mobile */
+/* Drop Down down arrow for jQueryUI and jQuery Mobile */
 .selectboxit .selectboxit-arrow-container .selectboxit-arrow.ui-icon {
   top: 30%;
 }
 
-/* Dropdown List Individual Option Icon Positioning */
+/* Drop Down individual option icon positioning */
 .selectboxit-option-icon {
   float: left;
+  height: 100%;
+  background-position: center;
 }
 
-/* Dropdown List Individual Option Image Positioning */
+/* Drop Down individual option icon positioning */
 .selectboxit-option-icon-url {
   width: 18px;
-  height: 18px;
   background-size: 18px 18px;
   background-repeat: no-repeat;
 }
 
+/* Drop Down individual option image positioning */
 .selectboxit-default-icon.selectboxit-option-icon-url {
   margin-left: 5px;
 }

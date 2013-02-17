@@ -14,7 +14,7 @@
 </head>
 <body>
 <form>
-<select id="test" rel="test" data-test="test">
+<select name="test" rel="test" data-test="test">
   <option value="">Select a Month</option>
   <option value="January" disabled>January</option>
   <option value="February">February</option>
@@ -293,6 +293,20 @@
   <option value="December">December</option>
 </select>
 
+  <select name="test">
+    <option value="SelectBoxIt themes:" data-iconurl="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-5/256/themes-icon.png">
+    SelectBoxIt themes:
+    </option>
+    <option value="Twitter Bootstrap" data-iconurl="http://blog.getbootstrap.com/public/ico/apple-touch-icon-144-precomposed.png">
+    Twitter Bootstrap
+    </option>
+    <option value="jQuery UI" data-iconurl="http://c747925.r25.cf2.rackcdn.com/blog/wp-content/uploads/2010/09/jquery-ui-logo.png">
+    jQuery UI
+    </option>
+    <option value="jQuery Mobile" data-iconurl="https://twimg0-a.akamaihd.net/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33.png">
+    jQuery Mobile
+    </option>
+  </select>
 </form>
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -301,9 +315,9 @@
 <script>
 jQuery(function($) {
 
-  $("#test").selectBoxIt().data('selectBoxIt');
+  $("[name=test]").selectBoxIt().data('selectBoxIt');
 
-  $('#test1').selectBoxIt({ theme: "jqueryui", showEffect: "slideDown", similarSearch: true });
+  $('#test1').selectBoxIt({ theme: "jqueryui", showEffect: "slideDown" });
 
   $('#test2').selectBoxIt({ theme: "jquerymobile" });
 

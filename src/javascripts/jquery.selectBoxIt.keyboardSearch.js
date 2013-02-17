@@ -99,10 +99,10 @@
 
                 currentText = self.currentText;
 
-                // Resets the regular expression with the new value of `self.currentText`
-                alphaNumeric = new RegExp(currentText, "gi");
-
             }
+
+            // Resets the regular expression with the new value of `self.currentText`
+            alphaNumeric = new RegExp(currentText, "gi");
 
             // Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
             if (currentText.length < 3) {
@@ -189,11 +189,11 @@
         }
 
         // Searches globally
-        var notFound = self._searchAlgorithm(self.currentIndex, self.currentText);
+        var searchResults = self._searchAlgorithm(self.currentIndex, self.currentText);
 
         // Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of the currently selected dropdown list option, and does not search the options before the current array indece.
         // If there are many similar dropdown list options, starting the search at the indece of the currently selected dropdown list option is needed to properly traverse the text array.
-        if (notFound) {
+        if (searchResults) {
 
             // Searches the dropdown list values starting from the beginning of the text array
             self._searchAlgorithm(0, self.currentText);

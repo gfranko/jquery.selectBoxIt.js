@@ -77,8 +77,6 @@
 
             },
 
-            "nostyle": false,
-
             // **native**: Triggers the native select box when a user interacts with the drop down
             "native": false,
 
@@ -549,36 +547,10 @@
             append(self.downArrow);
 
             // Appends the down arrow element to the dropdown list
-            self.dropdown.append(this.options["nostyle"] ? self.downArrow : self.downArrowContainer);
+            self.dropdown.append(self.downArrowContainer);
 
-            if (!self.options["nostyle"]) {
-
-                // The dynamic CSS of the down arrow container element
-                self.downArrowContainer.css({
-
-                    "height": height + "px"
-
-                });
-
-                // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
-                self.dropdownText.css({
-
-                    "line-height": self.dropdown.css("height"),
-
-                    "max-width": self.dropdown.outerWidth() - (self.downArrowContainer.outerWidth() + self.dropdownImage.outerWidth())
-
-                });
-
-                self.dropdownImage.css({
-
-                    "margin-top": height / 4
-
-                });
-
-                // Adds the `selectboxit-selected` class name to the currently selected drop down option
-                self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
-
-            }
+            // Adds the `selectboxit-selected` class name to the currently selected drop down option
+            self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
 
             // Maintains chainability
             return self;
@@ -1422,8 +1394,6 @@
                 }
 
             });
-
-            $(".selectboxit-option-icon").not(".selectboxit-default-icon").css("margin-top", self.downArrowContainer.height()/4);
 
             // Maintains chainability
             return self;

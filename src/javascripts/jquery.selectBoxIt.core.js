@@ -90,7 +90,16 @@
             "viewport": $(window),
 
             // **similarSearch**: Optimizes the search for lists with many similar values (i.e. State lists) by making it easier to navigate through
-            similarSearch: false
+            "similarSearch": false,
+
+            // **copyAttributes**: HTML attributes that will be copied over to the new drop down
+            "copyAttributes": [
+
+                "title",
+
+                "rel"
+
+            ]
 
         },
 

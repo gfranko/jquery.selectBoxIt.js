@@ -34,14 +34,7 @@
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            // Attributes that will be copied over to the new drop down
-            whitelist = [
-
-                "title",
-
-                "rel"
-
-            ];
+            whitelist = self.options["copyAttributes"];
 
         // If there are array properties
         if(arr.length) {

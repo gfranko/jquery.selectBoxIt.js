@@ -90,7 +90,16 @@
             "viewport": $(window),
 
             // **similarSearch**: Optimizes the search for lists with many similar values (i.e. State lists) by making it easier to navigate through
-            similarSearch: false
+            "similarSearch": false,
+
+            // **copyAttributes**: HTML attributes that will be copied over to the new drop down
+            "copyAttributes": [
+
+                "title",
+
+                "rel"
+
+            ]
 
         },
 
@@ -1626,14 +1635,7 @@
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            // Attributes that will be copied over to the new drop down
-            whitelist = [
-
-                "title",
-
-                "rel"
-
-            ];
+            whitelist = self.options["copyAttributes"];
 
         // If there are array properties
         if(arr.length) {

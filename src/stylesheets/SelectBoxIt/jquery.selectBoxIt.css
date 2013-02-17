@@ -58,7 +58,7 @@
 }
 
 /* Drop Down Text with image */
-.selectboxit-default-icon + .selectboxit-text {
+.selectboxit-option-icon-url + .selectboxit-text {
   max-width: 75%;
 }
 

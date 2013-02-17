@@ -7,7 +7,7 @@
     //      Accepts an string key, a value, and a callback function to replace a single
     //      property of the plugin options object
 
-    $.selectBox.selectBoxIt.prototype.setOption = function(key, value, callback) {
+    selectBoxIt.setOption = function(key, value, callback) {
 
         var self = this;
 

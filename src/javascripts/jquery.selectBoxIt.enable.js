@@ -6,7 +6,7 @@
     // -----
     //      Enables the new dropdown list
 
-    $.selectBox.selectBoxIt.prototype.enable = function(callback) {
+    selectBoxIt.enable = function(callback) {
 
         var self = this;
 
@@ -40,7 +40,7 @@
     // -------------
     //      Disables a single drop down option
 
-    $.selectBox.selectBoxIt.prototype.enableOption = function(index, callback) {
+    selectBoxIt.enableOption = function(index, callback) {
 
         var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
 

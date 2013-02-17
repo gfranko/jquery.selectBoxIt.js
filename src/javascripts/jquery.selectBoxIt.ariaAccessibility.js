@@ -7,7 +7,7 @@
     //      Adds ARIA (Accessible Rich Internet Applications)
     //      Accessibility Tags to the Select Box
 
-    $.selectBox.selectBoxIt.prototype._ariaAccessibility = function() {
+    selectBoxIt._ariaAccessibility = function() {
 
         var self = this;
 

@@ -86,24 +86,15 @@
             "aggressiveChange": false,
 
             // **selectWhenHidden: Will allow a user to select an option using the keyboard when the drop down list is hidden and focused
-            "selectWhenHidden": true
+            "selectWhenHidden": true,
+
+            // **viewport**: Allows for a custom domnode used for the viewport. Accepts a selector.  Default is $(window).
+            "viewport": $(window),
+
+            // **similarSearch**: Optimizes the search for lists with many similar values (i.e. State lists) by making it easier to navigate through
+            similarSearch: false
 
         },
-
-        // The index of the currently selected dropdown list option
-        "currentFocus": 0,
-
-        // Keeps track of which blur events will hide the dropdown list options
-        "blur": true,
-
-        // Array holding all of the original select box options text
-        "textArray": [],
-
-        // Maintains search order in the `search` method
-        "currentIndex": 0,
-
-        // Whether or not the dropdown list opens up or down (depending on how much room is on the page)
-        "flipped": false,
 
         "getThemes": function() {
 
@@ -220,6 +211,24 @@
             self.documentHeight = $(document).height();
 
             self.theme = self.getThemes()[self.options["theme"]] || self.getThemes()["default"];
+
+            // The index of the currently selected dropdown list option
+            self.currentFocus = 0;
+
+            // Keeps track of which blur events will hide the dropdown list options
+            self.blur = true;
+
+             // Array holding all of the original select box options text
+            self.textArray = [];
+
+            // Maintains search order in the `search` method
+            self.currentIndex = 0;
+
+            // Maintains the current search text in the `search` method
+            self.currentText = "";
+
+            // Whether or not the dropdown list opens up or down (depending on how much room is on the page)
+            self.flipped = false;
 
             // Creates the dropdown elements that will become the dropdown
             // Creates the ul element that will become the dropdown options list
@@ -557,7 +566,7 @@
                     "line-height": self.dropdown.css("height"),
 
                     "max-width": self.dropdown.outerWidth() - (self.downArrowContainer.outerWidth() + self.dropdownImage.outerWidth())
-                
+
                 });
 
                 self.dropdownImage.css({
@@ -813,6 +822,24 @@
 
         },
 
+        _keyMappings: {
+
+            "38": "up",
+
+            "40": "down",
+
+            "13": "enter",
+
+            "8": "backspace",
+
+            "9": "tab",
+
+            "32": "space",
+
+            "27": "esc"
+
+        },
+
         // _Key Down Methods
         // -----------------
         //      Methods to use when the keydown event is triggered
@@ -823,7 +850,7 @@
 
             return {
 
-                "40": function() {
+                "down": function() {
 
                     // If the plugin options allow keyboard navigation
                     if (self.moveDown && moveToOption) {
@@ -834,7 +861,7 @@
 
                 },
 
-                "38": function() {
+                "up": function() {
 
                      // If the plugin options allow keyboard navigation
                     if (self.moveUp && moveToOption) {
@@ -845,10 +872,10 @@
 
                 },
 
-                "13": function() {
+                "enter": function() {
 
                     var activeElem = self.list.find("li." + self.focusClass);
-            
+
                     // If there is no active Elem yet
                     if(!activeElem.length) {
 
@@ -872,21 +899,21 @@
 
                 },
 
-                "9": function() {
+                "tab": function() {
 
                     // Triggers the custom `tab-blur` event on the original select box
                     self.triggerEvent("tab-blur");
 
                 },
 
-                "8": function() {
+                "backspace": function() {
 
                     // Triggers the custom `backspace` event on the original select box
                     self.triggerEvent("backspace");
 
                 },
 
-                "27": function() {
+                "esc": function() {
 
                     // Closes the dropdown options list
                     self.close();
@@ -894,7 +921,7 @@
                 }
 
             };
-            
+
         },
 
 
@@ -904,21 +931,7 @@
         _eventHandlers: function() {
 
             // LOCAL VARIABLES
-            var self = this,
-
-                upKey = 38,
-
-                downKey = 40,
-
-                enterKey = 13,
-
-                backspaceKey = 8,
-
-                tabKey = 9,
-
-                spaceKey = 32,
-
-                escKey = 27;
+            var self = this;
 
             // Select Box events
             this.dropdown.bind({
@@ -1027,28 +1040,28 @@
                 // `keydown` event with the `selectBoxIt` namespace.  Catches all user keyboard navigations
                 "keydown.selectBoxIt": function(e) {
 
-                    setTimeout(function() {
+                    // Stores the `keycode` value in a local variable
+                    var currentKey = self._keyMappings[e.keyCode],
 
-                        // Stores the `keycode` value in a local variable
-                        var currentKey = e.keyCode,
+                        keydownMethod = self._keydownMethods()[currentKey];
 
-                            keydownMethod = self._keydownMethods()[currentKey];
+                    if(keydownMethod) {
 
-                        if(keydownMethod) {
+                        keydownMethod();
 
-                            e.preventDefault();
+                        if(self.options["keydownOpen"] && (currentKey === "up" || currentKey === "down")) {
 
-                            keydownMethod();
-
-                            if(self.options["keydownOpen"] && (currentKey === upKey || currentKey === downKey)) {
-
-                                self.open();
-
-                            }
+                            self.open();
 
                         }
 
-                    }, 0);
+                    }
+
+                    if(keydownMethod && currentKey !== "tab") {
+
+                        e.preventDefault();
+
+                    }
 
                 },
 
@@ -1062,19 +1075,17 @@
                         // Converts unicode values to characters
                         alphaNumericKey = String.fromCharCode(currentKey);
 
-                    // If the user presses the `space bar`
-                    if (currentKey === spaceKey) {
-
-                        // Prevents the browser from scrolling to the bottom of the page
-                        e.preventDefault();
-
-                    }
-
                     // If the plugin options allow text searches
                     if (self.search) {
 
                         // Calls `search` and passes the character value of the user's text search
-                        self.search(alphaNumericKey, true, "");
+                        self.search(alphaNumericKey, true, true);
+
+                    }
+
+                    if(currentKey === 32) {
+
+                        e.preventDefault();
 
                     }
 
@@ -1445,7 +1456,7 @@
         // -----------
         //      HTML encodes a string
         htmlEscape: function(str) {
-    
+
             return String(str)
                 .replace(/&/g, '&amp;')
                 .replace(/"/g, '&quot;')
@@ -1488,6 +1499,9 @@
 
     });
 
+    // Storing the plugin prototype object in a local variable
+    var selectBoxIt = $.selectBox.selectBoxIt.prototype;
+
     // Accessibility Module
     // ====================
 
@@ -1496,7 +1510,7 @@
     //      Adds ARIA (Accessible Rich Internet Applications)
     //      Accessibility Tags to the Select Box
 
-    $.selectBox.selectBoxIt.prototype._ariaAccessibility = function() {
+    selectBoxIt._ariaAccessibility = function() {
 
         var self = this;
 
@@ -1614,7 +1628,7 @@
     // ----------------------
     //      Add's all attributes (excluding id, class names, and the style attribute) from the default select box to the new drop down
 
-    $.selectBox.selectBoxIt.prototype._addSelectBoxAttributes = function() {
+    selectBoxIt._addSelectBoxAttributes = function() {
 
         // Stores the plugin context inside of the self variable
         var self = this;
@@ -1684,7 +1698,7 @@
     // -------
     //    Removes the plugin from the page
 
-    $.selectBox.selectBoxIt.prototype.destroy = function(callback) {
+    selectBoxIt.destroy = function(callback) {
 
         // Stores the plugin context inside of the self variable
         var self = this;
@@ -1706,7 +1720,7 @@
     // -----------------------
     //    Removes the plugin from the page
 
-    $.selectBox.selectBoxIt.prototype._destroySelectBoxIt = function() {
+    selectBoxIt._destroySelectBoxIt = function() {
 
         // Stores the plugin context inside of the self variable
         var self = this;
@@ -1738,7 +1752,7 @@
     // -------
     //      Disables the new dropdown list
 
-    $.selectBox.selectBoxIt.prototype.disable = function(callback) {
+    selectBoxIt.disable = function(callback) {
 
         var self = this;
 
@@ -1776,7 +1790,7 @@
     // --------------
     //      Disables a single drop down option
 
-    $.selectBox.selectBoxIt.prototype.disableOption = function(index, callback) {
+    selectBoxIt.disableOption = function(index, callback) {
 
         var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled;
 
@@ -1849,7 +1863,7 @@
     //      Checks the original select box for the
     //    disabled attribute
 
-    $.selectBox.selectBoxIt.prototype._isDisabled = function(callback) {
+    selectBoxIt._isDisabled = function(callback) {
 
         var self = this;
 
@@ -1873,7 +1887,7 @@
     // --------------------
     //      Dynamically positions the dropdown list options list
 
-    $.selectBox.selectBoxIt.prototype._dynamicPositioning = function() {
+    selectBoxIt._dynamicPositioning = function() {
 
         var self = this,
 
@@ -1886,11 +1900,13 @@
             // The height of the dropdown list DOM element
             selectBoxHeight = self.dropdown.outerHeight(),
 
-            windowHeight = $(window).height(),
+            viewport = self.options["viewport"],
 
-            windowScrollTop = $(window).scrollTop(),
+            viewportHeight = viewport.height(),
 
-            topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= windowHeight + windowScrollTop),
+            viewportScrollTop = $.isWindow(viewport.get(0)) ? viewport.scrollTop() : viewport.offset().top,
+
+            topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= viewportHeight + viewportScrollTop),
 
             bottomReached = !topToBottom;
 
@@ -1911,7 +1927,7 @@
         }
 
         // If there is room on the top of the viewport
-        else if((self.dropdown.offset().top - windowScrollTop) >= listHeight) {
+        else if((self.dropdown.offset().top - viewportScrollTop) >= listHeight) {
 
             self.list.css("max-height", self.list.data("max-height"));
 
@@ -1923,9 +1939,9 @@
         // If there is not enough room on the top or the bottom
         else {
 
-            var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (windowHeight + windowScrollTop)),
+            var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (viewportHeight + viewportScrollTop)),
 
-                outsideTopViewport = Math.abs((self.dropdown.offset().top - windowScrollTop) - listHeight);
+                outsideTopViewport = Math.abs((self.dropdown.offset().top - viewportScrollTop) - listHeight);
 
             // If there is more room on the bottom
             if(outsideBottomViewport < outsideTopViewport) {
@@ -1960,7 +1976,7 @@
     // -----
     //      Enables the new dropdown list
 
-    $.selectBox.selectBoxIt.prototype.enable = function(callback) {
+    selectBoxIt.enable = function(callback) {
 
         var self = this;
 
@@ -1994,7 +2010,7 @@
     // -------------
     //      Disables a single drop down option
 
-    $.selectBox.selectBoxIt.prototype.enableOption = function(index, callback) {
+    selectBoxIt.enableOption = function(index, callback) {
 
         var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
 
@@ -2033,7 +2049,7 @@
     // --------
     //      Handles the down keyboard navigation logic
 
-    $.selectBox.selectBoxIt.prototype.moveDown = function(callback) {
+    selectBoxIt.moveDown = function(callback) {
 
         var self = this;
 
@@ -2103,7 +2119,7 @@
     // Move Up
     // ------
     //      Handles the up keyboard navigation logic
-    $.selectBox.selectBoxIt.prototype.moveUp = function(callback) {
+    selectBoxIt.moveUp = function(callback) {
 
         var self = this;
 
@@ -2176,7 +2192,7 @@
     // -------------------------
     //      Sets the currently selected dropdown list search option
 
-    $.selectBox.selectBoxIt.prototype._setCurrentSearchOption = function(currentOption) {
+    selectBoxIt._setCurrentSearchOption = function(currentOption) {
 
         var self = this;
 
@@ -2212,7 +2228,7 @@
     // _Search Algorithm
     // -----------------
     //      Uses regular expressions to find text matches
-    $.selectBox.selectBoxIt.prototype._searchAlgorithm = function(currentIndex, alphaNumeric) {
+    selectBoxIt._searchAlgorithm = function(currentIndex, alphaNumeric) {
 
         var self = this,
 
@@ -2223,19 +2239,30 @@
             x,
 
             // Iteration variable used in the nested for loop
-           y,
+            y,
 
             // Variable used to cache the length of the text array (Small enhancement to speed up traversing)
-            arrayLength;
+            arrayLength,
+
+            // Variable storing the current search
+            currentSearch,
+
+            // Variable storing the textArray property
+            textArray = self.textArray,
+
+            // Variable storing the current text property
+            currentText = self.currentText;
 
         // Loops through the text array to find a pattern match
-        for (x = currentIndex, arrayLength = self.textArray.length; x < arrayLength; x += 1) {
+        for (x = currentIndex, arrayLength = textArray.length; x < arrayLength; x += 1) {
+
+            currentSearch = textArray[x];
 
             // Nested for loop to help search for a pattern match with the currently traversed array item
             for (y = 0; y < arrayLength; y += 1) {
 
                 // Searches for a match
-                if (self.textArray[y].search(alphaNumeric) !== -1) {
+                if (textArray[y].search(alphaNumeric) !== -1) {
 
                     // `matchExists` is set to true if there is a match
                     matchExists = true;
@@ -2256,24 +2283,30 @@
                 // Escapes the regular expression to make sure special characters are seen as literal characters instead of special commands
                 replace(/[|()\[{.+*?$\\]/g, "\\$0");
 
+                currentText = self.currentText;
+
                 // Resets the regular expression with the new value of `self.currentText`
-                alphaNumeric = new RegExp(self.currentText, "gi");
+                alphaNumeric = new RegExp(currentText, "gi");
 
             }
 
             // Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
-            if (self.currentText.length < 3) {
+            if (currentText.length < 3) {
 
-                alphaNumeric = new RegExp(self.currentText.charAt(0), "gi");
+                alphaNumeric = new RegExp(currentText.charAt(0), "gi");
 
                 // If there is a match based on the first character
-                if ((self.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {
+                if ((currentSearch.charAt(0).search(alphaNumeric) !== -1)) {
 
                     // Sets properties of that dropdown list option to make it the currently selected option
                     self._setCurrentSearchOption(x);
 
-                    // Increments the current index by one
-                    self.currentIndex += 1;
+                    if((currentSearch.substring(0, currentText.length).toLowerCase() !== currentText.toLowerCase()) || self.options["similarSearch"]) {
+
+                        // Increments the current index by one
+                        self.currentIndex += 1;
+
+                    }
 
                     // Exits the search
                     return false;
@@ -2286,7 +2319,7 @@
             else {
 
                 // If there is a match based on the entire string
-                if ((self.textArray[x].search(alphaNumeric) !== -1)) {
+                if ((currentSearch.search(alphaNumeric) !== -1)) {
 
                     // Sets properties of that dropdown list option to make it the currently selected option
                     self._setCurrentSearchOption(x);
@@ -2299,13 +2332,13 @@
             }
 
             // If the current text search is an exact match
-            if (self.textArray[x].toLowerCase() === self.currentText.toLowerCase()) {
+            if (currentSearch.toLowerCase() === self.currentText.toLowerCase()) {
 
                 // Sets properties of that dropdown list option to make it the currently selected option
                 self._setCurrentSearchOption(x);
 
                 // Resets the current text search to a blank string to start fresh again
-               self.currentText = "";
+                self.currentText = "";
 
                 // Exits the search
                 return false;
@@ -2322,15 +2355,9 @@
     // Search
     // ------
     //      Calls searchAlgorithm()
-    $.selectBox.selectBoxIt.prototype.search = function(alphaNumericKey, rememberPreviousSearch, callback) {
+    selectBoxIt.search = function(alphaNumericKey, callback, rememberPreviousSearch) {
 
         var self = this;
-
-        if(self.currentText === undefined) {
-
-            self.currentText = "";
-
-        }
 
         // If the search method is being called internally by the plugin, and not externally as a method by a user
         if (rememberPreviousSearch) {
@@ -2374,7 +2401,7 @@
     // -------------------
     //      Applies the original select box directly over the new drop down
 
-    $.selectBox.selectBoxIt.prototype._applyNativeSelect = function() {
+    selectBoxIt._applyNativeSelect = function() {
 
         // Stores the plugin context inside of the self variable
         var self = this,
@@ -2436,7 +2463,7 @@
     // ------
     //      Applies the native "wheel" interface when a mobile user is interacting with the dropdown
 
-    $.selectBox.selectBoxIt.prototype._mobile = function(callback) {
+    selectBoxIt._mobile = function(callback) {
 
         // Stores the plugin context inside of the self variable
         var self = this;
@@ -2459,7 +2486,7 @@
     // -------------
     //      Programatically selects a drop down option by either index or value
 
-    $.selectBox.selectBoxIt.prototype.selectOption = function(val, callback) {
+    selectBoxIt.selectOption = function(val, callback) {
 
         // Stores the plugin context inside of the self variable
         var self = this;
@@ -2495,7 +2522,7 @@
     //      Accepts an string key, a value, and a callback function to replace a single
     //      property of the plugin options object
 
-    $.selectBox.selectBoxIt.prototype.setOption = function(key, value, callback) {
+    selectBoxIt.setOption = function(key, value, callback) {
 
         var self = this;
 
@@ -2553,7 +2580,7 @@
     //      Accepts an object to replace plugin options
     //      properties of the plugin options object
 
-    $.selectBox.selectBoxIt.prototype.setOptions = function(newOptions, callback) {
+    selectBoxIt.setOptions = function(newOptions, callback) {
 
         var self = this;
 
@@ -2610,7 +2637,7 @@
     //    Delays execution by the amount of time
     //    specified by the parameter
 
-    $.selectBox.selectBoxIt.prototype.wait = function(time, callback) {
+    selectBoxIt.wait = function(time, callback) {
 
         var self = this,
 
@@ -2635,7 +2662,7 @@
     //    Returns a Deferred Object after the time
     //    specified by the parameter
 
-    $.selectBox.selectBoxIt.prototype.returnTimeout = function(time) {
+    selectBoxIt.returnTimeout = function(time) {
 
         // Returns a Deferred Object
         return $.Deferred(function(dfd) {

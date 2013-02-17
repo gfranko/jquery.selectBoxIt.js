@@ -6,7 +6,7 @@
     // --------------------
     //      Dynamically positions the dropdown list options list
 
-    $.selectBox.selectBoxIt.prototype._dynamicPositioning = function() {
+    selectBoxIt._dynamicPositioning = function() {
 
         var self = this,
 
@@ -19,7 +19,7 @@
             // The height of the dropdown list DOM element
             selectBoxHeight = self.dropdown.outerHeight(),
 
-            viewport = self.options["viewport"];
+            viewport = self.options["viewport"],
 
             viewportHeight = viewport.height(),
 

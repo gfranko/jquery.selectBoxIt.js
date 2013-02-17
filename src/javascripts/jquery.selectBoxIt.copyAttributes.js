@@ -6,7 +6,7 @@
     // ----------------------
     //      Add's all attributes (excluding id, class names, and the style attribute) from the default select box to the new drop down
 
-    $.selectBox.selectBoxIt.prototype._addSelectBoxAttributes = function() {
+    selectBoxIt._addSelectBoxAttributes = function() {
 
         // Stores the plugin context inside of the self variable
         var self = this;

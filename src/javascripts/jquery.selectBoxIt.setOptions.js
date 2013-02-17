@@ -7,7 +7,7 @@
     //      Accepts an object to replace plugin options
     //      properties of the plugin options object
 
-    $.selectBox.selectBoxIt.prototype.setOptions = function(newOptions, callback) {
+    selectBoxIt.setOptions = function(newOptions, callback) {
 
         var self = this;
 

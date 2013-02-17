@@ -89,24 +89,12 @@
             "selectWhenHidden": true,
 
             // **viewport**: Allows for a custom domnode used for the viewport. Accepts a selector.  Default is $(window).
-            "viewport": $(window)
+            "viewport": $(window),
+
+            // **similarSearch**: Optimizes the search for lists with many similar values (i.e. State lists) by making it easier to navigate through
+            similarSearch: false
 
         },
-
-        // The index of the currently selected dropdown list option
-        "currentFocus": 0,
-
-        // Keeps track of which blur events will hide the dropdown list options
-        "blur": true,
-
-        // Array holding all of the original select box options text
-        "textArray": [],
-
-        // Maintains search order in the `search` method
-        "currentIndex": 0,
-
-        // Whether or not the dropdown list opens up or down (depending on how much room is on the page)
-        "flipped": false,
 
         "getThemes": function() {
 
@@ -223,6 +211,24 @@
             self.documentHeight = $(document).height();
 
             self.theme = self.getThemes()[self.options["theme"]] || self.getThemes()["default"];
+
+            // The index of the currently selected dropdown list option
+            self.currentFocus = 0;
+
+            // Keeps track of which blur events will hide the dropdown list options
+            self.blur = true;
+
+             // Array holding all of the original select box options text
+            self.textArray = [];
+
+            // Maintains search order in the `search` method
+            self.currentIndex = 0;
+
+            // Maintains the current search text in the `search` method
+            self.currentText = "";
+
+            // Whether or not the dropdown list opens up or down (depending on how much room is on the page)
+            self.flipped = false;
 
             // Creates the dropdown elements that will become the dropdown
             // Creates the ul element that will become the dropdown options list
@@ -816,6 +822,24 @@
 
         },
 
+        _keyMappings: {
+
+            "38": "up",
+
+            "40": "down",
+
+            "13": "enter",
+
+            "8": "backspace",
+
+            "9": "tab",
+
+            "32": "space",
+
+            "27": "esc"
+
+        },
+
         // _Key Down Methods
         // -----------------
         //      Methods to use when the keydown event is triggered
@@ -826,7 +850,7 @@
 
             return {
 
-                "40": function() {
+                "down": function() {
 
                     // If the plugin options allow keyboard navigation
                     if (self.moveDown && moveToOption) {
@@ -837,7 +861,7 @@
 
                 },
 
-                "38": function() {
+                "up": function() {
 
                      // If the plugin options allow keyboard navigation
                     if (self.moveUp && moveToOption) {
@@ -848,7 +872,7 @@
 
                 },
 
-                "13": function() {
+                "enter": function() {
 
                     var activeElem = self.list.find("li." + self.focusClass);
 
@@ -875,21 +899,21 @@
 
                 },
 
-                "9": function() {
+                "tab": function() {
 
                     // Triggers the custom `tab-blur` event on the original select box
                     self.triggerEvent("tab-blur");
 
                 },
 
-                "8": function() {
+                "backspace": function() {
 
                     // Triggers the custom `backspace` event on the original select box
                     self.triggerEvent("backspace");
 
                 },
 
-                "27": function() {
+                "esc": function() {
 
                     // Closes the dropdown options list
                     self.close();
@@ -907,21 +931,7 @@
         _eventHandlers: function() {
 
             // LOCAL VARIABLES
-            var self = this,
-
-                upKey = 38,
-
-                downKey = 40,
-
-                enterKey = 13,
-
-                backspaceKey = 8,
-
-                tabKey = 9,
-
-                spaceKey = 32,
-
-                escKey = 27;
+            var self = this;
 
             // Select Box events
             this.dropdown.bind({
@@ -1030,28 +1040,28 @@
                 // `keydown` event with the `selectBoxIt` namespace.  Catches all user keyboard navigations
                 "keydown.selectBoxIt": function(e) {
 
-                    setTimeout(function() {
+                    // Stores the `keycode` value in a local variable
+                    var currentKey = self._keyMappings[e.keyCode],
 
-                        // Stores the `keycode` value in a local variable
-                        var currentKey = e.keyCode,
+                        keydownMethod = self._keydownMethods()[currentKey];
 
-                            keydownMethod = self._keydownMethods()[currentKey];
+                    if(keydownMethod) {
 
-                        if(keydownMethod) {
+                        keydownMethod();
 
-                            e.preventDefault();
+                        if(self.options["keydownOpen"] && (currentKey === "up" || currentKey === "down")) {
 
-                            keydownMethod();
-
-                            if(self.options["keydownOpen"] && (currentKey === upKey || currentKey === downKey)) {
-
-                                self.open();
-
-                            }
+                            self.open();
 
                         }
 
-                    }, 0);
+                    }
+
+                    if(keydownMethod && currentKey !== "tab") {
+
+                        e.preventDefault();
+
+                    }
 
                 },
 
@@ -1065,19 +1075,17 @@
                         // Converts unicode values to characters
                         alphaNumericKey = String.fromCharCode(currentKey);
 
-                    // If the user presses the `space bar`
-                    if (currentKey === spaceKey) {
-
-                        // Prevents the browser from scrolling to the bottom of the page
-                        e.preventDefault();
-
-                    }
-
                     // If the plugin options allow text searches
                     if (self.search) {
 
                         // Calls `search` and passes the character value of the user's text search
-                        self.search(alphaNumericKey, true, "");
+                        self.search(alphaNumericKey, true, true);
+
+                    }
+
+                    if(currentKey === 32) {
+
+                        e.preventDefault();
 
                     }
 
@@ -1490,3 +1498,6 @@
         }
 
     });
+
+    // Storing the plugin prototype object in a local variable
+    var selectBoxIt = $.selectBox.selectBoxIt.prototype;

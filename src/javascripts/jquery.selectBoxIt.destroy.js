@@ -6,7 +6,7 @@
     // -------
     //    Removes the plugin from the page
 
-    $.selectBox.selectBoxIt.prototype.destroy = function(callback) {
+    selectBoxIt.destroy = function(callback) {
 
         // Stores the plugin context inside of the self variable
         var self = this;
@@ -28,7 +28,7 @@
     // -----------------------
     //    Removes the plugin from the page
 
-    $.selectBox.selectBoxIt.prototype._destroySelectBoxIt = function() {
+    selectBoxIt._destroySelectBoxIt = function() {
 
         // Stores the plugin context inside of the self variable
         var self = this;

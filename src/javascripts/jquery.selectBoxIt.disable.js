@@ -6,7 +6,7 @@
     // -------
     //      Disables the new dropdown list
 
-    $.selectBox.selectBoxIt.prototype.disable = function(callback) {
+    selectBoxIt.disable = function(callback) {
 
         var self = this;
 
@@ -44,7 +44,7 @@
     // --------------
     //      Disables a single drop down option
 
-    $.selectBox.selectBoxIt.prototype.disableOption = function(index, callback) {
+    selectBoxIt.disableOption = function(index, callback) {
 
         var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled;
 
@@ -117,7 +117,7 @@
     //      Checks the original select box for the
     //    disabled attribute
 
-    $.selectBox.selectBoxIt.prototype._isDisabled = function(callback) {
+    selectBoxIt._isDisabled = function(callback) {
 
         var self = this;
 

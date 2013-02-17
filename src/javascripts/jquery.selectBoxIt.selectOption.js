@@ -6,7 +6,7 @@
     // -------------
     //      Programatically selects a drop down option by either index or value
 
-    $.selectBox.selectBoxIt.prototype.selectOption = function(val, callback) {
+    selectBoxIt.selectOption = function(val, callback) {
 
         // Stores the plugin context inside of the self variable
         var self = this;

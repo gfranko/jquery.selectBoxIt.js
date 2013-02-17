@@ -6,7 +6,7 @@
     // -------------------------
     //      Sets the currently selected dropdown list search option
 
-    $.selectBox.selectBoxIt.prototype._setCurrentSearchOption = function(currentOption) {
+    selectBoxIt._setCurrentSearchOption = function(currentOption) {
 
         var self = this;
 
@@ -42,7 +42,7 @@
     // _Search Algorithm
     // -----------------
     //      Uses regular expressions to find text matches
-    $.selectBox.selectBoxIt.prototype._searchAlgorithm = function(currentIndex, alphaNumeric) {
+    selectBoxIt._searchAlgorithm = function(currentIndex, alphaNumeric) {
 
         var self = this,
 
@@ -53,19 +53,30 @@
             x,
 
             // Iteration variable used in the nested for loop
-           y,
+            y,
 
             // Variable used to cache the length of the text array (Small enhancement to speed up traversing)
-            arrayLength;
+            arrayLength,
+
+            // Variable storing the current search
+            currentSearch,
+
+            // Variable storing the textArray property
+            textArray = self.textArray,
+
+            // Variable storing the current text property
+            currentText = self.currentText;
 
         // Loops through the text array to find a pattern match
-        for (x = currentIndex, arrayLength = self.textArray.length; x < arrayLength; x += 1) {
+        for (x = currentIndex, arrayLength = textArray.length; x < arrayLength; x += 1) {
+
+            currentSearch = textArray[x];
 
             // Nested for loop to help search for a pattern match with the currently traversed array item
             for (y = 0; y < arrayLength; y += 1) {
 
                 // Searches for a match
-                if (self.textArray[y].search(alphaNumeric) !== -1) {
+                if (textArray[y].search(alphaNumeric) !== -1) {
 
                     // `matchExists` is set to true if there is a match
                     matchExists = true;
@@ -86,24 +97,30 @@
                 // Escapes the regular expression to make sure special characters are seen as literal characters instead of special commands
                 replace(/[|()\[{.+*?$\\]/g, "\\$0");
 
+                currentText = self.currentText;
+
                 // Resets the regular expression with the new value of `self.currentText`
-                alphaNumeric = new RegExp(self.currentText, "gi");
+                alphaNumeric = new RegExp(currentText, "gi");
 
             }
 
             // Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
-            if (self.currentText.length < 3) {
+            if (currentText.length < 3) {
 
-                alphaNumeric = new RegExp(self.currentText.charAt(0), "gi");
+                alphaNumeric = new RegExp(currentText.charAt(0), "gi");
 
                 // If there is a match based on the first character
-                if ((self.textArray[x].charAt(0).search(alphaNumeric) !== -1)) {
+                if ((currentSearch.charAt(0).search(alphaNumeric) !== -1)) {
 
                     // Sets properties of that dropdown list option to make it the currently selected option
                     self._setCurrentSearchOption(x);
 
-                    // Increments the current index by one
-                    self.currentIndex += 1;
+                    if((currentSearch.substring(0, currentText.length).toLowerCase() !== currentText.toLowerCase()) || self.options["similarSearch"]) {
+
+                        // Increments the current index by one
+                        self.currentIndex += 1;
+
+                    }
 
                     // Exits the search
                     return false;
@@ -116,7 +133,7 @@
             else {
 
                 // If there is a match based on the entire string
-                if ((self.textArray[x].search(alphaNumeric) !== -1)) {
+                if ((currentSearch.search(alphaNumeric) !== -1)) {
 
                     // Sets properties of that dropdown list option to make it the currently selected option
                     self._setCurrentSearchOption(x);
@@ -129,13 +146,13 @@
             }
 
             // If the current text search is an exact match
-            if (self.textArray[x].toLowerCase() === self.currentText.toLowerCase()) {
+            if (currentSearch.toLowerCase() === self.currentText.toLowerCase()) {
 
                 // Sets properties of that dropdown list option to make it the currently selected option
                 self._setCurrentSearchOption(x);
 
                 // Resets the current text search to a blank string to start fresh again
-               self.currentText = "";
+                self.currentText = "";
 
                 // Exits the search
                 return false;
@@ -152,15 +169,9 @@
     // Search
     // ------
     //      Calls searchAlgorithm()
-    $.selectBox.selectBoxIt.prototype.search = function(alphaNumericKey, rememberPreviousSearch, callback) {
+    selectBoxIt.search = function(alphaNumericKey, callback, rememberPreviousSearch) {
 
         var self = this;
-
-        if(self.currentText === undefined) {
-
-            self.currentText = "";
-
-        }
 
         // If the search method is being called internally by the plugin, and not externally as a method by a user
         if (rememberPreviousSearch) {

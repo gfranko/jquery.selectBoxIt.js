@@ -6,7 +6,7 @@
     // --------
     //      Handles the down keyboard navigation logic
 
-    $.selectBox.selectBoxIt.prototype.moveDown = function(callback) {
+    selectBoxIt.moveDown = function(callback) {
 
         var self = this;
 
@@ -76,7 +76,7 @@
     // Move Up
     // ------
     //      Handles the up keyboard navigation logic
-    $.selectBox.selectBoxIt.prototype.moveUp = function(callback) {
+    selectBoxIt.moveUp = function(callback) {
 
         var self = this;
 

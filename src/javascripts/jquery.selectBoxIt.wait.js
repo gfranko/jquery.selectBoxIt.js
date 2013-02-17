@@ -7,7 +7,7 @@
     //    Delays execution by the amount of time
     //    specified by the parameter
 
-    $.selectBox.selectBoxIt.prototype.wait = function(time, callback) {
+    selectBoxIt.wait = function(time, callback) {
 
         var self = this,
 
@@ -32,7 +32,7 @@
     //    Returns a Deferred Object after the time
     //    specified by the parameter
 
-    $.selectBox.selectBoxIt.prototype.returnTimeout = function(time) {
+    selectBoxIt.returnTimeout = function(time) {
 
         // Returns a Deferred Object
         return $.Deferred(function(dfd) {

@@ -6,7 +6,7 @@
     // -------------------
     //      Applies the original select box directly over the new drop down
 
-    $.selectBox.selectBoxIt.prototype._applyNativeSelect = function() {
+    selectBoxIt._applyNativeSelect = function() {
 
         // Stores the plugin context inside of the self variable
         var self = this,
@@ -68,7 +68,7 @@
     // ------
     //      Applies the native "wheel" interface when a mobile user is interacting with the dropdown
 
-    $.selectBox.selectBoxIt.prototype._mobile = function(callback) {
+    selectBoxIt._mobile = function(callback) {
 
         // Stores the plugin context inside of the self variable
         var self = this;

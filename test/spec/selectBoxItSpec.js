@@ -37,6 +37,12 @@ describe('selectBoxIt jQuery Plugin', function () {
 
             });
 
+            it("should not have a css 'open' class on the new dropdown container element", function() {
+
+                expect(selectBoxIt.dropdownContainer).not.toHaveClass("selectboxit-open");
+
+            });
+
             it("should add a css class to the new dropdown text element", function() {
 
                 expect(selectBoxIt.dropdownText).toHaveClass("selectboxit-text");
@@ -184,6 +190,12 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         });
 
+        it("should have a css 'open' class on the opened dropdown container element", function() {
+
+            expect(selectBoxIt.dropdownContainer).toHaveClass("open");
+
+        });
+
         it("should make the select box options list visible", function() {
 
             expect(selectBoxIt.list).toBeVisible();
@@ -205,6 +217,12 @@ describe('selectBoxIt jQuery Plugin', function () {
         it("should trigger a custom 'close' event on the original select box", function() {
 
             expect("close").toHaveBeenTriggeredOn(selectBoxIt.selectBox);
+
+        });
+
+        it("should not have a css 'open' class on the closed dropdown container element", function() {
+
+            expect(selectBoxIt.dropdownContainer).not.toHaveClass("selectboxit-open");
 
         });
 

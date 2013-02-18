@@ -126,7 +126,9 @@
 
                     "list": "dropdown-menu",
 
-                    "container": "bootstrap"
+                    "container": "bootstrap",
+
+                    "open": "open"
 
                 },
 
@@ -144,7 +146,9 @@
 
                     "list": "ui-widget ui-widget-content",
 
-                    "container": "jqueryui"
+                    "container": "jqueryui",
+
+                    "open": "ui-state-active"
 
                 },
 
@@ -162,7 +166,9 @@
 
                     "list": "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
 
-                    "container": "jquerymobile"
+                    "container": "jquerymobile",
+
+                    "open": "ui-state-active"
 
                 },
 
@@ -180,7 +186,9 @@
 
                     "list": "selectboxit-list",
 
-                    "container": "selectboxit-container"
+                    "container": "selectboxit-container",
+
+                    "open": "selectboxit-open"
 
                 }
 
@@ -557,7 +565,7 @@
                     "line-height": self.dropdown.css("height"),
 
                     "max-width": self.dropdown.outerWidth() - (self.downArrowContainer.outerWidth() + self.dropdownImage.outerWidth())
-                
+
                 });
 
                 self.dropdownImage.css({
@@ -1060,7 +1068,7 @@
                         case enterKey:
 
                             var activeElem = self.list.find("li." + self.focusClass);
-            
+
                             // If there is no active Elem yet
                             if(!activeElem.length) {
 
@@ -1352,9 +1360,13 @@
 
                 arrowClass = obj.arrow,
 
-                containerClass = obj.container;
+                containerClass = obj.container,
+
+                openClass = obj.open;
 
             self.focusClass = focusClass;
+
+            self.openClass = openClass;
 
             self.selectedClass = "selectboxit-selected";
 
@@ -1409,6 +1421,9 @@
 
                     var activeElem = self.listItems.eq(self.currentFocus);
 
+                    // Adds the open class to the container
+                    self.dropdownContainer.addClass(openClass);
+
                     // Removes the focus class from the dropdown list and adds the library focus class for both the dropdown list and the currently selected dropdown list option
                     self.dropdown.removeClass(hoverClass).addClass(focusClass);
 
@@ -1417,6 +1432,13 @@
                     self.listItems.removeAttr("data-active").not(activeElem).removeClass(focusClass);
 
                     activeElem.addClass(focusClass).addClass(self.selectedClass);
+
+                },
+
+               "close.selectBoxIt": function() {
+
+                    // Removes the open class from the dropdown container
+                    self.dropdownContainer.removeClass(openClass);
 
                 },
 
@@ -1516,7 +1538,7 @@
         // -----------
         //      HTML encodes a string
         htmlEscape: function(str) {
-    
+
             return String(str)
                 .replace(/&/g, '&amp;')
                 .replace(/"/g, '&quot;')

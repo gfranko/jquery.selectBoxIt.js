@@ -309,6 +309,12 @@
             // Sets the HTML5 data attribute on the dropdownText `dropdown` element
             attr("data-val", self.originalElem.value);
 
+            self.dropdownImageContainer = $("<span/>", {
+
+                "class": "selectboxit-option-icon-container"
+
+            });
+
             // Creates a dropdown element that contains the dropdown list text value
             self.dropdownImage = $("<i/>", {
 
@@ -342,7 +348,7 @@
             }).
 
             // Appends the default text to the inner dropdown list dropdown element
-            append(self.dropdownImage).append(self.dropdownText);
+            append(self.dropdownImageContainer.append(self.dropdownImage)).append(self.dropdownText);
 
             // Create the dropdown container that will hold all of the dropdown list dom elements
             self.dropdownContainer = $("<span/>", {
@@ -441,7 +447,7 @@
                 }
 
                 // Uses string concatenation for speed (applies HTML attribute encoding)
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><i class="selectboxit-option-icon ' + iconClass + ' ' + iconUrlClass + '"' + iconUrlStyle + '></i>' + self.htmlEscape($(this).text()) + '</a></li>';
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + self.htmlEscape($(this).text()) + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)

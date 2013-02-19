@@ -307,6 +307,26 @@
     jQuery Mobile
     </option>
   </select>
+
+  <select name="test">
+    <option value="SelectBoxIt is:" data-icon="icon-search">SelectBoxIt is:</option>
+    <option value="a jQuery Plugin" data-icon="icon-ok">a jQuery Plugin</option>
+    <option value="a Select Box Replacement" data-icon="icon-ok">a Select Box Replacement</option>
+    <option value="a Stateful UI Widget" data-icon="icon-ok">a Stateful UI Widget</option>
+  </select>
+
+  <select name="test">
+    <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+    <optgroup label="Optgroup 1">
+    <option value="a jQuery Plugin">a jQuery Plugin</option>
+    </optgroup>
+    <optgroup label="Optgroup 2">
+    <option value="a Select Box Replacement">a Select Box Replacement</option>
+    </optgroup>
+    <optgroup label="Optgroup 3">
+    <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+    </optgroup>
+  </select>
 </form>
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -315,7 +335,7 @@
 <script>
 jQuery(function($) {
 
-  $("[name=test]").selectBoxIt().data('selectBoxIt');
+  window.select = $("[name=test]").selectBoxIt().data('selectBoxIt');
 
   $('#test1').selectBoxIt({ theme: "jqueryui", showEffect: "slideDown" });
 

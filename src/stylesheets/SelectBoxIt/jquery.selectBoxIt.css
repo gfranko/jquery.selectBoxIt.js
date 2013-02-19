@@ -7,6 +7,7 @@
 .selectboxit-container {
   position: relative;
   display: inline-block;
+  vertical-align: middle;
   /* Prevents text selection */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -15,12 +16,11 @@
   ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  vertical-align: middle;
 }
 
 /* Drop Down Button */
 .selectboxit-container .selectboxit {
-  width: 220px; /* Width of the dropdown list box */
+  width: 220px; /* Width of the dropdown button */
   cursor: pointer;
   margin: 0;
   padding: 0;
@@ -30,7 +30,7 @@
 }
 
 /* Drop Down Button and Drop Down Text */
-.selectboxit, .selectboxit .selectboxit-text {
+.selectboxit-container .selectboxit, .selectboxit .selectboxit-text, .selectboxit-option-icon-container, .selectboxit-option .selectboxit-option-anchor, .selectboxit-option, .selectboxit-optgroup-header {
   height: 30px; /* Height of the drop down */
   line-height: 30px; /* Vertically positions the drop down text */
 }
@@ -49,7 +49,6 @@
 .selectboxit-text {
   font: 14px Helvetica, Arial;
   text-indent: 5px;
-  height: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   float: left;
@@ -58,15 +57,13 @@
 }
 
 /* Drop Down Text with image */
-.selectboxit-option-icon-url + .selectboxit-text {
+.selectboxit-option-icon-container + .selectboxit-text {
   max-width: 75%;
 }
 
 /* Drop Down Options List */
 .selectboxit-container .selectboxit-options {
   min-width: 220px; /* Minimum Width of the dropdown list box options */
-  /* IE7 hack */
-  *width: 220px;
   font: 14px Helvetica, Arial;
   margin: 0;
   padding: 0;
@@ -77,27 +74,13 @@
   display: none;
   z-index: 9999999999999;
   outline: none;
-  top: auto;
-  bottom: auto;
-  left: auto;
-  right: auto;
-  -moz-box-shadow: none; /* Firefox */
-  -webkit-box-shadow: none; /* Safari, Chrome */
-  box-shadow: none; /* CSS3 */
   border-radius: 6px;
   text-align: left;
 }
 
-/* Overrides Bootstrap drop down option style */
-.selectboxit-options .selectboxit-option.active .selectboxit-option-anchor {
-  color: #fff;
-}
-
 /* Drop Down individual option */
-.selectboxit-option .selectboxit-option-anchor {
-  padding: 0px 3px;
-  line-height: 30px;
-  height: 30px;
+ .selectboxit-option .selectboxit-option-anchor{
+  padding: 0px 2px;
 }
 
 /* Drop Down individual option hover pseudo selector */
@@ -107,8 +90,6 @@
 
 /* Drop Down Individual option and optgroup header */
 .selectboxit-option, .selectboxit-optgroup-header {
-  line-height: 30px; /* Height of Individual Select Box Options */
-  height: 30px;
   text-indent: 5px; /* Horizontal Positioning of the select box option text */
   overflow: hidden;
   white-space: nowrap;
@@ -177,10 +158,11 @@
 }
 
 /* Drop Down individual option icon positioning */
-.selectboxit-option-icon {
+.selectboxit-option-icon-container {
   float: left;
+  position: relative;
+  display: block;
   height: 100%;
-  background-position: center;
 }
 
 /* Drop Down individual option icon positioning */
@@ -188,6 +170,9 @@
   width: 18px;
   background-size: 18px 18px;
   background-repeat: no-repeat;
+  height: 100%;
+  background-position: center;
+  float: left;
 }
 
 /* Drop Down individual option image positioning */

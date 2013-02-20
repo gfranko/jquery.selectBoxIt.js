@@ -567,6 +567,14 @@
             // Adds the `selectboxit-selected` class name to the currently selected drop down option
             self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
 
+            // If an image is not being used
+            if(!self.dropdownImageContainer.width()) {
+
+                // Removes the image and image container
+                self.dropdownImageContainer.remove();
+
+            }
+
             // Maintains chainability
             return self;
 

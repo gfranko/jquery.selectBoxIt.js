@@ -42,11 +42,11 @@
         // Remove all of the `selectBoxIt` DOM elements from the page
         self.dropdownContainer.remove();
 
-        // Triggers the custom `destroy` event on the original select box
-        self.triggerEvent("destroy");
-
         // Shows the original dropdown list
         self.selectBox.removeAttr("style").show();
+
+        // Triggers the custom `destroy` event on the original select box
+        self.triggerEvent("destroy");
 
         // Maintains chainability
         return self;

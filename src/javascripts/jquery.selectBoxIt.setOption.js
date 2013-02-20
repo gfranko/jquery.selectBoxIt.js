@@ -9,13 +9,14 @@
 
     selectBoxIt.setOption = function(key, value, callback) {
 
-        var self = this;
+        var self = this,
+            firstOption = self.listItems.eq(0);
 
         // If a user sets the `showFirstOption` to false
         if (key === "showFirstOption" && !value) {
 
             // Hides the first option in the dropdown list
-            self.listItems.eq(0).hide();
+            firstOption.hide();
 
         }
 
@@ -23,7 +24,7 @@
         else if (key === "showFirstOption" && value) {
 
             // Shows the first option in the dropdown list
-            self.listItems.eq(0).show();
+            firstOption.show();
 
         }
 

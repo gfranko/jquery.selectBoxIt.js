@@ -9,7 +9,8 @@
 
     selectBoxIt.setOptions = function(newOptions, callback) {
 
-        var self = this;
+        var self = this,
+            firstOption = self.listItems.eq(0);
 
         $.Widget.prototype._setOptions.apply(self, arguments);
 
@@ -17,7 +18,7 @@
         if (self.options["showFirstOption"]) {
 
             // Shows the first option in the dropdown list
-            self.listItems.eq(0).show();
+            firstOption.show();
 
         }
 
@@ -25,7 +26,7 @@
         else {
 
             // Hides the first option in the dropdown list
-            self.listItems.eq(0).hide();
+            firstOption.hide();
 
         }
 

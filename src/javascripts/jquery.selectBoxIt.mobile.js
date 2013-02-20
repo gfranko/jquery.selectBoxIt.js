@@ -12,11 +12,8 @@
         var self = this,
             currentOption;
 
-        self.dropdownContainer.css({
-
-            "position": "static"
-
-        });
+        // Appends the native select box to the drop down (allows for relative positioning using the position() method)
+        self.dropdownContainer.append(self.selectBox);
 
         // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
         self.selectBox.css({
@@ -31,13 +28,9 @@
 
             "position": "absolute",
 
-            "top": self.dropdown.position().top,
+            "top": self.dropdown.position().top + "px",
 
-            "bottom": self.dropdown.position().bottom,
-
-            "left": self.dropdown.position().left,
-
-            "right": self.dropdown.position().right,
+            "left": self.dropdown.position().left + "px",
 
             "cursor": "pointer",
 

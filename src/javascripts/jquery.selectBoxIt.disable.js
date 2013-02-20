@@ -15,9 +15,6 @@
             // Makes sure the dropdown list is closed
             self.close();
 
-            // Triggers a `disable` custom event on the original select box
-            self.triggerEvent("disable");
-
             // Sets the `disabled` attribute on the original select box
             self.selectBox.attr("disabled", "disabled");
 
@@ -29,6 +26,9 @@
 
             // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
            $.Widget.prototype.disable.call(self);
+
+            // Triggers a `disable` custom event on the original select box
+            self.triggerEvent("disable");
 
         }
 

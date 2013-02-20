@@ -21,8 +21,8 @@
   ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  display: block;
   outline: none;
+  white-space: nowrap;
 }
 
 /* Button */
@@ -33,12 +33,14 @@
   padding: 0;
   border-radius: 6px;
   overflow: hidden;
+  display: block;
 }
 
 /* Height and Vertical Alignment of Text */
 .selectboxit-container span, .selectboxit-container .selectboxit-options a {
   height: 30px; /* Height of the drop down */
   line-height: 30px; /* Vertically positions the drop down text */
+  display: block;
 }
 
 /* Focus pseudo selector */
@@ -57,7 +59,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   float: left;
-  white-space: nowrap;
   max-width: 85%;
 }
 
@@ -77,7 +78,8 @@
   padding: 0;
   list-style: none;
   position: absolute;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   cursor: pointer;
   display: none;
   z-index: 9999999999999;
@@ -138,7 +140,6 @@
 .selectboxit-arrow-container {
   /* Positions the down arrow */
   width: 13%;
-  height: 100%;
   position: absolute;
   right: 0;
 }
@@ -161,8 +162,6 @@
 /* Drop Down individual option icon positioning */
 .selectboxit-option-icon-container {
   float: left;
-  position: relative;
-  height: 100%;
 }
 
 /* Drop Down individual option icon positioning */

@@ -1,4 +1,4 @@
-/* jquery SelectBoxIt - v2.9.9 - 2013-2-06
+/* jquery SelectBoxIt - v3.0.0 - 2013-2-19
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "2.9.9",
+        VERSION: "3.0.0",
 
         // These options will be used as defaults
         options: {
@@ -212,7 +212,7 @@
             self.selectItems = self.element.find("option");
 
             // The first option in the original select box
-            self.firstSelectItem = self.element.find("option").slice(0, 1);
+            self.firstSelectItem = self.selectItems.slice(0, 1);
 
             // The html document height
             self.documentHeight = $(document).height();
@@ -288,13 +288,14 @@
         //      the original select box with a dropdown list
         _createdropdown: function() {
 
-            var self = this;
+            var self = this,
+                originalElemId = self.originalElem.id || "";
 
             // Creates a dropdown element that contains the dropdown list text value
             self.dropdownText = $("<span/>", {
 
                 // Dynamically sets the dropdown `id` attribute
-                "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItText",
+                "id": originalElemId && originalElemId + "SelectBoxItText",
 
                 "class": "selectboxit-text",
 
@@ -319,7 +320,7 @@
             self.dropdownImage = $("<i/>", {
 
                 // Dynamically sets the dropdown `id` attribute
-                "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItDefaultIcon",
+                "id": originalElemId && originalElemId + "SelectBoxItDefaultIcon",
 
                 "class": "selectboxit-default-icon",
 
@@ -332,7 +333,7 @@
             self.dropdown = $("<span/>", {
 
                 // Dynamically sets the dropdown `id` attribute
-                "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxIt",
+                "id": originalElemId && originalElemId + "SelectBoxIt",
 
                 "class": "selectboxit" + " " + (self.selectBox.attr("class") || ""),
 
@@ -353,7 +354,7 @@
             // Create the dropdown container that will hold all of the dropdown list dom elements
             self.dropdownContainer = $("<span/>", {
 
-                "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItContainer",
+                "id": originalElemId && originalElemId + "SelectBoxItContainer",
 
                 "class": "selectboxit-container"
 
@@ -394,24 +395,29 @@
                 // Declaring the variable that will hold all of the dropdown list option elements
                 currentItem = "",
 
+                originalElemId = self.originalElem.id || "",
+
                 // Creates an unordered list element
                 createdList = $("<ul/>", {
 
                     // Sets the unordered list `id` attribute
-                    "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItOptions",
+                    "id": originalElemId && originalElemId + "SelectBoxItOptions",
 
                     "class": "selectboxit-options",
 
                     //Sets the unordered list `tabindex` attribute to -1 to prevent the unordered list from being focusable
                     "tabindex": -1
 
-                });
+                }),
+
+                currentText;
 
             // Checks the `showFirstOption` plugin option to determine if the first dropdown list option should be shown in the options list.
             if (!self.options["showFirstOption"]) {
 
                 // Excludes the first dropdown list option from the options list
                 self.selectItems = self.selectBox.find("option").slice(1);
+
             }
 
             // Loops through the original select box options list and copies the text of each
@@ -430,7 +436,9 @@
 
                 iconUrlClass = iconUrl ? "selectboxit-option-icon-url": "";
 
-                iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "";
+                iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "",
+
+                currentText = $(this).text();
 
                 // If the current option being traversed is within an optgroup
 
@@ -447,20 +455,21 @@
                 }
 
                 // Uses string concatenation for speed (applies HTML attribute encoding)
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + self.htmlEscape($(this).text()) + '</a></li>';
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + self.htmlEscape(currentText) + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
-                self.textArray[index] = dataDisabled ? "": $(this).text();
+                self.textArray[index] = dataDisabled ? "": currentText;
 
                 // Checks the original select box option for the `selected` attribute
                 if (this.selected) {
 
                     //Replace the default text with the selected option
-                    self.dropdownText.text($(this).text());
+                    self.dropdownText.text(currentText);
 
                     //Set the currently selected option
                     self.currentFocus = index;
+
                 }
 
             });
@@ -498,14 +507,6 @@
             // Set the disabled CSS class for select box options
             self.list.find("li[data-disabled='true']").not(".optgroupHeader").addClass(self.theme["disabled"]);
 
-            // If the first select box option is disabled, and the user has chosen to not show the first select box option
-            if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass(self.theme["disabled"])) {
-
-                //Sets the default value of the dropdown list to the first option that is not disabled
-                self.currentFocus = +self.listItems.not(".ui-state-disabled").first().attr("id");
-
-            }
-
             self.dropdownImage.addClass(self.selectBox.data("icon") || self.options["defaultIcon"] || self.listItems.eq(self.currentFocus).find("i").attr("class"));
 
             self.dropdownImage.attr("style", self.listItems.eq(self.currentFocus).find("i").attr("style"));
@@ -521,7 +522,9 @@
         //        the new DOM elements
         _replaceSelectBox: function() {
 
-            var self = this;
+            var self = this,
+                height,
+                originalElemId = self.originalElem.id || "";
 
             // Hides the original select box
             self.selectBox.css("display", "none").
@@ -530,13 +533,13 @@
             after(self.dropdownContainer);
 
             // The height of the dropdown list
-            var height = self.dropdown.height();
+            height = self.dropdown.height();
 
             // The down arrow element of the dropdown list
             self.downArrow = $("<i/>", {
 
                 // Dynamically sets the dropdown `id` attribute of the dropdown list down arrow
-                "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItArrow",
+                "id": originalElemId && originalElemId + "SelectBoxItArrow",
 
                 "class": "selectboxit-arrow",
 
@@ -549,7 +552,7 @@
             self.downArrowContainer = $("<span/>", {
 
                 // Dynamically sets the dropdown `id` attribute for the down arrow container element
-                "id": (self.originalElem.id || "") && self.originalElem.id + "SelectBoxItArrowContainer",
+                "id": originalElemId && originalElemId + "SelectBoxItArrowContainer",
 
                 "class": "selectboxit-arrow-container",
 
@@ -598,6 +601,8 @@
                 // The relative distance from the currently selected dropdown list option to the the top of the dropdown list options list
                 currentTopPosition = currentOption.position().top,
 
+                absCurrentTopPosition = Math.abs(currentTopPosition),
+
                 // The height of the dropdown list option list
                 listHeight = self.list.height();
 
@@ -627,7 +632,7 @@
                 // Decreases the dropdown list option list `scrollTop` if a user is navigating to an element that is not visible
                 if (currentTopPosition < -1) {
 
-                    self.list.scrollTop(listScrollTop - Math.abs(currentTopPosition));
+                    self.list.scrollTop(listScrollTop - absCurrentTopPosition);
 
                 }
             }
@@ -639,7 +644,7 @@
                 if (listHeight - currentTopPosition < currentItemHeight) {
 
                     // Increases the dropdown list options `scrollTop` by the height of the current option item.
-                    self.list.scrollTop((listScrollTop + (Math.abs(currentTopPosition) - listHeight + currentItemHeight)));
+                    self.list.scrollTop((listScrollTop + (absCurrentTopPosition - listHeight + currentItemHeight)));
 
                 }
             }
@@ -1158,7 +1163,9 @@
 
                 $(this).attr("data-active", "");
 
-                if((self.options["searchWhenHidden"] && self.list.is(":hidden")) || self.options["aggressiveChange"] || (self.list.is(":hidden") && self.options["selectWhenHidden"])) {
+                var listIsHidden = self.list.is(":hidden");
+
+                if((self.options["searchWhenHidden"] && listIsHidden) || self.options["aggressiveChange"] || (listIsHidden && self.options["selectWhenHidden"])) {
 
                     self._update($(this));
 
@@ -1172,10 +1179,12 @@
                 // `change` event handler with the `selectBoxIt` namespace
                 "change.selectBoxIt, internal-change.selectBoxIt": function(event, internal) {
 
+                    var currentOption;
+
                     // If the user called the change method
                     if(!internal) {
 
-                        var currentOption = self.list.find('li[data-val="' + self.originalElem.value + '"]');
+                        currentOption = self.list.find('li[data-val="' + self.originalElem.value + '"]');
 
                         // If there is a dropdown option with the same value as the original select box element
                         if(currentOption.length) {
@@ -1184,20 +1193,20 @@
 
                             self.currentFocus = +currentOption.attr("id");
 
-
-
                         }
 
                     }
 
+                    currentOption = self.listItems.eq(self.currentFocus);
+
                     // Sets the new dropdown list text to the value of the current option
-                    self.dropdownText.text(self.listItems.eq(self.currentFocus).find("a").text()).attr("data-val", self.originalElem.value);
+                    self.dropdownText.text(currentOption.find("a").text()).attr("data-val", self.originalElem.value);
 
-                    if(self.listItems.eq(self.currentFocus).find("i").attr("class")) {
+                    if(currentOption.find("i").attr("class")) {
 
-                        self.dropdownImage.attr("class", self.listItems.eq(self.currentFocus).find("i").attr("class")).addClass("selectboxit-default-icon");
+                        self.dropdownImage.attr("class", currentOption.find("i").attr("class")).addClass("selectboxit-default-icon");
 
-                        self.dropdownImage.attr("style", self.listItems.eq(self.currentFocus).find("i").attr("style"));
+                        self.dropdownImage.attr("style", currentOption.find("i").attr("style"));
                     }
 
                     // Triggers a custom changed event on the original select box
@@ -1331,18 +1340,31 @@
                 // `click` event with the `selectBoxIt` namespace
                 "open.selectBoxIt": function() {
 
-                    var currentElem = self.list.find("li[data-val='" + self.dropdownText.attr("data-val") + "']");
+                    var currentElem = self.list.find("li[data-val='" + self.dropdownText.attr("data-val") + "']"),
+                        activeElem;
 
                     // If no current element can be found, then select the first drop down option
                     if(!currentElem.length) {
 
-                        currentElem = self.listItems.first();
+                        // If the first select box option is disabled, and the user has chosen to not show the first select box option
+                        if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass(self.theme["disabled"])) {
+
+                            // Sets the default value of the dropdown list to the first option that is not disabled
+                            currentElem = self.listItems.not("[data-disabled=true]").first();
+
+                        }
+
+                        else {
+
+                            currentElem = self.listItems.first();
+
+                        }
 
                     }
 
                     self.currentFocus = +currentElem.attr("id");
 
-                    var activeElem = self.listItems.eq(self.currentFocus);
+                    activeElem = self.listItems.eq(self.currentFocus);
 
                     // Removes the focus class from the dropdown list and adds the library focus class for both the dropdown list and the currently selected dropdown list option
                     self.dropdown.removeClass(hoverClass).addClass(focusClass);
@@ -1451,11 +1473,11 @@
         htmlEscape: function(str) {
 
             return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
 
         },
 

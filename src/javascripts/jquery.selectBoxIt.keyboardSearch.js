@@ -189,7 +189,7 @@
         }
 
         // Searches globally
-        var searchResults = self._searchAlgorithm(self.currentIndex, self.currentText);
+        var searchResults = self._searchAlgorithm(self.currentIndex, new RegExp(self.currentText, "gi"));
 
         // Searches the list again if a match is not found.  This is needed, because the first search started at the array indece of the currently selected dropdown list option, and does not search the options before the current array indece.
         // If there are many similar dropdown list options, starting the search at the indece of the currently selected dropdown list option is needed to properly traverse the text array.

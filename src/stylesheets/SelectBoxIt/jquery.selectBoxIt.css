@@ -3,6 +3,12 @@
  * Author: @gregfranko
  */
 
+/*
+  Common CSS Properties
+  ---------------------
+  These properties will be applied to any themes that you use
+*/
+
 /* SelectBoxIt container */
 .selectboxit-container {
   position: relative;
@@ -126,11 +132,6 @@
   font-weight: bold;
 }
 
-/* Drop Down optgroup options */
-.selectboxit-optgroup-option {
-  text-indent: 20px;
-}
-
 /* Drop Down optgroup header hover psuedo class */
 .selectboxit-optgroup-header:hover {
   cursor: default;
@@ -164,6 +165,11 @@
   float: left;
 }
 
+.selectboxit-container .selectboxit-option-icon {
+  margin: 0;
+  padding: 0;
+}
+
 /* Drop Down individual option icon positioning */
 .selectboxit-option-icon-url {
   width: 18px;
@@ -182,4 +188,81 @@
 /* Another jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */
 .jqueryui .ui-icon-triangle-1-s {
   background-position: -64px -16px;
+}
+
+/*
+  Default Theme
+  -------------
+  Note: Feel free to remove all of the CSS underneath this line if you are not using the default theme
+*/
+.selectboxit-btn {
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+}
+
+.selectboxit-btn:hover,
+.selectboxit-btn:focus,
+.selectboxit-btn:active {
+  color: #333333;
+  background-color: #e6e6e6;
+}
+
+.selectboxit-btn:hover,
+.selectboxit-btn:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+}
+
+.selectboxit-default-arrow {
+  width: 0;
+  height: 0;
+  border-top: 4px solid #000000;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent; 
+}
+
+.selectboxit-list {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.selectboxit-list > li > a {
+  color: #333333;
+}
+
+.selectboxit-list > .selectboxit-focus > a,
+.selectboxit-list > .selectboxit-focus > a:hover,
+.selectboxit-list > .selectboxit-focus > a:focus {
+  color: #ffffff;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+}
+
+.selectboxit-list > .selectboxit-disabled > a {
+  color: #999999;
+}
+
+.selectboxit-list > .selectboxit-disabled > a:hover,
+.selectboxit-list > .selectboxit-disabled > a:focus {
+  background-color: transparent;
+  background-image: none;
 }

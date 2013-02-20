@@ -61,7 +61,7 @@
             "downArrowIcon": "",
 
             // **theme**: Provides theming support for Twitter Bootstrap and jQueryUI
-            "theme": "bootstrap",
+            "theme": "default",
 
             // **keydownOpen**: Opens the dropdown if the up or down key is pressed when the dropdown is focused
             "keydownOpen": true,
@@ -172,7 +172,7 @@
 
                     "disabled": "selectboxit-disabled",
 
-                    "arrow": "selectboxit-arrow",
+                    "arrow": "selectboxit-default-arrow",
 
                     "button": "selectboxit-btn",
 

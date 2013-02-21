@@ -1,12 +1,24 @@
 /*
- * jquery.selectBoxIt.css 2.9.9
+ * jquery.selectBoxIt.css 3.0.0
  * Author: @gregfranko
  */
 
-/* Div container holding the dropdown list */
+/*
+  Common CSS Properties
+  ---------------------
+  These properties will be applied to any themes that you use
+*/
+
+/* SelectBoxIt container */
 .selectboxit-container {
   position: relative;
   display: inline-block;
+  vertical-align: middle;
+}
+
+/* Styles that apply to all SelectBoxIt elements */
+.selectboxit-container * {
+  font: 14px Helvetica, Arial;
   /* Prevents text selection */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -15,172 +27,157 @@
   ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  outline: none;
+  white-space: nowrap;
 }
 
-/* Dropdown List Box */
+/* Button */
 .selectboxit-container .selectboxit {
-  width: 220px; /* Width of the dropdown list box */
-  height: 30px; /* Height of the select box */
+  width: 220px; /* Width of the dropdown button */
   cursor: pointer;
-  padding: 0;
-  display: block;
-  border-radius: 6px;
   margin: 0;
+  padding: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  display: block;
 }
 
+/* Height and Vertical Alignment of Text */
+.selectboxit-container span, .selectboxit-container .selectboxit-options a {
+  height: 30px; /* Height of the drop down */
+  line-height: 30px; /* Vertically positions the drop down text */
+  display: block;
+}
+
+/* Focus pseudo selector */
 .selectboxit-container .selectboxit:focus {
   outline: 0;
 }
 
-.selectboxit-container .selectboxit.selectboxit-disabled {
+/* Disabled Mouse Interaction */
+.selectboxit-disabled {
   cursor: default;
 }
 
-/* Dropdown list Default Icon Positioning */
-.selectboxit-default-icon {
-  float: left;
-}
-
-/* Dropdown List Box Text */
+/* Button Text */
 .selectboxit-text {
-  font: 14px Helvetica, Arial;
   text-indent: 5px;
-  height: 30px;
-  line-height: 30px;
   overflow: hidden;
+  text-overflow: ellipsis;
   float: left;
-  white-space: nowrap;
+  max-width: 85%;
 }
 
-/* Dropdown List Options List*/
+/* Button Text with image */
+.selectboxit-option-icon-container + .selectboxit-text {
+  max-width: 75%;
+}
+
+.selectboxit-option-icon-container {
+  margin-left: 5px;
+}
+
+/* Options List */
 .selectboxit-container .selectboxit-options {
   min-width: 220px; /* Minimum Width of the dropdown list box options */
-  /* IE7 hack */
-  *width: 220px;
-  font: 14px Helvetica, Arial;
   margin: 0;
   padding: 0;
   list-style: none;
   position: absolute;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   cursor: pointer;
   display: none;
   z-index: 9999999999999;
-  outline: none;
-  top: auto;
-  bottom: auto;
-  left: auto;
-  right: auto;
-  -moz-box-shadow: none; /* Firefox */
-  -webkit-box-shadow: none; /* Safari, Chrome */
-  box-shadow: none; /* CSS3 */
   border-radius: 6px;
   text-align: left;
 }
 
-/* Overrides Bootstrap drop down option style */
-.selectboxit-options .selectboxit-option.active .selectboxit-option-anchor {
-  color: #fff;
+/* Individual options */
+ .selectboxit-option .selectboxit-option-anchor{
+  padding: 0px 2px;
 }
 
-.selectboxit-option .selectboxit-option-anchor {
-  padding: 0px 3px;
-  line-height: 30px;
-  height: 30px;
-}
-
+/* Individual Option Hover Action */
 .selectboxit-option .selectboxit-option-anchor:hover {
   text-decoration: none;
 }
 
-/* Dropdown List Individual Options */
+/* Individual Option Optgroup Header */
 .selectboxit-option, .selectboxit-optgroup-header {
-  line-height: 30px; /* Height of Individual Select Box Options */
-  height: 30px;
   text-indent: 5px; /* Horizontal Positioning of the select box option text */
-  overflow: hidden;
-  white-space: nowrap;
-  list-style: none;
   margin: 0;
-  display: block;
 }
 
-/* The first drop down option */
+/* The first Drop Down option */
 .selectboxit-option-first {
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
 
-/* The first drop down option */
+/* The first Drop Down option optgroup */
 .selectboxit-optgroup-header + .selectboxit-option-first {
   border-top-right-radius: 0px;
   border-top-left-radius: 0px;
 }
 
-/* The last drop down option */
+/* The last Drop Down option */
 .selectboxit-option-last {
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
 }
 
-/* Dropdown List Optgroup Headers */
+/* Drop Down optgroup headers */
 .selectboxit-optgroup-header {
   font-weight: bold;
-  padding: 5px;
 }
 
-/* Dropdown List Optgroup Options */
-.selectboxit-optgroup-option {
-  text-indent: 20px;
-}
-
-/* Dropdown List Optgroup Header hover psuedo class */
+/* Drop Down optgroup header hover psuedo class */
 .selectboxit-optgroup-header:hover {
   cursor: default;
 }
 
-/* Dropdown List Down Arrow Container (if an image is not used) */
+/* Drop Down down arrow container */
 .selectboxit-arrow-container {
   /* Positions the down arrow */
-  width: 30px;
-  float: right;
-  position: relative;
+  width: 13%;
+  position: absolute;
+  right: 0;
 }
 
-/* Dropdown List Down Arrow */
+/* Drop Down down arrow */
 .selectboxit .selectboxit-arrow-container .selectboxit-arrow {
   /* Horizontally centers the down arrow */
   margin: 0 auto;
-  display: block;
   position: absolute;
   top: 50%;
-  right: 40%;
+  right: 0;
+  left: 0;
 }
 
-.jqueryui .selectboxit .selectboxit-arrow-container .selectboxit-arrow {
-  right: 25%;
-}
-
-/* Dropdown List Down Arrow For jQueryUI and jQuery Mobile */
+/* Drop Down down arrow for jQueryUI and jQuery Mobile */
 .selectboxit .selectboxit-arrow-container .selectboxit-arrow.ui-icon {
   top: 30%;
 }
 
-/* Dropdown List Individual Option Icon Positioning */
-.selectboxit-option-icon {
+/* Drop Down individual option icon positioning */
+.selectboxit-option-icon-container {
   float: left;
 }
 
-/* Dropdown List Individual Option Image Positioning */
-.selectboxit-option-icon-url {
-  width: 18px;
-  height: 18px;
-  background-size: 18px 18px;
-  background-repeat: no-repeat;
+.selectboxit-container .selectboxit-option-icon {
+  margin: 0;
+  padding: 0;
 }
 
-.selectboxit-default-icon.selectboxit-option-icon-url {
-  margin-left: 5px;
+/* Drop Down individual option icon positioning */
+.selectboxit-option-icon-url {
+  width: 18px;
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+  height: 100%;
+  background-position: center;
+  float: left;
 }
 
 /* jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */
@@ -191,4 +188,81 @@
 /* Another jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */
 .jqueryui .ui-icon-triangle-1-s {
   background-position: -64px -16px;
+}
+
+/*
+  Default Theme
+  -------------
+  Note: Feel free to remove all of the CSS underneath this line if you are not using the default theme
+*/
+.selectboxit-btn {
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+}
+
+.selectboxit-btn:hover,
+.selectboxit-btn:focus,
+.selectboxit-btn:active {
+  color: #333333;
+  background-color: #e6e6e6;
+}
+
+.selectboxit-btn:hover,
+.selectboxit-btn:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+}
+
+.selectboxit-default-arrow {
+  width: 0;
+  height: 0;
+  border-top: 4px solid #000000;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent; 
+}
+
+.selectboxit-list {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.selectboxit-list > li > a {
+  color: #333333;
+}
+
+.selectboxit-list > .selectboxit-focus > a,
+.selectboxit-list > .selectboxit-focus > a:hover,
+.selectboxit-list > .selectboxit-focus > a:focus {
+  color: #ffffff;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+}
+
+.selectboxit-list > .selectboxit-disabled > a {
+  color: #999999;
+}
+
+.selectboxit-list > .selectboxit-disabled > a:hover,
+.selectboxit-list > .selectboxit-disabled > a:focus {
+  background-color: transparent;
+  background-image: none;
 }

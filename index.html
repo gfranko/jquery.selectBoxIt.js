@@ -25,13 +25,6 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-
     <style>
 
     @media screen and (max-width: 968px) {
@@ -227,7 +220,10 @@
             <h2>Description</h2>
             <div class="github-widget" data-repo="gfranko/jquery.selectBoxIt.js"></div>
             <br />
-            <p>SelectBoxIt allows you to replace ugly and hard to use HTML select boxes with gorgeous and feature rich drop downs. <strong>Twitter Bootstrap</strong>, <strong>jQueryUI</strong>, and <strong>jQuery Mobile</strong> themes are supported right out of the box.  To use SelectBoxIt, you do not have to rewrite any of your existing form validation logic or event handling.  <strong>SelectBoxIt just works</strong>.  SelectBoxIt also provides first-class support for <strong>mobile</strong>, <strong>tablet</strong>, and <strong>desktop</strong> browsers, triggering the native "wheel" interface for mobile and tablet devices.
+            <p>SelectBoxIt allows you to replace ugly and hard to use HTML select boxes with gorgeous and feature rich drop downs.  <strong>Twitter Bootstrap</strong>, <strong>jQueryUI</strong>, and <strong>jQuery Mobile</strong> themes are supported right out of the box.  If you don't want to use these library themes, then you can use the SelectBoxIt <strong>default theme</strong>, which closely resembles the Twitter Bootstrap theme.  Feel free to customize the default theme to your liking.</p>
+
+            <p>
+            To use SelectBoxIt, you do not have to rewrite any of your existing form validation logic or event handling.  <strong>SelectBoxIt just works</strong>.  SelectBoxIt also provides first-class support for <strong>mobile</strong>, <strong>tablet</strong>, and <strong>desktop</strong> browsers, triggering the native "wheel" interface for mobile and tablet devices.
             </p>
             <br />
             <p>The project is hosted on <a href="https://github.com/gfranko/jQuery.selectBoxIt.js" target="_blank" class="projectLinks">Github</a>, the <a href="http://www.gregfranko.com/jquery.selectBoxIt.js/docs/jQuery.selectBoxIt.html" target="_blank" class="projectLinks">annotated source code</a> is available, and an <a href="https://travis-ci.org/gfranko/jquery.selectBoxIt.js" target="_blank" class="projectLinks">online test suite</a> is also available via Travis CI.  SelectBoxIt is available for use under the <a href="https://github.com/gfranko/jQuery.selectBoxIt.js/blob/master/MIT-LICENSE.txt" target="_blank" class="projectLinks">MIT software license</a>.  You can report bugs and discuss features on the <a href="https://github.com/gfranko/jQuery.selectBoxIt.js/issues?sort=created&direction=desc&state=open" target="_blank">GitHub issues page</a>, or send tweets to <a href="http://www.twitter.com/gregfranko" target="_blank">@gregfranko</a>.
@@ -240,9 +236,9 @@
               <br /><br />
               <h3>Theming Support</h3>
               <br />
-              <h4>Bootstrap Theming Support</h4>
+              <h4>Default Theme</h4>
               <br />
-              <strong>Note:</strong> Bootstrap is the default theme for SelectBoxIt.
+              <strong>Note:</strong> The default theme closely resembles the Twitter Bootstrap theme, but does not require Twitter Bootstrap as a dependency.
               <br /><br />
               <div class="select">
                 Turns this
@@ -269,6 +265,41 @@
               <pre class="prettyprint">
   // Calls the selectBoxIt method on your HTML select box and uses the Bootstrap theme
   $("select").selectBoxIt();
+              </pre>
+              <br />
+              <br />
+              <h4>Bootstrap Theming Support</h4>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select class="bootstrap">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Uses the Twitter Bootstrap theme for the drop down
+    theme: "bootstrap"
+
+  });
               </pre>
               <br />
               <br />
@@ -463,15 +494,11 @@
               <br />
               <h3>Long Lists</h3>
               <br />
-              <strong>Hint:</strong> Try navigating through the list alphabetically via the keyboard
-              <br /><br />
               <div class="select">
                 Turns this
                 <br />
               <select name="test">
-                <option value="Pick a Country">Pick a Country</option> 
-                <option value="United States">United States</option> 
-                <option value="United Kingdom">United Kingdom</option> 
+                <option value="Pick a Country">Pick a Country</option>
                 <option value="Afghanistan">Afghanistan</option> 
                 <option value="Albania">Albania</option> 
                 <option value="Algeria">Algeria</option> 
@@ -720,8 +747,6 @@
                 <br />
               <select class="long-list">
                 <option value="Pick a Country">Pick a Country</option> 
-                <option value="United States">United States</option> 
-                <option value="United Kingdom">United Kingdom</option> 
                 <option value="Afghanistan">Afghanistan</option> 
                 <option value="Albania">Albania</option> 
                 <option value="Algeria">Algeria</option> 
@@ -1119,7 +1144,11 @@
               <h5>Example Code</h5>
               <pre class="prettyprint">
   // Calls the selectBoxIt method on your HTML select box
-  $("select").selectBoxIt();
+  $("select").selectBoxIt({
+
+    theme: "bootstrap"
+
+  });
 
   $("select").bind({
 
@@ -1529,22 +1558,27 @@
               <br />
               </p>
               <br />
+              <h4>SelectBoxIt CSS with Default Theme</h4>
+              <pre class="prettyprint" style="font-size:12px;">
+&lt;link type="text/css" rel="stylesheet" href="http://gregfranko.com/jquery.selectBoxIt.js/css/jquery.selectBoxIt.css" /&gt;
+              </pre>
+              <br />
               <h4>SelectBoxIt with Twitter Bootstrap</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.9.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://gregfranko.com/jquery.selectBoxIt.js/css/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br /><br />
               <h4>SelectBoxIt with jQueryUI</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.9.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://gregfranko.com/jquery.selectBoxIt.js/css/jquery.selectBoxIt.css" /&gt;
               </pre>
 <br /><br />
               <h4>SelectBoxIt with jQuery Mobile</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.9.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://gregfranko.com/jquery.selectBoxIt.js/css/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br /><br />
 <h3>Include JavaScript files</h3>
@@ -1553,7 +1587,7 @@
               <pre class="prettyprint" style="font-size:12px;">
 &lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"&gt;&lt;/script&gt;
 &lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"&gt;&lt;/script&gt;
-&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/2.9.0/jquery.selectBoxIt.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://gregfranko.com/jquery.selectBoxIt.js/js/jquery.selectBoxIt.min.js"&gt;&lt;/script&gt;
               </pre>
               <br /><br />
               <p>
@@ -1658,7 +1692,7 @@
   //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
     $(function() {
       //Calls the selectBoxIt method on your HTML select box.
-      var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+      $("select").selectBoxIt();
     });
               </pre>
 
@@ -1737,8 +1771,8 @@
                 <tr>
                   <td class="optionName" title="theme" data-content="Allows the dropdown to be themed with Twitter Bootstrap or jQueryUI"><a href="#">theme</a></td>
                   <td>String</td>
-                  <td>"bootstrap"</td>
-                  <td>"bootstrap", "jqueryui", or "jquerymobile"</td>
+                  <td>"default"</td>
+                  <td>"default", bootstrap", "jqueryui", or "jquerymobile"</td>
                 </tr>
                 <tr>
                   <td class="optionName" title="keydownOpen" data-content="Opens the dropdown if the up or down key is pressed when the dropdown is focused"><a href="#">keydownOpen</a></td>
@@ -1754,10 +1788,10 @@
                   <td>Any function that returns true or false</td>
                 </tr>
                 <tr>
-                  <td class="optionName" title="nostyle" data-content="Prevents SelectBoxIt from aggressively styling the dropdown arrow and dropdown text from within the JavaScript.  Allows CSS flexibility.  Look at the Bootstrap Button demos html page inside of the project demos folder to see an example."><a href="#">nostyle</a></td>
-                  <td>Boolean</td>
-                  <td>false</td>
-                  <td>true or false</td>
+                  <td class="optionName" title="copyAttributes" data-content="Allows a user to specify which HTML attributes they would like copied over to the new drop down."><a href="#">copyAttributes</a></td>
+                  <td>Array</td>
+                  <td>["title", "rel"]</td>
+                  <td>An array of HTML attributes</td>
                 </tr>
                 <tr>
                   <td class="optionName" title="native" data-content="Allows you to trigger the native select box element when a user is interacting with the drop down"><a href="#">native</a></td>
@@ -1775,6 +1809,18 @@
                   <td class="optionName" title="selectWhenHidden" data-content="Will allow a user to select an option using the keyboard when the drop down list is hidden and focused."><a href="#">selectWhenHidden</a></td>
                   <td>Boolean</td>
                   <td>true</td>
+                  <td>true or false</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="viewport" data-content="Constrains the dynamic positioning of the dropdown list to the dimensions of an element"><a href="#">viewport</a></td>
+                  <td>jQuery selector</td>
+                  <td>$(window)</td>
+                  <td>Any jQuery selector</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="similarSearch" data-content="Optimizes for lists with similar values (i.e. State list)."><a href="#">similarSearch</a></td>
+                  <td>Boolean</td>
+                  <td>false</td>
                   <td>true or false</td>
                 </tr>
               </table>
@@ -2379,7 +2425,8 @@
         (function() {
 
             $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60 });
-            $("select.test, select.long-list, select.arrow-box, select#bootstrap-up-down-arrow, .selected-support").selectBoxIt();
+            $("select.test, select.long-list, select.arrow-box, .selected-support").selectBoxIt();
+            $("select.bootstrap, select#bootstrap-up-down-arrow").selectBoxIt({ theme: "bootstrap" });
             $("select#jqueryui-theme, select.jqueryui-theme").selectBoxIt({ theme: "jqueryui" });
             $("select#jquerymobile-theme").selectBoxIt({ theme: "jquerymobile" });
             $("select#aggressive-change-mode").selectBoxIt({ aggressiveChange: true });

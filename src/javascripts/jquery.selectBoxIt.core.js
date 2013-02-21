@@ -124,7 +124,9 @@
 
                     "list": "dropdown-menu",
 
-                    "container": "bootstrap"
+                    "container": "bootstrap",
+
+                    "open": "open"
 
                 },
 
@@ -142,7 +144,9 @@
 
                     "list": "ui-widget ui-widget-content",
 
-                    "container": "jqueryui"
+                    "container": "jqueryui",
+
+                    "open": "selectboxit-open"
 
                 },
 
@@ -160,7 +164,9 @@
 
                     "list": "ui-btn ui-btn-icon-right ui-btn-corner-all ui-shadow ui-btn-up-" + theme,
 
-                    "container": "jquerymobile"
+                    "container": "jquerymobile",
+
+                    "open": "selectboxit-open"
 
                 },
 
@@ -178,7 +184,9 @@
 
                     "list": "selectboxit-list",
 
-                    "container": "selectboxit-container"
+                    "container": "selectboxit-container",
+
+                    "open": "selectboxit-open"
 
                 }
 
@@ -1296,9 +1304,13 @@
 
                 arrowClass = obj.arrow,
 
-                containerClass = obj.container;
+                containerClass = obj.container,
+
+                openClass = obj.open;
 
             self.focusClass = focusClass;
+
+            self.openClass = openClass;
 
             self.selectedClass = "selectboxit-selected";
 
@@ -1366,6 +1378,8 @@
 
                     activeElem = self.listItems.eq(self.currentFocus);
 
+                    self.dropdown.addClass(openClass);
+
                     // Removes the focus class from the dropdown list and adds the library focus class for both the dropdown list and the currently selected dropdown list option
                     self.dropdown.removeClass(hoverClass).addClass(focusClass);
 
@@ -1374,6 +1388,13 @@
                     self.listItems.removeAttr("data-active").not(activeElem).removeClass(focusClass);
 
                     activeElem.addClass(focusClass).addClass(self.selectedClass);
+
+                },
+
+                "close.selectBoxIt": function() {
+
+                    // Removes the open class from the dropdown container
+                    self.dropdown.removeClass(openClass);
 
                 },
 

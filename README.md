@@ -72,7 +72,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 `3.0.0` - February 20, 2013
 
-- ** IMPORTANT ** - Make sure to update the jQueryUI Widget Factory to **v1.0.0+**: The Widget Factory now requires you to access the plugin instance using `$("select").data("selectBox-selectBoxIt");`
+- **IMPORTANT** - Make sure to update the jQueryUI Widget Factory to **v1.0.0+**: The Widget Factory now requires you to access the plugin instance using `$("select").data("selectBox-selectBoxIt");`
 - Refactored the code and **saved ~2kb**
 - Improved search algorithm accuracy for long lists [#110](https://github.com/gfranko/jquery.selectBoxIt.js/issues/10)
 - Removed JavaScript dynamic CSS style declarations (all styles are now set in the CSS)

@@ -1,4 +1,4 @@
-/* jquery SelectBoxIt - v3.0.0 - 2013-2-19
+/* jquery SelectBoxIt - v3.0.0 - 2013-2-20
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 

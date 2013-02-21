@@ -394,6 +394,22 @@ describe('selectBoxIt jQuery Plugin', function () {
 
     });
 
+    describe("disableOption()", function() {
+
+        beforeEach(function() {
+
+            selectBoxIt.disableOption(3);
+
+        });
+
+        it("should disable the fourth drop down option", function() {
+
+            expect(selectBoxIt.selectItems.eq(3)).toBeDisabled();
+
+        });
+
+    });
+
     describe("enable()", function() {
 
         beforeEach(function() {
@@ -421,6 +437,24 @@ describe('selectBoxIt jQuery Plugin', function () {
         it("should set the 'tabindex' html attribute for the select box to 0", function() {
 
             expect(selectBoxIt.dropdown).toHaveAttr("tabindex", 0);
+
+        });
+
+    });
+
+    describe("enableOption()", function() {
+
+        beforeEach(function() {
+
+            selectBoxIt.disableOption(3);
+
+            selectBoxIt.enableOption(3);
+
+        });
+
+        it("should enable the fourth drop down option", function() {
+
+            expect(selectBoxIt.selectItems.eq(3)).not.toBeDisabled();
 
         });
 
@@ -621,6 +655,72 @@ describe('selectBoxIt jQuery Plugin', function () {
             selectBoxIt.refresh();
 
             expect(selectBoxIt.listItems.eq(2).text()).toEqual(elem.text());
+
+        });
+
+    });
+
+    describe("copyAttributes", function() {
+
+        beforeEach(function() {
+
+            setFixtures('<select id="test" data-icon="ui-icon ui-icon-power" data-text="Testing" rel="example" data-example="test" title="test"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>');
+
+            selectBoxIt1 = $("select#test").selectBoxIt().data("selectBoxIt");
+
+        });
+
+        it("should copy over the data-example HTML5 data attribute automatically", function() {
+
+            expect(selectBoxIt1.dropdown).toHaveAttr("data-example");
+
+        });
+
+        it("should copy over the title attribute automatically", function() {
+
+            expect(selectBoxIt1.dropdown).toHaveAttr("title");
+
+        });
+
+        it("should copy over the rel attribute automatically", function() {
+
+            expect(selectBoxIt1.dropdown).toHaveAttr("rel");
+
+        });
+
+        beforeEach(function() {
+
+            setFixtures('<select id="test" data-icon="ui-icon ui-icon-power" data-text="Testing" rel="example" data-example="test" title="test" gregfranko="developer"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>');
+
+            selectBoxIt2 = $("select#test").selectBoxIt({ copyAttributes: ["gregfranko"] }).data("selectBoxIt");
+
+        });
+
+        it("should copy over the gregfranko custom attribute", function() {
+
+            expect(selectBoxIt2.dropdown).toHaveAttr("gregfranko");
+
+        });
+
+        it("should no longer copy over the title attribute automatically", function() {
+
+            expect(selectBoxIt2.dropdown).not.toHaveAttr("title");
+
+        });
+
+    });
+
+    describe("selectOption", function() {
+
+        beforeEach(function() {
+
+            selectBoxIt.selectOption(3);
+
+        });
+
+        it("should select the fourth drop down option", function() {
+
+            expect(selectBoxIt.selectBox).toHaveValue(selectBoxIt.listItems.eq(3).attr("data-val"));
 
         });
 

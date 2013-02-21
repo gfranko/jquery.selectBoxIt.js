@@ -70,6 +70,25 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`3.0.0` - February 20, 2013
+
+- Refactored the code and **saved ~2kb**
+- Improved search algorithm accuracy for long lists [#110](https://github.com/gfranko/jquery.selectBoxIt.js/issues/10)
+- Removed JavaScript dynamic CSS style declarations (all styles are not set in the CSS)
+- Fix mobile positioning bug [#90](https://github.com/gfranko/jquery.selectBoxIt.js/issues/90)
+- Added a new **copyAttributes** option to allow a user to specify which HTML attributes they would like copied over to the new drop down.
+- Added a new **viewport** option to constrain the dropdown list to the dimensions of an element other than the window
+- Added a new **similarSearch** option to optimize for lists with similar values (i.e. State list) 
+- Built out a brand new custom CSS **theme** and use it as the default theme.  This theme models the Twitter Bootstrap theme, but does not require the Twitter Bootstrap CSS file.
+- Removed the **nostyle** option
+- Upgraded the custom web build process to provide users with minified and unminified versions of SelectBoxIt.
+- Wrote more Jasmine tests
+- Officially **dropped IE7 support**
+- Added a CSS class for when the drop down is opened
+- Fixed the bug  when there are no options [#117](https://github.com/gfranko/jquery.selectBoxIt.js/issues/117)
+- Added `vertical-align:middle;` to help with vertical label alignment [#115](https://github.com/gfranko/jquery.selectBoxIt.js/issues/115)
+- Hopefully fixed the eclipse error [#108](https://github.com/gfranko/jquery.selectBoxIt.js/issues/108)
+
 `2.9.9` - January 20, 2013
 
 - Fixed [#98](https://github.com/gfranko/jquery.selectBoxIt.js/issues/98)

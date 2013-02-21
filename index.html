@@ -172,7 +172,7 @@
           <script>
             $(function() {
 
-              var selectBox = $("select").selectBoxIt().data("selectBoxIt");
+              var selectBox = $("select").selectBoxIt();
 
             });
           </script>
@@ -1156,7 +1156,7 @@
     "open": function() {
 
       // Adds the Twitter Bootstrap 'dropup' class to the drop down
-      $(this).data("selectBoxIt").dropdown.addClass("dropup");
+      $(this).data("selectBox-selectBoxIt").dropdown.addClass("dropup");
 
     },
 
@@ -1164,7 +1164,7 @@
     "close": function() {
 
       // Removes the Twitter Bootstrap 'dropup' class from the drop down
-      $(this).data("selectBoxIt").dropdown.removeClass("dropup");
+      $(this).data("selectBox-selectBoxIt").dropdown.removeClass("dropup");
 
     }
 
@@ -1874,7 +1874,7 @@
   $(function() {
     
     //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
-    var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
+    $("select#test").selectBoxIt({ showEffect: "fadeIn" });
   
   });
               </pre>
@@ -1885,7 +1885,7 @@
   $(function() {
   
     //Calls the selectBoxIt method on your HTML select box
-    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+    var selectBox = $("select#test").selectBoxIt().data("selectBox-selectBoxIt");
 
     // Updates both the showEffect and showEffectSpeed options
     selectBox.setOptions({ showEffect: "fadeIn", showEffectSpeed: "medium" });
@@ -1899,7 +1899,7 @@
   $(function() {
     
     //Calls the selectBoxIt method on your HTML select box
-    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+    var selectBox = $("select#test").selectBoxIt().data("selectBox-selectBoxIt");
 
     // Updates the showEffect option
     selectBox.setOption("showEffect", "fadeIn");
@@ -1918,7 +1918,7 @@
   $(function() {
   
     //Calls the selectBoxIt method on your HTML select box
-    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+    var selectBox = $("select#test").selectBoxIt().data("selectBox-selectBoxIt");
 
     // Writes the showFirstOption option to the console
     console.log(selectBoxIt.option("showFirstOption"));
@@ -1931,8 +1931,8 @@
   // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
   $(function() {
   
-    //Calls the selectBoxIt method on your HTML select box
-    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+    // Calls the selectBoxIt method on your HTML select box
+    var selectBox = $("select#test").selectBoxIt().data("selectBox-selectBoxIt");
 
     // Writes all of the current plugin options to the console
     console.log(selectBoxIt.options);
@@ -2082,19 +2082,11 @@
               <pre class="prettyprint">
   // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
   $(function() {
-    
-    //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
-    var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
-
     // Uses the jQuery bind method to bind to the focus event on the dropdown list
     $("select#test").bind({
-    
       "focus": function() {
-      
         // Do something when the focus event is triggered
-        
       }
-      
     });
     
   });
@@ -2104,9 +2096,6 @@
               <pre class="prettyprint">
   //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
   $(function() {
-    //Calls the selectBoxIt method on your HTML select box
-    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
     // Uses the jQuery focus convenience method to bind to the focus event on the dropdown list
     $("select#test").focus(function() {
       // Do something when the focus event is triggered
@@ -2118,9 +2107,6 @@
               <pre class="prettyprint">
   //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
   $(function() {
-    //Calls the selectBoxIt method on your HTML select box
-    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
-
     // Uses the jQuery bind method to bind to the custom open event on the dropdown list
     $("select#test").bind({
       "open": function() {
@@ -2231,7 +2217,7 @@
   $(function() {
     // Note: This code assumes you have already called the selectBoxIt() method somewhere else in your code
     // Retrieves all of the SelectBoxIt methods
-    var selectBox = $("select#test").data("selectBoxIt");
+    var selectBox = $("select#test").data("selectBox-selectBoxIt");
 
     // Chaining
     selectBox.open().close().moveDown().disable();
@@ -2244,7 +2230,7 @@
   $(function() {
     // Note: This code assumes you have already called the selectBoxIt() method somewhere else in your code
     // Retrieves all of the SelectBoxIt methods
-    var selectBox = $("select#test").data("selectBoxIt");
+    var selectBox = $("select#test").data("selectBox-selectBoxIt");
 
     // Individual calls
     selectBox.open();
@@ -2265,7 +2251,7 @@
   
     // Note: This code assumes you have already called the selectBoxIt() method somewhere else in your code
     // Retrieves all of the SelectBoxIt methods
-    var selectBox = $("select#test").data("selectBoxIt");
+    var selectBox = $("select#test").data("selectBox-selectBoxIt");
 
     // Opens the dropdown list for two seconds before closing the dropdown list
     selectBox.open().wait(2000, function() { this.close() })
@@ -2280,7 +2266,7 @@
     
     // Note: This code assumes you have already called the selectBoxIt() method somewhere else in your code
     // Retrieves all of the SelectBoxIt methods
-    var selectBox = $("select#test").data("selectBoxIt");
+    var selectBox = $("select#test").data("selectBox-selectBoxIt");
 
     // Calls the selectBoxIt open() method
     selectBox.open(function() {
@@ -2450,7 +2436,7 @@
                 "open": function() {
 
                   // Adds the Twitter Bootstrap 'dropup' class to the drop down
-                  $(this).data("selectBoxIt").dropdown.addClass("dropup");
+                  $(this).data("selectBox-selectBoxIt").dropdown.addClass("dropup");
 
                 },
 
@@ -2458,7 +2444,7 @@
                 "close": function() {
 
                   // Removes the Twitter Bootstrap 'dropup' class from the drop down
-                  $(this).data("selectBoxIt").dropdown.removeClass("dropup");
+                  $(this).data("selectBox-selectBoxIt").dropdown.removeClass("dropup");
 
                 }
 
@@ -2470,7 +2456,7 @@
                 "open": function() {
 
                   // Sets new CSS classes for the up arrow icon by using the 'setOption' method
-                  $(this).data("selectBoxIt").setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-n");
+                  $(this).data("selectBox-selectBoxIt").setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-n");
 
                 },
 
@@ -2478,7 +2464,7 @@
                 "close": function() {
 
                   // Sets new CSS classes for the down arrow icon by using the 'setOption' method
-                  $(this).data("selectBoxIt").setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-s");
+                  $(this).data("selectBox-selectBoxIt").setOption("downArrowIcon", "jqueryui ui-icon ui-icon-triangle-1-s");
 
                 }
 

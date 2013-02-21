@@ -2229,8 +2229,9 @@
               <pre class="prettyprint">
   //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
   $(function() {
-    //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
-    var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
+    // Note: This code assumes you have already called the selectBoxIt() method somewhere else in your code
+    // Retrieves all of the SelectBoxIt methods
+    var selectBox = $("select#test").data("selectBoxIt");
 
     // Chaining
     selectBox.open().close().moveDown().disable();
@@ -2241,8 +2242,9 @@
               <pre class="prettyprint">
   //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
   $(function() {
-    //Calls the selectBoxIt method on your HTML select box and updates the showEffect option
-    var selectBox = $("select#test").selectBoxIt({ showEffect: "fadeIn" }).data("selectBoxIt");
+    // Note: This code assumes you have already called the selectBoxIt() method somewhere else in your code
+    // Retrieves all of the SelectBoxIt methods
+    var selectBox = $("select#test").data("selectBoxIt");
 
     // Individual calls
     selectBox.open();
@@ -2261,8 +2263,9 @@
   //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
   $(function() {
   
-    //Calls the selectBoxIt method on your HTML select box
-    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+    // Note: This code assumes you have already called the selectBoxIt() method somewhere else in your code
+    // Retrieves all of the SelectBoxIt methods
+    var selectBox = $("select#test").data("selectBoxIt");
 
     // Opens the dropdown list for two seconds before closing the dropdown list
     selectBox.open().wait(2000, function() { this.close() })
@@ -2275,8 +2278,9 @@
   // Executes your code when the DOM is ready.  Acts the same as $(document).ready().
   $(function() {
     
-    //Calls the selectBoxIt method on your HTML select box
-    var selectBox = $("select#test").selectBoxIt().data("selectBoxIt");
+    // Note: This code assumes you have already called the selectBoxIt() method somewhere else in your code
+    // Retrieves all of the SelectBoxIt methods
+    var selectBox = $("select#test").data("selectBoxIt");
 
     // Calls the selectBoxIt open() method
     selectBox.open(function() {

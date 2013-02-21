@@ -74,7 +74,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 - Refactored the code and **saved ~2kb**
 - Improved search algorithm accuracy for long lists [#110](https://github.com/gfranko/jquery.selectBoxIt.js/issues/10)
-- Removed JavaScript dynamic CSS style declarations (all styles are not set in the CSS)
+- Removed JavaScript dynamic CSS style declarations (all styles are now set in the CSS)
 - Fix mobile positioning bug [#90](https://github.com/gfranko/jquery.selectBoxIt.js/issues/90)
 - Added a new **copyAttributes** option to allow a user to specify which HTML attributes they would like copied over to the new drop down.
 - Added a new **viewport** option to constrain the dropdown list to the dimensions of an element other than the window

@@ -169,6 +169,7 @@
 .selectboxit-container .selectboxit-option-icon {
   margin: 0;
   padding: 0;
+  vertical-align: middle;
 }
 
 /* Drop Down individual option icon positioning */

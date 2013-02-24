@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 3.0.0
+ * jquery.selectBoxIt.css 3.1.0
  * Author: @gregfranko
  */
 
@@ -66,15 +66,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   float: left;
-  max-width: 85%;
 }
 
-/* Button Text with image */
-.selectboxit-option-icon-container + .selectboxit-text {
-  max-width: 75%;
-}
-
-.selectboxit-option-icon-container {
+.selectboxit .selectboxit-option-icon-container {
   margin-left: 5px;
 }
 
@@ -141,7 +135,7 @@
 /* Drop Down down arrow container */
 .selectboxit-arrow-container {
   /* Positions the down arrow */
-  width: 13%;
+  width: 30px;
   position: absolute;
   right: 0;
 }

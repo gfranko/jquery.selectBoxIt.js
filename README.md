@@ -70,6 +70,12 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`3.1.0` - February 20, 2013
+
+**IMPORTANT** - Only **pixel widths** for the drop down are guaranteed to work.  Do not use percentage based widths or `width:auto;`
+
+- Added back the dynamic `max-width` CSS attribute for the drop down text to make sure even small select boxes would look correctly.
+
 `3.0.0` - February 20, 2013
 
 - **IMPORTANT** - Make sure to update the jQueryUI Widget Factory to **v1.0.0+**: The Widget Factory now requires you to access the plugin instance using `$("select").data("selectBox-selectBoxIt");`

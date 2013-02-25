@@ -1,4 +1,4 @@
-/* jquery SelectBoxIt - v3.0.0 - 2013-2-20
+/* jquery SelectBoxIt - v3.1.0 - 2013-2-24
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.0.0",
+        VERSION: "3.1.0",
 
         // These options will be used as defaults
         options: {
@@ -585,6 +585,13 @@
                 self.dropdownImageContainer.remove();
 
             }
+
+            // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
+            self.dropdownText.css({
+
+                "max-width": self.dropdownContainer.width() - (self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true))
+
+            });
 
             // Maintains chainability
             return self;

@@ -29,29 +29,25 @@
   user-select: none;
   outline: none;
   white-space: nowrap;
-  display: inline-block;
-}
-
-.selectboxit-container a, .selectboxit-container li {
-  display: block;
 }
 
 /* Button */
 .selectboxit-container .selectboxit {
-  width: 120px; /* Width of the dropdown button */
+  width: 220px; /* Width of the dropdown button */
   cursor: pointer;
   margin: 0;
   padding: 0;
   border-radius: 6px;
   overflow: hidden;
+  display: block;
   position: relative;
-  text-indent: 5px;
 }
 
 /* Height and Vertical Alignment of Text */
 .selectboxit-container span, .selectboxit-container .selectboxit-options a {
   height: 30px; /* Height of the drop down */
   line-height: 30px; /* Vertically positions the drop down text */
+  display: block;
 }
 
 /* Focus pseudo selector */
@@ -66,16 +62,14 @@
 
 /* Button Text */
 .selectboxit-text {
+  text-indent: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
-<<<<<<< HEAD
-=======
   float: left;
 }
 
 .selectboxit .selectboxit-option-icon-container {
   margin-left: 5px;
->>>>>>> 16802f49538cc46be562bb14b1eacbe413819123
 }
 
 /* Options List */
@@ -144,7 +138,6 @@
   width: 30px;
   position: absolute;
   right: 0;
-  background: inherit;
 }
 
 /* Drop Down down arrow */
@@ -162,14 +155,15 @@
   top: 30%;
 }
 
+/* Drop Down individual option icon positioning */
+.selectboxit-option-icon-container {
+  float: left;
+}
+
 .selectboxit-container .selectboxit-option-icon {
   margin: 0;
   padding: 0;
   vertical-align: middle;
-}
-
-.selectboxit-option-icon-container {
-  float: left;
 }
 
 /* Drop Down individual option icon positioning */
@@ -179,6 +173,7 @@
   background-repeat: no-repeat;
   height: 100%;
   background-position: center;
+  float: left;
 }
 
 /* jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */

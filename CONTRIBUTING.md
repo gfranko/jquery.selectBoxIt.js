@@ -49,14 +49,17 @@ SelectBoxIt uses the following development tools:
 1. Install Node.js.  Luckily the [Node web site](http://nodejs.org) makes this 
    fairly straightforward, with installers for the major platforms.
 
-2. Perform the core dependency installations by navigating to the root of your
+2. Install Grunt as detailed on the [Grunt 'getting started' page]:
+    
+          npm install -g grunt-cli
+3. Perform the core dependency installations by navigating to the root of your
    SelectBoxIt source tree and typing the following on the command line:
     
           npm install
 **Note:** If you are on Windows, remember you need to run the grunt command 
 using `grunt.cmd`.
 
-3. Install PhantomJS from its [home page](http://phantomjs.org).  This means 
+4. Install PhantomJS from its [home page](http://phantomjs.org).  This means 
    downloading the appropriate file, uncompressing it, and then copying the 
    `phantomjs` file to a location in your path.  On MacOSX, this looks 
    _something_ like the following after downloading:

@@ -67,6 +67,8 @@ using `grunt.cmd`.
           cd /usr/local/bin
           sudo cp ~/Downloads/phantomjs-1.8.1-macosx/bin/phantomjs .
 
+That's it!  You should now be set up to edit and test SelectBoxIt.
+
 ## Contributing.md Change Log
 
 `1.0.1` - 26 Feb 2013

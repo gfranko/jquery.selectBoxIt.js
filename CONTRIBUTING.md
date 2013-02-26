@@ -69,6 +69,10 @@ using `grunt.cmd`.
 
 ## Contributing.md Change Log
 
+`1.0.1` - 26 Feb 2013
+
+- Added instructions for globally installing 'grunt'.
+
 `1.0.0` - 12 Feb 2013
 
 - Initial instructions, based on my building SelectBoxIt for the first time.

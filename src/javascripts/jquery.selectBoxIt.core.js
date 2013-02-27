@@ -390,17 +390,11 @@
 
                 copyClasses = self.options["copyClasses"];
 
-            switch (copyClasses) {
-                case "container":
-                    self.dropdownContainer.addClass(self.selectBox.attr("class"));
-                    break;
-
-                case "none":
-                    break;
-
-                default:
-                    self.dropdown.addClass(self.selectBox.attr("class"));
-                    break;
+            if (copyClasses == "button") {
+                self.dropdown.addClass(self.selectBox.attr("class"));
+            }
+            else if (copyClasses == "container") {
+                self.dropdownContainer.addClass(self.selectBox.attr("class"));
             }
 
             // Maintains chainability

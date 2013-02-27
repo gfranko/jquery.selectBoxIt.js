@@ -390,10 +390,10 @@
 
                 copyClasses = self.options["copyClasses"];
 
-            if (copyClasses == "button") {
+            if (copyClasses === "button") {
                 self.dropdown.addClass(self.selectBox.attr("class"));
             }
-            else if (copyClasses == "container") {
+            else if (copyClasses === "container") {
                 self.dropdownContainer.addClass(self.selectBox.attr("class"));
             }
 

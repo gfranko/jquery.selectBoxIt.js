@@ -99,7 +99,10 @@
 
                 "rel"
 
-            ]
+            ],
+
+            // **copyClasses**: HTML classes that will be copied over to the new drop down.  The value indicates where the classes should be copied.  The default value is 'button', but you can also use 'container' (recommended) or 'none'.
+            "copyClasses": "button"
 
         },
 
@@ -343,7 +346,7 @@
                 // Dynamically sets the dropdown `id` attribute
                 "id": originalElemId && originalElemId + "SelectBoxIt",
 
-                "class": "selectboxit" + " " + (self.selectBox.attr("class") || ""),
+                "class": "selectboxit",
 
                 // Sets the dropdown `name` attribute to be the same name as the original select box
                 "name": self.originalElem.name,
@@ -370,6 +373,35 @@
 
             // Appends the inner dropdown list dropdown element to the dropdown list container dropdown element
             append(self.dropdown);
+
+            self._copyClasses();
+
+            // Maintains chainability
+            return self;
+
+        },
+
+        // _Create dropdown
+        // ------------
+        //      Copies the classes to the appropriate container
+        _copyClasses: function() {
+
+            var self = this,
+
+                copyClasses = self.options["copyClasses"];
+
+            switch (copyClasses) {
+                case "container":
+                    self.dropdownContainer.addClass(self.selectBox.attr("class"));
+                    break;
+
+                case "none":
+                    break;
+
+                default:
+                    self.dropdown.addClass(self.selectBox.attr("class"));
+                    break;
+            }
 
             // Maintains chainability
             return self;

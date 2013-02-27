@@ -398,7 +398,6 @@
                 case "none":
                     break;
 
-                case "button":
                 default:
                     self.dropdown.addClass(self.selectBox.attr("class"));
                     break;

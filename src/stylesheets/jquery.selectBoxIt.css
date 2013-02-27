@@ -74,7 +74,9 @@
 
 /* Options List */
 .selectboxit-container .selectboxit-options {
-  min-width: 220px; /* Minimum Width of the dropdown list box options */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 100%;  /* Minimum Width of the dropdown list box options */
   margin: 0;
   padding: 0;
   list-style: none;
@@ -224,7 +226,7 @@
   height: 0;
   border-top: 4px solid #000000;
   border-right: 4px solid transparent;
-  border-left: 4px solid transparent; 
+  border-left: 4px solid transparent;
 }
 
 .selectboxit-list {

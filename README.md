@@ -70,6 +70,10 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`3.2.0` - February 27, 2013
+
+- Added `copyClasses` option which allows the user to specify if native classes should be copied to the button, the container element, or neither.  For backwards compatibility, defaults to "button".
+
 `3.1.0` - February 20, 2013
 
 **IMPORTANT** - Only **pixel widths** for the drop down are guaranteed to work.  Do not use percentage based widths or `width:auto;`
@@ -85,7 +89,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 - Fix mobile positioning bug [#90](https://github.com/gfranko/jquery.selectBoxIt.js/issues/90)
 - Added a new **copyAttributes** option to allow a user to specify which HTML attributes they would like copied over to the new drop down.
 - Added a new **viewport** option to constrain the dropdown list to the dimensions of an element other than the window
-- Added a new **similarSearch** option to optimize for lists with similar values (i.e. State list) 
+- Added a new **similarSearch** option to optimize for lists with similar values (i.e. State list)
 - Built out a brand new custom CSS **theme** and use it as the default theme.  This theme models the Twitter Bootstrap theme, but does not require the Twitter Bootstrap CSS file.
 - Removed the **nostyle** option
 - Upgraded the custom web build process to provide users with minified and unminified versions of SelectBoxIt.
@@ -129,7 +133,7 @@ _IMPORTANT_: **Dropped IE7 support** - This does not mean new features will not 
 
 - Fixed `refresh()` method mobile bug [#68](https://github.com/gfranko/jquery.selectBoxIt.js/issues/68)
 
-- Refactored and fixed bugs for SelectBoxIt internal event triggering:  All custom events now return an object containing both the currently selected select box and drop down options  
+- Refactored and fixed bugs for SelectBoxIt internal event triggering:  All custom events now return an object containing both the currently selected select box and drop down options
 
 `2.5.0` - January 6, 2013
 
@@ -180,7 +184,7 @@ _IMPORTANT_: **Dropped IE7 support** - This does not mean new features will not 
 - Improved support for enclosing a drop down arrow inside of a box (by setting a border)
 
 - Simplified mobile device checking for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices (Removed the long regex supplied by [detectmobilebrowsers.com](http://www.detectmobilebrowsers.com))
- 
+
 
 `1.9.0` - October 31, 2012
 
@@ -327,8 +331,10 @@ Greg Franko - [@gfranko](https://github.com/gfranko)
 
 Thomas von Deyen - [@tvdeyen](https://github.com/tvdeyen)
 
+Ron 'coyote' Lussier - [@lenscraft](https://github.com/ronlussier)
+
 ## License
-Copyright (c) 2012 Greg Franko  
+Copyright (c) 2012 Greg Franko
 Licensed under the MIT license.
 
 

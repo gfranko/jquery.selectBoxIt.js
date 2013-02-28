@@ -11,7 +11,7 @@
 </head>
 <body>
 <form>
-            <select name="test" rel="test" data-test="test">
+            <select name="test" rel="test" data-test="test" class="really">
                 <option value="" disabled>Select a Month</option>
                 <option value="January" disabled>January</option>
                 <option value="February">February</option>
@@ -330,7 +330,7 @@
 <script>
 jQuery(function($) {
 
-  $("select").selectBoxIt({ theme: "jquerymobile" });
+  $("select").selectBoxIt();
 
 });
 </script>

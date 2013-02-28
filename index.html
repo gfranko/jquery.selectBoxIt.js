@@ -1116,6 +1116,43 @@
               </pre>
               <br />
               <br />
+              <h3>Native Mousedown Mode</h3>
+              <br />
+              <strong>Hint:</strong> Click and hold down your mouse, hover over a drop down option, and then release the mouse to select that option.
+              <br /><br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="native-mousedown-mode">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Sets default text to appear for the drop down
+    nativeMousedown: true
+
+  });
+              </pre>
+              <br />
+              <br />
               <h3>Down Arrow Customization</h3>
               <br />
               <h4>Bootstrap Up/Down Arrow Support</h4>
@@ -1829,6 +1866,18 @@
                   <td>false</td>
                   <td>true or false</td>
                 </tr>
+                <tr>
+                  <td class="optionName" title="nativeMousdown" data-content="Mimics native firefox drop down behavior by opening the drop down on mousedown and selecting the currently hovered drop down option on mouseup"><a href="#">nativeMousdown</a></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>true or false</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="customShowHideEvent" data-content="Prevents the drop down from opening on click or mousedown, which allows a user to open/close the drop down with a custom event handler"><a href="#">customShowHideEvent</a></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>true or false</td>
+                </tr>
               </table>
               <br />
               <h3>HTML5 Data Attribute Options</h3>
@@ -2426,6 +2475,7 @@
             $("select#jqueryui-theme, select.jqueryui-theme").selectBoxIt({ theme: "jqueryui" });
             $("select#jquerymobile-theme").selectBoxIt({ theme: "jquerymobile" });
             $("select#aggressive-change-mode").selectBoxIt({ aggressiveChange: true });
+            $("select#native-mousedown-mode").selectBoxIt({ nativeMousedown: true });
             $("#hide-first-option").selectBoxIt({ showFirstOption: false });
             $("#set-default-text").selectBoxIt({ defaultText: "Sample text here" });
             $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 400, hideEffect: "fadeOut", hideEffectSpeed: 400 });

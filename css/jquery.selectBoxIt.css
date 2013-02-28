@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 3.1.0
+ * jquery.selectBoxIt.css 3.2.0
  * Author: @gregfranko
  */
 
@@ -74,7 +74,10 @@
 
 /* Options List */
 .selectboxit-container .selectboxit-options {
-  min-width: 220px; /* Minimum Width of the dropdown list box options */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 100%;  /* Minimum Width of the dropdown list box options */
+  *width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -86,11 +89,14 @@
   z-index: 9999999999999;
   border-radius: 6px;
   text-align: left;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 /* Individual options */
  .selectboxit-option .selectboxit-option-anchor{
-  padding: 0px 2px;
+  padding: 0 2px;
 }
 
 /* Individual Option Hover Action */
@@ -224,7 +230,7 @@
   height: 0;
   border-top: 4px solid #000000;
   border-right: 4px solid transparent;
-  border-left: 4px solid transparent; 
+  border-left: 4px solid transparent;
 }
 
 .selectboxit-list {

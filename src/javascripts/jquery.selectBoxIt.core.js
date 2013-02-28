@@ -709,12 +709,14 @@
         // Open
         // ----
         //      Opens the dropdown list options list
-        open: function(callback) {
+        open: function(callback, internal) {
 
             var self = this,
                 showEffect = self.options["showEffect"],
                 showEffectSpeed = self.options["showEffectSpeed"],
-                showEffectOptions = self.options["showEffectOptions"];
+                showEffectOptions = self.options["showEffectOptions"],
+                isNative = self.options["native"],
+                isMobile = self.options["isMobile"]();
 
             // If there are no select box options, do not try to open the select box
             if(!self.listItems.length) {
@@ -723,7 +725,8 @@
 
             }
 
-            if(!this.list.is(":visible")) {
+            // If the new drop down is being used and is not visible
+            if((!isNative && !isMobile) && !this.list.is(":visible")) {
 
                 // Triggers a custom "open" event on the original select box
                 self.triggerEvent("open");
@@ -795,14 +798,17 @@
         // Close
         // -----
         //      Closes the dropdown list options list
-        close: function(callback) {
+        close: function(callback, internal) {
 
             var self = this,
                 hideEffect = self.options["hideEffect"],
                 hideEffectSpeed = self.options["hideEffectSpeed"],
-                hideEffectOptions = self.options["hideEffectOptions"];
+                hideEffectOptions = self.options["hideEffectOptions"],
+                isNative = self.options["native"],
+                isMobile = self.options["isMobile"]();
 
-            if(self.list.is(":visible")) {
+            // If the drop down is being used and is visible
+            if((!isNative && !isMobile) && this.list.is(":visible")) {
 
                 // Triggers a custom "close" event on the original select box
                 self.triggerEvent("close");
@@ -861,13 +867,13 @@
 
             if(listIsVisible) {
 
-                self.close();
+                self.close(false, true);
 
             }
 
             else if(!listIsVisible) {
 
-                self.open();
+                self.open(false, true);
 
             }
 
@@ -944,7 +950,7 @@
                     if (self.list.is(":visible")) {
 
                         // Closes the dropdown list options list
-                        self.close();
+                        self.close(false, true);
 
                     }
 
@@ -970,7 +976,7 @@
                 "esc": function() {
 
                     // Closes the dropdown options list
-                    self.close();
+                    self.close(false, true);
 
                 }
 
@@ -1053,7 +1059,7 @@
                         if (self.list.is(":visible")) {
 
                             //Closes the dropdown list options list
-                            self.close();
+                            self.close(false, true);
 
                         }
 
@@ -1105,7 +1111,7 @@
 
                         if(self.options["keydownOpen"] && (currentKey === "up" || currentKey === "down")) {
 
-                            self.open();
+                            self.open(false, true);
 
                         }
 
@@ -1203,7 +1209,7 @@
                 if ($(this).attr("data-disabled") === "false") {
 
                     // Closes the drop down list
-                    self.close();
+                    self.close(false, true);
 
                 }
 
@@ -1240,7 +1246,7 @@
                     if ($(this).attr("data-disabled") === "false") {
 
                         // Closes the drop down list
-                        self.close();
+                        self.close(false, true);
 
                     }
 

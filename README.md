@@ -70,9 +70,20 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
-`3.2.0` - February 27, 2013
+`3.2.0` - February 28, 2013
+**New Options**
+- Added `copyClasses` option which allows the user to specify if native classes should be copied to the button, the container element, or neither.  For backwards compatibility, defaults to "button". [#124](https://github.com/gfranko/jquery.selectBoxIt.js/issues/89)
 
-- Added `copyClasses` option which allows the user to specify if native classes should be copied to the button, the container element, or neither.  For backwards compatibility, defaults to "button".
+- Added a `nativeMousdown` option to allow the drop down to be opened programmatically using the mousedown event. Currently, the open event logic needs to be updated to allow this. [#89](https://github.com/gfranko/jquery.selectBoxIt.js/issues/89)
+
+- Add a `customShowHideEvent` option to which prevents a drop down from opening on click or mousedown, which allows a user to open/close the drop down with a custom event handler. [#89](https://github.com/gfranko/jquery.selectBoxIt.js/issues/89)
+
+**Bug Fixes**
+- Fixed a dynamic positioning bug
+- Fixed a bootstrap theme box-shadow bug
+- Fixed a mobile webkit bug
+- Made the refresh() method compatible with the native option [#125](https://github.com/gfranko/jquery.selectBoxIt.js/issues/125)
+- Prevented the `open()`, and `close()` methods from opening the desktop drop down list with mobile devices
 
 `3.1.0` - February 20, 2013
 

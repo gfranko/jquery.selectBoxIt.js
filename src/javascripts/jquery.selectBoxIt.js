@@ -1,4 +1,4 @@
-/* jquery SelectBoxIt - v3.1.0 - 2013-2-24
+/* jquery SelectBoxIt - v3.2.0 - 2013-2-28
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.1.0",
+        VERSION: "3.2.0",
 
         // These options will be used as defaults
         options: {

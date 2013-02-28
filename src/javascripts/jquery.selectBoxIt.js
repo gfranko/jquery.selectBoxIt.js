@@ -709,7 +709,7 @@
         // Open
         // ----
         //      Opens the dropdown list options list
-        open: function(callback, internal) {
+        open: function(callback) {
 
             var self = this,
                 showEffect = self.options["showEffect"],
@@ -798,7 +798,7 @@
         // Close
         // -----
         //      Closes the dropdown list options list
-        close: function(callback, internal) {
+        close: function(callback) {
 
             var self = this,
                 hideEffect = self.options["hideEffect"],
@@ -867,13 +867,13 @@
 
             if(listIsVisible) {
 
-                self.close(false, true);
+                self.close();
 
             }
 
             else if(!listIsVisible) {
 
-                self.open(false, true);
+                self.open();
 
             }
 
@@ -950,7 +950,7 @@
                     if (self.list.is(":visible")) {
 
                         // Closes the dropdown list options list
-                        self.close(false, true);
+                        self.close();
 
                     }
 
@@ -976,7 +976,7 @@
                 "esc": function() {
 
                     // Closes the dropdown options list
-                    self.close(false, true);
+                    self.close();
 
                 }
 
@@ -1059,7 +1059,7 @@
                         if (self.list.is(":visible")) {
 
                             //Closes the dropdown list options list
-                            self.close(false, true);
+                            self.close();
 
                         }
 
@@ -1111,7 +1111,7 @@
 
                         if(self.options["keydownOpen"] && (currentKey === "up" || currentKey === "down")) {
 
-                            self.open(false, true);
+                            self.open();
 
                         }
 
@@ -1209,7 +1209,7 @@
                 if ($(this).attr("data-disabled") === "false") {
 
                     // Closes the drop down list
-                    self.close(false, true);
+                    self.close();
 
                 }
 
@@ -1246,7 +1246,7 @@
                     if ($(this).attr("data-disabled") === "false") {
 
                         // Closes the drop down list
-                        self.close(false, true);
+                        self.close();
 
                     }
 

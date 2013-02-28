@@ -112,6 +112,9 @@
 
         },
 
+        // Get Themes
+        // ----------
+        //      Retrieves the active drop down theme and returns the theme object
         "getThemes": function() {
 
             var self = this,
@@ -119,6 +122,7 @@
 
             return {
 
+                // Twitter Bootstrap Theme
                 "bootstrap": {
 
                     "focus": "active",
@@ -139,6 +143,7 @@
 
                 },
 
+                // jQueryUI Theme
                 "jqueryui": {
 
                     "focus": "ui-state-focus",
@@ -159,6 +164,7 @@
 
                 },
 
+                // jQuery Mobile Theme
                 "jquerymobile": {
 
                     "focus": "ui-btn-down-" + theme,
@@ -867,6 +873,9 @@
 
         },
 
+        // _Key Mappings
+        // -------------
+        //      Object literal holding the string representation of each key code
         _keyMappings: {
 
             "38": "up",

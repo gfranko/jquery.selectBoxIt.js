@@ -13,10 +13,8 @@
             // Returns the x and y coordinates of the dropdown list options list relative to the document
             listOffsetTop = self.dropdown.offset().top,
 
-            rememberedMaxHeight = self.list.data("max-height"),
-
             // The height of the dropdown list options list
-            listHeight = rememberedMaxHeight || self.list.outerHeight(),
+            listHeight = self.list.data("max-height") || self.list.outerHeight(),
 
             // The height of the dropdown list DOM element
             selectBoxHeight = self.dropdown.outerHeight(),
@@ -31,7 +29,7 @@
 
             bottomReached = !topToBottom;
 
-        if(!rememberedMaxHeight) {
+        if(!self.list.data("max-height")) {
 
             self.list.data("max-height", self.list.outerHeight());
 
@@ -40,7 +38,7 @@
         // If there is room on the bottom of the viewport to display the drop down options
         if (!bottomReached) {
 
-            self.list.css("max-height", rememberedMaxHeight);
+            self.list.css("max-height", listHeight);
 
             // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
             self.list.css("top", "auto");
@@ -50,7 +48,7 @@
         // If there is room on the top of the viewport
         else if((self.dropdown.offset().top - viewportScrollTop) >= listHeight) {
 
-            self.list.css("max-height", rememberedMaxHeight);
+            self.list.css("max-height", listHeight);
 
             // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
             self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
@@ -67,7 +65,7 @@
             // If there is more room on the bottom
             if(outsideBottomViewport < outsideTopViewport) {
 
-                self.list.css("max-height", rememberedMaxHeight - outsideBottomViewport - (selectBoxHeight/2));
+                self.list.css("max-height", listHeight - outsideBottomViewport - (selectBoxHeight/2));
 
                 self.list.css("top", "auto");
 
@@ -76,7 +74,7 @@
             // If there is more room on the top
             else {
 
-                self.list.css("max-height", rememberedMaxHeight - outsideTopViewport - (selectBoxHeight/2));
+                self.list.css("max-height", listHeight - outsideTopViewport - (selectBoxHeight/2));
 
                 // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                 self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));

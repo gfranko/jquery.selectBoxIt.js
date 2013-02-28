@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 3.1.0
+ * jquery.selectBoxIt.css 3.2.0
  * Author: @gregfranko
  */
 
@@ -88,6 +88,9 @@
   z-index: 9999999999999;
   border-radius: 6px;
   text-align: left;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 /* Individual options */

@@ -1827,6 +1827,14 @@
         // Undelegates all of the dropdown list event handlers with the `selectBoxIt` namespace
         undelegate(".selectBoxIt");
 
+        // If the original select box has been placed inside of the new drop down container
+        if ($.contains(self.dropdownContainer[0], self.originalElem)) {
+
+            // Moves the original select box before the drop down container
+            self.dropdownContainer.before(self.selectBox);
+
+        }
+
         // Remove all of the `selectBoxIt` DOM elements from the page
         self.dropdownContainer.remove();
 

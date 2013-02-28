@@ -34,7 +34,13 @@
 
             "cursor": "pointer",
 
-            "z-index": "999999"
+            "z-index": "999999",
+
+            "margin": self.dropdown.css("margin"),
+
+            "padding": "0",
+
+            "-webkit-appearance": "menulist-button"
 
         }).bind({
 

@@ -45,8 +45,8 @@
 
 /* Height and Vertical Alignment of Text */
 .selectboxit-container span, .selectboxit-container .selectboxit-options a {
-  height: 30px; /* Height of the drop down */
-  line-height: 30px; /* Vertically positions the drop down text */
+  height: 40px; /* Height of the drop down */
+  line-height: 40px; /* Vertically positions the drop down text */
   display: block;
 }
 

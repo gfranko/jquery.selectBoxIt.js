@@ -108,7 +108,10 @@
             "nativeMousedown": false,
 
             // **customShowHideEvent**: Prevents the drop down from opening on click or mousedown, which allows a user to open/close the drop down with a custom event handler.
-            "customShowHideEvent": false
+            "customShowHideEvent": false,
+
+            // **fitOptionsMaxWidth**: Makes sure the width of the drop down is enough to fit all of the drop down options
+            "fitOptionsMaxWidth": true
 
         },
 
@@ -314,7 +317,7 @@
             var self = this,
                 originalElemId = self.originalElem.id || "",
                 copyClasses = self.options["copyClasses"],
-                selectboxClasses = self.selectBox.attr("class");
+                selectboxClasses = self.selectBox.attr("class") || "";
 
             // Creates a dropdown element that contains the dropdown list text value
             self.dropdownText = $("<span/>", {
@@ -600,6 +603,16 @@
 
                 // Removes the image and image container
                 self.dropdownImageContainer.remove();
+
+            }
+
+            if(self.options["fitOptionsMaxWidth"]) {
+
+                self.dropdown.css({
+
+                    "width": self.list.outerWidth(true) + self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true)
+
+                });
 
             }
 

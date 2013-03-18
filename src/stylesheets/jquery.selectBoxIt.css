@@ -33,7 +33,7 @@
 
 /* Button */
 .selectboxit-container .selectboxit {
-  width: 220px; /* Width of the dropdown button */
+  width: 150px; /* Width of the dropdown button */
   cursor: pointer;
   margin: 0;
   padding: 0;
@@ -58,6 +58,11 @@
 /* Disabled Mouse Interaction */
 .selectboxit-disabled {
   cursor: default;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 /* Button Text */

@@ -220,8 +220,8 @@
 
             var self = this;
 
-            // If the element calling SelectBoxIt is not a select box
-            if(!self.element.is("select")) {
+            // If the element calling SelectBoxIt is not a select box or is not visible
+            if(!self.element.is("select") || !self.element.is(":visible")) {
 
                 // Exits the plugin
                 return;

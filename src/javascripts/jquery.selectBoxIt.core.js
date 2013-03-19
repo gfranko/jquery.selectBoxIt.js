@@ -1,4 +1,4 @@
-/* jquery SelectBoxIt - v3.2.0 - 2013-2-28
+/* jquery SelectBoxIt - v3.3.0 - 2013-3-19
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2012 Greg Franko; Licensed MIT */
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.2.0",
+        VERSION: "3.3.0",
 
         // These options will be used as defaults
         options: {
@@ -110,7 +110,7 @@
             // **customShowHideEvent**: Prevents the drop down from opening on click or mousedown, which allows a user to open/close the drop down with a custom event handler.
             "customShowHideEvent": false,
 
-            // **autoWidth**: Makes sure the width of the drop down is enough to fit all of the drop down options
+            // **autoWidth**: Makes sure the width of the drop down is wide enough to fit all of the drop down options
             "autoWidth": true,
 
             // **html**: Determines whether or not option text is rendered as html or as text
@@ -1384,16 +1384,17 @@
 
             var self = this,
                 currentDataText,
-                currentText;
+                currentText,
+                defaultText = self.options["defaultText"] || self.selectBox.attr("data-text");
 
             if (elem.attr("data-disabled") === "false") {
 
+                currentDataText = self.listItems.eq(self.currentFocus).attr("data-text");
+
+                currentText = currentDataText ? currentDataText: self.listItems.eq(self.currentFocus).text();
+
                 // If the default text option is set and the current drop down option is not disabled
-                if ((self.options["defaultText"] && self.dropdownText.text() === self.options["defaultText"]) && self.selectBox.val() === elem.attr("data-val")) {
-
-                    currentDataText = self.listItems.eq(self.currentFocus).attr("data-text");
-
-                    currentText = currentDataText ? currentDataText: self.listItems.eq(self.currentFocus).text();
+                if ((defaultText && self.options["html"] ? self.dropdownText.html() === defaultText: self.dropdownText.text() === defaultText) && self.selectBox.val() === elem.attr("data-val")) {
 
                     // Updates the dropdown list value
                     self._setText(self.dropdownText, currentText);

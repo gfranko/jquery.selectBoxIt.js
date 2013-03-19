@@ -70,6 +70,19 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`3.3.0` - March 19, 2013
+**New Options**
+- `autoWidth` - Makes sure the width of the drop down is wide enough to fit all of the drop down options.  **BREAKING CHANGE** - This is now the default. [#129](https://github.com/gfranko/jquery.selectBoxIt.js/issues/129)
+- `html` - Determines whether or not option text is rendered as html or as text.  [#136](https://github.com/gfranko/jquery.selectBoxIt.js/issues/136)
+
+**Bug Fixes**
+- Fixed mobile positioning bug [#135](https://github.com/gfranko/jquery.selectBoxIt.js/issues/135)
+- Fixed focusout bug [#133](https://github.com/gfranko/jquery.selectBoxIt.js/issues/133)
+- Chopped text (the new autoWidth option is a fix for this) [#126](https://github.com/gfranko/jquery.selectBoxIt.js/issues/126)
+
+**Improvements**
+- Hide the original select box faster [#132](https://github.com/gfranko/jquery.selectBoxIt.js/issues/132)
+
 `3.2.0` - February 28, 2013
 **New Options**
 - Added `copyClasses` option which allows the user to specify if native classes should be copied to the button, the container element, or neither.  For backwards compatibility, defaults to "button". [#124](https://github.com/gfranko/jquery.selectBoxIt.js/issues/89)

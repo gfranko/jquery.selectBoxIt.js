@@ -21,7 +21,7 @@
             self._callbackSupport(callback);
 
         });
-        
+
         // Maintains chainability
         return self;
 

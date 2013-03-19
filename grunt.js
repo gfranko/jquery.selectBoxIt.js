@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 
     min: {
       dist: {
-        src: 'src/javascripts/jquery.selectBoxIt.js',
+        src: ['<banner:meta.banner>','src/javascripts/jquery.selectBoxIt.js'],
         dest: 'src/javascripts/jquery.selectBoxIt.min.js'
       }
     },
@@ -57,7 +57,8 @@ module.exports = function(grunt) {
         jQuery: true
       }
     },
-    uglify: {}
+    uglify: {
+    }
   });
 
   grunt.loadNpmTasks('grunt-jasmine-task');

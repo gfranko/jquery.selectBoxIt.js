@@ -30,9 +30,9 @@
 
             "position": "absolute",
 
-            "top": self.dropdown.position().top + "px",
+            "top": "0",
 
-            "left": self.dropdown.position().left + "px",
+            "left": "0",
 
             "cursor": "pointer",
 

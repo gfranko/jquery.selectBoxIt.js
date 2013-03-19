@@ -608,7 +608,7 @@
 
             if(self.options["fitOptionsMaxWidth"]) {
 
-                self.dropdown.css({
+                self.dropdown.css({ "width": "auto" }).css({
 
                     "width": self.list.outerWidth(true) + self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true)
 

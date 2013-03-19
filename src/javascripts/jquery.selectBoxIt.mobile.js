@@ -10,7 +10,9 @@
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            currentOption;
+            currentOption,
+            currentDataText,
+            currentText;
 
         // Appends the native select box to the drop down (allows for relative positioning using the position() method)
         self.dropdownContainer.append(self.selectBox);
@@ -48,8 +50,12 @@
 
                 currentOption = self.selectBox.find("option").filter(":selected");
 
+                currentDataText = currentOption.attr("data-text");
+
+                currentText = currentDataText ? currentDataText: currentOption.text();
+
                 // Sets the new dropdown list text to the value of the original dropdown list
-               self.dropdownText.text(currentOption.text());
+                self._setText(self.dropdownText, currentText);
 
                 if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
 

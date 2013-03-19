@@ -44,7 +44,7 @@
         else if (key === "defaultText") {
 
             // Sets the new dropdown list default text
-            self.dropdownText.text(value);
+            self._setText(self.dropdownText, value);
 
         }
 

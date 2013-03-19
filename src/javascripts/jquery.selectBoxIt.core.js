@@ -110,8 +110,11 @@
             // **customShowHideEvent**: Prevents the drop down from opening on click or mousedown, which allows a user to open/close the drop down with a custom event handler.
             "customShowHideEvent": false,
 
-            // **fitOptionsMaxWidth**: Makes sure the width of the drop down is enough to fit all of the drop down options
-            "fitOptionsMaxWidth": true
+            // **autoWidth**: Makes sure the width of the drop down is enough to fit all of the drop down options
+            "autoWidth": true,
+
+            // **html**: Determines whether or not option text is rendered as html or as text
+            "html": true
 
         },
 
@@ -221,12 +224,15 @@
             var self = this;
 
             // If the element calling SelectBoxIt is not a select box or is not visible
-            if(!self.element.is("select") || !self.element.is(":visible")) {
+            if(!self.element.is("select")) {
 
                 // Exits the plugin
                 return;
 
             }
+
+            // Hides the original select box
+            self.element.hide();
 
             // The original select box DOM element
             self.originalElem = self.element[0];
@@ -438,6 +444,8 @@
 
                 }),
 
+                currentDataText,
+
                 currentText;
 
             // Checks the `showFirstOption` plugin option to determine if the first dropdown list option should be shown in the options list.
@@ -466,7 +474,9 @@
 
                 iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "",
 
-                currentText = $(this).text();
+                currentDataText = $(this).attr("data-text"),
+
+                currentText = currentDataText ? currentDataText: $(this).text();
 
                 // If the current option being traversed is within an optgroup
 
@@ -483,7 +493,7 @@
                 }
 
                 // Uses string concatenation for speed (applies HTML attribute encoding)
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + self.htmlEscape(currentText) + '</a></li>';
+                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
 
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
@@ -492,8 +502,8 @@
                 // Checks the original select box option for the `selected` attribute
                 if (this.selected) {
 
-                    //Replace the default text with the selected option
-                    self.dropdownText.text(currentText);
+                    // Replaces the default text with the selected option text
+                    self._setText(self.dropdownText, currentText);
 
                     //Set the currently selected option
                     self.currentFocus = index;
@@ -508,7 +518,7 @@
                 var defaultedText = self.options["defaultText"] || self.selectBox.data("text");
 
                 //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
-                self.dropdownText.text(defaultedText);
+                self._setText(self.dropdownText, defaultedText);
 
                 self.options["defaultText"] = defaultedText;
             }
@@ -606,7 +616,7 @@
 
             }
 
-            if(self.options["fitOptionsMaxWidth"]) {
+            if(self.options["autoWidth"]) {
 
                 self.dropdown.css({ "width": "auto" }).css({
 
@@ -649,7 +659,9 @@
                 absCurrentTopPosition = Math.abs(currentTopPosition),
 
                 // The height of the dropdown list option list
-                listHeight = self.list.height();
+                listHeight = self.list.height(),
+
+                currentText;
 
             // Scrolling logic for a text search
             if (type === "search") {
@@ -715,6 +727,29 @@
             }
 
             // Maintains chainability
+            return self;
+
+        },
+
+        // _setText
+        // --------
+        //      Set's the text or html for the drop down
+        _setText: function(elem, currentText) {
+
+            var self = this;
+
+            if(self.options["html"]) {
+
+                elem.html(currentText);
+
+            }
+
+            else {
+
+                elem.text(currentText);
+
+            }
+
             return self;
 
         },
@@ -1009,7 +1044,9 @@
             // LOCAL VARIABLES
             var self = this,
                 nativeMousedown = self.options["nativeMousedown"],
-                customShowHideEvent = self.options["customShowHideEvent"];
+                customShowHideEvent = self.options["customShowHideEvent"],
+                currentDataText,
+                currentText;
 
             // Select Box events
             this.dropdown.bind({
@@ -1296,8 +1333,14 @@
 
                     currentOption = self.listItems.eq(self.currentFocus);
 
+                    currentDataText = currentOption.attr("data-text");
+
+                    currentText = currentDataText ?  currentDataText: currentOption.find("a").text();
+
                     // Sets the new dropdown list text to the value of the current option
-                    self.dropdownText.text(currentOption.find("a").text()).attr("data-val", self.originalElem.value);
+                    self._setText(self.dropdownText, currentText);
+
+                    self.dropdownText.attr("data-val", self.originalElem.value);
 
                     if(currentOption.find("i").attr("class")) {
 
@@ -1339,17 +1382,23 @@
         //      Updates the drop down and select box with the current value
         _update: function(elem) {
 
-            var self = this;
+            var self = this,
+                currentDataText,
+                currentText;
 
             if (elem.attr("data-disabled") === "false") {
 
                 // If the default text option is set and the current drop down option is not disabled
                 if ((self.options["defaultText"] && self.dropdownText.text() === self.options["defaultText"]) && self.selectBox.val() === elem.attr("data-val")) {
 
-                    // Updates the dropdown list value
-                    self.dropdownText.text(self.listItems.eq(self.currentFocus).text()).
+                    currentDataText = self.listItems.eq(self.currentFocus).attr("data-text");
 
-                    trigger("internal-change");
+                    currentText = currentDataText ? currentDataText: self.listItems.eq(self.currentFocus).text();
+
+                    // Updates the dropdown list value
+                    self._setText(self.dropdownText, currentText);
+
+                    self.dropdownText.trigger("internal-change");
 
                 }
 

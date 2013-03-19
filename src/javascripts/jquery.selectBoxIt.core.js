@@ -977,6 +977,9 @@
                     // Triggers the custom `tab-blur` event on the original select box
                     self.triggerEvent("tab-blur");
 
+                    // Closes the drop down list
+                    self.close();
+
                 },
 
                 "backspace": function() {

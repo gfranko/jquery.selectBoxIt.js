@@ -56,13 +56,13 @@
 }
 
 /* Disabled Mouse Interaction */
-.selectboxit-disabled {
-  cursor: default;
+.selectboxit.selectboxit-disabled, .selectboxit-options .selectboxit-disabled {
   opacity: 0.65;
   filter: alpha(opacity=65);
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  cursor: not-allowed;
 }
 
 /* Button Text */

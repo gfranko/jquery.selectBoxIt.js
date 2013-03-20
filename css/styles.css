@@ -42,9 +42,10 @@ span.note {
 }
 .inline {
   display: inline-block;
-  float: right;
   width: 400px;
   margin-top: 3px;
+  position: absolute;
+  right: 0;
 }
 #editor-button {
   float: left;

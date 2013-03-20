@@ -155,7 +155,7 @@
           <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" />
           <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" />
           <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.2.0/jquery.selectBoxIt.css" />
+          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" />
         </head>
         <body>
 
@@ -168,7 +168,7 @@
 
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
           <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.2.0/jquery.selectBoxIt.min.js"></script>
+          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.min.js"></script>
           <script>
             $(function() {
 
@@ -448,6 +448,9 @@
 
     // Uses the jQueryUI 'shake' effect when opening the drop down
     showEffect: "shake",
+
+    // Sets the animation speed to 'slow'
+    showEffectSpeed: 'slow',
 
     // Sets jQueryUI options to shake 1 time when opening the drop down
     showEffectOptions: { times: 1 },
@@ -1337,6 +1340,8 @@
               <br />
               <strong> Note:</strong> This example uses absolute URL's, but you can also use relative URL's.  If you are using relative URL's, make sure the image path is relative to your HTML file, since the image is being included via the <i>style</i> HTML attribute.
               <br /><br />
+              <strong> Browser Support: </strong> Modern Browsers (IE9+)
+              <br /><br />
               <div class="select">
                 Turns this
                 <br />
@@ -1458,7 +1463,40 @@
   $("[rel='popover']").popover({ trigger: "hover" });
               </pre>
 <br /><br />
-              <h3>Selected and Disabled Support</h3>
+              <h3>Disabled Support</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test" disabled>
+                  <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin" disabled>a jQuery Plugin</option>
+                  <option value="a Select Box Replacement" disabled>a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget" selected>a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select class="test" name="test" disabled>
+                  <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin">a jQuery Plugin</option>
+                  <option value="a Select Box Replacement">a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+  &lt;select id="test" name="test" disabled&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
+              </pre>
+              <br />
+              <h3>Selected and Disabled Option Support</h3>
               <br />
               <div class="select">
                 Turns this
@@ -1541,7 +1579,40 @@
     &lt;/optgroup&gt;
   &lt;/select&gt;
               </pre>
-
+              <br />
+              <h3>HTML Option Support</h3>
+              <br />
+              <strong>Important:</strong> HTML is supported by using the <strong>data-text</strong> HTML5 data attributes for each option.  Make sure to use single quotes to surround your text and double quotes for class names, attributes, etc, that are used within your HTML text.
+              <br /><br /><br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                  <option value="a jQuery Plugin">a jQuery Plugin</option>
+                  <option value="a Select Box Replacement">a Select Box Replacement</option>
+                  <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select class="test" name="test">
+                  <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                  <option value="a jQuery Plugin" data-text='a <strong style="font-weight:bold;">jQuery</strong> Plugin'></option>
+                  <option value="a Select Box Replacement" data-text='a <strong style="font-weight:bold;">Select Box</strong> Replacement'></option>
+                  <option value="a Stateful UI Widget" data-text='a Stateful UI <strong style="font-weight:bold;">Widget</strong>'></option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+  &lt;select id="optgroups" name="optgroups"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin" data-text='a &lt;strong style="font-weight:bold;"&gt;jQuery&lt;/strong&gt; Plugin'&gt;&lt;/option&gt;
+    &lt;option value="a jQuery Plugin" data-text='a &lt;strong style="font-weight:bold;"&gt;Select Box &lt;/strong&gt; Replacement'&gt;&lt;/option&gt;
+    &lt;option value="a jQuery Plugin" data-text='a Stateful UI &lt;strong style="font-weight:bold;"&gt;Widget&lt;/strong&gt;'&gt;&lt;/option&gt;
+  &lt;/select&gt;
+              </pre>
               <h2>Requirements</h2>
               <br />
               <p><a href="http://jquery.com" target="_blank">jQuery 1.6.1+</a> (It is always recommended to use the latest version of jQuery)
@@ -1597,25 +1668,25 @@
               <br />
               <h4>SelectBoxIt CSS with Default Theme</h4>
               <pre class="prettyprint" style="font-size:12px;">
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.2.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br />
               <h4>SelectBoxIt with Twitter Bootstrap</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.2.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br /><br />
               <h4>SelectBoxIt with jQueryUI</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.2.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" /&gt;
               </pre>
 <br /><br />
               <h4>SelectBoxIt with jQuery Mobile</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.2.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br /><br />
 <h3>Include JavaScript files</h3>
@@ -1624,7 +1695,7 @@
               <pre class="prettyprint" style="font-size:12px;">
 &lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"&gt;&lt;/script&gt;
 &lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"&gt;&lt;/script&gt;
-&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.2.0/jquery.selectBoxIt.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.min.js"&gt;&lt;/script&gt;
               </pre>
               <br /><br />
               <p>
@@ -1876,6 +1947,18 @@
                   <td class="optionName" title="customShowHideEvent" data-content="Prevents the drop down from opening on click or mousedown, which allows a user to open/close the drop down with a custom event handler"><a href="#">customShowHideEvent</a></td>
                   <td>Boolean</td>
                   <td>false</td>
+                  <td>true or false</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="autoWidth" data-content="Makes sure the width of the drop down is wide enough to fit all of the drop down options"><a href="#">autoWidth</a></td>
+                  <td>Boolean</td>
+                  <td>true</td>
+                  <td>true or false</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="html" data-content="Determines whether or not option text is rendered as html or as text"><a href="#">html</a></td>
+                  <td>Boolean</td>
+                  <td>true</td>
                   <td>true or false</td>
                 </tr>
               </table>
@@ -2479,7 +2562,7 @@
             $("#hide-first-option").selectBoxIt({ showFirstOption: false });
             $("#set-default-text").selectBoxIt({ defaultText: "Sample text here" });
             $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 400, hideEffect: "fadeOut", hideEffectSpeed: 400 });
-            $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectOptions: {times: 1}, hideEffect: "explode" });
+            $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectSpeed: "slow", showEffectOptions: {times: 1}, hideEffect: "explode" });
             $("select.jqueryui-up-down-arrow").selectBoxIt({ theme: "jqueryui"});
 
             $("select.native-select").selectBoxIt({ "native": true });

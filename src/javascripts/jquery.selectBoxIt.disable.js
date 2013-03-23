@@ -22,7 +22,7 @@
             self.dropdown.removeAttr("tabindex").
 
             // Enabled styling for disabled state
-            addClass("selectboxit-disabled");
+            addClass(self.theme["disabled"]);
 
             // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
            $.Widget.prototype.disable.call(self);
@@ -46,10 +46,10 @@
 
     selectBoxIt.disableOption = function(index, callback) {
 
-        var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled;
+        var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled, type = $.type(index);
 
         // If an index is passed to target an indropdownidual drop down option
-        if((typeof index).toLowerCase() === "number") {
+        if(type === "number") {
 
             // Makes sure the dropdown list is closed
             self.close();

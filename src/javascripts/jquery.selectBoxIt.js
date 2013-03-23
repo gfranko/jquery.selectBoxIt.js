@@ -1944,7 +1944,7 @@
             self.dropdown.removeAttr("tabindex").
 
             // Enabled styling for disabled state
-            addClass("selectboxit-disabled");
+            addClass(self.theme["disabled"]);
 
             // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
            $.Widget.prototype.disable.call(self);
@@ -1968,10 +1968,10 @@
 
     selectBoxIt.disableOption = function(index, callback) {
 
-        var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled;
+        var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled, type = $.type(index);
 
         // If an index is passed to target an indropdownidual drop down option
-        if((typeof index).toLowerCase() === "number") {
+        if(type === "number") {
 
             // Makes sure the dropdown list is closed
             self.close();
@@ -2168,8 +2168,8 @@
             self.dropdown.attr("tabindex", 0).
 
             // Disable styling for disabled state
-            removeClass(self.disabledClasses);
-                
+            removeClass(self.theme["disabled"]);
+
             $.Widget.prototype.enable.call(self);
 
             // Provide callback function support
@@ -2188,10 +2188,10 @@
 
     selectBoxIt.enableOption = function(index, callback) {
 
-        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
+        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled, type = $.type(index);
 
         // If an index is passed to target an indropdownidual drop down option
-        if((typeof index).toLowerCase() === "number") {
+        if(type === "number") {
 
             // The select box option being targeted
             currentSelectBoxOption = self.selectBox.find("option").eq(index);
@@ -2206,7 +2206,7 @@
             self.listItems.eq(index).attr("data-disabled", "false").
 
             // Applies disabled styling for the drop down option
-            removeClass(self.disabledClasses);
+            removeClass(self.theme["disabled"]);
 
         }
 
@@ -2670,17 +2670,18 @@
     selectBoxIt.selectOption = function(val, callback) {
 
         // Stores the plugin context inside of the self variable
-        var self = this;
+        var self = this,
+            type = $.type(val);
 
         // Makes sure the passed in position is a number
-        if((typeof val).toLowerCase() === "number") {
+        if(type === "number") {
 
             // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
             self.selectBox.val(self.selectBox.find("option").eq(val).val()).change();
 
         }
 
-        else if((typeof val).toLowerCase() === "string") {
+        else if(type === "string") {
 
             // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
             self.selectBox.val(val).change();

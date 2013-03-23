@@ -22,8 +22,8 @@
             self.dropdown.attr("tabindex", 0).
 
             // Disable styling for disabled state
-            removeClass(self.disabledClasses);
-                
+            removeClass(self.theme["disabled"]);
+
             $.Widget.prototype.enable.call(self);
 
             // Provide callback function support
@@ -42,10 +42,10 @@
 
     selectBoxIt.enableOption = function(index, callback) {
 
-        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled;
+        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled, type = $.type(index);
 
         // If an index is passed to target an indropdownidual drop down option
-        if((typeof index).toLowerCase() === "number") {
+        if(type === "number") {
 
             // The select box option being targeted
             currentSelectBoxOption = self.selectBox.find("option").eq(index);
@@ -60,7 +60,7 @@
             self.listItems.eq(index).attr("data-disabled", "false").
 
             // Applies disabled styling for the drop down option
-            removeClass(self.disabledClasses);
+            removeClass(self.theme["disabled"]);
 
         }
 

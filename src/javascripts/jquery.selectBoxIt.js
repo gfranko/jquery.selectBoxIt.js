@@ -444,6 +444,8 @@
 
                 }),
 
+                currentDataSelectedText,
+
                 currentDataText,
 
                 currentText;
@@ -474,6 +476,8 @@
 
                 iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "",
 
+                currentDataSelectedText = $(this).attr("data-selectedtext"),
+
                 currentDataText = $(this).attr("data-text"),
 
                 currentText = currentDataText ? currentDataText: $(this).text();
@@ -503,7 +507,7 @@
                 if (this.selected) {
 
                     // Replaces the default text with the selected option text
-                    self._setText(self.dropdownText, currentText);
+                    self._setText(self.dropdownText, currentDataSelectedText || currentText);
 
                     //Set the currently selected option
                     self.currentFocus = index;
@@ -1313,7 +1317,8 @@
                 // `change` event handler with the `selectBoxIt` namespace
                 "change.selectBoxIt, internal-change.selectBoxIt": function(event, internal) {
 
-                    var currentOption;
+                    var currentOption, 
+                        currentDataSelectedText;
 
                     // If the user called the change method
                     if(!internal) {
@@ -1333,12 +1338,14 @@
 
                     currentOption = self.listItems.eq(self.currentFocus);
 
+                    currentDataSelectedText = currentOption.attr("data-selectedtext");
+
                     currentDataText = currentOption.attr("data-text");
 
                     currentText = currentDataText ?  currentDataText: currentOption.find("a").text();
 
                     // Sets the new dropdown list text to the value of the current option
-                    self._setText(self.dropdownText, currentText);
+                    self._setText(self.dropdownText, currentDataSelectedText || currentText);
 
                     self.dropdownText.attr("data-val", self.originalElem.value);
 
@@ -1383,11 +1390,14 @@
         _update: function(elem) {
 
             var self = this,
+                currentDataSelectedText,
                 currentDataText,
                 currentText,
                 defaultText = self.options["defaultText"] || self.selectBox.attr("data-text");
 
             if (elem.attr("data-disabled") === "false") {
+
+                currentDataSelectedText = self.listItems.eq(self.currentFocus).attr("data-selectedtext");
 
                 currentDataText = self.listItems.eq(self.currentFocus).attr("data-text");
 
@@ -1397,7 +1407,7 @@
                 if ((defaultText && self.options["html"] ? self.dropdownText.html() === defaultText: self.dropdownText.text() === defaultText) && self.selectBox.val() === elem.attr("data-val")) {
 
                     // Updates the dropdown list value
-                    self._setText(self.dropdownText, currentText);
+                    self._setText(self.dropdownText, currentDataSelectedText || currentText);
 
                     self.dropdownText.trigger("internal-change");
 

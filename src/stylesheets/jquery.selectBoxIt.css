@@ -62,7 +62,7 @@
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-  cursor: not-allowed;
+  cursor: default;
 }
 
 /* Button Text */
@@ -81,8 +81,8 @@
 .selectboxit-container .selectboxit-options {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  min-width: 100%;  /* Minimum Width of the dropdown list box options */
-  *width: 100%;
+  min-width: 220px;  /* Minimum Width of the dropdown list box options */
+  *width: 220px;
   margin: 0;
   padding: 0;
   list-style: none;

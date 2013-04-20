@@ -624,6 +624,12 @@
 
                 });
 
+                self.list.css({
+
+                    "min-width": self.dropdown.width()
+
+                });
+
             }
 
             // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
@@ -1396,10 +1402,7 @@
                 // If the default text option is set and the current drop down option is not disabled
                 if ((defaultText && self.options["html"] ? self.dropdownText.html() === defaultText: self.dropdownText.text() === defaultText) && self.selectBox.val() === elem.attr("data-val")) {
 
-                    // Updates the dropdown list value
-                    self._setText(self.dropdownText, currentText);
-
-                    self.dropdownText.trigger("internal-change");
+                    self.triggerEvent("change");
 
                 }
 
@@ -1648,7 +1651,7 @@
 
             var self = this,
                 // Finds the currently option index
-                currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0 );
+                currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0);
 
             // Triggers the custom option-click event on the original select box and passes the select box option
             self.selectBox.trigger(eventName, { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });

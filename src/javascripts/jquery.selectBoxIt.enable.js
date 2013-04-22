@@ -22,9 +22,12 @@
             self.dropdown.attr("tabindex", 0).
 
             // Disable styling for disabled state
-            removeClass(self.theme["disabled"]);
+            removeClass(self.theme["disabled"]).
 
-            $.Widget.prototype.enable.call(self);
+            // Enables styling for enabled state
+            addClass(self.theme["enabled"]);
+
+            self.widgetProto.enable.call(self);
 
             // Provide callback function support
             self._callbackSupport(callback);

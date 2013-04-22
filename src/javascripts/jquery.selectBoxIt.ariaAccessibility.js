@@ -27,7 +27,7 @@
             "aria-owns": self.list.attr("id"),
 
             // W3C `aria-activedescendant` description: This is used when a composite widget is responsible for managing its current active child to reduce the overhead of having all children be focusable. Examples include: multi-level lists, trees, and grids.
-            "aria-activedescendant": self.listItems.eq(self.currentFocus).attr("id"),
+            "aria-activedescendant": self.listItems.eq(self.currentFocus)[0].id,
 
             // W3C `aria-label` description:  It provides the user with a recognizable name of the object.
             "aria-label": $("label[for='" + self.originalElem.id + "']").text() || "",
@@ -39,7 +39,7 @@
         }).
 
         // Dynamically adds `ARIA attributes` if the new dropdown list is enabled or disabled
-        bind({
+        on({
 
             //Select box custom `disable` event with the `selectBoxIt` namespace
             "disable.selectBoxIt" : function() {
@@ -79,7 +79,7 @@
         });
 
         // Dynamically updates the new dropdown list `aria-label` attribute after the original dropdown list value changes
-        self.selectBox.bind({
+        self.selectBox.on({
 
             // Custom `change` event with the `selectBoxIt` namespace
             "change.selectBoxIt": function() {

@@ -1,6 +1,6 @@
-/* jquery SelectBoxIt - v3.3.0 - 2013-3-19
+/* jquery SelectBoxIt - v3.4.0 - 2013-4-21
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
-* Copyright (c) 2012 Greg Franko; Licensed MIT */
+* Copyright (c) 2013 Greg Franko; Licensed MIT */
 
 // Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.3.0",
+        VERSION: "3.4.0",
 
         // These options will be used as defaults
         options: {
@@ -135,6 +135,8 @@
 
                     "hover": "",
 
+                    "enabled": "enabled",
+
                     "disabled": "disabled",
 
                     "arrow": "caret",
@@ -155,6 +157,8 @@
                     "focus": "ui-state-focus",
 
                     "hover": "ui-state-hover",
+
+                    "enabled": "ui-state-enabled",
 
                     "disabled": "ui-state-disabled",
 
@@ -177,6 +181,8 @@
 
                     "hover": "ui-btn-hover-" + theme,
 
+                    "enabled": "ui-enabled",
+
                     "disabled": "ui-disabled",
 
                     "arrow": "ui-icon ui-icon-arrow-d ui-icon-shadow",
@@ -196,6 +202,8 @@
                     "focus": "selectboxit-focus",
 
                     "hover": "selectboxit-hover",
+
+                    "enabled": "selectboxit-enabled",
 
                     "disabled": "selectboxit-disabled",
 
@@ -219,7 +227,7 @@
         // -------
         //      Sets the Plugin Instance variables and
         //      constructs the plugin.  Only called once.
-        _create: function() {
+        _create: function(internal) {
 
             var self = this;
 
@@ -231,8 +239,8 @@
 
             }
 
-            // Hides the original select box
-            self.element.hide();
+            // Stores a reference to the parent Widget class
+            self.widgetProto = $.Widget.prototype;
 
             // The original select box DOM element
             self.originalElem = self.element[0];
@@ -268,6 +276,17 @@
 
             // Whether or not the dropdown list opens up or down (depending on how much room is on the page)
             self.flipped = false;
+
+            // If the create method is not called internally by the plugin
+            if(internal !== true) {
+
+                // Saves the original select box `style` attribute within the `selectBoxStyles` plugin instance property
+                self.selectBoxStyles = self.selectBox.attr("style");
+
+            }
+
+            // Hides the original select box
+            self.element.hide();
 
             // Creates the dropdown elements that will become the dropdown
             // Creates the ul element that will become the dropdown options list
@@ -321,7 +340,9 @@
         _createDropdownButton: function() {
 
             var self = this,
-                originalElemId = self.originalElem.id || "",
+                originalElemId = self.originalElemId = self.originalElem.id || "",
+                originalElemValue = self.originalElemValue = self.originalElem.value || "",
+                originalElemName = self.originalElemName = self.originalElem.name || "",
                 copyClasses = self.options["copyClasses"],
                 selectboxClasses = self.selectBox.attr("class") || "";
 
@@ -342,7 +363,7 @@
             }).
 
             // Sets the HTML5 data attribute on the dropdownText `dropdown` element
-            attr("data-val", self.originalElem.value);
+            attr("data-val", originalElemValue);
 
             self.dropdownImageContainer = $("<span/>", {
 
@@ -369,10 +390,10 @@
                 // Dynamically sets the dropdown `id` attribute
                 "id": originalElemId && originalElemId + "SelectBoxIt",
 
-                "class": "selectboxit " + (copyClasses === "button" ? selectboxClasses: ""),
+                "class": "selectboxit " + (copyClasses === "button" ? selectboxClasses: "") + " " + (self.selectBox.prop("disabled") ? self.theme["disabled"]: self.theme["enabled"]),
 
                 // Sets the dropdown `name` attribute to be the same name as the original select box
-                "name": self.originalElem.name,
+                "name": originalElemName,
 
                 // Sets the dropdown `tabindex` attribute to 0 to allow the dropdown to be focusable
                 "tabindex": self.selectBox.attr("tabindex") || "0",
@@ -429,7 +450,7 @@
                 // Declaring the variable that will hold all of the dropdown list option elements
                 currentItem = "",
 
-                originalElemId = self.originalElem.id || "",
+                originalElemId = self.originalElemId || "",
 
                 // Creates an unordered list element
                 createdList = $("<ul/>", {
@@ -444,9 +465,13 @@
 
                 }),
 
+                currentDataSelectedText,
+
                 currentDataText,
 
-                currentText;
+                currentText,
+
+                parent;
 
             // Checks the `showFirstOption` plugin option to determine if the first dropdown list option should be shown in the options list.
             if (!self.options["showFirstOption"]) {
@@ -472,21 +497,25 @@
 
                 iconUrlClass = iconUrl ? "selectboxit-option-icon-url": "";
 
-                iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "",
+                iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "";
 
-                currentDataText = $(this).attr("data-text"),
+                currentDataSelectedText = $(this).attr("data-selectedtext");
+
+                currentDataText = $(this).attr("data-text");
 
                 currentText = currentDataText ? currentDataText: $(this).text();
 
+                parent = $(this).parent();
+
                 // If the current option being traversed is within an optgroup
 
-                if($(this).parent().is("optgroup")) {
+                if(parent.is("optgroup")) {
 
                     optgroupClass = "selectboxit-optgroup-option";
 
                     if($(this).index() === 0) {
 
-                         optgroupElement = '<span class="selectboxit-optgroup-header" data-disabled="true">' + $(this).parent().first().attr("label") + '</span>';
+                         optgroupElement = '<span class="selectboxit-optgroup-header ' + parent.first().attr("class") + '"data-disabled="true">' + parent.first().attr("label") + '</span>';
 
                     }
 
@@ -503,7 +532,7 @@
                 if (this.selected) {
 
                     // Replaces the default text with the selected option text
-                    self._setText(self.dropdownText, currentText);
+                    self._setText(self.dropdownText, currentDataSelectedText || currentText);
 
                     //Set the currently selected option
                     self.currentFocus = index;
@@ -616,13 +645,32 @@
 
             }
 
+            // If the `autoWidth` option is true
             if(self.options["autoWidth"]) {
 
-                self.dropdown.css({ "width": "auto" }).css({
+                // If the SelectBoxIt drop down is visible (i.e. not set to display: none;)
+                if(self.dropdown.is(":visible")) {
 
-                    "width": self.list.outerWidth(true) + self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true)
+                    // Sets the auto width of the drop down
+                    self.dropdown.css({ "width": "auto" }).css({
 
-                });
+                        "width": self.list.outerWidth(true) + self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true)
+
+                    });
+
+                }
+
+                // If the SelectBoxIt drop down is hidden (i.e. set to display: none)
+                else {
+
+                    // Sets the auto width of the drop down
+                    self.dropdown.css({ "width": "auto" }).css({
+
+                        "width": self._realOuterWidth(self.list) + self._realOuterWidth(self.downArrowContainer) + self._realOuterWidth(self.dropdownImage)
+
+                    });
+
+                }
 
                 self.list.css({
 
@@ -773,7 +821,7 @@
                 isMobile = self.options["isMobile"]();
 
             // If there are no select box options, do not try to open the select box
-            if(!self.listItems.length) {
+            if(!self.listItems.length || self.dropdown.hasClass(self.theme["disabled"])) {
 
                 return self;
 
@@ -1044,7 +1092,7 @@
 
         // _Event Handlers
         // ---------------
-        //      Adds event handlers to the new dropdown list
+        //      Adds event handlers to the new dropdown and the original select box
         _eventHandlers: function() {
 
             // LOCAL VARIABLES
@@ -1052,10 +1100,13 @@
                 nativeMousedown = self.options["nativeMousedown"],
                 customShowHideEvent = self.options["customShowHideEvent"],
                 currentDataText,
-                currentText;
+                currentText,
+                focusClass = self.focusClass,
+                hoverClass = self.hoverClass,
+                openClass = self.openClass;
 
             // Select Box events
-            this.dropdown.bind({
+            this.dropdown.on({
 
                 // `click` event with the `selectBoxIt` namespace
                 "click.selectBoxIt": function() {
@@ -1122,6 +1173,8 @@
 
                         }
 
+                        $(this).removeClass(focusClass);
+
                     }
 
                 },
@@ -1148,6 +1201,12 @@
 
                     // Only trigger the `focus` event on the original select box if the dropdown list is hidden (this verifies that only the correct `focus` events are used to trigger the event on the original select box
                     if(!internal) {
+
+                        if(!$(this).hasClass(self.theme["disabled"])) {
+
+                            $(this).addClass(focusClass);
+
+                        }
 
                         //Triggers the `focus` default event on the original select box
                         self.triggerEvent("focus");
@@ -1230,7 +1289,7 @@
 
             // Select box options events that set the dropdown list blur logic (decides when the dropdown list gets
             // closed)
-            self.list.bind({
+            self.list.on({
 
                 // `mouseover` event with the `selectBoxIt` namespace
                 "mouseover.selectBoxIt": function() {
@@ -1255,51 +1314,16 @@
                     self.dropdown.trigger("focus", true);
                 }
 
-            })
+            });
 
             // Select box indropdownidual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding indropdownidual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
-            .delegate("li", "click.selectBoxIt", function() {
+            self.list.on({
 
-                self._update($(this));
-
-                self.triggerEvent("option-click");
-
-                // If the current drop down option is not disabled
-                if ($(this).attr("data-disabled") === "false") {
-
-                    // Closes the drop down list
-                    self.close();
-
-                }
-
-            }).
-
-            // Delegates the `focus` event with the `selectBoxIt` namespace to the list items
-            delegate("li", "focusin.selectBoxIt", function() {
-
-                // Removes the hover class from the previous drop down option
-                self.listItems.not($(this)).removeAttr("data-active");
-
-                $(this).attr("data-active", "");
-
-                var listIsHidden = self.list.is(":hidden");
-
-                if((self.options["searchWhenHidden"] && listIsHidden) || self.options["aggressiveChange"] || (listIsHidden && self.options["selectWhenHidden"])) {
+                "click.selectBoxIt": function() {
 
                     self._update($(this));
 
-                }
-
-            }).
-
-            // Delegates the `focus` event with the `selectBoxIt` namespace to the list items
-            delegate("li", "mouseup.selectBoxIt", function() {
-
-                if(nativeMousedown && !customShowHideEvent) {
-
-                    self._update($(this));
-
-                    self.triggerEvent("option-mouseup");
+                    self.triggerEvent("option-click");
 
                     // If the current drop down option is not disabled
                     if ($(this).attr("data-disabled") === "false") {
@@ -1309,17 +1333,106 @@
 
                     }
 
+                },
+
+               // Delegates the `focus` event with the `selectBoxIt` namespace to the list items
+               "focusin.selectBoxIt": function() {
+
+                    // Removes the hover class from the previous drop down option
+                    self.listItems.not($(this)).removeAttr("data-active");
+
+                    $(this).attr("data-active", "");
+
+                    var listIsHidden = self.list.is(":hidden");
+
+                    if((self.options["searchWhenHidden"] && listIsHidden) || self.options["aggressiveChange"] || (listIsHidden && self.options["selectWhenHidden"])) {
+
+                        self._update($(this));
+
+                    }
+
+                    // Adds the focus CSS class to the currently focused dropdown list option
+                   $(this).addClass(focusClass);
+
+                },
+
+                // Delegates the `focus` event with the `selectBoxIt` namespace to the list items
+                "mouseup.selectBoxIt": function() {
+
+                    if(nativeMousedown && !customShowHideEvent) {
+
+                        self._update($(this));
+
+                        self.triggerEvent("option-mouseup");
+
+                        // If the current drop down option is not disabled
+                        if ($(this).attr("data-disabled") === "false") {
+
+                            // Closes the drop down list
+                            self.close();
+
+                        }
+
+                    }
+
+                },
+
+                // Delegates the `mouseenter` event with the `selectBoxIt` namespace to the list items
+                "mouseenter.selectBoxIt": function() {
+
+                    // If the currently moused over drop down option is not disabled
+                    if($(this).attr("data-disabled") === "false") {
+
+                        self.listItems.removeAttr("data-active");
+
+                        $(this).addClass(focusClass).attr("data-active", "");
+
+                        // Sets the dropdown list indropdownidual options back to the default state and sets the focus CSS class on the currently hovered option
+                        self.listItems.not($(this)).removeClass(focusClass);
+
+                        $(this).addClass(focusClass);
+
+                        self.currentFocus = +$(this).attr("id");
+
+                    }
+
+                },
+
+                // Delegates the `mouseleave` event with the `selectBoxIt` namespace to the list items
+                "mouseleave.selectBoxIt": function() {
+
+                    // If the currently moused over drop down option is not disabled
+                    if($(this).attr("data-disabled") === "false") {
+
+                        // Removes the focus class from the previous drop down option
+                        self.listItems.not($(this)).removeClass(focusClass).removeAttr("data-active");
+
+                        $(this).addClass(focusClass);
+
+                        self.currentFocus = +$(this).attr("id");
+
+                    }
+
+                },
+
+                // Delegates the `blur` event with the `selectBoxIt` namespace to the list items
+                "blur.selectBoxIt": function() {
+
+                    // Removes the focus CSS class from the previously focused dropdown list option
+                    $(this).removeClass(focusClass);
+
                 }
 
-            });
+            }, ".selectboxit-option");
 
             // Original dropdown list events
-            self.selectBox.bind({
+            self.selectBox.on({
 
                 // `change` event handler with the `selectBoxIt` namespace
                 "change.selectBoxIt, internal-change.selectBoxIt": function(event, internal) {
 
-                    var currentOption;
+                    var currentOption,
+                        currentDataSelectedText;
 
                     // If the user called the change method
                     if(!internal) {
@@ -1339,12 +1452,14 @@
 
                     currentOption = self.listItems.eq(self.currentFocus);
 
+                    currentDataSelectedText = currentOption.attr("data-selectedtext");
+
                     currentDataText = currentOption.attr("data-text");
 
                     currentText = currentDataText ?  currentDataText: currentOption.find("a").text();
 
                     // Sets the new dropdown list text to the value of the current option
-                    self._setText(self.dropdownText, currentText);
+                    self._setText(self.dropdownText, currentDataSelectedText || currentText);
 
                     self.dropdownText.attr("data-val", self.originalElem.value);
 
@@ -1374,6 +1489,78 @@
                     // Removes the `disabled` CSS class from the new dropdown list to visually show that it is enabled
                     self.dropdown.removeClass(self.theme["disabled"]);
 
+                },
+
+                // `open` event with the `selectBoxIt` namespace
+                "open.selectBoxIt": function() {
+
+                    var currentElem = self.list.find("li[data-val='" + self.dropdownText.attr("data-val") + "']"),
+                        activeElem;
+
+                    // If no current element can be found, then select the first drop down option
+                    if(!currentElem.length) {
+
+                        // If the first select box option is disabled, and the user has chosen to not show the first select box option
+                        if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass(self.theme["disabled"])) {
+
+                            // Sets the default value of the dropdown list to the first option that is not disabled
+                            currentElem = self.listItems.not("[data-disabled=true]").first();
+
+                        }
+
+                        else {
+
+                            currentElem = self.listItems.first();
+
+                        }
+
+                    }
+
+                    self.currentFocus = +currentElem.attr("id");
+
+                    activeElem = self.listItems.eq(self.currentFocus);
+
+                    self.dropdown.addClass(openClass).
+
+                    // Removes the focus class from the dropdown list and adds the library focus class for both the dropdown list and the currently selected dropdown list option
+                    removeClass(hoverClass).addClass(focusClass);
+
+                    self.listItems.removeClass(self.selectedClass).
+
+                    removeAttr("data-active").not(activeElem).removeClass(focusClass);
+
+                    activeElem.addClass(focusClass).addClass(self.selectedClass);
+
+                },
+
+                "close.selectBoxIt": function() {
+
+                    // Removes the open class from the dropdown container
+                    self.dropdown.removeClass(openClass);
+
+                },
+
+                "blur.selectBoxIt": function() {
+
+                    self.dropdown.removeClass(focusClass);
+
+                },
+
+                // `mousenter` event with the `selectBoxIt` namespace
+                "mouseenter.selectBoxIt": function() {
+
+                    if(!$(this).hasClass(self.theme["disabled"])) {
+                        self.dropdown.addClass(hoverClass);
+                    }
+
+                },
+
+                // `mouseleave` event with the `selectBoxIt` namespace
+                "mouseleave.selectBoxIt": function() {
+
+                    // Removes the hover CSS class on the previously hovered dropdown list option
+                    self.dropdown.removeClass(hoverClass);
+
                 }
 
             });
@@ -1389,15 +1576,19 @@
         _update: function(elem) {
 
             var self = this,
+                currentDataSelectedText,
                 currentDataText,
                 currentText,
-                defaultText = self.options["defaultText"] || self.selectBox.attr("data-text");
+                defaultText = self.options["defaultText"] || self.selectBox.attr("data-text"),
+                currentElem = self.listItems.eq(self.currentFocus);
 
             if (elem.attr("data-disabled") === "false") {
 
-                currentDataText = self.listItems.eq(self.currentFocus).attr("data-text");
+                currentDataSelectedText = self.listItems.eq(self.currentFocus).attr("data-selectedtext");
 
-                currentText = currentDataText ? currentDataText: self.listItems.eq(self.currentFocus).text();
+                currentDataText = currentElem.attr("data-text");
+
+                currentText = currentDataText ? currentDataText: currentElem.text();
 
                 // If the default text option is set and the current drop down option is not disabled
                 if ((defaultText && self.options["html"] ? self.dropdownText.html() === defaultText: self.dropdownText.text() === defaultText) && self.selectBox.val() === elem.attr("data-val")) {
@@ -1436,9 +1627,9 @@
 
             var self = this,
 
-                focusClass = obj.focus,
+                focusClass = self.focusClass = obj.focus,
 
-                hoverClass = obj.hover,
+                hoverClass = self.hoverClass = obj.hover,
 
                 buttonClass = obj.button,
 
@@ -1448,11 +1639,7 @@
 
                 containerClass = obj.container,
 
-                openClass = obj.open;
-
-            self.focusClass = focusClass;
-
-            self.openClass = openClass;
+                openClass = self.openClass = obj.open;
 
             self.selectedClass = "selectboxit-selected";
 
@@ -1467,142 +1654,6 @@
             // Adds the default class to the dropdown list options
             self.list.addClass(listClass);
 
-            // Select box individual option events
-            self.listItems.bind({
-
-                // `focus` event with the `selectBoxIt` namespace
-                "focusin.selectBoxIt": function() {
-
-                    // Adds the focus CSS class to the currently focused dropdown list option
-                    $(this).addClass(focusClass);
-
-                },
-
-                // `blur` event with the `selectBoxIt` namespace
-                "blur.selectBoxIt": function() {
-
-                    // Removes the focus CSS class from the previously focused dropdown list option
-                    $(this).removeClass(focusClass);
-
-                }
-
-            });
-
-            // Select box events
-            self.selectBox.bind({
-
-                // `click` event with the `selectBoxIt` namespace
-                "open.selectBoxIt": function() {
-
-                    var currentElem = self.list.find("li[data-val='" + self.dropdownText.attr("data-val") + "']"),
-                        activeElem;
-
-                    // If no current element can be found, then select the first drop down option
-                    if(!currentElem.length) {
-
-                        // If the first select box option is disabled, and the user has chosen to not show the first select box option
-                        if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass(self.theme["disabled"])) {
-
-                            // Sets the default value of the dropdown list to the first option that is not disabled
-                            currentElem = self.listItems.not("[data-disabled=true]").first();
-
-                        }
-
-                        else {
-
-                            currentElem = self.listItems.first();
-
-                        }
-
-                    }
-
-                    self.currentFocus = +currentElem.attr("id");
-
-                    activeElem = self.listItems.eq(self.currentFocus);
-
-                    self.dropdown.addClass(openClass);
-
-                    // Removes the focus class from the dropdown list and adds the library focus class for both the dropdown list and the currently selected dropdown list option
-                    self.dropdown.removeClass(hoverClass).addClass(focusClass);
-
-                    self.listItems.removeClass(self.selectedClass);
-
-                    self.listItems.removeAttr("data-active").not(activeElem).removeClass(focusClass);
-
-                    activeElem.addClass(focusClass).addClass(self.selectedClass);
-
-                },
-
-                "close.selectBoxIt": function() {
-
-                    // Removes the open class from the dropdown container
-                    self.dropdown.removeClass(openClass);
-
-                },
-
-                "blur.selectBoxIt": function() {
-
-                    self.dropdown.removeClass(focusClass);
-
-                },
-
-                // `mousenter` event with the `selectBoxIt` namespace
-                "mouseenter.selectBoxIt": function() {
-
-                    self.dropdown.addClass(hoverClass);
-
-                },
-
-                // `mouseleave` event with the `selectBoxIt` namespace
-                "mouseleave.selectBoxIt": function() {
-
-                    // Removes the hover CSS class on the previously hovered dropdown list option
-                    self.dropdown.removeClass(hoverClass);
-
-                }
-
-            });
-
-            self.listItems.bind({
-
-                "mouseenter.selectBoxIt": function() {
-
-                    // If the currently moused over drop down option is not disabled
-                    if($(this).attr("data-disabled") === "false") {
-
-                        self.listItems.removeAttr("data-active");
-
-                        $(this).addClass(focusClass).attr("data-active", "");
-
-                        // Sets the dropdown list indropdownidual options back to the default state and sets the focus CSS class on the currently hovered option
-                        self.listItems.not($(this)).removeClass(focusClass);
-
-                        $(this).addClass(focusClass);
-
-                        self.currentFocus = +$(this).attr("id");
-
-                    }
-
-                },
-
-                "mouseleave.selectBoxIt": function() {
-
-                    // If the currently moused over drop down option is not disabled
-                    if($(this).attr("data-disabled") === "false") {
-
-                        // Removes the focus class from the previous drop down option
-                        self.listItems.not($(this)).removeClass(focusClass).removeAttr("data-active");
-
-                        $(this).addClass(focusClass);
-
-                        self.currentFocus = +$(this).attr("id");
-
-                    }
-
-                }
-
-            });
-
             // Maintains chainability
             return self;
 
@@ -1611,19 +1662,12 @@
         // Refresh
         // -------
         //    The dropdown will rebuild itself.  Useful for dynamic content.
-
         refresh: function(callback) {
 
             var self = this;
 
-            if(self._destroySelectBoxIt) {
-
-                // Destroys the plugin and then recreates the plugin
-                self._destroySelectBoxIt()._create(true)._callbackSupport(callback);
-
-                self.triggerEvent("refresh");
-
-            }
+            // Destroys the plugin and then recreates the plugin
+            self.destroy()._create(true)._callbackSupport(callback).triggerEvent("refresh");
 
             //Maintains chainability
             return self;
@@ -1646,7 +1690,7 @@
 
         // triggerEvent
         // ------------
-        //      Trigger's an external event on the original select box
+        //      Trigger's an external event on the original select box element
         triggerEvent: function(eventName) {
 
             var self = this,
@@ -1654,13 +1698,16 @@
                 currentIndex = self.options["showFirstOption"] ? self.currentFocus : ((self.currentFocus - 1) >= 0 ? self.currentFocus: 0);
 
             // Triggers the custom option-click event on the original select box and passes the select box option
-            self.selectBox.trigger(eventName, { "elem": self.selectBox.eq(currentIndex), "dropdown-elem": self.listItems.eq(self.currentFocus) });
+            self.selectBox.trigger(eventName, { "selectbox": self.selectBox, "selectboxOption": self.selectItems.eq(currentIndex), "dropdown": self.dropdown, "dropdownOption": self.listItems.eq(self.currentFocus) });
 
             // Maintains chainability
             return self;
 
         },
 
+        // _copyAttributes
+        // ---------------
+        //      Copies HTML attributes from the original select box to the new drop down 
         _copyAttributes: function() {
 
             var self = this;
@@ -1673,9 +1720,39 @@
 
             return self;
 
+        },
+
+        // _realOuterWidth
+        // ---------------
+        //      Retrieves the true outerWidth dimensions of a hidden DOM element
+        _realOuterWidth: function(elem) {
+
+            if(elem.is(":visible")) {
+                return;
+            }
+
+            var self = this,
+                clonedElem = elem.clone(),
+                outerWidth;
+
+            clonedElem.css({
+
+                "visibility": "hidden",
+
+                "display": "block",
+
+                "position": "absolute"
+
+            }).appendTo("body");
+
+            outerWidth = clonedElem.outerWidth(true);
+
+            clonedElem.remove();
+
+            return outerWidth;
         }
 
     });
 
-    // Storing the plugin prototype object in a local variable
+    // Stores the plugin prototype object in a local variable
     var selectBoxIt = $.selectBox.selectBoxIt.prototype;

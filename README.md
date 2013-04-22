@@ -70,6 +70,26 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`3.4.0` - April 21, 2013
+
+**BREAKING CHANGES**
+jQuery 1.7+ is now required since all event handling has been upgraded to use the `on` method
+
+**New Options**
+- `selectedtext` - Allows the ability to change what is displayed in the collapsed dropdown when an item is selected.  [Issue #151](https://github.com/gfranko/jquery.selectBoxIt.js/pull/151)  **Special thanks to [freakingawesome](https://github.com/freakingawesome) for this new option.
+
+**Bug Fixes**
+- Fixed hidden auto width bug [#149](https://github.com/gfranko/jquery.selectBoxIt.js/issues/149)
+- Fixed the `destroy()` method logic and am correctly reapplying the original select box `style` attribute
+- Optgroup class names are now properly carried over to the new drop down
+
+**Improvements**
+- Now triggering the `change` event when using the **defaultText** option [#146](https://github.com/gfranko/jquery.selectBoxIt.js/issues/146)
+- Improved the dynamic positioning logic
+- Improved the `wait()` logic
+- Removed the unneccessary `focus` and `hover` CSS pseudo classes being applied
+- Removed the unneccessary tagNames from the CSS default theme
+
 `3.3.0` - March 19, 2013
 
 **New Options**
@@ -360,9 +380,8 @@ Thomas von Deyen - [@tvdeyen](https://github.com/tvdeyen)
 Ron 'coyote' Lussier - [@lenscraft](https://github.com/ronlussier)
 
 ## License
-Copyright (c) 2012 Greg Franko
+Copyright (c) 2013 Greg Franko
 Licensed under the MIT license.
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/gfranko/jquery.selectBoxIt.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-

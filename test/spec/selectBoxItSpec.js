@@ -527,9 +527,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         beforeEach(function() {
 
-            spyOn($.fn, "unbind").andCallThrough();
-
-            spyOn($.fn, "undelegate").andCallThrough();
+            spyOn($.fn, "off").andCallThrough();
 
             spyOn($.fn, "remove").andCallThrough();
 
@@ -543,13 +541,7 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         it("should unbind all of the event handlers associated with the selectBoxIt plugin", function() {
 
-            expect($.fn.unbind).toHaveBeenCalledWith(".selectBoxIt");
-
-        });
-
-        it("should undelegate all of the event handlers attached via event delegation with the selectBoxIt plugin", function() {
-
-            expect($.fn.undelegate).toHaveBeenCalledWith(".selectBoxIt");
+            expect($.fn.off).toHaveBeenCalledWith(".selectBoxIt");
 
         });
 

@@ -44,7 +44,7 @@
 
             "-webkit-appearance": "menulist-button"
 
-        }).bind({
+        }).on({
 
             "changed.selectBoxIt": function() {
 

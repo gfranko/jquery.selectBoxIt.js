@@ -21,11 +21,14 @@
             // Makes the dropdown list not focusable by removing the `tabindex` attribute
             self.dropdown.removeAttr("tabindex").
 
+            // Disables styling for enabled state
+            removeClass(self.theme["enabled"]).
+
             // Enabled styling for disabled state
             addClass(self.theme["disabled"]);
 
             // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
-           $.Widget.prototype.disable.call(self);
+           self.widgetProto.disable.call(self);
 
             // Triggers a `disable` custom event on the original select box
             self.triggerEvent("disable");

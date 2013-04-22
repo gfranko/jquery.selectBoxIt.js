@@ -30,7 +30,7 @@
     // addAttributes
     // -------------
     //  Add's attributes to a DOM element
-    $.selectBox.selectBoxIt.prototype._addAttributes = function(arr, elem) {
+    selectBoxIt._addAttributes = function(arr, elem) {
 
         // Stores the plugin context inside of the self variable
         var self = this,

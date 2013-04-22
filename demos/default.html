@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <link type="text/css" rel="stylesheet" href="../src/stylesheets/jquery.selectBoxIt.css" />
   <link type="text/css" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
-  <link type="text/css" rel="stylesheet" href="css/jquery-ui-1.9.1.custom.css" />
+  <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/ui-darkness/jquery-ui.css" />
   <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
   <!--<link type="text/css" rel="stylesheet" href="css/jqm.css" /> -->
   <style>
@@ -15,9 +15,9 @@
 </head>
 <body>
 <form>
-            <select name="test" rel="test" data-test="test" class="really">
-                <option value="" disabled>Select a Month</option>
-                <option value="January">January</option>
+            <select name="test" rel="test" class="really" disabled>
+                <option value="">Select a Month</option>
+                <option data-selectedtext="SelectBoxIt is: a jQueryPlugin" value="January">January</option>
                 <option value="February">February</option>
                 <option value="March">March</option>
                 <option value="April">April</option>
@@ -334,7 +334,11 @@
 <script>
 jQuery(function($) {
 
-  $("select").selectBoxIt();
+  var select = $("select").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 400 }).data("selectBox-selectBoxIt");
+
+  //select.refresh();
+
+  //select.wait(1000, select.open).wait(1000, select.moveDown);
 
 });
 </script>

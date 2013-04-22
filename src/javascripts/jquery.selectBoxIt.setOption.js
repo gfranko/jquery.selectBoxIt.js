@@ -12,6 +12,8 @@
         var self = this,
             firstOption = self.listItems.eq(0);
 
+        self.widgetProto._setOption.apply(self, arguments);
+
         // If a user sets the `showFirstOption` to false
         if (key === "showFirstOption" && !value) {
 
@@ -47,8 +49,6 @@
             self._setText(self.dropdownText, value);
 
         }
-
-        $.Widget.prototype._setOption.apply(self, arguments);
 
         // Provides callback function support
         self._callbackSupport(callback);

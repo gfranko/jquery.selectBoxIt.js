@@ -3,7 +3,7 @@
     // ==========================
 
     // Move Down
-    // --------
+    // ---------
     //      Handles the down keyboard navigation logic
 
     selectBoxIt.moveDown = function(callback) {

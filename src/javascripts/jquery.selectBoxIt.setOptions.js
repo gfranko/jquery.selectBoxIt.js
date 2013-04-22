@@ -12,7 +12,7 @@
         var self = this,
             firstOption = self.listItems.eq(0);
 
-        $.Widget.prototype._setOptions.apply(self, arguments);
+        self.widgetProto._setOptions.apply(self, arguments);
 
         // If the `showFirstOption` option is true
         if (self.options["showFirstOption"]) {

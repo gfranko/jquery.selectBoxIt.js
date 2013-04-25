@@ -946,11 +946,10 @@
                 hideEffectSpeed = self.options["hideEffectSpeed"],
                 hideEffectOptions = self.options["hideEffectOptions"],
                 isNative = self.options["native"],
-                isMobile = self.options["isMobile"](),
-                activeElem = self.list.find("li." + self.focusClass);
+                isMobile = self.options["isMobile"]();
 
             // If the drop down is being used and is visible
-            if((!isNative && !isMobile) && self.list.is(":visible") && activeElem.attr("data-preventclose") !== "true") {
+            if((!isNative && !isMobile) && self.list.is(":visible")) {
 
                 // Triggers a custom "close" event on the original select box
                 self.triggerEvent("close");
@@ -1081,8 +1080,12 @@
                     // Updates the dropdown list value
                     self._update(activeElem);
 
-                    // Closes the dropdown list options list
-                    self.close();
+                    if ($(this).attr("data-disabled") === "false" && self.list.find("li." + self.focusClass).attr("data-preventclose") !== "true") {
+
+                        // Closes the drop down list options list
+                        self.close();
+
+                    }
 
                     // Triggers the `enter` events on the original select box
                     self.triggerEvent("enter");
@@ -1349,7 +1352,7 @@
                     self.triggerEvent("option-click");
 
                     // If the current drop down option is not disabled
-                    if ($(this).attr("data-disabled") === "false") {
+                    if ($(this).attr("data-disabled") === "false" && self.list.find("li." + self.focusClass).attr("data-preventclose") !== "true") {
 
                         // Closes the drop down list
                         self.close();
@@ -1389,7 +1392,7 @@
                         self.triggerEvent("option-mouseup");
 
                         // If the current drop down option is not disabled
-                        if ($(this).attr("data-disabled") === "false") {
+                        if ($(this).attr("data-disabled") === "false" && self.list.find("li." + self.focusClass).attr("data-preventclose") !== "true") {
 
                             // Closes the drop down list
                             self.close();

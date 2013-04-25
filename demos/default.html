@@ -292,7 +292,7 @@
                 <option value="December">December</option>
             </select>
 
-  <select name="test">
+  <select name="test" class="themes">
     <option value="SelectBoxIt themes:" data-iconurl="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-5/256/themes-icon.png">
     SelectBoxIt themes:
     </option>
@@ -306,7 +306,6 @@
     jQuery Mobile
     </option>
   </select>
-
   <select name="test">
     <option value="SelectBoxIt is:" data-icon="icon-search">SelectBoxIt is:</option>
     <option value="a jQuery Plugin" data-icon="icon-ok">a jQuery Plugin</option>
@@ -323,7 +322,7 @@
     <option value="a Select Box Replacement">a Select Box Replacement</option>
     </optgroup>
     <optgroup label="Optgroup 3">
-    <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+    <option value="a Stateful UI Widget" data-preventclose="true">a Stateful UI Widget</option>
     </optgroup>
   </select>
 </form>
@@ -333,8 +332,17 @@
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 jQuery(function($) {
+/*
+  var select = $("select").selectBoxIt({ populate: '{ "text": "Testing shit", "value": "yea buddy", "class": "please add", "data-iconurl": "https://twimg0-a.akamaihd.net/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33.png", "selected": "selected" }' }).data("selectBox-selectBoxIt");
+*/
 
-  var select = $("select").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 400 }).data("selectBox-selectBoxIt");
+  var select = $("select").selectBoxIt({ populate: "<option value='yea'>Work please</option>" }).data("selectBox-selectBoxIt");
+
+  $('select').change(function() {
+
+    console.log($(this).val());
+
+  });
 
   //select.refresh();
 

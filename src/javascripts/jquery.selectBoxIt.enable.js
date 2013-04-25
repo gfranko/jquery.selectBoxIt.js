@@ -3,7 +3,7 @@
     // =============
 
     // Enable
-    // -----
+    // ------
     //      Enables the new dropdown list
 
     selectBoxIt.enable = function(callback) {

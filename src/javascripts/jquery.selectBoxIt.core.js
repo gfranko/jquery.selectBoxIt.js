@@ -73,7 +73,7 @@
                 var ua = navigator.userAgent || navigator.vendor || window.opera;
 
                 // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
-                return (/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
+                return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
 
             },
 
@@ -114,7 +114,10 @@
             "autoWidth": true,
 
             // **html**: Determines whether or not option text is rendered as html or as text
-            "html": true
+            "html": true,
+
+            // **populate**: Convenience option that accepts JSON data, an array, a single object, or valid HTML string to add options to the drop down list
+            "populate": ""
 
         },
 
@@ -229,7 +232,8 @@
         //      constructs the plugin.  Only called once.
         _create: function(internal) {
 
-            var self = this;
+            var self = this,
+                populateOption = self.options["populate"];
 
             // If the element calling SelectBoxIt is not a select box or is not visible
             if(!self.element.is("select")) {
@@ -247,6 +251,22 @@
 
             // The original select box DOM element wrapped in a jQuery object
             self.selectBox = self.element;
+
+            if(self.options["populate"] && self.add) {
+
+                if($.isFunction(populateOption)) {
+
+                    self.add(populateOption.call());
+
+                }
+
+                else {
+
+                    self.add(populateOption);
+
+                }
+
+            }
 
             // All of the original select box options
             self.selectItems = self.element.find("option");
@@ -491,9 +511,9 @@
 
                 dataDisabled = $(this).prop("disabled");
 
-                iconClass = $(this).data("icon") || "";
+                iconClass = $(this).attr("data-icon") || "";
 
-                iconUrl = $(this).data("iconurl") || "";
+                iconUrl = $(this).attr("data-iconurl") || "";
 
                 iconUrlClass = iconUrl ? "selectboxit-option-icon-url": "";
 
@@ -542,9 +562,9 @@
             });
 
             // If the `defaultText` option is being used
-            if ((self.options["defaultText"] || self.selectBox.data("text")) && !self.selectBox.find("option[selected]").length) {
+            if ((self.options["defaultText"] || self.selectBox.attr("data-text")) && !self.selectBox.find("option[selected]").length) {
 
-                var defaultedText = self.options["defaultText"] || self.selectBox.data("text");
+                var defaultedText = self.options["defaultText"] || self.selectBox.attr("data-text");
 
                 //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
                 self._setText(self.dropdownText, defaultedText);
@@ -561,12 +581,13 @@
             // Append the dropdown list options list to the dropdown container element
             self.dropdownContainer.append(self.list);
 
-            // Stores the indropdownidual dropdown list options inside of the `listItems` instance variable
+            // Stores the individual dropdown list options inside of the `listItems` instance variable
             self.listItems = self.list.find("li");
+
+            self.listAnchors = self.list.find("a");
 
             // Sets the 'selectboxit-option-first' class name on the first drop down option
             self.listItems.first().addClass("selectboxit-option-first");
-
 
             // Sets the 'selectboxit-option-last' class name on the last drop down option
             self.listItems.last().addClass("selectboxit-option-last");
@@ -574,7 +595,7 @@
             // Set the disabled CSS class for select box options
             self.list.find("li[data-disabled='true']").not(".optgroupHeader").addClass(self.theme["disabled"]);
 
-            self.dropdownImage.addClass(self.selectBox.data("icon") || self.options["defaultIcon"] || self.listItems.eq(self.currentFocus).find("i").attr("class"));
+            self.dropdownImage.addClass(self.selectBox.attr("data-icon") || self.options["defaultIcon"] || self.listItems.eq(self.currentFocus).find("i").attr("class"));
 
             self.dropdownImage.attr("style", self.listItems.eq(self.currentFocus).find("i").attr("style"));
 
@@ -591,7 +612,9 @@
 
             var self = this,
                 height,
-                originalElemId = self.originalElem.id || "";
+                originalElemId = self.originalElem.id || "",
+                size = self.selectBox.attr("size"),
+                listSize = self.listSize = size === undefined ? "auto" : size === "0" || "size" === "auto" ? "auto" : +size;
 
             // Hides the original select box
             self.selectBox.css("display", "none").
@@ -638,7 +661,7 @@
             self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
 
             // If an image is not being used
-            if(!self.dropdownImageContainer.width()) {
+            if(!self._realOuterWidth(self.dropdownImageContainer)) {
 
                 // Removes the image and image container
                 self.dropdownImageContainer.remove();
@@ -686,6 +709,22 @@
                 "max-width": self.dropdownContainer.width() - (self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true))
 
             });
+
+            // If the drop down list should fit inside of the window
+            if(listSize === "auto") {
+
+                // Store the original `max-height` for later
+                self.maxHeight = self.list.css("max-height");
+
+            }
+
+            // If the drop down list should only show x amount of list options
+            else if($.type(listSize) === "number") {
+
+                // Stores the new `max-height` for later
+                self.maxHeight = self.listAnchors.outerHeight(true) * listSize;
+
+            }
 
             // Maintains chainability
             return self;
@@ -907,10 +946,11 @@
                 hideEffectSpeed = self.options["hideEffectSpeed"],
                 hideEffectOptions = self.options["hideEffectOptions"],
                 isNative = self.options["native"],
-                isMobile = self.options["isMobile"]();
+                isMobile = self.options["isMobile"](),
+                activeElem = self.listItems.eq(self.currentFocus);
 
             // If the drop down is being used and is visible
-            if((!isNative && !isMobile) && this.list.is(":visible")) {
+            if((!isNative && !isMobile) && self.list.is(":visible") && activeElem.attr("data-disabled") === "false" && activeElem.attr("data-preventclose") !== "true") {
 
                 // Triggers a custom "close" event on the original select box
                 self.triggerEvent("close");
@@ -1036,25 +1076,13 @@
 
                 "enter": function() {
 
-                    var activeElem = self.list.find("li." + self.focusClass);
-
-                    // If there is no active Elem yet
-                    if(!activeElem.length) {
-
-                        activeElem = self.listItems.first();
-
-                    }
+                    var activeElem = self.listItems.eq(self.currentFocus);
 
                     // Updates the dropdown list value
                     self._update(activeElem);
 
-                    // Checks to see if the dropdown list options list is open
-                    if (self.list.is(":visible")) {
-
-                        // Closes the dropdown list options list
-                        self.close();
-
-                    }
+                    // Closes the dropdown list options list
+                    self.close();
 
                     // Triggers the `enter` events on the original select box
                     self.triggerEvent("enter");
@@ -1165,13 +1193,8 @@
                         // Popular open source projects such as Backbone.js utilize event delegation to bind events, so if you are using Backbone.js, use the `focusout` event instead of the `blur` event
                         self.triggerEvent("blur");
 
-                        //If the dropdown options list is visible
-                        if (self.list.is(":visible")) {
-
-                            //Closes the dropdown list options list
-                            self.close();
-
-                        }
+                        // Closes the dropdown list options list
+                        self.close();
 
                         $(this).removeClass(focusClass);
 
@@ -1325,13 +1348,8 @@
 
                     self.triggerEvent("option-click");
 
-                    // If the current drop down option is not disabled
-                    if ($(this).attr("data-disabled") === "false") {
-
-                        // Closes the drop down list
-                        self.close();
-
-                    }
+                    // Closes the drop down list
+                    self.close();
 
                 },
 
@@ -1365,13 +1383,8 @@
 
                         self.triggerEvent("option-mouseup");
 
-                        // If the current drop down option is not disabled
-                        if ($(this).attr("data-disabled") === "false") {
-
-                            // Closes the drop down list
-                            self.close();
-
-                        }
+                        // Closes the drop down list
+                        self.close();
 
                     }
 
@@ -1643,7 +1656,7 @@
 
             self.selectedClass = "selectboxit-selected";
 
-            self.downArrow.addClass(self.selectBox.data("downarrow") || self.options["downArrowIcon"] || arrowClass);
+            self.downArrow.addClass(self.selectBox.attr("data-downarrow") || self.options["downArrowIcon"] || arrowClass);
 
             // Adds the correct container class to the dropdown list
             self.dropdownContainer.addClass(containerClass);
@@ -1728,7 +1741,9 @@
         _realOuterWidth: function(elem) {
 
             if(elem.is(":visible")) {
-                return;
+
+                return elem.outerWidth(true);
+
             }
 
             var self = this,

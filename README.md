@@ -73,22 +73,34 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 `3.4.0` - April 21, 2013
 
 **BREAKING CHANGES**
-jQuery 1.7+ is now required since all event handling has been upgraded to use the `on` method
+jQuery 1.7+ is now required
 
 **New Options**
+- `populated` - Convenience option that accepts JSON data, an array, a single object, or valid HTML string to add options to the drop down list
 - `selectedtext` - Allows the ability to change what is displayed in the collapsed dropdown when an item is selected.  [Issue #151](https://github.com/gfranko/jquery.selectBoxIt.js/pull/151)  **Special thanks to [freakingawesome](https://github.com/freakingawesome) for this new option.
+- `size` - Support the `size` attribute to determine the maximum number of visible drop down list options that should be shown.  Possible values include `auto` or a number > 1
+- Added the `data-preventclose` HTML5 data attribute to allow you to specify which option selections should not close the drop down
+
+**New Methods**
+
+- `add(data, callback)` - Adds drop down options using JSON data, an array, a single object, or valid HTML string
 
 **Bug Fixes**
 - Fixed hidden auto width bug [#149](https://github.com/gfranko/jquery.selectBoxIt.js/issues/149)
 - Fixed the `destroy()` method logic and am correctly reapplying the original select box `style` attribute
 - Optgroup class names are now properly carried over to the new drop down
+- Fixed the dynamically changing images bug [#157](https://github.com/gfranko/jquery.selectBoxIt.js/issues/157)
+- Fixed enabled/disabled `refresh()` bug [#144](https://github.com/gfranko/jquery.selectBoxIt.js/issues/144)
 
 **Improvements**
+- Improved event handling performance by switching to the jQuery `on()` method and adding event delegation instead of direct binding in a few places
 - Now triggering the `change` event when using the **defaultText** option [#146](https://github.com/gfranko/jquery.selectBoxIt.js/issues/146)
-- Improved the dynamic positioning logic
+- Improved the `dynamic positioning` logic
 - Improved the `wait()` logic
+- Each SelectBoxIt event handler now passes back the correct select box, select box option, drop down, and drop down option in the callback function
 - Removed the unneccessary `focus` and `hover` CSS pseudo classes being applied
 - Removed the unneccessary tagNames from the CSS default theme
+- Updated to Grunt v0.4
 
 `3.3.0` - March 19, 2013
 

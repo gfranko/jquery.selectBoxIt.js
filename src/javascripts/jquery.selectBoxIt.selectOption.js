@@ -16,7 +16,7 @@
         if(type === "number") {
 
             // Set's the original select box value and triggers the change event (which SelectBoxIt listens for)
-            self.selectBox.val(self.selectBox.find("option").eq(val).val()).change();
+            self.selectBox.val(self.selectItems.eq(val).val()).change();
 
         }
 

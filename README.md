@@ -92,14 +92,15 @@ jQuery 1.7+ is now required
 - Optgroup class names are now properly carried over to the new drop down
 - Fixed the dynamically changing images bug [#157](https://github.com/gfranko/jquery.selectBoxIt.js/issues/157)
 - Fixed enabled/disabled `refresh()` bug [#144](https://github.com/gfranko/jquery.selectBoxIt.js/issues/144)
+- Fixed the jQueryUI Dark Themes bug [#148](https://github.com/gfranko/jquery.selectBoxIt.js/issues/148)
 
 **Improvements**
 - Improved event handling performance by switching to the jQuery `on()` method and adding event delegation instead of direct binding in a few places
 - Now triggering the `change` event when using the **defaultText** option [#146](https://github.com/gfranko/jquery.selectBoxIt.js/issues/146)
-- Improved the `dynamic positioning` logic
-- Improved the `wait()` logic
-- Each SelectBoxIt event handler now passes back the correct select box, select box option, drop down, and drop down option in the callback function
-- Removed the unneccessary `focus` and `hover` CSS pseudo classes being applied
+- Improved the `dynamic positioning` logic to not set a `max-height` in unneccessary places
+- Improved the `wait()` logic to internally use the jQueryUI `delay()` method
+- Each SelectBoxIt event handler now passes back the correct select box, select box option, drop down, and drop down option in the callback function second parameter
+- Removed the unneccessary `focus` and `hover` CSS pseudo classes being applied in the default theme
 - Removed the unneccessary tagNames from the CSS default theme
 - Updated to Grunt v0.4
 

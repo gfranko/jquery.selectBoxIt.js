@@ -950,7 +950,7 @@
                 activeElem = self.listItems.eq(self.currentFocus);
 
             // If the drop down is being used and is visible
-            if((!isNative && !isMobile) && self.list.is(":visible") && activeElem.attr("data-disabled") === "false" && activeElem.attr("data-preventclose") !== "true") {
+            if((!isNative && !isMobile) && self.list.is(":visible") && activeElem.attr("data-preventclose") !== "true") {
 
                 // Triggers a custom "close" event on the original select box
                 self.triggerEvent("close");
@@ -1348,12 +1348,17 @@
 
                     self.triggerEvent("option-click");
 
-                    // Closes the drop down list
-                    self.close();
+                    // If the current drop down option is not disabled
+                    if ($(this).attr("data-disabled") === "false") {
+
+                        // Closes the drop down list
+                        self.close();
+
+                    }
 
                 },
 
-               // Delegates the `focus` event with the `selectBoxIt` namespace to the list items
+               // Delegates the `focusin` event with the `selectBoxIt` namespace to the list items
                "focusin.selectBoxIt": function() {
 
                     // Removes the hover class from the previous drop down option
@@ -1370,7 +1375,7 @@
                     }
 
                     // Adds the focus CSS class to the currently focused dropdown list option
-                   $(this).addClass(focusClass);
+                   $(this).add($(this).find(".selectboxit-option-anchor")).addClass(focusClass);
 
                 },
 
@@ -1383,8 +1388,13 @@
 
                         self.triggerEvent("option-mouseup");
 
-                        // Closes the drop down list
-                        self.close();
+                        // If the current drop down option is not disabled
+                        if ($(this).attr("data-disabled") === "false") {
+
+                            // Closes the drop down list
+                            self.close();
+
+                        }
 
                     }
 
@@ -1401,9 +1411,9 @@
                         $(this).addClass(focusClass).attr("data-active", "");
 
                         // Sets the dropdown list indropdownidual options back to the default state and sets the focus CSS class on the currently hovered option
-                        self.listItems.not($(this)).removeClass(focusClass);
+                        self.listItems.not($(this)).add(self.listAnchors.not($(this).find(".selectboxit-option-anchor"))).removeClass(focusClass);
 
-                        $(this).addClass(focusClass);
+                        $(this).add($(this).find(".selectboxit-option-anchor")).addClass(focusClass);
 
                         self.currentFocus = +$(this).attr("id");
 
@@ -1420,7 +1430,7 @@
                         // Removes the focus class from the previous drop down option
                         self.listItems.not($(this)).removeClass(focusClass).removeAttr("data-active");
 
-                        $(this).addClass(focusClass);
+                        $(this).add($(this).find(".selectboxit-option-anchor")).addClass(focusClass);
 
                         self.currentFocus = +$(this).attr("id");
 
@@ -1432,7 +1442,7 @@
                 "blur.selectBoxIt": function() {
 
                     // Removes the focus CSS class from the previously focused dropdown list option
-                    $(this).removeClass(focusClass);
+                    $(this).add($(this).find(".selectboxit-option-anchor")).removeClass(focusClass);
 
                 }
 
@@ -1540,9 +1550,9 @@
 
                     self.listItems.removeClass(self.selectedClass).
 
-                    removeAttr("data-active").not(activeElem).removeClass(focusClass);
+                    removeAttr("data-active").not(activeElem).add(self.listAnchors.not(activeElem.find('.selectboxit-option-anchor'))).removeClass(focusClass);
 
-                    activeElem.addClass(focusClass).addClass(self.selectedClass);
+                    activeElem.add(activeElem.find('.selectboxit-option-anchor')).addClass(focusClass).addClass(self.selectedClass);
 
                 },
 

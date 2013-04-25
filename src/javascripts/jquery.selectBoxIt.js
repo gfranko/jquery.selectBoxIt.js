@@ -1080,7 +1080,7 @@
                     // Updates the dropdown list value
                     self._update(activeElem);
 
-                    if ($(this).attr("data-disabled") === "false" && self.list.find("li." + self.focusClass).attr("data-preventclose") !== "true") {
+                    if ($(this).attr("data-disabled") === "false" && activeElem.attr("data-preventclose") !== "true") {
 
                         // Closes the drop down list options list
                         self.close();
@@ -1352,7 +1352,7 @@
                     self.triggerEvent("option-click");
 
                     // If the current drop down option is not disabled
-                    if ($(this).attr("data-disabled") === "false" && self.list.find("li." + self.focusClass).attr("data-preventclose") !== "true") {
+                    if ($(this).attr("data-disabled") === "false" && $(this).attr("data-preventclose") !== "true") {
 
                         // Closes the drop down list
                         self.close();
@@ -1392,7 +1392,7 @@
                         self.triggerEvent("option-mouseup");
 
                         // If the current drop down option is not disabled
-                        if ($(this).attr("data-disabled") === "false" && self.list.find("li." + self.focusClass).attr("data-preventclose") !== "true") {
+                        if ($(this).attr("data-disabled") === "false" && $(this).attr("data-preventclose") !== "true") {
 
                             // Closes the drop down list
                             self.close();

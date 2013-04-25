@@ -947,7 +947,7 @@
                 hideEffectOptions = self.options["hideEffectOptions"],
                 isNative = self.options["native"],
                 isMobile = self.options["isMobile"](),
-                activeElem = self.listItems.eq(self.currentFocus);
+                activeElem = self.list.find("li." + self.focusClass);
 
             // If the drop down is being used and is visible
             if((!isNative && !isMobile) && self.list.is(":visible") && activeElem.attr("data-preventclose") !== "true") {

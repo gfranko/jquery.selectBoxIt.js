@@ -1552,7 +1552,7 @@
 
                     removeAttr("data-active").not(activeElem).add(self.listAnchors.not(activeElem.find('.selectboxit-option-anchor'))).removeClass(focusClass);
 
-                    activeElem.add(activeElem.find('.selectboxit-option-anchor')).addClass(focusClass).addClass(self.selectedClass);
+                    activeElem.addClass(self.selectedClass).add(activeElem.find('.selectboxit-option-anchor')).addClass(focusClass);
 
                 },
 

@@ -34,9 +34,9 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
    - Easily extendable to allow developers to create new widgets
 
 ##Requirements
-jQuery 1.6.1+ (It is always recommended to use the latest version of jQuery)
+jQuery 1.7+ (It is always recommended to use the latest version of jQuery)
 
-jQueryUI Widget Factory 1.8.19+ (It is always recommended to use the latest version of the jQueryUI Widget Factory)
+jQueryUI Widget Factory 1.9.10+ (It is always recommended to use the latest version of the jQueryUI Widget Factory)
 
 ##Desktop Browser Support
 IE8+, Firefox 4+, Chrome, Safari 4+, Opera 11+ (Other browsers may work, but I did not test on them)
@@ -102,6 +102,7 @@ jQuery 1.7+ is now required
 - Each SelectBoxIt event handler now passes back the correct select box, select box option, drop down, and drop down option in the callback function second parameter
 - Removed the unneccessary `focus` and `hover` CSS pseudo classes being applied in the default theme
 - Removed the unneccessary tagNames from the CSS default theme
+- Added `silk` to the UA detection to help detect Amazon Kindle Fire devices
 - Updated to Grunt v0.4
 
 `3.3.0` - March 19, 2013

@@ -36,7 +36,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 ##Requirements
 jQuery 1.7+ (It is always recommended to use the latest version of jQuery)
 
-jQueryUI Widget Factory 1.9.10+ (It is always recommended to use the latest version of the jQueryUI Widget Factory)
+jQueryUI Widget Factory 1.10.0+ (It is always recommended to use the latest version of the jQueryUI Widget Factory)
 
 ##Desktop Browser Support
 IE8+, Firefox 4+, Chrome, Safari 4+, Opera 11+ (Other browsers may work, but I did not test on them)
@@ -74,6 +74,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 **BREAKING CHANGES**
 jQuery 1.7+ is now required
+jQueryUI Widget Factory 1.10.0+ is now required
 
 **New Options**
 - `populate` - Convenience option that accepts JSON data, an array, a single object, or valid HTML string to add options to the drop down list

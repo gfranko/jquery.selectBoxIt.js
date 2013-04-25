@@ -1080,7 +1080,7 @@
                     // Updates the dropdown list value
                     self._update(activeElem);
 
-                    if ($(this).attr("data-disabled") === "false" && activeElem.attr("data-preventclose") !== "true") {
+                    if (activeElem.attr("data-preventclose") !== "true") {
 
                         // Closes the drop down list options list
                         self.close();

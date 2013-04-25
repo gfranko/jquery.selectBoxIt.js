@@ -76,7 +76,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 jQuery 1.7+ is now required
 
 **New Options**
-- `populated` - Convenience option that accepts JSON data, an array, a single object, or valid HTML string to add options to the drop down list
+- `populate` - Convenience option that accepts JSON data, an array, a single object, or valid HTML string to add options to the drop down list
 - `selectedtext` - Allows the ability to change what is displayed in the collapsed dropdown when an item is selected.  [Issue #151](https://github.com/gfranko/jquery.selectBoxIt.js/pull/151)  **Special thanks to [freakingawesome](https://github.com/freakingawesome) for this new option.
 - `size` - Support the `size` attribute to determine the maximum number of visible drop down list options that should be shown.  Possible values include `auto` or a number > 1
 - Added the `data-preventclose` HTML5 data attribute to allow you to specify which option selections should not close the drop down
@@ -84,6 +84,7 @@ jQuery 1.7+ is now required
 **New Methods**
 
 - `add(data, callback)` - Adds drop down options using JSON data, an array, a single object, or valid HTML string
+- `remove(indexes, callback)` - Removes drop down list options using an index or array of indexes
 
 **Bug Fixes**
 - Fixed hidden auto width bug [#149](https://github.com/gfranko/jquery.selectBoxIt.js/issues/149)

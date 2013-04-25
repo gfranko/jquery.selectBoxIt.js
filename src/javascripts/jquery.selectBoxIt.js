@@ -252,7 +252,7 @@
             // The original select box DOM element wrapped in a jQuery object
             self.selectBox = self.element;
 
-            if(self.options["populate"] && self.add) {
+            if(self.options["populate"] && self.add && !internal) {
 
                 if($.isFunction(populateOption)) {
 
@@ -1680,7 +1680,7 @@
             var self = this;
 
             // Destroys the plugin and then recreates the plugin
-            self.destroy()._create(true)._callbackSupport(callback).triggerEvent("refresh");
+            self._destroySelectBoxIt()._create(true)._callbackSupport(callback).triggerEvent("refresh");
 
             //Maintains chainability
             return self;
@@ -1772,8 +1772,8 @@
     // Stores the plugin prototype object in a local variable
     var selectBoxIt = $.selectBox.selectBoxIt.prototype;
 
-    // Populate JSON Module
-    // ====================
+    // Add Options Module
+    // ==================
 
     // add
     // ---
@@ -1941,7 +1941,7 @@
             "aria-owns": self.list.attr("id"),
 
             // W3C `aria-activedescendant` description: This is used when a composite widget is responsible for managing its current active child to reduce the overhead of having all children be focusable. Examples include: multi-level lists, trees, and grids.
-            "aria-activedescendant": self.listItems.eq(self.currentFocus)[0].id,
+            "aria-activedescendant": self.listItems.eq(self.currentFocus).length ? self.listItems.eq(self.currentFocus)[0].id: "",
 
             // W3C `aria-label` description:  It provides the user with a recognizable name of the object.
             "aria-label": $("label[for='" + self.originalElem.id + "']").text() || "",
@@ -2917,6 +2917,89 @@ selectBoxIt._destroySelectBoxIt = function() {
 
             // Maintains chainability
             return this;
+
+    };
+
+    // Remove Options Module
+    // =====================
+
+    // remove
+    // ------
+    //    Removes drop down list options
+    //    using an index
+
+    selectBoxIt.remove = function(indexes, callback) {
+
+        var self = this,
+            dataType = $.type(indexes),
+            value,
+            x = 0,
+            dataLength,
+            elems = "";
+
+        // If an array is passed in
+        if(dataType === "array") {
+
+            // Loops through the array
+            for(x, dataLength = indexes.length; x <= dataLength - 1; x += 1) {
+
+                // Stores the currently traversed array item in the local `value` variable
+                value = indexes[x];
+
+                // If the currently traversed array item is an object literal
+                if($.type(value) === "number") {
+
+                    if(elems.length) {
+
+                        // Adds an element to the removal string
+                        elems += ", option:eq(" + value + ")";
+
+                    }
+
+                    else {
+
+                        // Adds an element to the removal string
+                        elems += "option:eq(" + value + ")";
+
+                    }
+
+                }
+
+            }
+
+            // Removes all of the appropriate options from the select box
+            self.selectBox.find(elems).remove();
+
+        }
+
+        // If a number is passed in
+        else if(dataType === "number") {
+
+            self.selectBox.find("option").eq(listOptions).remove();
+
+        }
+
+        // If anything besides a number or array is passed in
+        else {
+
+            // Removes all of the options from the original select box
+            self.selectBox.find("option").remove();
+
+        }
+
+        // If the dropdown property exists
+        if(self.dropdown) {
+
+            // Rebuilds the dropdown
+            self.refresh();
+
+        }
+
+        // Provide callback function support
+        self._callbackSupport(callback);
+
+        // Maintains chainability
+        return self;
 
     };
 

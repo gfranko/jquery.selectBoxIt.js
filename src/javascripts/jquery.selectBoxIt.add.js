@@ -1,6 +1,6 @@
 
-    // Populate JSON Module
-    // ====================
+    // Add Options Module
+    // ==================
 
     // add
     // ---

@@ -252,7 +252,7 @@
             // The original select box DOM element wrapped in a jQuery object
             self.selectBox = self.element;
 
-            if(self.options["populate"] && self.add) {
+            if(self.options["populate"] && self.add && !internal) {
 
                 if($.isFunction(populateOption)) {
 
@@ -1680,7 +1680,7 @@
             var self = this;
 
             // Destroys the plugin and then recreates the plugin
-            self.destroy()._create(true)._callbackSupport(callback).triggerEvent("refresh");
+            self._destroySelectBoxIt()._create(true)._callbackSupport(callback).triggerEvent("refresh");
 
             //Maintains chainability
             return self;

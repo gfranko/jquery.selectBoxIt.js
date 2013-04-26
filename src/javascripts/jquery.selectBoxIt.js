@@ -1806,7 +1806,7 @@
             parsedJSON = isJSON && self._parseJSON(data);
 
         // If the passed data is a local or JSON array
-        if(data && (dataType === "array" || (isJSON && parsedJSON.data && $.type(parsedJSON.data) === "array"))) {
+        if(data && (dataType === "array" || (isJSON && parsedJSON.data && $.type(parsedJSON.data) === "array")) || (dataType === "object" && data.data && $.type(data.data) === "array")) {
 
             // If the data is JSON
             if(self._isJSON(data)) {
@@ -1814,13 +1814,13 @@
                 // Parses the JSON and stores it in the data local variable
                 data = parsedJSON;
 
-                // If there is an inner `data` property stored in the first level of the JSON array
-                if(data.data) {
+            }
 
-                    // Set's the data to the inner `data` property
-                    data = data.data;
+            // If there is an inner `data` property stored in the first level of the JSON array
+            if(data.data) {
 
-                }
+                // Set's the data to the inner `data` property
+                data = data.data;
 
             }
 
@@ -1861,7 +1861,7 @@
 
         }
 
-        else if(data && $.isPlainObject(data)) {
+        else if(data && dataType === "object") {
 
             // Appends an option to the original select box (with the object configurations)
             self.selectBox.append($("<option/>", data));

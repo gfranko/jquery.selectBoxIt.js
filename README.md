@@ -70,7 +70,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
-`3.4.0` - April 21, 2013
+`3.4.0` - April 26, 2013
 
 **BREAKING CHANGES**
 jQuery 1.7+ is now required

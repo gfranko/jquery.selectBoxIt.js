@@ -1801,16 +1801,18 @@
             value,
             x = 0,
             dataLength,
-            elems = [];
+            elems = [],
+            isJSON = self._isJSON(data),
+            parsedJSON = isJSON && self._parseJSON(data);
 
         // If the passed data is a local or JSON array
-        if(data && (dataType === "array" || (self._isJSON(data) && $.type(self._parseJSON(data)) === "array"))) {
+        if(data && (dataType === "array" || (isJSON && parsedJSON.data && $.type(parsedJSON.data) === "array"))) {
 
             // If the data is JSON
             if(self._isJSON(data)) {
 
                 // Parses the JSON and stores it in the data local variable
-                data = self._parseJSON(data);
+                data = parsedJSON;
 
                 // If there is an inner `data` property stored in the first level of the JSON array
                 if(data.data) {

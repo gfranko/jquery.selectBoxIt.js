@@ -54,7 +54,7 @@
         // If a number is passed in
         else if(dataType === "number") {
 
-            self.selectBox.find("option").eq(listOptions).remove();
+            self.selectBox.find("option").eq(indexes).remove();
 
         }
 

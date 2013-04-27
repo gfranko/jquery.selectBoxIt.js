@@ -137,7 +137,7 @@
 <a class="addthis_button_compact"></a>
 <a class="addthis_counter addthis_bubble_style"></a>
 </div>
-<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=gfranko5"></script>
 <!-- AddThis Button END -->
           </div><!--/.nav-collapse -->
@@ -155,7 +155,7 @@
           <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" />
           <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" />
           <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" />
+          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.4.0/jquery.selectBoxIt.css" />
         </head>
         <body>
 
@@ -168,7 +168,7 @@
 
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
           <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.min.js"></script>
+          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.4.0/jquery.selectBoxIt.min.js"></script>
           <script>
             $(function() {
 
@@ -1100,8 +1100,110 @@
 
   });
               </pre>
-              <br />
-              <br />
+              <br>
+              <h3>Set Size</h3>
+              <br>
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test" size="3">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select class="test" size="3">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br><br><br><br><br><br>
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+  &lt;select id="test" name="test" size="3"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
+              </pre>
+              <br>
+              <h3>Custom Selected Text</h3>
+              <br>
+              <strong>Hint:</strong> Click the third option.
+              <br /><br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select class="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option data-selectedtext="This is custom text" value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br><br><br><br>
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option data-selectedtext="This is custom text" value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
+              </pre>
+              <br>
+              <h3>Prevent Closing</h3>
+              <br>
+              <strong>Hint:</strong> Clicking the last drop down option will not close the options list.  This is helpful when you want a second action to be triggered when clicking an option and you do not want the list to close.
+              <br /><br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select class="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget" data-preventclose="true">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br><br><br><br>
+              <h5>Example HTML Code</h5>
+              <pre class="prettyprint">
+  &lt;select id="test" name="test"&gt;
+    &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
+    &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
+    &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
+    &lt;option value="a Stateful UI Widget" data-preventclose="true"&gt;a Stateful UI Widget&lt;/option&gt;
+  &lt;/select&gt;
+              </pre>
+              <br>
               <h3>Aggressive Change Mode</h3>
               <br />
               <strong>Note:</strong> Aggressive Change Mode will select a drop down option (and trigger the change event on the original select box) when a user navigates to an option using the up and down arrow keys via the keyboard, or searches for an option using the keyboard.
@@ -1137,15 +1239,14 @@
 
   });
               </pre>
-              <br />
-              <br />
+              <br>
               <h3>Native Mousedown Mode</h3>
-              <br />
+              <br>
               <strong>Hint:</strong> Click and hold down your mouse, hover over a drop down option, and then release the mouse to select that option.
-              <br /><br />
+              <br><br>
               <div class="select">
                 Turns this
-                <br />
+                <br>
                 <select name="test">
                    <option value="SelectBoxIt is:">SelectBoxIt is:</option>
                    <option value="a jQuery Plugin">a jQuery Plugin</option>
@@ -1155,7 +1256,7 @@
               </div>
               <div class="select2">
                Into this
-                <br />
+                <br>
                 <select id="native-mousedown-mode">
                    <option value="SelectBoxIt is:">SelectBoxIt is:</option>
                    <option value="a jQuery Plugin">a jQuery Plugin</option>
@@ -1163,7 +1264,7 @@
                    <option value="a Stateful UI Widget">a Stateful UI Widget</option>
                 </select>
               </div>
-              <br /><br /><br />
+              <br><br><br>
               <h5>Example Code</h5>
               <pre class="prettyprint">
   // Calls the selectBoxIt method on your HTML select box
@@ -1174,15 +1275,316 @@
 
   });
               </pre>
-              <br />
-              <br />
-              <h3>Down Arrow Customization</h3>
-              <br />
-              <h4>Bootstrap Up/Down Arrow Support</h4>
-              <br />
+              <br>
+              <h3>Populate Options</h3>
+              <strong>Note:</strong> Accepts an array of objects, an array of strings, a single object, a JSON array, or a valid HTML string to add options to the drop down list.  The populate option can also be a function that returns an accepted data format.
+              <br><br>
+              <h4>Array of Objects</h4>
+              <br>
+              <strong>Hint:</strong> Each object property can use jQuery shortcuts (i.e. val instead of value)
+              <br><br>
               <div class="select">
                 Turns this
-                <br />
+                <br>
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select id="populateArrayOfObjects">
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Populates the drop down using an array of objects
+    populate: [
+      { value: "SelectBoxIt is:", text: "SelectBoxIt is:" },
+      { value: "a jQuery Plugin", text: "a jQuery Plugin" },
+      { value: "a Select Box Replacement", text: "a Select Box Replacement" },
+      { value: "a Stateful UI Widget", text: "a Stateful UI Widget" }
+    ]
+
+  });
+              </pre>
+              <br>
+              <h4>Array of Strings</h4>
+              <br>
+              <strong>Hint:</strong> Each string is used for both the value and text option properties
+              <br><br>
+              <div class="select">
+                Turns this
+                <br>
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select id="populateArrayOfStrings">
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Populates the drop down using an array of strings
+    populate: [
+      "SelectBoxIt is:",
+      "a jQuery Plugin",
+      "a Select Box Replacement",
+      "a Stateful UI Widget"
+    ]
+
+  });
+              </pre>
+              <br>
+              <h4>Single Object</h4>
+              <br>
+              <strong>Hint:</strong> This is helpful when only populating a drop down with one option.
+              <br><br>
+              <div class="select">
+                Turns this
+                <br>
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select id="populateSingleObject">
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Populates the drop down using an array of strings
+    populate: {
+      value: "SelectBoxIt is:",
+      text: "SelectBoxIt is:"
+    }
+
+  });
+              </pre>
+              <br>
+              <h4>JSON Array</h4>
+              <br>
+              <strong>Hint:</strong> This is helpful when populating a drop down with external JSON data from an ajax/jsonp/cors request.
+              <br><br>
+              <strong>IMPORTANT</strong>: You must use a property called <strong>data</strong>, since this is what SelectBoxIt expects. 
+              <br><br>
+              <div class="select">
+                Turns this
+                <br>
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select id="populateJSONArray">
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Populates the drop down using a JSON array
+    populate: {"data":[
+      {"text":"SelectBoxIt is:","value":"SelectBoxIt is:"},
+      {"text":"a jQuery Plugin","value":"a jQuery Plugin"},
+      {"text":"a Select Box Replacement","value":"a Select Box Replacement"},
+      {"text":"a Stateful UI Widget","value":"a Stateful UI Widget"}
+    ]}
+
+  });
+              </pre>
+              <br>
+              <h4>HTML String</h4>
+              <br>
+              <strong>Hint:</strong> This is the fastest way to dynamically build a drop down list.
+              <br><br>
+              <div class="select">
+                Turns this
+                <br>
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select id="populateHTMLString">
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Populates the drop down using a JSON array
+    populate: '&lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;' +
+    '&lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;' +
+    '&lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;' +
+    '&lt;option value="a Stateful UI Widget"&gt;a Stateful UI Widget&lt;/option&gt;'
+
+  });
+              </pre>
+              <br>
+              <h3>Dynamically Add Options</h4>
+              <br>
+              <strong>Hint:</strong> The <code>populate</code> option uses the <code>add()</code> method internally, which means that the <code>add()</code> method supports all of the same data formats (arrays, objects, JSON data, HTML string)
+              <br><br>
+              <div class="select">
+                Turns this
+                <br>
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select class="test" id="dynamicallyAddOptions">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+
+  // Calls selectBoxIt on your select box
+  $("select").selectBoxIt();
+
+  // Appends a drop down option to your drop down
+  $("select").data("selectBox-selectBoxIt").add({ value: "This is a new option", text: "This is a new option" });
+              </pre>
+              <br>
+              <h3>Dynamically Remove Options</h4>
+              <br>
+              <h4>Removing a Single Option</h4>
+              <br>
+              <div class="select">
+                Turns this
+                <br>
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select class="test" id="dynamicallyRemoveOption">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+
+  // Calls selectBoxIt on your select box
+  $("select").selectBoxIt();
+
+  // Removes the first drop down option from the list
+  $("select").data("selectBox-selectBoxIt").remove(0);
+              </pre>
+              <br>
+              <h4>Removing Multiple Options</h4>
+              <br>
+              <div class="select">
+                Turns this
+                <br>
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select class="test" id="dynamicallyRemoveOptions">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+
+  // Calls selectBoxIt on your select box
+  $("select").selectBoxIt();
+
+  // Removes the first and second drop down options from the list
+  $("select").data("selectBox-selectBoxIt").remove([0,1]);
+              </pre>
+              <br>
+              <h4>Removing All Options</h4>
+              <br>
+              <div class="select">
+                Turns this
+                <br>
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select class="test" id="dynamicallyRemoveAllOptions">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+
+  // Calls selectBoxIt on your select box
+  $("select").selectBoxIt();
+
+  // Removes all of the drop down options from the list
+  $("select").data("selectBox-selectBoxIt").remove();
+              </pre>
+              <br>
+              <h3>Down Arrow Customization</h3>
+              <br>
+              <h4>Bootstrap Up/Down Arrow Support</h4>
+              <br>
+              <div class="select">
+                Turns this
+                <br>
                 <select name="test">
                    <option value="SelectBoxIt is:">SelectBoxIt is:</option>
                    <option value="a jQuery Plugin">a jQuery Plugin</option>
@@ -1635,9 +2037,9 @@
               </pre>
               <h2>Requirements</h2>
               <br />
-              <p><a href="http://jquery.com" target="_blank">jQuery 1.6.1+</a> (It is always recommended to use the latest version of jQuery)
+              <p><a href="http://jquery.com" target="_blank">jQuery 1.7.0+</a> (It is always recommended to use the latest version of jQuery)
                 <br /><br />
-                <a href="http://jqueryui.com/download" target="_blank">jQueryUI Widget Factory 1.0.0+</a> (It is always recommended to use the latest version of the jQueryUI Widget Factory)
+                <a href="http://jqueryui.com/download" target="_blank">jQueryUI Widget Factory 1.10.0+</a> (It is always recommended to use the latest version of the jQueryUI Widget Factory)
               </p>
               <br />
               <h2>Optional Dependencies</h2>
@@ -1688,25 +2090,25 @@
               <br />
               <h4>SelectBoxIt CSS with Default Theme</h4>
               <pre class="prettyprint" style="font-size:12px;">
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.4.0/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br />
               <h4>SelectBoxIt with Twitter Bootstrap</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.4.0/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br /><br />
               <h4>SelectBoxIt with jQueryUI</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.4.0/jquery.selectBoxIt.css" /&gt;
               </pre>
 <br /><br />
               <h4>SelectBoxIt with jQuery Mobile</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.4.0/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br /><br />
 <h3>Include JavaScript files</h3>
@@ -1715,7 +2117,7 @@
               <pre class="prettyprint" style="font-size:12px;">
 &lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"&gt;&lt;/script&gt;
 &lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"&gt;&lt;/script&gt;
-&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.3.0/jquery.selectBoxIt.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.4.0/jquery.selectBoxIt.min.js"&gt;&lt;/script&gt;
               </pre>
               <br /><br />
               <p>
@@ -1981,6 +2383,12 @@
                   <td>true</td>
                   <td>true or false</td>
                 </tr>
+                <tr>
+                  <td class="optionName" title="populate" data-content="Convenience option that accepts JSON data, an array, a single object, or valid HTML string to add options to the drop down list.  This option can also be a method that returns any of the accepted data formats"><a href="#">populate</a></td>
+                  <td>JSON, Array, Object, or String</td>
+                  <td>""</td>
+                  <td>JSON, array, single object, or valid HTML string</td>
+                </tr>
               </table>
               <br />
               <h3>HTML5 Data Attribute Options</h3>
@@ -2016,6 +2424,24 @@
                 </tr>
                 <tr>
                   <td class="optionName" title="data-text" data-content="Specifies the custom text that you want to use for the dropdown list."><a href="#">data-text</a></td>
+                  <td>String</td>
+                  <td>" "</td>
+                  <td>Any text may be used</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="data-preventclose" data-content="Allows you to specify which option selections should not close the drop down"><a href="#">data-preventclose</a></td>
+                  <td>String</td>
+                  <td>" "</td>
+                  <td>"true" or "false"</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="data-selectedtext" data-content="Allows the ability to change what is displayed in the dropdown when an item is selected."><a href="#">data-selectedtext</a></td>
+                  <td>String</td>
+                  <td>" "</td>
+                  <td>Any text may be used</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="data-selectedtext" data-content="Allows the ability to change what is displayed in the dropdown when an item is selected."><a href="#">data-selectedtext</a></td>
                   <td>String</td>
                   <td>" "</td>
                   <td>Any text may be used</td>
@@ -2242,7 +2668,7 @@
   $(function() {
     // Uses the jQuery bind method to bind to the focus event on the dropdown list
     $("select#test").bind({
-      "focus": function() {
+      "focus": function(ev, obj) {
         // Do something when the focus event is triggered
       }
     });
@@ -2363,6 +2789,16 @@
                   <td>(Number index or String value), Function callback</td>
                   <td>The passed value can either be a number or a string.  If the value is a number, then SelectBoxIt will select the select box option by index.  If the value is a string, then SelectBoxIt will select the select box option that contains the string value.</td>
                 </tr>
+                <tr>
+                  <td>add</td>
+                  <td>data (JSON, Array, Object, or HTML string), Function callback</td>
+                  <td>Adds drop down options using JSON data, an array, a single object, or valid HTML string</td>
+                </tr>
+                <tr>
+                  <td>remove</td>
+                  <td>Number or Array indexes, Function callback</td>
+                  <td>Removes drop down list options using an index or array of indexes</td>
+                </tr>
               </table>
               <br />
               <p>The <strong>Method API</strong> allows you to programmatically interact with the dropdown list after it is created. All methods can be called individually or chained.
@@ -2409,10 +2845,10 @@
 
     // Note: This code assumes you have already called the selectBoxIt() method somewhere else in your code
     // Retrieves all of the SelectBoxIt methods
-    var selectBox = $("select#test").data("selectBox-selectBoxIt");
+    var select = $("select#test").data("selectBox-selectBoxIt");
 
-    // Opens the dropdown list for two seconds before closing the dropdown list
-    selectBox.open().wait(2000, function() { this.close() })
+    // Opens the dropdown list for one second before closing the dropdown list
+    select.wait(1000, select.open).wait(1000, select.close);
 
   });
               </pre>
@@ -2586,6 +3022,70 @@
             $("select.jqueryui-up-down-arrow").selectBoxIt({ theme: "jqueryui"});
 
             $("select.native-select").selectBoxIt({ "native": true });
+
+            $("select#populateArrayOfObjects").selectBoxIt({
+
+              // Populates the drop down using an array of objects
+              populate: [{ value: "SelectBoxIt is:", text: "SelectBoxIt is:" }, { value: "a jQuery Plugin", text: "a jQuery Plugin" }, { value: "a Select Box Replacement", text: "a Select Box Replacement" }, { value: "a Stateful UI Widget", text: "a Stateful UI Widget" }]
+
+            });
+
+            $("select#populateArrayOfStrings").selectBoxIt({
+
+              // Populates the drop down using an array of objects
+              populate: [
+                "SelectBoxIt is:",
+                "a jQuery Plugin",
+                "a Select Box Replacement",
+                "a Stateful UI Widget"
+              ]
+
+            });
+
+            // Calls the selectBoxIt method on your HTML select box
+            $("select#populateSingleObject").selectBoxIt({
+
+              // Populates the drop down using an array of strings
+              populate: {
+                value: "SelectBoxIt is:",
+                text: "SelectBoxIt is:"
+              }
+
+          });
+
+          // Calls the selectBoxIt method on your HTML select box
+          $("select#populateJSONArray").selectBoxIt({
+
+            // Populates the drop down using a JSON array
+            populate: {"data":[
+              {"text":"SelectBoxIt is:","value":"SelectBoxIt is:"},
+              {"text":"a jQuery Plugin","value":"a jQuery Plugin"},
+              {"text":"a Select Box Replacement","value":"a Select Box Replacement"},
+              {"text":"a Stateful UI Widget","value":"a Stateful UI Widget"}
+            ]}
+
+          });
+
+          // Calls the selectBoxIt method on your HTML select box
+          $("select#populateHTMLString").selectBoxIt({
+
+    // Populates the drop down using a JSON array
+    populate: '<option value="SelectBoxIt is:">SelectBoxIt is:</option>' +
+    '<option value="a jQuery Plugin">a jQuery Plugin</option>' +
+    '<option value="a Select Box Replacement">a Select Box Replacement</option>' +
+    '<option value="a Stateful UI Widget">a Stateful UI Widget</option>'
+          });
+
+          $("select#dynamicallyAddOptions").data("selectBox-selectBoxIt").add({ value: "This is a new option", text: "This is a new option" });
+
+          // Removes the first drop down option from the list
+          $("select#dynamicallyRemoveOption").data("selectBox-selectBoxIt").remove(0);
+
+          // Removes the first and second drop down options from the list
+          $("select#dynamicallyRemoveOptions").data("selectBox-selectBoxIt").remove([0,1]);
+
+          // Removes all drop down options from the list
+          $("select#dynamicallyRemoveAllOptions").data("selectBox-selectBoxIt").remove();
 
             $("[rel='popover']").popover({ trigger: "hover" });
 

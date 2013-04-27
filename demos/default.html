@@ -307,7 +307,7 @@
     </option>
   </select>
   <select name="test">
-    <option value="SelectBoxIt is:" data-icon="icon-search">SelectBoxIt is:</option>
+    <option value="0" data-icon="icon-search">0</option>
     <option value="a jQuery Plugin" data-icon="icon-ok">a jQuery Plugin</option>
     <option value="a Select Box Replacement" data-icon="icon-ok">a Select Box Replacement</option>
     <option value="a Stateful UI Widget" data-icon="icon-ok">a Stateful UI Widget</option>
@@ -338,7 +338,7 @@ jQuery(function($) {
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt();
+  $('select').selectBoxIt({ 'showEffect': 'slideDown' });
 
   //select.refresh();
 

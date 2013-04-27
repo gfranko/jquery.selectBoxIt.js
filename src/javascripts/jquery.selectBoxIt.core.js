@@ -31,7 +31,7 @@
         options: {
 
             // **showEffect**: Accepts String: "none", "fadeIn", "show", "slideDown", or any of the jQueryUI show effects (i.e. "bounce")
-            "showEffect": "none",
+            "showEffect": "show",
 
             // **showEffectOptions**: Accepts an object literal.  All of the available properties are based on the jqueryUI effect options
             "showEffectOptions": {},
@@ -888,26 +888,10 @@
                 }
 
                 // Uses the jQuery `show` special effect
-                else if(showEffect === "show") {
+                else if(showEffect === "show" || showEffect === "slideDown" || showEffect === "fadeIn") {
 
                     // Requires a callback function to determine when the `show` animation is complete
-                    self.list.show(showEffectSpeed);
-
-                }
-
-                // Uses the jQuery `slideDown` special effect
-                else if(showEffect === "slideDown") {
-
-                    // Requires a callback function to determine when the `slideDown` animation is complete
-                    self.list.slideDown(showEffectSpeed);
-
-                }
-
-                // Uses the jQuery `fadeIn` special effect
-                else if(showEffect === "fadeIn") {
-
-                    // Does not require a callback function because this animation will complete before the call to `scrollToView`
-                    self.list.fadeIn(showEffectSpeed);
+                    self.list[showEffect](showEffectSpeed);
 
                 }
 
@@ -963,23 +947,9 @@
                 }
 
                 // Uses the jQuery `hide` special effect
-                else if(hideEffect === "hide") {
+                else if(hideEffect === "hide" || hideEffect === "slideUp" || hideEffect === "fadeOut") {
 
-                    self.list.hide(hideEffectSpeed);
-
-                }
-
-                // Uses the jQuery `slideUp` special effect
-                else if(hideEffect === "slideUp") {
-
-                    self.list.slideUp(hideEffectSpeed);
-
-                }
-
-                // Uses the jQuery `fadeOut` special effect
-                else if(hideEffect === "fadeOut") {
-
-                    self.list.fadeOut(hideEffectSpeed);
+                    self.list[hideEffect](hideEffectSpeed);
 
                 }
 
@@ -1276,6 +1246,8 @@
                     // browser support since IE uses `keyCode` instead of `charCode`.
                     var currentKey = e.charCode || e.keyCode,
 
+                        key = self._keyMappings[e.charCode || e.keyCode],
+
                         // Converts unicode values to characters
                         alphaNumericKey = String.fromCharCode(currentKey);
 
@@ -1287,7 +1259,7 @@
 
                     }
 
-                    if(currentKey === 32) {
+                    if(key === "space") {
 
                         e.preventDefault();
 

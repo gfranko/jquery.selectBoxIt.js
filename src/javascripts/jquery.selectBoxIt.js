@@ -565,7 +565,7 @@
             });
 
             // If the `defaultText` option is being used
-            if ((self.options["defaultText"] || self.selectBox.attr("data-text")) && !self.selectBox.find("option[selected]").length) {
+            if ((self.options["defaultText"] || self.selectBox.attr("data-text"))) {
 
                 var defaultedText = self.options["defaultText"] || self.selectBox.attr("data-text");
 

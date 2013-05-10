@@ -79,6 +79,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 - Fixed Firefox Keyboard Navigation Bug [#160](https://github.com/gfranko/jquery.selectBoxIt.js/issues/160)
 - Fixed dynamic positioning bug: [#166](https://github.com/gfranko/jquery.selectBoxIt.js/issues/166)
 - Fixed enable/disable bug: [#163](https://github.com/gfranko/jquery.selectBoxIt.js/issues/163)
+- Fixed default text and selected bug: [#165](https://github.com/gfranko/jquery.selectBoxIt.js/issues/165)
 
 
 `3.4.0` - April 26, 2013

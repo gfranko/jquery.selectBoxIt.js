@@ -1246,7 +1246,7 @@
                         alphaNumericKey = String.fromCharCode(currentKey);
 
                     // If the plugin options allow text searches
-                    if (self.search) {
+                    if (self.search && (!key || (key && key === "space"))) {
 
                         // Calls `search` and passes the character value of the user's text search
                         self.search(alphaNumericKey, true, true);

@@ -1,4 +1,4 @@
-/* jquery SelectBoxIt - v3.4.0 - 2013-4-26
+/* jquery SelectBoxIt - v3.5.0 - 2013-4-26
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2013 Greg Franko; Licensed MIT */
 
@@ -31,7 +31,7 @@
         options: {
 
             // **showEffect**: Accepts String: "none", "fadeIn", "show", "slideDown", or any of the jQueryUI show effects (i.e. "bounce")
-            "showEffect": "show",
+            "showEffect": "none",
 
             // **showEffectOptions**: Accepts an object literal.  All of the available properties are based on the jqueryUI effect options
             "showEffectOptions": {},
@@ -117,7 +117,10 @@
             "html": true,
 
             // **populate**: Convenience option that accepts JSON data, an array, a single object, or valid HTML string to add options to the drop down list
-            "populate": ""
+            "populate": "",
+
+            // **dynamicPositioning**: Determines whether or not the drop down list should fit inside it's viewport
+            "dynamicPositioning": true
 
         },
 
@@ -298,7 +301,7 @@
             self.flipped = false;
 
             // If the create method is not called internally by the plugin
-            if(internal !== true) {
+            if(!internal) {
 
                 // Saves the original select box `style` attribute within the `selectBoxStyles` plugin instance property
                 self.selectBoxStyles = self.selectBox.attr("style");
@@ -710,16 +713,7 @@
 
             });
 
-            // If the drop down list should fit inside of the window
-            if(listSize === "auto") {
-
-                // Store the original `max-height` for later
-                self.maxHeight = self.list.css("max-height");
-
-            }
-
-            // If the drop down list should only show x amount of list options
-            else if($.type(listSize) === "number") {
+            if($.type(listSize) === "number") {
 
                 // Stores the new `max-height` for later
                 self.maxHeight = self.listAnchors.outerHeight(true) * listSize;
@@ -872,7 +866,7 @@
                 // Triggers a custom "open" event on the original select box
                 self.triggerEvent("open");
 
-                if (self._dynamicPositioning) {
+                if (self._dynamicPositioning && self.options["dynamicPositioning"]) {
 
                     // Dynamically positions the dropdown list options list
                     self._dynamicPositioning();

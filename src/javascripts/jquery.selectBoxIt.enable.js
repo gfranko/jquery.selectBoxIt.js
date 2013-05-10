@@ -27,7 +27,7 @@
             // Enables styling for enabled state
             addClass(self.theme["enabled"]);
 
-            self.widgetProto.enable.call(self);
+            self.setOption("disabled", false);
 
             // Provide callback function support
             self._callbackSupport(callback);

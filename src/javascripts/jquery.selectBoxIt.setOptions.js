@@ -12,7 +12,12 @@
         var self = this,
             firstOption = self.listItems.eq(0);
 
-        self.widgetProto._setOptions.apply(self, arguments);
+        // If the passed in parameter is an object literal
+        if($.isPlainObject(newOptions)) {
+
+            self.options = $.extend({}, self.options, newOptions);
+
+        }
 
         // If the `showFirstOption` option is true
         if (self.options["showFirstOption"]) {

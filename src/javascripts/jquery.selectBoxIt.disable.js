@@ -27,8 +27,7 @@
             // Enabled styling for disabled state
             addClass(self.theme["disabled"]);
 
-            // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
-           self.widgetProto.disable.call(self);
+            self.setOption("disabled", true);
 
             // Triggers a `disable` custom event on the original select box
             self.triggerEvent("disable");

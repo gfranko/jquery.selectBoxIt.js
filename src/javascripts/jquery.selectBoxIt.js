@@ -1,4 +1,4 @@
-/* jquery SelectBoxIt - v3.4.0 - 2013-4-26
+/* jquery SelectBoxIt - v3.5.0 - 2013-4-26
 * http://www.gregfranko.com/jQuery.selectBoxIt.js/
 * Copyright (c) 2013 Greg Franko; Licensed MIT */
 
@@ -31,7 +31,7 @@
         options: {
 
             // **showEffect**: Accepts String: "none", "fadeIn", "show", "slideDown", or any of the jQueryUI show effects (i.e. "bounce")
-            "showEffect": "show",
+            "showEffect": "none",
 
             // **showEffectOptions**: Accepts an object literal.  All of the available properties are based on the jqueryUI effect options
             "showEffectOptions": {},
@@ -117,7 +117,10 @@
             "html": true,
 
             // **populate**: Convenience option that accepts JSON data, an array, a single object, or valid HTML string to add options to the drop down list
-            "populate": ""
+            "populate": "",
+
+            // **dynamicPositioning**: Determines whether or not the drop down list should fit inside it's viewport
+            "dynamicPositioning": true
 
         },
 
@@ -298,7 +301,7 @@
             self.flipped = false;
 
             // If the create method is not called internally by the plugin
-            if(internal !== true) {
+            if(!internal) {
 
                 // Saves the original select box `style` attribute within the `selectBoxStyles` plugin instance property
                 self.selectBoxStyles = self.selectBox.attr("style");
@@ -710,16 +713,7 @@
 
             });
 
-            // If the drop down list should fit inside of the window
-            if(listSize === "auto") {
-
-                // Store the original `max-height` for later
-                self.maxHeight = self.list.css("max-height");
-
-            }
-
-            // If the drop down list should only show x amount of list options
-            else if($.type(listSize) === "number") {
+            if($.type(listSize) === "number") {
 
                 // Stores the new `max-height` for later
                 self.maxHeight = self.listAnchors.outerHeight(true) * listSize;
@@ -872,7 +866,7 @@
                 // Triggers a custom "open" event on the original select box
                 self.triggerEvent("open");
 
-                if (self._dynamicPositioning) {
+                if (self._dynamicPositioning && self.options["dynamicPositioning"]) {
 
                     // Dynamically positions the dropdown list options list
                     self._dynamicPositioning();
@@ -2168,8 +2162,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Enabled styling for disabled state
             addClass(self.theme["disabled"]);
 
-            // Calls the jQueryUI Widget Factory disable method to make sure all options are correctly synced
-           self.widgetProto.disable.call(self);
+            self.setOption("disabled", true);
 
             // Triggers a `disable` custom event on the original select box
             self.triggerEvent("disable");
@@ -2300,18 +2293,14 @@ selectBoxIt._destroySelectBoxIt = function() {
         // If the `size` option is not a number
         else {
 
-            var abs = Math.abs,
-
-                // Returns the x and y coordinates of the dropdown list options list relative to the document
-                listOffsetTop = self.dropdown.offset().top,
-
-                listPositionTop = self.dropdown.position().top,
+            // Returns the x and y coordinates of the dropdown list options list relative to the document
+            var listOffsetTop = self.dropdown.offset().top,
 
                 // The height of the dropdown list options list
-                listHeight = self.list.data("max-height") || self.list.outerHeight(true),
+                listHeight = self.list.data("max-height") || self.list.outerHeight(),
 
                 // The height of the dropdown list DOM element
-                selectBoxHeight = self.dropdown.outerHeight(true),
+                selectBoxHeight = self.dropdown.outerHeight(),
 
                 viewport = self.options["viewport"],
 
@@ -2319,47 +2308,42 @@ selectBoxIt._destroySelectBoxIt = function() {
 
                 viewportScrollTop = $.isWindow(viewport.get(0)) ? viewport.scrollTop() : viewport.offset().top,
 
-                topToBottom = listOffsetTop + selectBoxHeight + listHeight <= viewportHeight + viewportScrollTop,
+                topToBottom = (listOffsetTop + selectBoxHeight + listHeight <= viewportHeight + viewportScrollTop),
 
-                bottomReached = !topToBottom,
-
-                outsideBottomViewport,
-
-                outsideTopViewport;
+                bottomReached = !topToBottom;
 
             if(!self.list.data("max-height")) {
 
-                self.list.data("max-height", self.list.outerHeight(true));
+              self.list.data("max-height", self.list.outerHeight());
 
             }
 
             // If there is room on the bottom of the viewport to display the drop down options
             if (!bottomReached) {
 
-                // Set's the original max-height on the drop down list
-                self.list.css("max-height", self.maxHeight || "none");
+                self.list.css("max-height", listHeight);
 
                 // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
-               self.list.css("top", "auto");
+                self.list.css("top", "auto");
 
             }
 
-           // If there is room on the top of the viewport
-            else if((listOffsetTop - viewportScrollTop) >= listHeight) {
+            // If there is room on the top of the viewport
+            else if((self.dropdown.offset().top - viewportScrollTop) >= listHeight) {
 
                 self.list.css("max-height", listHeight);
 
                 // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
-                self.list.css("top", (listPositionTop - listHeight));
+                self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
             }
 
             // If there is not enough room on the top or the bottom
             else {
 
-                outsideBottomViewport = abs((listOffsetTop + selectBoxHeight + listHeight) - (viewportHeight + viewportScrollTop));
+                var outsideBottomViewport = Math.abs((listOffsetTop + selectBoxHeight + listHeight) - (viewportHeight + viewportScrollTop)),
 
-                outsideTopViewport = abs((listOffsetTop - viewportScrollTop) - listHeight);
+                    outsideTopViewport = Math.abs((self.dropdown.offset().top - viewportScrollTop) - listHeight);
 
                 // If there is more room on the bottom
                 if(outsideBottomViewport < outsideTopViewport) {
@@ -2371,12 +2355,12 @@ selectBoxIt._destroySelectBoxIt = function() {
                 }
 
                 // If there is more room on the top
-               else {
+                else {
 
                     self.list.css("max-height", listHeight - outsideTopViewport - (selectBoxHeight/2));
 
                     // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
-                    self.list.css("top", (listPositionTop - listHeight));
+                    self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
                 }
 
@@ -2417,7 +2401,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Enables styling for enabled state
             addClass(self.theme["enabled"]);
 
-            self.widgetProto.enable.call(self);
+            self.setOption("disabled", false);
 
             // Provide callback function support
             self._callbackSupport(callback);
@@ -3039,7 +3023,13 @@ selectBoxIt._destroySelectBoxIt = function() {
         var self = this,
             firstOption = self.listItems.eq(0);
 
-        self.widgetProto._setOption.apply(self, arguments);
+        //Makes sure a string is passed in
+        if($.type(key) === "string") {
+
+            // Sets the plugin option to the new value provided by the user
+            self.options[key] = value;
+
+        }
 
         // If a user sets the `showFirstOption` to false
         if (key === "showFirstOption" && !value) {
@@ -3098,7 +3088,12 @@ selectBoxIt._destroySelectBoxIt = function() {
         var self = this,
             firstOption = self.listItems.eq(0);
 
-        self.widgetProto._setOptions.apply(self, arguments);
+        // If the passed in parameter is an object literal
+        if($.isPlainObject(newOptions)) {
+
+            self.options = $.extend({}, self.options, newOptions);
+
+        }
 
         // If the `showFirstOption` option is true
         if (self.options["showFirstOption"]) {

@@ -12,7 +12,13 @@
         var self = this,
             firstOption = self.listItems.eq(0);
 
-        self.widgetProto._setOption.apply(self, arguments);
+        //Makes sure a string is passed in
+        if($.type(key) === "string") {
+
+            // Sets the plugin option to the new value provided by the user
+            self.options[key] = value;
+
+        }
 
         // If a user sets the `showFirstOption` to false
         if (key === "showFirstOption" && !value) {

@@ -70,6 +70,17 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`3.5.0` - May 10, 2013
+
+**New Options**
+- `dynamicPositioning` - Determines whether or not the drop down list should fit inside it's viewport.
+
+**Bug Fixes**
+- Fixed Firefox Keyboard Navigation Bug [#160](https://github.com/gfranko/jquery.selectBoxIt.js/issues/160)
+- Fixed dynamic positioning bug: [#166](https://github.com/gfranko/jquery.selectBoxIt.js/issues/166)
+- Fixed enable/disable bug: [#163](https://github.com/gfranko/jquery.selectBoxIt.js/issues/163)
+
+
 `3.4.0` - April 26, 2013
 
 **BREAKING CHANGES**

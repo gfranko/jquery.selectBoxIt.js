@@ -15,6 +15,26 @@
 </head>
 <body>
 <form>
+
+    <select name="project" style="display: none;"><option value="0"></option><option value="A Year in the Taiga">A Year in the Taiga</option>
+<option value="Entre Lobos">Entre Lobos</option>
+<option value="Fly Me to the Moon">Fly Me to the Moon</option>
+<option value="Heartbreaker">Heartbreaker</option>
+<option value="Hideous Man">Hideous Man</option>
+<option value="Neighbors">Neighbors</option>
+<option value="Redline">Redline</option>
+<option value="Restoring The Light">Restoring The Light</option>
+<option value="Ring of the Nibelungs">Ring of the Nibelungs</option>
+<option value="Scorpion King Rise of the Akkadian">Scorpion King Rise of the Akkadian</option>
+<option value="Starship Troopers Marauders">Starship Troopers Marauders</option>
+<option value="Stores From an Underclared War">Stores From an Underclared War</option>
+<option value="The Birthday Gift">The Birthday Gift</option>
+<option value="The Floating Shadow">The Floating Shadow</option>
+<option value="The Oranges">The Oranges</option>
+<option value="Veiled">Veiled</option>
+<option value="Virtual Studios Logo">Virtual Studios Logo</option>
+<option value="Waking Madison">Waking Madison</option>
+</select>
             <select name="test" rel="test" class="really" disabled>
                 <option value="">Select a Month</option>
                 <option data-selectedtext="SelectBoxIt is: a jQueryPlugin" value="January">January</option>
@@ -338,7 +358,7 @@ jQuery(function($) {
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt();
+  $('select').selectBoxIt({ defaultText: "test" });
 
   //select.refresh();
 

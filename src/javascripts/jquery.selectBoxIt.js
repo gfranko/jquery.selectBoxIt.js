@@ -2821,6 +2821,8 @@ selectBoxIt._destroySelectBoxIt = function() {
 
             "display": "block",
 
+            "visibility": "visible",
+
             "width": self.dropdown.outerWidth(),
 
             "height": self.dropdown.outerHeight(),

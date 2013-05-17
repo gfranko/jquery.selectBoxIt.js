@@ -1882,7 +1882,7 @@
               <h5>Example JavaScript Code</h5>
               <pre class="prettyprint">
   // Calls the Twitter Bootstrap popover method
-  $("[rel='popover']").popover({ trigger: "hover" });
+  $("[rel='popover']").popover({ trigger: "hover", container: "body" });
               </pre>
 <br /><br />
               <h3>Disabled Support</h3>
@@ -3087,7 +3087,7 @@
           // Removes all drop down options from the list
           $("select#dynamicallyRemoveAllOptions").data("selectBox-selectBoxIt").remove();
 
-            $("[rel='popover']").popover({ trigger: "hover" });
+            $("[rel='popover']").popover({ trigger: "hover", container: "body" });
 
               $("select.bootstrap-up-down-arrow").bind({
 

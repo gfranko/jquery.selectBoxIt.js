@@ -308,9 +308,6 @@
 
             }
 
-            // Hides the original select box
-            self.element.hide();
-
             // Creates the dropdown elements that will become the dropdown
             // Creates the ul element that will become the dropdown options list
             // Add's all attributes (excluding id, class names, and unselectable properties) to the drop down and drop down items list

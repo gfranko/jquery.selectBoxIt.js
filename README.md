@@ -34,7 +34,7 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
    - Easily extendable to allow developers to create new widgets
 
 ##Requirements
-jQuery 1.7+ (It is always recommended to use the latest version of jQuery)
+jQuery 1.8.3+ (It is always recommended to use the latest version of jQuery)
 
 jQueryUI Widget Factory 1.10.0+ (It is always recommended to use the latest version of the jQueryUI Widget Factory)
 
@@ -69,6 +69,28 @@ You'll find source code in the "src" subdirectory!
 If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the SelectBoxIt issue tracker, or fork SelectBoxIt on Github and easily extend SelectBoxIt to create your own widget!
 
 ##Change Log
+
+`3.6.0` - June 23, 2013
+
+**BREAKING CHANGES**
+- jQuery v1.8.3 or greater is now required.  The reason for the bump is a jQuery bug associated with passing an array of jQuery objects to the `append()` method.  [#175](https://github.com/gfranko/jquery.selectBoxIt.js/issues/175)
+
+- The `size` attribute is no longer supported.  You must now use the `data-size` attribute to specify size. [#170](https://github.com/gfranko/jquery.selectBoxIt.js/issues/170)
+
+**New Options**
+- `hideCurrent` - Hides the currently selected drop down option from the list. [#172](https://github.com/gfranko/jquery.selectBoxIt.js/issues/172)
+
+**New Methods**
+
+- `add(data, callback)` - Adds drop down options using JSON data, an array, a single object, or valid HTML string
+
+**Bug Fixes**
+- Fixed hidden auto width bug [#149](https://github.com/gfranko/jquery.selectBoxIt.js/issues/149)
+
+**Improvements**
+- Deferred objects/promises are now supported within the `populate` option and `add()` method.  This change makes it much easier to use the jQuery `ajax()` method to dynamically add options. [#171](https://github.com/gfranko/jquery.selectBoxIt.js/issues/171)
+- When using the `showFirstOption` option with mobile/tablet browsers, the first drop down option will now be disabled.  Since hiding a select box option is not in the W3C specification, it will not yet be supported. [#179](https://github.com/gfranko/jquery.selectBoxIt.js/issues/179)
+- On mobile, the `option-click` event is now triggered along with the change event [#184](https://github.com/gfranko/jquery.selectBoxIt.js/issues/184)
 
 `3.5.0` - May 10, 2013
 

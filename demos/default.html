@@ -298,7 +298,7 @@
 
             <select id="test2">
                 <option value="">Select a Month</option>
-                <option value="January" disabled>January</option>
+                <option value="January">January</option>
                 <option value="February">February</option>
                 <option value="March">March</option>
                 <option value="April">April</option>
@@ -345,9 +345,10 @@
     <option value="a Stateful UI Widget" data-preventclose="true">a Stateful UI Widget</option>
     </optgroup>
   </select>
+  <select name="" id="" data-size="3"></select>
 </form>
 
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <script src="../src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
@@ -358,7 +359,43 @@ jQuery(function($) {
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt();
+  $('select').selectBoxIt({ showFirstOption: false });
+
+  // $('select').last().selectBoxIt({
+  //   defaultText: "Greg Franko Repos",
+  //   populate: function() {
+  //       var deferred = $.Deferred(),
+  //           arr = [],
+  //           x = -1;
+  //       $.ajax({
+  //           url: 'https://api.github.com/users/gfranko/repos'
+  //       }).done(function(data) {
+  //           while(++x < data.length) {
+  //               arr.push(data[x].name);
+  //           }
+  //           //console.log('arr', arr);
+  //           deferred.resolve(arr);
+  //       });
+  //       return deferred;
+  //   }
+  // });
+
+  // $.ajax({
+  //   url: 'https://api.github.com/users/gfranko',
+  //   success: function(data) {
+  //       console.log('data', data);
+  //   }
+  // });
+
+  // $.ajax({
+  //   url: 'https://api.github.com/users/gfranko/repos'
+  // }).done(function(data) {
+  //   console.log('data', data);
+  // });
+
+  // $.get('https://api.github.com/users/gfranko/repos').done(function(data) {
+  //   console.log('data', data);
+  // });
 
   //select.refresh();
 

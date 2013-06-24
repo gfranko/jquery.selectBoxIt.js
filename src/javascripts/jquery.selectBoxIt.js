@@ -120,7 +120,10 @@
             "populate": "",
 
             // **dynamicPositioning**: Determines whether or not the drop down list should fit inside it's viewport
-            "dynamicPositioning": true
+            "dynamicPositioning": true,
+
+            // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
+            "hideCurrent": false
 
         },
 
@@ -229,6 +232,13 @@
 
         },
 
+        // isDeferred
+        // ----------
+        //      Checks if parameter is a defered object      
+        isDeferred: function(def) {
+            return $.isPlainObject(def) && def.promise && def.done;
+        },
+
         // _Create
         // -------
         //      Sets the Plugin Instance variables and
@@ -257,17 +267,7 @@
 
             if(self.options["populate"] && self.add && !internal) {
 
-                if($.isFunction(populateOption)) {
-
-                    self.add(populateOption.call());
-
-                }
-
-                else {
-
-                    self.add(populateOption);
-
-                }
+                self.add(populateOption);
 
             }
 
@@ -496,6 +496,9 @@
             // Checks the `showFirstOption` plugin option to determine if the first dropdown list option should be shown in the options list.
             if (!self.options["showFirstOption"]) {
 
+                // Disables the first select box option
+                self.selectItems.first().attr("disabled", "disabled");
+
                 // Excludes the first dropdown list option from the options list
                 self.selectItems = self.selectBox.find("option").slice(1);
 
@@ -613,7 +616,7 @@
             var self = this,
                 height,
                 originalElemId = self.originalElem.id || "",
-                size = self.selectBox.attr("size"),
+                size = self.selectBox.attr("data-size"),
                 listSize = self.listSize = size === undefined ? "auto" : size === "0" || "size" === "auto" ? "auto" : +size;
 
             // Hides the original select box
@@ -1305,7 +1308,7 @@
 
             });
 
-            // Select box indropdownidual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding indropdownidual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
+            // Select box individual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding indropdownidual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
             self.list.on({
 
                 "click.selectBoxIt": function() {
@@ -1414,6 +1417,18 @@
 
             }, ".selectboxit-option");
 
+            // Select box individual option anchor events bound with the jQuery `delegate` method.  `Delegate` was used because binding indropdownidual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
+            self.list.on({
+
+                "click.selectBoxIt": function(ev) {
+
+                    // Prevents the internal anchor tag from doing anything funny
+                    ev.preventDefault();
+
+                }
+
+            }, "a");
+
             // Original dropdown list events
             self.selectBox.on({
 
@@ -1519,6 +1534,14 @@
                     removeAttr("data-active").not(activeElem).add(self.listAnchors.not(activeElem.find('.selectboxit-option-anchor'))).removeClass(focusClass);
 
                     activeElem.addClass(self.selectedClass).add(activeElem.find('.selectboxit-option-anchor')).addClass(focusClass);
+
+                    if(self.options.hideCurrent) {
+
+                        self.listItems.show();
+
+                        activeElem.hide();
+
+                    }
 
                 },
 
@@ -1759,98 +1782,102 @@
 
     selectBoxIt.add = function(data, callback) {
 
-        var self = this,
-            dataType = $.type(data),
-            value,
-            x = 0,
-            dataLength,
-            elems = [],
-            isJSON = self._isJSON(data),
-            parsedJSON = isJSON && self._parseJSON(data);
+        this._populate(data, function(data) {
 
-        // If the passed data is a local or JSON array
-        if(data && (dataType === "array" || (isJSON && parsedJSON.data && $.type(parsedJSON.data) === "array")) || (dataType === "object" && data.data && $.type(data.data) === "array")) {
+            var self = this,
+                dataType = $.type(data),
+                value,
+                x = 0,
+                dataLength,
+                elems = [],
+                isJSON = self._isJSON(data),
+                parsedJSON = isJSON && self._parseJSON(data);
 
-            // If the data is JSON
-            if(self._isJSON(data)) {
+            // If the passed data is a local or JSON array
+            if(data && (dataType === "array" || (isJSON && parsedJSON.data && $.type(parsedJSON.data) === "array")) || (dataType === "object" && data.data && $.type(data.data) === "array")) {
 
-                // Parses the JSON and stores it in the data local variable
-                data = parsedJSON;
+                // If the data is JSON
+                if(self._isJSON(data)) {
 
-            }
-
-            // If there is an inner `data` property stored in the first level of the JSON array
-            if(data.data) {
-
-                // Set's the data to the inner `data` property
-                data = data.data;
-
-            }
-
-            // Loops through the array
-            for(x, dataLength = data.length; x <= dataLength - 1; x += 1) {
-
-                // Stores the currently traversed array item in the local `value` variable
-                value = data[x];
-
-                // If the currently traversed array item is an object literal
-                if($.isPlainObject(value)) {
-
-                    // Adds an option to the elems array
-                    elems.push($("<option/>", value));
+                    // Parses the JSON and stores it in the data local variable
+                    data = parsedJSON;
 
                 }
 
-                // If the currently traversed array item is a string
-                else if($.type(value) === "string") {
+                // If there is an inner `data` property stored in the first level of the JSON array
+                if(data.data) {
 
-                    // Adds an option to the elems array
-                    elems.push($("<option/>", { text: value, value: value }));
+                    // Set's the data to the inner `data` property
+                    data = data.data;
 
                 }
 
+                // Loops through the array
+                for(x, dataLength = data.length; x <= dataLength - 1; x += 1) {
+
+                    // Stores the currently traversed array item in the local `value` variable
+                    value = data[x];
+
+                    // If the currently traversed array item is an object literal
+                    if($.isPlainObject(value)) {
+
+                        // Adds an option to the elems array
+                        elems.push($("<option/>", value));
+
+                    }
+
+                    // If the currently traversed array item is a string
+                    else if($.type(value) === "string") {
+
+                        // Adds an option to the elems array
+                        elems.push($("<option/>", { text: value, value: value }));
+
+                    }
+
+                }
+
+                // Appends all options to the drop down (with the correct object configurations)
+                self.selectBox.append(elems);
+
             }
 
-            // Appends all options to the drop down (with the correct object configurations)
-            self.selectBox.append(elems);
+            // if the passed data is an html string and not a JSON string
+            else if(data && dataType === "string" && !self._isJSON(data)) {
 
-        }
+                // Appends the html string options to the original select box
+                self.selectBox.append(data);
 
-        // if the passed data is an html string and not a JSON string
-        else if(data && dataType === "string" && !self._isJSON(data)) {
+            }
 
-            // Appends the html string options to the original select box
-            self.selectBox.append(data);
+            else if(data && dataType === "object") {
 
-        }
+                // Appends an option to the original select box (with the object configurations)
+                self.selectBox.append($("<option/>", data));
 
-        else if(data && dataType === "object") {
+            }
 
-            // Appends an option to the original select box (with the object configurations)
-            self.selectBox.append($("<option/>", data));
+            else if(data && self._isJSON(data) && $.isPlainObject(self._parseJSON(data))) {
 
-        }
+                // Appends an option to the original select box (with the object configurations)
+                self.selectBox.append($("<option/>", self._parseJSON(data)));
 
-        else if(data && self._isJSON(data) && $.isPlainObject(self._parseJSON(data))) {
+            }
 
-            // Appends an option to the original select box (with the object configurations)
-            self.selectBox.append($("<option/>", self._parseJSON(data)));
+            // If the dropdown property exists
+            if(self.dropdown) {
 
-        }
+                // Rebuilds the dropdown
+                self.refresh();
 
-        // If the dropdown property exists
-        if(self.dropdown) {
+            }
 
-            // Rebuilds the dropdown
-            self.refresh();
+            // Provide callback function support
+            self._callbackSupport(callback);
 
-        }
+            // Maintains chainability
+            return self;
 
-        // Provide callback function support
-        self._callbackSupport(callback);
-
-        // Maintains chainability
-        return self;
+        });
 
     };
 
@@ -1883,6 +1910,38 @@
 
             // Invalid JSON
             return false;
+
+        }
+
+        // Maintains chainability
+        return self;
+
+    };
+
+    // _populate
+    // --------
+    //    Handles asynchronous and synchronous data
+    //    to populate the select box
+
+    selectBoxIt._populate = function(data, callback) {
+
+        var self = this;
+
+        data = $.isFunction(data) ? data.call() : data;
+
+        if(self.isDeferred(data)) {
+
+            data.done(function(returnedData) {
+
+                callback.call(self, returnedData);
+
+            });
+
+        }
+
+        else {
+
+            callback.call(self, data);
 
         }
 
@@ -2120,8 +2179,11 @@ selectBoxIt._destroySelectBoxIt = function() {
     // Remove all of the `selectBoxIt` DOM elements from the page
     self.dropdownContainer.remove();
 
+    // Resets the style attributes for the original select box
+    self.selectBox.removeAttr("style").attr("style", self.selectBoxStyles);
+
     // Shows the original dropdown list
-    self.selectBox.removeAttr("style").attr("style", self.selectBoxStyles).show();
+    self.selectBox.show();
 
     // Triggers the custom `destroy` event on the original select box
     self.triggerEvent("destroy");
@@ -2863,6 +2925,9 @@ selectBoxIt._destroySelectBoxIt = function() {
                    self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
 
                 }
+
+                // Triggers the `option-click` event on mobile
+                self.triggerEvent("option-click");
 
             }
 

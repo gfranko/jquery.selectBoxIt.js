@@ -65,6 +65,9 @@
 
                 }
 
+                // Triggers the `option-click` event on mobile
+                self.triggerEvent("option-click");
+
             }
 
         });
@@ -80,7 +83,7 @@
         // Stores the plugin context inside of the self variable
         var self = this;
 
-            if(self.options["isMobile"]()) {
+            if(self.isMobile) {
 
                 self._applyNativeSelect();
 

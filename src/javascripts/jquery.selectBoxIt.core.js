@@ -120,7 +120,10 @@
             "populate": "",
 
             // **dynamicPositioning**: Determines whether or not the drop down list should fit inside it's viewport
-            "dynamicPositioning": true
+            "dynamicPositioning": true,
+
+            // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
+            "hideCurrent": false
 
         },
 
@@ -229,6 +232,13 @@
 
         },
 
+        // isDeferred
+        // ----------
+        //      Checks if parameter is a defered object      
+        isDeferred: function(def) {
+            return $.isPlainObject(def) && def.promise && def.done;
+        },
+
         // _Create
         // -------
         //      Sets the Plugin Instance variables and
@@ -257,17 +267,7 @@
 
             if(self.options["populate"] && self.add && !internal) {
 
-                if($.isFunction(populateOption)) {
-
-                    self.add(populateOption.call());
-
-                }
-
-                else {
-
-                    self.add(populateOption);
-
-                }
+                self.add(populateOption);
 
             }
 
@@ -329,6 +329,8 @@
                 self._ariaAccessibility();
 
             }
+
+            self.isMobile = self.options["isMobile"]();
 
             if(self._mobile) {
 
@@ -496,6 +498,9 @@
             // Checks the `showFirstOption` plugin option to determine if the first dropdown list option should be shown in the options list.
             if (!self.options["showFirstOption"]) {
 
+                // Disables the first select box option
+                self.selectItems.first().attr("disabled", "disabled");
+
                 // Excludes the first dropdown list option from the options list
                 self.selectItems = self.selectBox.find("option").slice(1);
 
@@ -613,7 +618,7 @@
             var self = this,
                 height,
                 originalElemId = self.originalElem.id || "",
-                size = self.selectBox.attr("size"),
+                size = self.selectBox.attr("data-size"),
                 listSize = self.listSize = size === undefined ? "auto" : size === "0" || "size" === "auto" ? "auto" : +size;
 
             // Hides the original select box
@@ -848,7 +853,7 @@
                 showEffectSpeed = self.options["showEffectSpeed"],
                 showEffectOptions = self.options["showEffectOptions"],
                 isNative = self.options["native"],
-                isMobile = self.options["isMobile"]();
+                isMobile = self.isMobile;
 
             // If there are no select box options, do not try to open the select box
             if(!self.listItems.length || self.dropdown.hasClass(self.theme["disabled"])) {
@@ -921,7 +926,7 @@
                 hideEffectSpeed = self.options["hideEffectSpeed"],
                 hideEffectOptions = self.options["hideEffectOptions"],
                 isNative = self.options["native"],
-                isMobile = self.options["isMobile"]();
+                isMobile = self.isMobile;
 
             // If the drop down is being used and is visible
             if((!isNative && !isMobile) && self.list.is(":visible")) {
@@ -1305,7 +1310,7 @@
 
             });
 
-            // Select box indropdownidual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding indropdownidual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
+            // Select box individual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding indropdownidual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
             self.list.on({
 
                 "click.selectBoxIt": function() {
@@ -1414,6 +1419,18 @@
 
             }, ".selectboxit-option");
 
+            // Select box individual option anchor events bound with the jQuery `delegate` method.  `Delegate` was used because binding indropdownidual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
+            self.list.on({
+
+                "click.selectBoxIt": function(ev) {
+
+                    // Prevents the internal anchor tag from doing anything funny
+                    ev.preventDefault();
+
+                }
+
+            }, "a");
+
             // Original dropdown list events
             self.selectBox.on({
 
@@ -1519,6 +1536,14 @@
                     removeAttr("data-active").not(activeElem).add(self.listAnchors.not(activeElem.find('.selectboxit-option-anchor'))).removeClass(focusClass);
 
                     activeElem.addClass(self.selectedClass).add(activeElem.find('.selectboxit-option-anchor')).addClass(focusClass);
+
+                    if(self.options.hideCurrent) {
+
+                        self.listItems.show();
+
+                        activeElem.hide();
+
+                    }
 
                 },
 

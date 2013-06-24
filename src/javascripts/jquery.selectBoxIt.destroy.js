@@ -46,8 +46,11 @@ selectBoxIt._destroySelectBoxIt = function() {
     // Remove all of the `selectBoxIt` DOM elements from the page
     self.dropdownContainer.remove();
 
+    // Resets the style attributes for the original select box
+    self.selectBox.removeAttr("style").attr("style", self.selectBoxStyles);
+
     // Shows the original dropdown list
-    self.selectBox.removeAttr("style").attr("style", self.selectBoxStyles).show();
+    self.selectBox.show();
 
     // Triggers the custom `destroy` event on the original select box
     self.triggerEvent("destroy");

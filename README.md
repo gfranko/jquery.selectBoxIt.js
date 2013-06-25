@@ -75,24 +75,19 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 **BREAKING CHANGES**
 - jQuery v1.8.3 or greater is now required.  The reason for the bump is a jQuery bug associated with passing an array of jQuery objects to the `append()` method.  [#175](https://github.com/gfranko/jquery.selectBoxIt.js/issues/175)
 
-- The `size` attribute is no longer supported.  You must now use the `data-size` attribute to specify size. [#170](https://github.com/gfranko/jquery.selectBoxIt.js/issues/170)
+- The `size` attribute is no longer supported.  You must now use the `data-size` attribute to specify size.  The reason for the change is because when an HTML select box has a `size` attribute, you cannot retrieve the value of the select box (terrible) [#170](https://github.com/gfranko/jquery.selectBoxIt.js/issues/170)
 
 **New Options**
 - `hideCurrent` - Hides the currently selected drop down option from the list. [#172](https://github.com/gfranko/jquery.selectBoxIt.js/issues/172)
 
-**New Methods**
-
-- `add(data, callback)` - Adds drop down options using JSON data, an array, a single object, or valid HTML string
-
 **Bug Fixes**
-- Fixed hidden auto width bug [#149](https://github.com/gfranko/jquery.selectBoxIt.js/issues/149)
 - Prevent the `destroy` event from propagating to parent elements [#181](https://github.com/gfranko/jquery.selectBoxIt.js/issues/181)
 - Fixed an irritating bug that did not allow an option to be selected after the drop down was open and the page was scrolled
 
 **Improvements**
 - Deferred objects/promises are now supported within the `populate` option and `add()` method.  This change makes it much easier to use the jQuery `ajax()` method to dynamically add options. [#171](https://github.com/gfranko/jquery.selectBoxIt.js/issues/171)
 - When using the `showFirstOption` option with mobile/tablet browsers, the first drop down option will now be disabled.  Since hiding a select box option is not in the W3C specification, it will not yet be supported. [#179](https://github.com/gfranko/jquery.selectBoxIt.js/issues/179)
-- On mobile, the `option-click` event is now triggered along with the change event. [#184](https://github.com/gfranko/jquery.selectBoxIt.js/issues/184)
+- On mobile/tablet browsers, the `option-click` event is now triggered along with the change event. [#184](https://github.com/gfranko/jquery.selectBoxIt.js/issues/184)
 - Improved the `setOption()` and `setOptions()` methods to handle all option updates. [#185](https://github.com/gfranko/jquery.selectBoxIt.js/issues/185)
 
 `3.5.0` - May 10, 2013

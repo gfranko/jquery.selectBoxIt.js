@@ -155,7 +155,7 @@
           <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" />
           <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" />
           <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.5.0/jquery.selectBoxIt.css" />
+          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.css" />
         </head>
         <body>
 
@@ -168,7 +168,7 @@
 
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
           <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.5.0/jquery.selectBoxIt.min.js"></script>
+          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.min.js"></script>
           <script>
             $(function() {
 
@@ -1106,7 +1106,7 @@
               <div class="select">
                 Turns this
                 <br />
-                <select name="test" size="3">
+                <select name="test" data-size="3">
                    <option value="SelectBoxIt is:">SelectBoxIt is:</option>
                    <option value="a jQuery Plugin">a jQuery Plugin</option>
                    <option value="a Select Box Replacement">a Select Box Replacement</option>
@@ -1116,7 +1116,7 @@
               <div class="select2">
                Into this
                 <br>
-                <select class="test" size="3">
+                <select class="test" data-size="3">
                    <option value="SelectBoxIt is:">SelectBoxIt is:</option>
                    <option value="a jQuery Plugin">a jQuery Plugin</option>
                    <option value="a Select Box Replacement">a Select Box Replacement</option>
@@ -1126,7 +1126,7 @@
               <br><br><br><br><br><br>
               <h5>Example HTML Code</h5>
               <pre class="prettyprint">
-  &lt;select id="test" name="test" size="3"&gt;
+  &lt;select id="test" name="test" data-size="3"&gt;
     &lt;option value="SelectBoxIt is:"&gt;SelectBoxIt is:&lt;/option&gt;
     &lt;option value="a jQuery Plugin"&gt;a jQuery Plugin&lt;/option&gt;
     &lt;option value="a Select Box Replacement"&gt;a Select Box Replacement&lt;/option&gt;
@@ -1277,8 +1277,50 @@
               </pre>
               <br>
               <h3>Populate Options</h3>
-              <strong>Note:</strong> Accepts an array of objects, an array of strings, a single object, a JSON array, or a valid HTML string to add options to the drop down list.  The populate option can also be a function that returns an accepted data format.
+              <strong>Note:</strong> Accepts a jQuery <strong>Deferred/Promise Object</strong>, an array of objects, an array of strings, a single object, a JSON array, or a valid HTML string to add options to the drop down list.  The populate option can also be a function returns an accepted data format.
+              <br>
               <br><br>
+              <h4>jQuery Deferred Object</h4>
+              <br>
+              <strong>Hint:</strong> You must call the <strong>resolve()</strong> method and return an accepted data format.
+              <br><br>
+              <div class="select">
+                Turns this
+                <br>
+                <select name="test">
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br>
+                <select id="populateDeferredObject">
+                </select>
+              </div>
+              <br><br><br>
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+    defaultText: "Greg Franko Github Repos",
+    // Populates the drop down using a jQuery deferred object
+    populate: function() {
+        var deferred = $.Deferred(),
+            arr = [],
+            x = -1;
+        $.ajax({
+            url: 'https://api.github.com/users/gfranko/repos'
+        }).done(function(data) {
+            while(++x < data.length) {
+                arr.push(data[x].name);
+            }
+            deferred.resolve(arr);
+        });
+        return deferred;
+    }
+
+  });
+              </pre>
+              <br>
               <h4>Array of Objects</h4>
               <br>
               <strong>Hint:</strong> Each object property can use jQuery shortcuts (i.e. val instead of value)
@@ -2037,7 +2079,7 @@
               </pre>
               <h2>Requirements</h2>
               <br />
-              <p><a href="http://jquery.com" target="_blank">jQuery 1.7.0+</a> (It is always recommended to use the latest version of jQuery)
+              <p><a href="http://jquery.com" target="_blank">jQuery 1.8.3+</a> (It is always recommended to use the latest version of jQuery)
                 <br /><br />
                 <a href="http://jqueryui.com/download" target="_blank">jQueryUI Widget Factory 1.10.0+</a> (It is always recommended to use the latest version of the jQueryUI Widget Factory)
               </p>
@@ -2090,25 +2132,25 @@
               <br />
               <h4>SelectBoxIt CSS with Default Theme</h4>
               <pre class="prettyprint" style="font-size:12px;">
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.5.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br />
               <h4>SelectBoxIt with Twitter Bootstrap</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.5.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br /><br />
               <h4>SelectBoxIt with jQueryUI</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.5.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.css" /&gt;
               </pre>
 <br /><br />
               <h4>SelectBoxIt with jQuery Mobile</h4>
               <pre class="prettyprint" style="font-size:12px;">
 &lt;link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" /&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.5.0/jquery.selectBoxIt.css" /&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.css" /&gt;
               </pre>
               <br /><br />
 <h3>Include JavaScript files</h3>
@@ -2117,7 +2159,7 @@
               <pre class="prettyprint" style="font-size:12px;">
 &lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"&gt;&lt;/script&gt;
 &lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"&gt;&lt;/script&gt;
-&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.5.0/jquery.selectBoxIt.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.min.js"&gt;&lt;/script&gt;
               </pre>
               <br /><br />
               <p>
@@ -2393,6 +2435,12 @@
                   <td class="optionName" title="dynamicPositioning" data-content="Determines whether or not the drop down list should fit inside it's viewport"><a href="#">dynamicPositioning</a></td>
                   <td>Boolean</td>
                   <td>true</td>
+                  <td>true or false</td>
+                </tr>
+                <tr>
+                  <td class="optionName" title="hideCurrent" data-content="Determines whether or not the currently selected drop down option is hidden in the list"><a href="#">hideCurrent</a></td>
+                  <td>Boolean</td>
+                  <td>false</td>
                   <td>true or false</td>
                 </tr>
               </table>
@@ -3022,6 +3070,26 @@
             $("select.jqueryui-up-down-arrow").selectBoxIt({ theme: "jqueryui"});
 
             $("select.native-select").selectBoxIt({ "native": true });
+
+            $("select#populateDeferredObject").selectBoxIt({
+              defaultText: "Greg Franko Github Repos",
+              // Populates the drop down using a jQuery deferred object
+              populate: function() {
+                  var deferred = $.Deferred(),
+                      arr = [],
+                      x = -1;
+                  $.ajax({
+                      url: 'https://api.github.com/users/gfranko/repos'
+                  }).done(function(data) {
+                      while(++x < data.length) {
+                          arr.push(data[x].name);
+                      }
+                      deferred.resolve(arr);
+                  });
+                  return deferred;
+              }
+
+            });
 
             $("select#populateArrayOfObjects").selectBoxIt({
 

@@ -449,12 +449,6 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         });
 
-        it("should remove the 'tabindex' html attribute from the select box", function() {
-
-            expect(selectBoxIt1.dropdown).not.toHaveAttr("tabindex");
-
-        });
-
     });
 
     describe("disableOption()", function() {
@@ -588,22 +582,6 @@ describe('selectBoxIt jQuery Plugin', function () {
         it("should set the default icon if the HTML5 data-icon is specified", function() {
 
             expect(selectBoxIt1.dropdownImage).toHaveClass("ui-icon ui-icon-power");
-
-        });
-
-        it("should set the default icon if the defaultIcon option is set using setOption()", function() {
-
-            selectBoxIt1.setOption("defaultIcon", "ui-icon ui-icon-info");
-
-            expect(selectBoxIt1.dropdownImage).toHaveClass("ui-icon ui-icon-info");
-
-        });
-
-        it("should set the default icon if the defaultIcon option is set using setOptions()", function() {
-
-            selectBoxIt1.setOptions({ defaultIcon: "ui-icon ui-icon-info" });
-
-            expect(selectBoxIt1.dropdownImage).toHaveClass("ui-icon ui-icon-info");
 
         });
 

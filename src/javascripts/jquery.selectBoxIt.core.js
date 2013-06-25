@@ -1506,19 +1506,8 @@
                     // If no current element can be found, then select the first drop down option
                     if(!currentElem.length) {
 
-                        // If the first select box option is disabled, and the user has chosen to not show the first select box option
-                        if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass(self.theme["disabled"])) {
-
-                            // Sets the default value of the dropdown list to the first option that is not disabled
-                            currentElem = self.listItems.not("[data-disabled=true]").first();
-
-                        }
-
-                        else {
-
-                            currentElem = self.listItems.first();
-
-                        }
+                        // Sets the default value of the dropdown list to the first option that is not disabled
+                        currentElem = self.listItems.not("[data-disabled=true]").first();
 
                     }
 
@@ -1574,6 +1563,14 @@
 
                     // Removes the hover CSS class on the previously hovered dropdown list option
                     self.dropdown.removeClass(hoverClass);
+
+                },
+
+                // `destroy` event
+                "destroy": function(ev) {
+
+                    // Prevents the destroy event from propagating
+                    ev.stopPropagation();
 
                 }
 
@@ -1676,12 +1673,18 @@
         // Refresh
         // -------
         //    The dropdown will rebuild itself.  Useful for dynamic content.
-        refresh: function(callback) {
+        refresh: function(callback, internal) {
 
             var self = this;
 
             // Destroys the plugin and then recreates the plugin
-            self._destroySelectBoxIt()._create(true)._callbackSupport(callback).triggerEvent("refresh");
+            self._destroySelectBoxIt()._create(true);
+
+            if(!internal) {
+                self.triggerEvent("refresh");
+            }
+
+            self._callbackSupport(callback);
 
             //Maintains chainability
             return self;

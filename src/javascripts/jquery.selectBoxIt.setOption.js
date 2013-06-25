@@ -9,8 +9,7 @@
 
     selectBoxIt.setOption = function(key, value, callback) {
 
-        var self = this,
-            firstOption = self.listItems.eq(0);
+        var self = this;
 
         //Makes sure a string is passed in
         if($.type(key) === "string") {
@@ -20,44 +19,13 @@
 
         }
 
-        // If a user sets the `showFirstOption` to false
-        if (key === "showFirstOption" && !value) {
+        // Rebuilds the dropdown
+        self.refresh(function() {
 
-            // Hides the first option in the dropdown list
-            firstOption.hide();
+            // Provide callback function support
+            self._callbackSupport(callback);
 
-        }
-
-        // If a user sets the `showFirstOption` to true
-        else if (key === "showFirstOption" && value) {
-
-            // Shows the first option in the dropdown list
-            firstOption.show();
-
-        }
-
-        else if(key === "defaultIcon" && value) {
-
-            self.dropdownImage.attr("class", value + " selectboxit-arrow");
-
-        }
-
-        else if(key === "downArrowIcon" && value) {
-
-            self.downArrow.attr("class", value + " selectboxit-arrow");
-
-        }
-
-        // If a user sets the defaultText option
-        else if (key === "defaultText") {
-
-            // Sets the new dropdown list default text
-            self._setText(self.dropdownText, value);
-
-        }
-
-        // Provides callback function support
-        self._callbackSupport(callback);
+        }, true);
 
         // Maintains chainability
         return self;

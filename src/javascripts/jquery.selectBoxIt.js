@@ -330,6 +330,8 @@
 
             }
 
+            self.isMobile = self.options["isMobile"]();
+
             if(self._mobile) {
 
                 // Adds mobile support
@@ -851,7 +853,7 @@
                 showEffectSpeed = self.options["showEffectSpeed"],
                 showEffectOptions = self.options["showEffectOptions"],
                 isNative = self.options["native"],
-                isMobile = self.options["isMobile"]();
+                isMobile = self.isMobile;
 
             // If there are no select box options, do not try to open the select box
             if(!self.listItems.length || self.dropdown.hasClass(self.theme["disabled"])) {
@@ -924,7 +926,7 @@
                 hideEffectSpeed = self.options["hideEffectSpeed"],
                 hideEffectOptions = self.options["hideEffectOptions"],
                 isNative = self.options["native"],
-                isMobile = self.options["isMobile"]();
+                isMobile = self.isMobile;
 
             // If the drop down is being used and is visible
             if((!isNative && !isMobile) && self.list.is(":visible")) {
@@ -1504,19 +1506,8 @@
                     // If no current element can be found, then select the first drop down option
                     if(!currentElem.length) {
 
-                        // If the first select box option is disabled, and the user has chosen to not show the first select box option
-                        if (self.currentFocus === 0 && !self.options["showFirstOption"] && self.listItems.eq(0).hasClass(self.theme["disabled"])) {
-
-                            // Sets the default value of the dropdown list to the first option that is not disabled
-                            currentElem = self.listItems.not("[data-disabled=true]").first();
-
-                        }
-
-                        else {
-
-                            currentElem = self.listItems.first();
-
-                        }
+                        // Sets the default value of the dropdown list to the first option that is not disabled
+                        currentElem = self.listItems.not("[data-disabled=true]").first();
 
                     }
 
@@ -1572,6 +1563,14 @@
 
                     // Removes the hover CSS class on the previously hovered dropdown list option
                     self.dropdown.removeClass(hoverClass);
+
+                },
+
+                // `destroy` event
+                "destroy": function(ev) {
+
+                    // Prevents the destroy event from propagating
+                    ev.stopPropagation();
 
                 }
 
@@ -1674,12 +1673,18 @@
         // Refresh
         // -------
         //    The dropdown will rebuild itself.  Useful for dynamic content.
-        refresh: function(callback) {
+        refresh: function(callback, internal) {
 
             var self = this;
 
             // Destroys the plugin and then recreates the plugin
-            self._destroySelectBoxIt()._create(true)._callbackSupport(callback).triggerEvent("refresh");
+            self._destroySelectBoxIt()._create(true);
+
+            if(!internal) {
+                self.triggerEvent("refresh");
+            }
+
+            self._callbackSupport(callback);
 
             //Maintains chainability
             return self;
@@ -1867,12 +1872,19 @@
             if(self.dropdown) {
 
                 // Rebuilds the dropdown
-                self.refresh();
+                self.refresh(function() {
+
+                    // Provide callback function support
+                    self._callbackSupport(callback);
+
+                }, true);
+
+            } else {
+
+                // Provide callback function support
+                self._callbackSupport(callback);
 
             }
-
-            // Provide callback function support
-            self._callbackSupport(callback);
 
             // Maintains chainability
             return self;
@@ -2944,7 +2956,7 @@ selectBoxIt._destroySelectBoxIt = function() {
         // Stores the plugin context inside of the self variable
         var self = this;
 
-            if(self.options["isMobile"]()) {
+            if(self.isMobile) {
 
                 self._applyNativeSelect();
 
@@ -3026,12 +3038,19 @@ selectBoxIt._destroySelectBoxIt = function() {
         if(self.dropdown) {
 
             // Rebuilds the dropdown
-            self.refresh();
+            self.refresh(function() {
+
+                // Provide callback function support
+                self._callbackSupport(callback);
+
+            }, true);
+
+        } else {
+
+            // Provide callback function support
+            self._callbackSupport(callback);
 
         }
-
-        // Provide callback function support
-        self._callbackSupport(callback);
 
         // Maintains chainability
         return self;
@@ -3084,8 +3103,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
     selectBoxIt.setOption = function(key, value, callback) {
 
-        var self = this,
-            firstOption = self.listItems.eq(0);
+        var self = this;
 
         //Makes sure a string is passed in
         if($.type(key) === "string") {
@@ -3095,44 +3113,13 @@ selectBoxIt._destroySelectBoxIt = function() {
 
         }
 
-        // If a user sets the `showFirstOption` to false
-        if (key === "showFirstOption" && !value) {
+        // Rebuilds the dropdown
+        self.refresh(function() {
 
-            // Hides the first option in the dropdown list
-            firstOption.hide();
+            // Provide callback function support
+            self._callbackSupport(callback);
 
-        }
-
-        // If a user sets the `showFirstOption` to true
-        else if (key === "showFirstOption" && value) {
-
-            // Shows the first option in the dropdown list
-            firstOption.show();
-
-        }
-
-        else if(key === "defaultIcon" && value) {
-
-            self.dropdownImage.attr("class", value + " selectboxit-arrow");
-
-        }
-
-        else if(key === "downArrowIcon" && value) {
-
-            self.downArrow.attr("class", value + " selectboxit-arrow");
-
-        }
-
-        // If a user sets the defaultText option
-        else if (key === "defaultText") {
-
-            // Sets the new dropdown list default text
-            self._setText(self.dropdownText, value);
-
-        }
-
-        // Provides callback function support
-        self._callbackSupport(callback);
+        }, true);
 
         // Maintains chainability
         return self;
@@ -3149,8 +3136,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
     selectBoxIt.setOptions = function(newOptions, callback) {
 
-        var self = this,
-            firstOption = self.listItems.eq(0);
+        var self = this;
 
         // If the passed in parameter is an object literal
         if($.isPlainObject(newOptions)) {
@@ -3159,43 +3145,13 @@ selectBoxIt._destroySelectBoxIt = function() {
 
         }
 
-        // If the `showFirstOption` option is true
-        if (self.options["showFirstOption"]) {
+        // Rebuilds the dropdown
+        self.refresh(function() {
 
-            // Shows the first option in the dropdown list
-            firstOption.show();
+            // Provide callback function support
+            self._callbackSupport(callback);
 
-        }
-
-        // If the `showFirstOption` option is false
-        else {
-
-            // Hides the first option in the dropdown list
-            firstOption.hide();
-
-        }
-
-        if(self.options["defaultIcon"]) {
-
-            self.dropdownImage.attr("class", self.options["defaultIcon"] + " selectboxit-arrow");
-
-        }
-
-        if(self.options["downArrowIcon"]) {
-
-            self.downArrow.attr("class", self.options["downArrowIcon"] + " selectboxit-arrow");
-
-        }
-
-        // If the defaultText option is set, make sure the dropdown list default text reflects this value
-        if (self.options["defaultText"]) {
-
-            self._setText(self.dropdownText, self.options["defaultText"]);
-
-        }
-
-        // Provide callback function support
-        self._callbackSupport(callback);
+        }, true);
 
         // Maintains chainability
         return self;

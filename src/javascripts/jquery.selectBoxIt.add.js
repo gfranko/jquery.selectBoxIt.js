@@ -95,12 +95,19 @@
             if(self.dropdown) {
 
                 // Rebuilds the dropdown
-                self.refresh();
+                self.refresh(function() {
+
+                    // Provide callback function support
+                    self._callbackSupport(callback);
+
+                }, true);
+
+            } else {
+
+                // Provide callback function support
+                self._callbackSupport(callback);
 
             }
-
-            // Provide callback function support
-            self._callbackSupport(callback);
 
             // Maintains chainability
             return self;

@@ -1,6 +1,6 @@
-/* jquery SelectBoxIt - v3.5.0 - 2013-5-10
-* http://www.gregfranko.com/jQuery.selectBoxIt.js/
-* Copyright (c) 2013 Greg Franko; Licensed MIT */
+/*! jquery.selectBoxIt - v3.6.0 - 2013-06-25 
+* http://www.selectboxit.com
+* Copyright (c) 2013 Greg Franko; Licensed MIT*/
 
 // Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
 

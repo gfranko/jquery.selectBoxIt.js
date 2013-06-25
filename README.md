@@ -87,6 +87,7 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 **Bug Fixes**
 - Fixed hidden auto width bug [#149](https://github.com/gfranko/jquery.selectBoxIt.js/issues/149)
 - Prevent the `destroy` event from propagating to parent elements [#181](https://github.com/gfranko/jquery.selectBoxIt.js/issues/181)
+- Fixed an irritating bug that did not allow an option to be selected after the drop down was open and the page was scrolled
 
 **Improvements**
 - Deferred objects/promises are now supported within the `populate` option and `add()` method.  This change makes it much easier to use the jQuery `ajax()` method to dynamically add options. [#171](https://github.com/gfranko/jquery.selectBoxIt.js/issues/171)

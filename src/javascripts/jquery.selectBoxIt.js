@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.5.0",
+        VERSION: "3.6.0",
 
         // These options will be used as defaults
         options: {
@@ -1299,13 +1299,6 @@
                     // Allows the dropdown list options list to close
                     self.blur = true;
 
-                },
-
-                // `focusin` event with the `selectBoxIt` namespace
-                "focusin.selectBoxIt": function() {
-
-                    // Prevents the default browser outline border to flicker, which results because of the `blur` event
-                    self.dropdown.trigger("focus", true);
                 }
 
             });

@@ -515,6 +515,40 @@
   });
               </pre>
               <br />
+              <h3>Hide the Currently Selected Option</h3>
+              <br />
+              <div class="select">
+                Turns this
+                <br />
+                <select name="test">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <div class="select2">
+               Into this
+                <br />
+                <select id="hide-current-option">
+                   <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+                   <option value="a jQuery Plugin">a jQuery Plugin</option>
+                   <option value="a Select Box Replacement">a Select Box Replacement</option>
+                   <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+                </select>
+              </div>
+              <br /><br /><br />
+              <h5>Example Code</h5>
+              <pre class="prettyprint">
+  // Calls the selectBoxIt method on your HTML select box
+  $("select").selectBoxIt({
+
+    // Hides the currently selected option from appearing when the drop down is opened
+    hideCurrent: true
+
+  });
+              </pre>
+              <br />
               <h3>Long Lists</h3>
               <br />
               <div class="select">
@@ -3064,6 +3098,7 @@
             $("select#aggressive-change-mode").selectBoxIt({ aggressiveChange: true });
             $("select#native-mousedown-mode").selectBoxIt({ nativeMousedown: true });
             $("#hide-first-option").selectBoxIt({ showFirstOption: false });
+            $("#hide-current-option").selectBoxIt({ hideCurrent: true });
             $("#set-default-text").selectBoxIt({ defaultText: "Sample text here" });
             $("select#test-jquery").selectBoxIt({ showEffect: "fadeIn", showEffectSpeed: 400, hideEffect: "fadeOut", hideEffectSpeed: 400 });
             $("select#test-jqueryui").selectBoxIt({ showEffect: "shake", showEffectSpeed: "slow", showEffectOptions: {times: 1}, hideEffect: "explode" });

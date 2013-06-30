@@ -1562,6 +1562,9 @@
                 // `destroy` event
                 "destroy": function(ev) {
 
+                    // Prevents the default action from happening
+                    ev.preventDefault();
+
                     // Prevents the destroy event from propagating
                     ev.stopPropagation();
 

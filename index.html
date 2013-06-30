@@ -1,7 +1,7 @@
 <!doctype html>
 <head>
   <meta charset="utf-8">
-  <link type="text/css" rel="stylesheet" href="../src/stylesheets/jquery.selectBoxIt.css" />
+  <link type="text/css" rel="stylesheet" href="./src/stylesheets/jquery.selectBoxIt.css" />
   <link type="text/css" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
   <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/ui-darkness/jquery-ui.css" />
   <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
@@ -346,11 +346,18 @@
     </optgroup>
   </select>
   <select name="" id="" data-size="3"></select>
+  <select name="dm_status_id" id="dm_status_id" size="1">
+    <option value="">Any DM Status</option>
+    <option value="1">DM-Approved</option>
+    <option value="2">DM-Denied</option>
+    <option value="3">DM-Dealer Action Required</option>
+    <option value="8">DM-Pending</option>
+  </select>
 </form>
 
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-<script src="../src/javascripts/jquery.selectBoxIt.js"></script>
+<script src="./src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
 jQuery(function($) {
 /*

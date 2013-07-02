@@ -1,6 +1,6 @@
-/* jquery SelectBoxIt - v3.5.0 - 2013-5-10
-* http://www.gregfranko.com/jQuery.selectBoxIt.js/
-* Copyright (c) 2013 Greg Franko; Licensed MIT */
+/*! jquery.selectBoxIt - v3.6.0 - 2013-06-25 
+* http://www.selectboxit.com
+* Copyright (c) 2013 Greg Franko; Licensed MIT*/
 
 // Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
 
@@ -587,9 +587,9 @@
             self.dropdownContainer.append(self.list);
 
             // Stores the individual dropdown list options inside of the `listItems` instance variable
-            self.listItems = self.list.find("li");
+            self.listItems = self.list.children('li');
 
-            self.listAnchors = self.list.find("a");
+            self.listAnchors = self.list.children("a");
 
             // Sets the 'selectboxit-option-first' class name on the first drop down option
             self.listItems.first().addClass("selectboxit-option-first");
@@ -1561,6 +1561,9 @@
 
                 // `destroy` event
                 "destroy": function(ev) {
+
+                    // Prevents the default action from happening
+                    ev.preventDefault();
 
                     // Prevents the destroy event from propagating
                     ev.stopPropagation();

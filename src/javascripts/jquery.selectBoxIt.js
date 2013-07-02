@@ -587,9 +587,9 @@
             self.dropdownContainer.append(self.list);
 
             // Stores the individual dropdown list options inside of the `listItems` instance variable
-            self.listItems = self.list.find("li");
+            self.listItems = self.list.children('li');
 
-            self.listAnchors = self.list.find("a");
+            self.listAnchors = self.list.children("a");
 
             // Sets the 'selectboxit-option-first' class name on the first drop down option
             self.listItems.first().addClass("selectboxit-option-first");

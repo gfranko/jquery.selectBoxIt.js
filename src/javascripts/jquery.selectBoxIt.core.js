@@ -123,7 +123,10 @@
             "dynamicPositioning": true,
 
             // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
-            "hideCurrent": false
+            "hideCurrent": false,
+
+            // **placeAfterSelect**: Determines whether or not insert drop down list right after select
+            "placeAfterSelect": true
 
         },
 
@@ -622,10 +625,8 @@
                 listSize = self.listSize = size === undefined ? "auto" : size === "0" || "size" === "auto" ? "auto" : +size;
 
             // Hides the original select box
-            self.selectBox.css("display", "none").
-
-            // Adds the new dropdown list to the page directly after the hidden original select box element
-            after(self.dropdownContainer);
+            // Adds the new dropdown list to the page directly after or before the hidden original select box element
+            self.selectBox.css("display", "none")[self.options.placeAfterSelect ? "after" : "before"](self.dropdownContainer);
 
             // The height of the dropdown list
             height = self.dropdown.height();

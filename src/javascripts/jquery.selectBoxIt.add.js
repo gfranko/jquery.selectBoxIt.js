@@ -41,7 +41,7 @@
                 }
 
                 // Loops through the array
-                for(x, dataLength = data.length; x <= dataLength - 1; x += 1) {
+                for(dataLength = data.length; x <= dataLength - 1; x += 1) {
 
                     // Stores the currently traversed array item in the local `value` variable
                     value = data[x];
@@ -147,9 +147,6 @@
             return false;
 
         }
-
-        // Maintains chainability
-        return self;
 
     };
 

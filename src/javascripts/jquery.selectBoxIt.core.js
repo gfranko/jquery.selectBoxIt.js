@@ -1339,7 +1339,7 @@
                     }
 
                     // Adds the focus CSS class to the currently focused dropdown list option
-                   $(this).add($(this).find(".selectboxit-option-anchor")).addClass(focusClass);
+                   $(this).addClass(focusClass);
 
                 },
 
@@ -1375,9 +1375,9 @@
                         $(this).addClass(focusClass).attr("data-active", "");
 
                         // Sets the dropdown list indropdownidual options back to the default state and sets the focus CSS class on the currently hovered option
-                        self.listItems.not($(this)).add(self.listAnchors.not($(this).find(".selectboxit-option-anchor"))).removeClass(focusClass);
+                        self.listItems.not($(this)).removeClass(focusClass);
 
-                        $(this).add($(this).find(".selectboxit-option-anchor")).addClass(focusClass);
+                        $(this).addClass(focusClass);
 
                         self.currentFocus = +$(this).attr("id");
 
@@ -1394,7 +1394,7 @@
                         // Removes the focus class from the previous drop down option
                         self.listItems.not($(this)).removeClass(focusClass).removeAttr("data-active");
 
-                        $(this).add($(this).find(".selectboxit-option-anchor")).addClass(focusClass);
+                        $(this).addClass(focusClass);
 
                         self.currentFocus = +$(this).attr("id");
 
@@ -1406,7 +1406,7 @@
                 "blur.selectBoxIt": function() {
 
                     // Removes the focus CSS class from the previously focused dropdown list option
-                    $(this).add($(this).find(".selectboxit-option-anchor")).removeClass(focusClass);
+                    $(this).removeClass(focusClass);
 
                 }
 
@@ -1515,9 +1515,9 @@
 
                     self.listItems.removeClass(self.selectedClass).
 
-                    removeAttr("data-active").not(activeElem).add(self.listAnchors.not(activeElem.find('.selectboxit-option-anchor'))).removeClass(focusClass);
+                    removeAttr("data-active").not(activeElem).removeClass(focusClass);
 
-                    activeElem.addClass(self.selectedClass).add(activeElem.find('.selectboxit-option-anchor')).addClass(focusClass);
+                    activeElem.addClass(self.selectedClass).addClass(focusClass);
 
                     if(self.options.hideCurrent) {
 

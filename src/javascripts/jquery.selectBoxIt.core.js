@@ -587,9 +587,9 @@
             self.dropdownContainer.append(self.list);
 
             // Stores the individual dropdown list options inside of the `listItems` instance variable
-            self.listItems = self.list.children('li');
+            self.listItems = self.list.children("li");
 
-            self.listAnchors = self.list.children("a");
+            self.listAnchors = self.list.find("a");
 
             // Sets the 'selectboxit-option-first' class name on the first drop down option
             self.listItems.first().addClass("selectboxit-option-first");
@@ -1299,6 +1299,14 @@
                     // Allows the dropdown list options list to close
                     self.blur = true;
 
+                },
+
+                // `focusin` event with the `selectBoxIt` namespace
+                "focusin.selectBoxIt": function() {
+
+                    // Prevents the default browser outline border to flicker, which results because of the `blur` event
+                    self.dropdown.trigger("focus", true);
+
                 }
 
             });
@@ -1306,7 +1314,7 @@
             // Select box individual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding indropdownidual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
             self.list.on({
 
-                "click.selectBoxIt": function() {
+                "mousedown.selectBoxIt": function() {
 
                     self._update($(this));
 
@@ -1319,6 +1327,12 @@
                         self.close();
 
                     }
+
+                    setTimeout(function() {
+
+                        self.dropdown.trigger('focus', true);
+
+                    }, 0);
 
                 },
 

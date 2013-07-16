@@ -345,8 +345,8 @@
     <option value="a Stateful UI Widget" data-preventclose="true">a Stateful UI Widget</option>
     </optgroup>
   </select>
-  <select name="" id="" data-size="3"></select>
-  <select name="dm_status_id" id="dm_status_id" size="1">
+  <select name="" id=""></select>
+  <select name="dm_status_id" id="dm_status_id" data-size="1">
     <option value="">Any DM Status</option>
     <option value="1">DM-Approved</option>
     <option value="2">DM-Denied</option>
@@ -354,6 +354,8 @@
     <option value="8">DM-Pending</option>
   </select>
 </form>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -366,7 +368,7 @@ jQuery(function($) {
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt({ theme: 'jqueryui' });
+  $('select').selectBoxIt({ native: true });
 
   // $('select').last().selectBoxIt({
   //   defaultText: "Greg Franko Repos",

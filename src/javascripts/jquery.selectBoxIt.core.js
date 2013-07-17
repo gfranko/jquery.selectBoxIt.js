@@ -713,7 +713,7 @@
             // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
-                "max-width": self.dropdownContainer - (self.downArrowContainer + self.dropdownImage)
+                "max-width": self.dropdownContainer.outerWidth(true) - (self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true))
 
             });
 

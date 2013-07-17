@@ -708,12 +708,16 @@
 
             }
 
+            self.dropdownContainer.addClass('selectboxit-rendering');
+
             // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
-                "max-width": self.dropdownContainer.width() - (self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true))
+                "max-width": self.dropdownContainer - (self.downArrowContainer + self.dropdownImage)
 
             });
+
+            self.dropdownContainer.removeClass('selectboxit-rendering');
 
             if($.type(listSize) === "number") {
 

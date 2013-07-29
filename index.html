@@ -310,6 +310,11 @@
                 <option value="October">October</option>
                 <option value="November">November</option>
                 <option value="December">December</option>
+                <option value="">Select a Month</option>
+                <option value="January" disabled>January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
             </select>
             <br><br><br><br>
   <select name="test" class="themes">
@@ -368,7 +373,7 @@ jQuery(function($) {
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt({ native: true });
+  $('select').selectBoxIt();
 
   // $('select').last().selectBoxIt({
   //   defaultText: "Greg Franko Repos",

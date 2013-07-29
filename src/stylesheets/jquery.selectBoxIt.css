@@ -188,6 +188,11 @@
   float: left;
 }
 
+.selectboxit-rendering {
+  display: block;
+  visibility: hidden;
+}
+
 /* jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */
 .jqueryui .ui-icon {
   background-color: inherit;

@@ -9,10 +9,11 @@
 
     selectBoxIt._ariaAccessibility = function() {
 
-        var self = this;
+        var self = this,
+            dropdownLabel = $("label[for='" + self.originalElem.id + "']");
 
         // Adds `ARIA attributes` to the dropdown list
-        self.dropdown.attr({
+        self.dropdownContainer.attr({
 
             // W3C `combobox` description: A presentation of a select; usually similar to a textbox where users can type ahead to select an option.
             "role": "combobox",
@@ -20,32 +21,30 @@
             //W3C `aria-autocomplete` description: Indicates whether user input completion suggestions are provided.
             "aria-autocomplete": "list",
 
+            "aria-haspopup": "true",
+
             // W3C `aria-expanded` description: Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.
             "aria-expanded": "false",
 
             // W3C `aria-owns` description: The value of the aria-owns attribute is a space-separated list of IDREFS that reference one or more elements in the document by ID. The reason for adding aria-owns is to expose a parent/child contextual relationship to assistive technologies that is otherwise impossible to infer from the DOM.
-            "aria-owns": self.list.attr("id"),
+            "aria-owns": self.list[0].id
 
-            // W3C `aria-activedescendant` description: This is used when a composite widget is responsible for managing its current active child to reduce the overhead of having all children be focusable. Examples include: multi-level lists, trees, and grids.
-            "aria-activedescendant": self.listItems.eq(self.currentFocus).length ? self.listItems.eq(self.currentFocus)[0].id: "",
+        });
 
-            // W3C `aria-label` description:  It provides the user with a recognizable name of the object.
-            "aria-label": $("label[for='" + self.originalElem.id + "']").text() || "",
+        self.dropdownText.attr({
 
-            // W3C `aria-live` description: Indicates that an element will be updated.
-            // Use the assertive value when the update needs to be communicated to the user more urgently.
-            "aria-live": "assertive"
+            "aria-live": "polite"
 
-        }).
+        });
 
         // Dynamically adds `ARIA attributes` if the new dropdown list is enabled or disabled
-        on({
+        self.dropdown.on({
 
             //Select box custom `disable` event with the `selectBoxIt` namespace
             "disable.selectBoxIt" : function() {
 
                 // W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
-                self.dropdown.attr("aria-disabled", "true");
+                self.dropdownContainer.attr("aria-disabled", "true");
 
             },
 
@@ -53,11 +52,18 @@
             "enable.selectBoxIt" : function() {
 
                 // W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
-                self.dropdown.attr("aria-disabled", "false");
+                self.dropdownContainer.attr("aria-disabled", "false");
 
             }
 
         });
+
+        if(dropdownLabel.length) {
+
+            // MDN `aria-labelledby` description:  Indicates the IDs of the elements that are the labels for the object.
+            self.dropdownContainer.attr("aria-labelledby", dropdownLabel[0].id);
+
+        }
 
         // Adds ARIA attributes to the dropdown list options list
         self.list.attr({
@@ -81,14 +87,6 @@
         // Dynamically updates the new dropdown list `aria-label` attribute after the original dropdown list value changes
         self.selectBox.on({
 
-            // Custom `change` event with the `selectBoxIt` namespace
-            "change.selectBoxIt": function() {
-
-                // Provides the user with a recognizable name of the object.
-                self.dropdownText.attr("aria-label", self.originalElem.value);
-
-            },
-
             // Custom `open` event with the `selectBoxIt` namespace
             "open.selectBoxIt": function() {
 
@@ -96,7 +94,7 @@
                 self.list.attr("aria-hidden", "false");
 
                 // Indicates that the dropdown list is currently expanded
-                self.dropdown.attr("aria-expanded", "true");
+                self.dropdownContainer.attr("aria-expanded", "true");
 
             },
 
@@ -107,7 +105,7 @@
                 self.list.attr("aria-hidden", "true");
 
                 // Indicates that the dropdown list is currently collapsed
-                self.dropdown.attr("aria-expanded", "false");
+                self.dropdownContainer.attr("aria-expanded", "false");
 
             }
 

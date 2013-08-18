@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <link type="text/css" rel="stylesheet" href="./src/stylesheets/jquery.selectBoxIt.css" />
-  <link type="text/css" rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
+  <link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" />
   <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/ui-darkness/jquery-ui.css" />
   <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
   <!--<link type="text/css" rel="stylesheet" href="css/jqm.css" /> -->
@@ -414,6 +414,10 @@ jQuery(function($) {
   //select.refresh();
 
   //select.wait(1000, select.open).wait(1000, select.moveDown);
+
+  $('select').first().on('focus', function() {
+    console.log('focused!');
+  });
 
 });
 </script>

@@ -70,6 +70,18 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`3.7.0` - August 13, 2013
+
+**Bug Fixes**
+- Fixed a focus bug that prevented a drop down option to be selected if the drop down menu was open and the page was then scrolled.
+- Fixed scroll list not closing bug [#196](https://github.com/gfranko/jquery.selectBoxIt.js/issues/196) [#191](https://github.com/gfranko/jquery.selectBoxIt.js/issues/191)
+- Fixed incorrect Microsoft CSS prefix: [#195](https://github.com/gfranko/jquery.selectBoxIt.js/issues/195)
+- Fixed max-width rendering for select boxes that are initially hidden: [#192](https://github.com/gfranko/jquery.selectBoxIt.js/issues/192)
+- Fixed Native select box and accesibility bug: [#189](https://github.com/gfranko/jquery.selectBoxIt.js/issues/189)
+
+**Improvements**
+- ARIA support [#197](https://github.com/gfranko/jquery.selectBoxIt.js/issues/197)
+
 `3.6.0` - June 23, 2013
 
 **BREAKING CHANGES**

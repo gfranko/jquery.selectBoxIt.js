@@ -1,6 +1,6 @@
-/* jquery Tocify - v1.4.0 - 2012-04-07
+/* jquery Tocify - v1.6.0 - 2013-07-24
 * http://www.gregfranko.com/jquery.tocify.js/
-* Copyright (c) 2012 Greg Franko; Licensed MIT */
+* Copyright (c) 2013 Greg Franko; Licensed MIT */
 
 // Immediately-Invoked Function Expression (IIFE) [Ben Alman Blog Post](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) that calls another IIFE that contains all of the plugin logic.  I used this pattern so that anyone viewing this code would not have to scroll to the bottom of the page to view the local parameters that were passed to the main IIFE.
 (function(tocify) {
@@ -23,7 +23,7 @@
     $.widget("toc.tocify", {
 
         //Plugin version
-        version: "1.4.0",
+        version: "1.6.0",
 
         // These options will be used as defaults
         options: {
@@ -31,6 +31,10 @@
             // **context**: Accepts String: Any jQuery selector
             // The container element that holds all of the elements used to generate the table of contents
             context: "body",
+
+            // **ignoreSelector**: Accepts String: Any jQuery selector
+            // A selector to any element that would be matched by selectors that you wish to be ignored
+            ignoreSelector: null,
 
             // **selectors**: Accepts an Array of Strings: Any jQuery selectors
             // The element's used to generate the table of contents.  The order is very important since it will determine the table of content's nesting structure
@@ -187,7 +191,8 @@
                 firstElem,
 
                 // Instantiated variable that will store the top level newly created unordered list DOM element
-                ul;
+                ul,
+                ignoreSelector = self.options.ignoreSelector;
 
              // If the selectors option has a comma within the string
              if(this.options.selectors.indexOf(",") !== -1) {
@@ -207,6 +212,11 @@
 
             // Loops through each top level selector
             firstElem.each(function(index) {
+
+                //If the element matches the ignoreSelector then we skip it
+                if($(this).is(ignoreSelector)) {
+                    return;
+                }
 
                 // Creates an unordered list HTML element and adds a dynamic ID and standard class name
                 ul = $("<ul/>", {
@@ -229,6 +239,11 @@
                         // Loops through all of the subheader elements
                         $(this).filter(self.options.selectors).each(function() {
 
+                            //If the element matches the ignoreSelector then we skip it
+                            if($(this).is(ignoreSelector)) {
+                                return;
+                            }
+
                             self._appendSubheaders.call(this, self, ul);
 
                         });
@@ -240,6 +255,11 @@
 
                         // Loops through all of the subheader elements
                         $(this).find(self.options.selectors).each(function() {
+
+                            //If the element matches the ignoreSelector then we skip it
+                            if($(this).is(ignoreSelector)) {
+                                return;
+                            }
 
                             self._appendSubheaders.call(this, self, ul);
 
@@ -560,6 +580,8 @@
 
                                 lastElem = $('div[data-unique="' + $(".item").last().attr("data-unique") + '"]');
 
+                                if(!lastElem.length) return;
+
                                 // Gets the top offset of the page header that is linked to the last toc item
                                 lastElemOffset = lastElem.offset().top;
 
@@ -591,38 +613,48 @@
                     // The zero timeout ensures the following code is run after the scroll events
                     setTimeout(function() {
 
-                        // Loops through each anchor tag on the page with a `name` attribute
-                        $(self.options.context).find("div[data-unique]").next().each(function() {
+                        // _Local variables_
 
-                            // If the user has scrolled to within x (the highlightOffset option) distance of the currently traversed anchor tag
-                            if ((Math.abs($(this).offset().top - winScrollTop) < self.options.highlightOffset)) {
+                        // Stores the distance to the closest anchor
+                        var closestAnchorDistance = null,
 
-                                // Stores the list item HTML element that corresponds to the currently traversed anchor tag
-                                elem = $('li[data-unique="' + $(this).prev("div[data-unique]").attr("data-unique") + '"]');
+                        // Stores the index of the closest anchor
+                            closestAnchorIdx = null,
 
-                                // If the `highlightOnScroll` option is true and a next element is found
-                                if(self.options.highlightOnScroll && elem.length) {
+                        // Keeps a reference to all anchors
+                            anchors = $(self.options.context).find("div[data-unique]");
 
-                                    // Removes highlighting from all of the list item's
-                                    self.element.find("." + self.focusClass).removeClass(self.focusClass);
-
-                                    // Highlights the corresponding list item
-                                    elem.addClass(self.focusClass);
-
-                                }
-
-                                // If the `showAndHideOnScroll` option is true
-                                if(self.options.showAndHideOnScroll && self.options.showAndHide) {
-
-                                    self._triggerShow(elem, true);
-
-                                }
-
+                        // Determines the index of the closest anchor
+                        anchors.each(function(idx) {
+                            var distance = Math.abs(($(this).next().length ? $(this).next() : $(this)).offset().top - winScrollTop - self.options.highlightOffset);
+                            if (closestAnchorDistance == null || distance < closestAnchorDistance) {
+                                closestAnchorDistance = distance;
+                                closestAnchorIdx = idx;
+                            } else {
                                 return false;
-
                             }
-
                         });
+
+                        // Stores the list item HTML element that corresponds to the currently traversed anchor tag
+                        elem = $('li[data-unique="' + $(anchors[closestAnchorIdx]).attr("data-unique") + '"]');
+
+                        // If the `highlightOnScroll` option is true and a next element is found
+                        if(self.options.highlightOnScroll && elem.length) {
+
+                            // Removes highlighting from all of the list item's
+                            self.element.find("." + self.focusClass).removeClass(self.focusClass);
+
+                            // Highlights the corresponding list item
+                            elem.addClass(self.focusClass);
+                        }
+
+                        // If the `showAndHideOnScroll` option is true
+                        if(self.options.showAndHideOnScroll && self.options.showAndHide) {
+
+                            self._triggerShow(elem, true);
+
+                        }
+
 
                     }, 0);
 
@@ -836,7 +868,7 @@
             // If the user wants a twitterBootstrap theme
             else if(this.options.theme === "bootstrap") {
 
-                this.element.addClass("bs-docs-sidebar").find(".header, .sub-header").addClass("nav nav-list bs-docs-sidenav");
+                this.element.find(".header, .sub-header").addClass("nav nav-list");
 
                 this.focusClass = "active";
 
@@ -884,7 +916,8 @@
         _scrollTo: function(elem) {
 
             var self = this,
-                duration = self.options.smoothScroll || 0;
+                duration = self.options.smoothScroll || 0,
+                scrollTo = self.options.scrollTo;
 
             // Once all animations on the page are complete, this callback function will be called
             $("html, body").promise().done(function() {
@@ -893,7 +926,7 @@
                 $("html, body").animate({
 
                     // Sets the jQuery `scrollTop` to the top offset of the HTML div tag that matches the current list item's `data-unique` tag
-                    "scrollTop": $('div[data-unique="' + elem.attr("data-unique") + '"]').offset().top - self.options.scrollTo + "px"
+                    "scrollTop": $('div[data-unique="' + elem.attr("data-unique") + '"]').offset().top - ($.isFunction(scrollTo) ? scrollTo.call() : scrollTo) + "px"
 
                 }, {
 

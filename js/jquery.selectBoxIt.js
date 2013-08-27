@@ -1,4 +1,4 @@
-/*! jquery.selectBoxIt - v3.6.0 - 2013-06-25 
+/*! jquery.selectBoxIt - v3.7.0 - 2013-08-13 
 * http://www.selectboxit.com
 * Copyright (c) 2013 Greg Franko; Licensed MIT*/
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.6.0",
+        VERSION: "3.7.0",
 
         // These options will be used as defaults
         options: {
@@ -587,9 +587,9 @@
             self.dropdownContainer.append(self.list);
 
             // Stores the individual dropdown list options inside of the `listItems` instance variable
-            self.listItems = self.list.children('li');
+            self.listItems = self.list.children("li");
 
-            self.listAnchors = self.list.children("a");
+            self.listAnchors = self.list.find("a");
 
             // Sets the 'selectboxit-option-first' class name on the first drop down option
             self.listItems.first().addClass("selectboxit-option-first");
@@ -708,12 +708,16 @@
 
             }
 
+            self.dropdownContainer.addClass('selectboxit-rendering');
+
             // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
-                "max-width": self.dropdownContainer.width() - (self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true))
+                "max-width": self.dropdownContainer.outerWidth(true) - (self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true))
 
             });
+
+            self.dropdownContainer.removeClass('selectboxit-rendering');
 
             if($.type(listSize) === "number") {
 
@@ -1299,6 +1303,14 @@
                     // Allows the dropdown list options list to close
                     self.blur = true;
 
+                },
+
+                // `focusin` event with the `selectBoxIt` namespace
+                "focusin.selectBoxIt": function() {
+
+                    // Prevents the default browser outline border to flicker, which results because of the `blur` event
+                    self.dropdown.trigger("focus", true);
+
                 }
 
             });
@@ -1306,7 +1318,7 @@
             // Select box individual options events bound with the jQuery `delegate` method.  `Delegate` was used because binding indropdownidual events to each list item (since we don't know how many there will be) would decrease performance.  Instead, we bind each event to the unordered list, provide the list item context, and allow the list item events to bubble up (`event bubbling`). This greatly increases page performance because we only have to bind an event to one element instead of x number of elements. Delegates the `click` event with the `selectBoxIt` namespace to the list items
             self.list.on({
 
-                "click.selectBoxIt": function() {
+                "mousedown.selectBoxIt": function() {
 
                     self._update($(this));
 
@@ -1319,6 +1331,12 @@
                         self.close();
 
                     }
+
+                    setTimeout(function() {
+
+                        self.dropdown.trigger('focus', true);
+
+                    }, 0);
 
                 },
 
@@ -1965,10 +1983,11 @@
 
     selectBoxIt._ariaAccessibility = function() {
 
-        var self = this;
+        var self = this,
+            dropdownLabel = $("label[for='" + self.originalElem.id + "']");
 
         // Adds `ARIA attributes` to the dropdown list
-        self.dropdown.attr({
+        self.dropdownContainer.attr({
 
             // W3C `combobox` description: A presentation of a select; usually similar to a textbox where users can type ahead to select an option.
             "role": "combobox",
@@ -1976,32 +1995,30 @@
             //W3C `aria-autocomplete` description: Indicates whether user input completion suggestions are provided.
             "aria-autocomplete": "list",
 
+            "aria-haspopup": "true",
+
             // W3C `aria-expanded` description: Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.
             "aria-expanded": "false",
 
             // W3C `aria-owns` description: The value of the aria-owns attribute is a space-separated list of IDREFS that reference one or more elements in the document by ID. The reason for adding aria-owns is to expose a parent/child contextual relationship to assistive technologies that is otherwise impossible to infer from the DOM.
-            "aria-owns": self.list.attr("id"),
+            "aria-owns": self.list[0].id
 
-            // W3C `aria-activedescendant` description: This is used when a composite widget is responsible for managing its current active child to reduce the overhead of having all children be focusable. Examples include: multi-level lists, trees, and grids.
-            "aria-activedescendant": self.listItems.eq(self.currentFocus).length ? self.listItems.eq(self.currentFocus)[0].id: "",
+        });
 
-            // W3C `aria-label` description:  It provides the user with a recognizable name of the object.
-            "aria-label": $("label[for='" + self.originalElem.id + "']").text() || "",
+        self.dropdownText.attr({
 
-            // W3C `aria-live` description: Indicates that an element will be updated.
-            // Use the assertive value when the update needs to be communicated to the user more urgently.
-            "aria-live": "assertive"
+            "aria-live": "polite"
 
-        }).
+        });
 
         // Dynamically adds `ARIA attributes` if the new dropdown list is enabled or disabled
-        on({
+        self.dropdown.on({
 
             //Select box custom `disable` event with the `selectBoxIt` namespace
             "disable.selectBoxIt" : function() {
 
                 // W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
-                self.dropdown.attr("aria-disabled", "true");
+                self.dropdownContainer.attr("aria-disabled", "true");
 
             },
 
@@ -2009,11 +2026,18 @@
             "enable.selectBoxIt" : function() {
 
                 // W3C `aria-disabled` description: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
-                self.dropdown.attr("aria-disabled", "false");
+                self.dropdownContainer.attr("aria-disabled", "false");
 
             }
 
         });
+
+        if(dropdownLabel.length) {
+
+            // MDN `aria-labelledby` description:  Indicates the IDs of the elements that are the labels for the object.
+            self.dropdownContainer.attr("aria-labelledby", dropdownLabel[0].id);
+
+        }
 
         // Adds ARIA attributes to the dropdown list options list
         self.list.attr({
@@ -2037,14 +2061,6 @@
         // Dynamically updates the new dropdown list `aria-label` attribute after the original dropdown list value changes
         self.selectBox.on({
 
-            // Custom `change` event with the `selectBoxIt` namespace
-            "change.selectBoxIt": function() {
-
-                // Provides the user with a recognizable name of the object.
-                self.dropdownText.attr("aria-label", self.originalElem.value);
-
-            },
-
             // Custom `open` event with the `selectBoxIt` namespace
             "open.selectBoxIt": function() {
 
@@ -2052,7 +2068,7 @@
                 self.list.attr("aria-hidden", "false");
 
                 // Indicates that the dropdown list is currently expanded
-                self.dropdown.attr("aria-expanded", "true");
+                self.dropdownContainer.attr("aria-expanded", "true");
 
             },
 
@@ -2063,7 +2079,7 @@
                 self.list.attr("aria-hidden", "true");
 
                 // Indicates that the dropdown list is currently collapsed
-                self.dropdown.attr("aria-expanded", "false");
+                self.dropdownContainer.attr("aria-expanded", "false");
 
             }
 
@@ -2882,6 +2898,8 @@ selectBoxIt._destroySelectBoxIt = function() {
 
         // Appends the native select box to the drop down (allows for relative positioning using the position() method)
         self.dropdownContainer.append(self.selectBox);
+
+        self.dropdown.attr('tabindex', '-1');
 
         // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
         self.selectBox.css({

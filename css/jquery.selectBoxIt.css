@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 3.6.0
+ * jquery.selectBoxIt.css 3.7.0
  * Author: @gregfranko
  */
 
@@ -24,7 +24,7 @@
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: -moz-none;
-  ms-user-select: none;
+  -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
   outline: none;
@@ -186,6 +186,11 @@
   height: 100%;
   background-position: center;
   float: left;
+}
+
+.selectboxit-rendering {
+  display: block;
+  visibility: hidden;
 }
 
 /* jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */

@@ -14,7 +14,7 @@
   </style>
 </head>
 <body>
-<form>
+<form class="hidden">
 
     <select name="project" style="display: none;"><option selected="selected" value="0"></option><option value="A Year in the Taiga">A Year in the Taiga</option>
 <option value="Entre Lobos">Entre Lobos</option>
@@ -374,6 +374,8 @@ jQuery(function($) {
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
   $('select').selectBoxIt();
+
+  $('form').removeClass('hidden');
 
   // $('select').last().selectBoxIt({
   //   defaultText: "Greg Franko Repos",

@@ -666,7 +666,7 @@
             self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
 
             // If an image is not being used
-            if(!self._realOuterWidth(self.dropdownImageContainer)) {
+            if(!self.dropdownImageContainer.outerWidth(true)) {
 
                 // Removes the image and image container
                 self.dropdownImageContainer.remove();
@@ -676,29 +676,16 @@
             // If the `autoWidth` option is true
             if(self.options["autoWidth"]) {
 
-                // If the SelectBoxIt drop down is visible (i.e. not set to display: none;)
-                if(self.dropdown.is(":visible")) {
+                self.dropdownContainer.appendTo('body').
 
-                    // Sets the auto width of the drop down
-                    self.dropdown.css({ "width": "auto" }).css({
+                addClass('selectboxit-rendering');
 
-                        "width": self.list.outerWidth(true) + self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true)
+                // Sets the auto width of the drop down
+                self.dropdown.css({ "width": "auto" }).css({
 
-                    });
+                    "width": self.list.outerWidth(true) + self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true)
 
-                }
-
-                // If the SelectBoxIt drop down is hidden (i.e. set to display: none)
-                else {
-
-                    // Sets the auto width of the drop down
-                    self.dropdown.css({ "width": "auto" }).css({
-
-                        "width": self._realOuterWidth(self.list) + self._realOuterWidth(self.downArrowContainer) + self._realOuterWidth(self.dropdownImage)
-
-                    });
-
-                }
+                });
 
                 self.list.css({
 
@@ -708,14 +695,15 @@
 
             }
 
-            self.dropdownContainer.addClass('selectboxit-rendering');
-
             // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
                 "max-width": self.dropdownContainer.outerWidth(true) - (self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true))
 
             });
+
+            // Adds the new dropdown list to the page directly after the hidden original select box element
+            self.selectBox.after(self.dropdownContainer);
 
             self.dropdownContainer.removeClass('selectboxit-rendering');
 
@@ -1751,38 +1739,6 @@
 
             return self;
 
-        },
-
-        // _realOuterWidth
-        // ---------------
-        //      Retrieves the true outerWidth dimensions of a hidden DOM element
-        _realOuterWidth: function(elem) {
-
-            if(elem.is(":visible")) {
-
-                return elem.outerWidth(true);
-
-            }
-
-            var self = this,
-                clonedElem = elem.clone(),
-                outerWidth;
-
-            clonedElem.css({
-
-                "visibility": "hidden",
-
-                "display": "block",
-
-                "position": "absolute"
-
-            }).appendTo("body");
-
-            outerWidth = clonedElem.outerWidth(true);
-
-            clonedElem.remove();
-
-            return outerWidth;
         }
 
     });

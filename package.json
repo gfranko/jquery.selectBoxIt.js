@@ -2,7 +2,7 @@
   "name": "jquery.selectBoxIt",
   "title": "jquery Selectboxit",
   "description": "A jQuery plugin that progressively enhances an HTML Select Box into a single option dropdown list. The dropdown list can be optionally styled with jQuery ThemeRoller and optionally animated with jQueryUI show/hide effects.",
-  "version": "3.7.0",
+  "version": "3.8.0",
   "homepage": "http://www.selectboxit.com",
   "author": {
     "name": "Greg Franko",

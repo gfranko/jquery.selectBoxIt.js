@@ -1,4 +1,4 @@
-/*! jquery.selectBoxIt - v3.7.0 - 2013-08-13 
+/*! jquery.selectBoxIt - v3.8.0 - 2013-08-13 
 * http://www.selectboxit.com
 * Copyright (c) 2013 Greg Franko; Licensed MIT*/
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.7.0",
+        VERSION: "3.8.0",
 
         // These options will be used as defaults
         options: {
@@ -571,10 +571,15 @@
 
                 var defaultedText = self.options["defaultText"] || self.selectBox.attr("data-text");
 
-                //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
+                // Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
                 self._setText(self.dropdownText, defaultedText);
 
                 self.options["defaultText"] = defaultedText;
+
+                self.originalElem.value = defaultedText;
+
+                self.originalElem.selectedIndex = -1;
+
             }
 
             // Append the list item to the unordered list
@@ -2840,6 +2845,33 @@ selectBoxIt._destroySelectBoxIt = function() {
     // Mobile Module
     // =============
 
+    // Set Mobile Text
+    // ---------------
+    //      Updates the text of the drop down
+    selectBoxIt._updateMobileText = function() {
+
+        var self = this,
+            currentOption,
+            currentDataText,
+            currentText;
+
+        currentOption = self.selectBox.find("option").filter(":selected");
+
+        currentDataText = currentOption.attr("data-text");
+
+        currentText = currentDataText ? currentDataText: currentOption.text();
+
+        // Sets the new dropdown list text to the value of the original dropdown list
+        self._setText(self.dropdownText, currentText);
+
+        if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
+
+           self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
+
+        }
+
+    };
+
     // Apply Native Select
     // -------------------
     //      Applies the original select box directly over the new drop down
@@ -2847,10 +2879,7 @@ selectBoxIt._destroySelectBoxIt = function() {
     selectBoxIt._applyNativeSelect = function() {
 
         // Stores the plugin context inside of the self variable
-        var self = this,
-            currentOption,
-            currentDataText,
-            currentText;
+        var self = this;
 
         // Appends the native select box to the drop down (allows for relative positioning using the position() method)
         self.dropdownContainer.append(self.selectBox);
@@ -2890,23 +2919,25 @@ selectBoxIt._destroySelectBoxIt = function() {
 
             "changed.selectBoxIt": function() {
 
-                currentOption = self.selectBox.find("option").filter(":selected");
+                self.hasChanged = true;
 
-                currentDataText = currentOption.attr("data-text");
-
-                currentText = currentDataText ? currentDataText: currentOption.text();
-
-                // Sets the new dropdown list text to the value of the original dropdown list
-                self._setText(self.dropdownText, currentText);
-
-                if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
-
-                   self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
-
-                }
+                self._updateMobileText();
 
                 // Triggers the `option-click` event on mobile
                 self.triggerEvent("option-click");
+
+            },
+
+            "mousedown.selectBoxIt": function() {
+
+                // If the select box has not been changed, the defaultText option is being used
+                if(!self.hasChanged && self.options.defaultText) {
+
+                    self._updateMobileText();
+
+                    self.triggerEvent("option-click");
+
+                }
 
             }
 

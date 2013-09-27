@@ -1,4 +1,4 @@
-/*! jquery.selectBoxIt - v3.7.0 - 2013-08-13 
+/*! jquery.selectBoxIt - v3.8.0 - 2013-08-13 
 * http://www.selectboxit.com
 * Copyright (c) 2013 Greg Franko; Licensed MIT*/
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.7.0",
+        VERSION: "3.8.0",
 
         // These options will be used as defaults
         options: {
@@ -571,10 +571,15 @@
 
                 var defaultedText = self.options["defaultText"] || self.selectBox.attr("data-text");
 
-                //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
+                // Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
                 self._setText(self.dropdownText, defaultedText);
 
                 self.options["defaultText"] = defaultedText;
+
+                self.originalElem.value = defaultedText;
+
+                self.originalElem.selectedIndex = -1;
+
             }
 
             // Append the list item to the unordered list

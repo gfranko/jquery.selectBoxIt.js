@@ -14,9 +14,10 @@
   </style>
 </head>
 <body>
-<form class="hidden">
+<form>
 
-    <select name="project" style="display: none;"><option selected="selected" value="0"></option><option value="A Year in the Taiga">A Year in the Taiga</option>
+<select name="project" data-testing="2">
+<option selected="selected" value="0"></option><option value="A Year in the Taiga">A Year in the Taiga</option>
 <option value="Entre Lobos">Entre Lobos</option>
 <option value="Fly Me to the Moon">Fly Me to the Moon</option>
 <option value="Heartbreaker">Heartbreaker</option>
@@ -373,7 +374,7 @@ jQuery(function($) {
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt();
+  $('select').selectBoxIt({ defaultText: 'Testing' });
 
   $('form').removeClass('hidden');
 

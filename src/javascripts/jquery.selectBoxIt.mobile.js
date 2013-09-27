@@ -2,6 +2,33 @@
     // Mobile Module
     // =============
 
+    // Set Mobile Text
+    // ---------------
+    //      Updates the text of the drop down
+    selectBoxIt._updateMobileText = function() {
+
+        var self = this,
+            currentOption,
+            currentDataText,
+            currentText;
+
+        currentOption = self.selectBox.find("option").filter(":selected");
+
+        currentDataText = currentOption.attr("data-text");
+
+        currentText = currentDataText ? currentDataText: currentOption.text();
+
+        // Sets the new dropdown list text to the value of the original dropdown list
+        self._setText(self.dropdownText, currentText);
+
+        if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
+
+           self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
+
+        }
+
+    };
+
     // Apply Native Select
     // -------------------
     //      Applies the original select box directly over the new drop down
@@ -9,10 +36,7 @@
     selectBoxIt._applyNativeSelect = function() {
 
         // Stores the plugin context inside of the self variable
-        var self = this,
-            currentOption,
-            currentDataText,
-            currentText;
+        var self = this;
 
         // Appends the native select box to the drop down (allows for relative positioning using the position() method)
         self.dropdownContainer.append(self.selectBox);
@@ -52,23 +76,25 @@
 
             "changed.selectBoxIt": function() {
 
-                currentOption = self.selectBox.find("option").filter(":selected");
+                self.hasChanged = true;
 
-                currentDataText = currentOption.attr("data-text");
-
-                currentText = currentDataText ? currentDataText: currentOption.text();
-
-                // Sets the new dropdown list text to the value of the original dropdown list
-                self._setText(self.dropdownText, currentText);
-
-                if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
-
-                   self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
-
-                }
+                self._updateMobileText();
 
                 // Triggers the `option-click` event on mobile
                 self.triggerEvent("option-click");
+
+            },
+
+            "mousedown.selectBoxIt": function() {
+
+                // If the select box has not been changed, the defaultText option is being used
+                if(!self.hasChanged && self.options.defaultText) {
+
+                    self._updateMobileText();
+
+                    self.triggerEvent("option-click");
+
+                }
 
             }
 

@@ -576,10 +576,6 @@
 
                 self.options["defaultText"] = defaultedText;
 
-                self.originalElem.value = defaultedText;
-
-                self.originalElem.selectedIndex = -1;
-
             }
 
             // Append the list item to the unordered list

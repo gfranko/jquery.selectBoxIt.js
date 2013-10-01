@@ -41,7 +41,7 @@
         // Appends the native select box to the drop down (allows for relative positioning using the position() method)
         self.dropdownContainer.append(self.selectBox);
 
-        self.dropdown.attr('tabindex', '-1');
+        self.dropdown.attr("tabindex", "-1");
 
         // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
         self.selectBox.css({
@@ -72,7 +72,26 @@
 
             "-webkit-appearance": "menulist-button"
 
-        }).on({
+        });
+
+        if(self.originalElem.disabled) {
+
+            self.triggerEvent("disable");
+
+        }
+
+        return this;
+
+    };
+
+    // Mobile Events
+    // -------------
+    //      Listens to mobile-specific events
+    selectBoxIt._mobileEvents = function() {
+
+        var self = this;
+
+        self.selectBox.on({
 
             "changed.selectBoxIt": function() {
 
@@ -88,13 +107,27 @@
             "mousedown.selectBoxIt": function() {
 
                 // If the select box has not been changed, the defaultText option is being used
-                if(!self.hasChanged && self.options.defaultText) {
+                if(!self.hasChanged && self.options.defaultText && !self.originalElem.disabled) {
 
                     self._updateMobileText();
 
                     self.triggerEvent("option-click");
 
                 }
+
+            },
+
+            "enable.selectBoxIt": function() {
+
+                // Moves SelectBoxIt onto the page
+                self.selectBox.removeClass('selectboxit-rendering');
+
+            },
+
+            "disable.selectBoxIt": function() {
+
+                // Moves SelectBoxIt off the page
+                self.selectBox.addClass('selectboxit-rendering');
 
             }
 
@@ -114,6 +147,8 @@
             if(self.isMobile) {
 
                 self._applyNativeSelect();
+
+                self._mobileEvents();
 
             }
 

@@ -620,13 +620,19 @@
                 height,
                 originalElemId = self.originalElem.id || "",
                 size = self.selectBox.attr("data-size"),
-                listSize = self.listSize = size === undefined ? "auto" : size === "0" || "size" === "auto" ? "auto" : +size;
+                listSize = self.listSize = size === undefined ? "auto" : size === "0" || "size" === "auto" ? "auto" : +size,
+                downArrowContainerWidth,
+                dropdownImageWidth;
 
             // Hides the original select box
             self.selectBox.css("display", "none").
 
             // Adds the new dropdown list to the page directly after the hidden original select box element
             after(self.dropdownContainer);
+
+            self.dropdownContainer.appendTo('body').
+
+            addClass('selectboxit-rendering');
 
             // The height of the dropdown list
             height = self.dropdown.height();
@@ -666,25 +672,19 @@
             // Adds the `selectboxit-selected` class name to the currently selected drop down option
             self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
 
-            // If an image is not being used
-            if(!self.dropdownImageContainer.outerWidth(true)) {
+            // The full outer width of the down arrow container
+            downArrowContainerWidth = self.downArrowContainer.outerWidth(true);
 
-                // Removes the image and image container
-                self.dropdownImageContainer.remove();
-
-            }
+            // The full outer width of the dropdown image
+            dropdownImageWidth = self.dropdownImage.outerWidth(true);
 
             // If the `autoWidth` option is true
             if(self.options["autoWidth"]) {
 
-                self.dropdownContainer.appendTo('body').
-
-                addClass('selectboxit-rendering');
-
                 // Sets the auto width of the drop down
                 self.dropdown.css({ "width": "auto" }).css({
 
-                    "width": self.list.outerWidth(true) + self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true)
+                    "width": self.list.outerWidth(true) + downArrowContainerWidth + dropdownImageWidth
 
                 });
 
@@ -699,7 +699,7 @@
             // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
-                "max-width": self.dropdownContainer.outerWidth(true) - (self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true))
+                "max-width": self.dropdownContainer.outerWidth(true) - (downArrowContainerWidth + dropdownImageWidth)
 
             });
 

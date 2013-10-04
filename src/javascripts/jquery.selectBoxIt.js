@@ -492,7 +492,11 @@
 
                 currentDataText,
 
+                currentDataSearch,
+
                 currentText,
+
+                currentOption,
 
                 parent;
 
@@ -511,27 +515,29 @@
             // into new list item elements of the new dropdown list
             self.selectItems.each(function(index) {
 
+                currentOption = $(this);
+
                 optgroupClass = "";
 
                 optgroupElement = "";
 
-                dataDisabled = $(this).prop("disabled");
+                dataDisabled = currentOption.prop("disabled");
 
-                iconClass = $(this).attr("data-icon") || "";
+                iconClass = currentOption.attr("data-icon") || "";
 
-                iconUrl = $(this).attr("data-iconurl") || "";
+                iconUrl = currentOption.attr("data-iconurl") || "";
 
                 iconUrlClass = iconUrl ? "selectboxit-option-icon-url": "";
 
                 iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "";
 
-                currentDataSelectedText = $(this).attr("data-selectedtext");
+                currentDataSelectedText = currentOption.attr("data-selectedtext");
 
-                currentDataText = $(this).attr("data-text");
+                currentDataText = currentOption.attr("data-text");
 
-                currentText = currentDataText ? currentDataText: $(this).text();
+                currentText = currentDataText ? currentDataText: currentOption.text();
 
-                parent = $(this).parent();
+                parent = currentOption.parent();
 
                 // If the current option being traversed is within an optgroup
 
@@ -539,7 +545,7 @@
 
                     optgroupClass = "selectboxit-optgroup-option";
 
-                    if($(this).index() === 0) {
+                    if(currentOption.index() === 0) {
 
                          optgroupElement = '<span class="selectboxit-optgroup-header ' + parent.first().attr("class") + '"data-disabled="true">' + parent.first().attr("label") + '</span>';
 
@@ -550,9 +556,11 @@
                 // Uses string concatenation for speed (applies HTML attribute encoding)
                 currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
 
+                currentDataSearch = currentOption.attr("data-search");
+
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
-                self.textArray[index] = dataDisabled ? "": currentText;
+                self.textArray[index] = dataDisabled ? "": currentDataSearch ? currentDataSearch: currentText;
 
                 // Checks the original select box option for the `selected` attribute
                 if (this.selected) {
@@ -2767,7 +2775,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Resets the regular expression with the new value of `self.currentText`
             alphaNumeric = new RegExp(currentText, "gi");
 
-            // Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
+            // Searches based on the first letter of the dropdown list options text if the currentText < 3 characters
             if (currentText.length < 3) {
 
                 alphaNumeric = new RegExp(currentText.charAt(0), "gi");

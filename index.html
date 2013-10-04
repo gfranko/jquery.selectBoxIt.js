@@ -357,7 +357,7 @@
     <option value="1">DM-Approved</option>
     <option value="2">DM-Denied</option>
     <option value="3">DM-Dealer Action Required</option>
-    <option value="8">DM-Pending</option>
+    <option value="8" data-search="fuck">DM-Pending</option>
   </select>
 </form>
 
@@ -376,10 +376,7 @@ jQuery(function($) {
 
   $('select').selectBoxIt({
     defaultText: 'Testing',
-    autoWidth: false,
-    theme: {
-        'list': 'greg-list'
-    }
+    autoWidth: false
   });
 
   $('form').removeClass('hidden');

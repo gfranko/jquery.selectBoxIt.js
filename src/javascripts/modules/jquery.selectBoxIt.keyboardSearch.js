@@ -104,7 +104,7 @@
             // Resets the regular expression with the new value of `self.currentText`
             alphaNumeric = new RegExp(currentText, "gi");
 
-            // Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
+            // Searches based on the first letter of the dropdown list options text if the currentText < 3 characters
             if (currentText.length < 3) {
 
                 alphaNumeric = new RegExp(currentText.charAt(0), "gi");

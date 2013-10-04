@@ -70,6 +70,17 @@ If you find that you need a feature that SelectBoxIt does not currently support,
 
 ##Change Log
 
+`3.8.0` - October 4, 2013
+
+**Bug Fixes**
+- Fixed mobile hidden select box with bug: [#209](https://github.com/gfranko/jquery.selectBoxIt.js/issues/209)
+- Prevent disabled Selects from being clickable on iOS devices: [#203](https://github.com/gfranko/jquery.selectBoxIt.js/issues/203)
+- Fixed defaultText mobile bug: [#205](https://github.com/gfranko/jquery.selectBoxIt.js/issues/205)
+
+**Improvements**
+- Improved performance by not removing option icons [#207](https://github.com/gfranko/jquery.selectBoxIt.js/issues/207)
+- Allow passing in a custom theme object [#204](https://github.com/gfranko/jquery.selectBoxIt.js/issues/204)
+
 `3.7.0` - August 13, 2013
 
 **Bug Fixes**

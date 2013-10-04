@@ -1,4 +1,4 @@
-/*! jquery.selectBoxIt - v3.7.0 - 2013-08-13 
+/*! jquery.selectBoxIt - v3.8.0 - 2013-08-13 
 * http://www.selectboxit.com
 * Copyright (c) 2013 Greg Franko; Licensed MIT*/
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.7.0",
+        VERSION: "3.8.0",
 
         // These options will be used as defaults
         options: {
@@ -246,7 +246,8 @@
         _create: function(internal) {
 
             var self = this,
-                populateOption = self.options["populate"];
+                populateOption = self.options["populate"],
+                userTheme = self.options["theme"];
 
             // If the element calling SelectBoxIt is not a select box or is not visible
             if(!self.element.is("select")) {
@@ -280,7 +281,7 @@
             // The html document height
             self.documentHeight = $(document).height();
 
-            self.theme = self.getThemes()[self.options["theme"]] || self.getThemes()["default"];
+            self.theme = $.isPlainObject(userTheme) ? $.extend({}, self.getThemes()["default"], userTheme) : self.getThemes()[userTheme] ? self.getThemes()[userTheme] : self.getThemes()["default"];
 
             // The index of the currently selected dropdown list option
             self.currentFocus = 0;
@@ -433,7 +434,7 @@
 
                 "id": originalElemId && originalElemId + "SelectBoxItContainer",
 
-                "class": "selectboxit-container " + (copyClasses === "container" ? selectboxClasses: "")
+                "class": self.theme.container + ' ' + (copyClasses === "container" ? selectboxClasses: "")
 
             }).
 
@@ -491,7 +492,11 @@
 
                 currentDataText,
 
+                currentDataSearch,
+
                 currentText,
+
+                currentOption,
 
                 parent;
 
@@ -510,27 +515,29 @@
             // into new list item elements of the new dropdown list
             self.selectItems.each(function(index) {
 
+                currentOption = $(this);
+
                 optgroupClass = "";
 
                 optgroupElement = "";
 
-                dataDisabled = $(this).prop("disabled");
+                dataDisabled = currentOption.prop("disabled");
 
-                iconClass = $(this).attr("data-icon") || "";
+                iconClass = currentOption.attr("data-icon") || "";
 
-                iconUrl = $(this).attr("data-iconurl") || "";
+                iconUrl = currentOption.attr("data-iconurl") || "";
 
                 iconUrlClass = iconUrl ? "selectboxit-option-icon-url": "";
 
                 iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "";
 
-                currentDataSelectedText = $(this).attr("data-selectedtext");
+                currentDataSelectedText = currentOption.attr("data-selectedtext");
 
-                currentDataText = $(this).attr("data-text");
+                currentDataText = currentOption.attr("data-text");
 
-                currentText = currentDataText ? currentDataText: $(this).text();
+                currentText = currentDataText ? currentDataText: currentOption.text();
 
-                parent = $(this).parent();
+                parent = currentOption.parent();
 
                 // If the current option being traversed is within an optgroup
 
@@ -538,7 +545,7 @@
 
                     optgroupClass = "selectboxit-optgroup-option";
 
-                    if($(this).index() === 0) {
+                    if(currentOption.index() === 0) {
 
                          optgroupElement = '<span class="selectboxit-optgroup-header ' + parent.first().attr("class") + '"data-disabled="true">' + parent.first().attr("label") + '</span>';
 
@@ -549,9 +556,11 @@
                 // Uses string concatenation for speed (applies HTML attribute encoding)
                 currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
 
+                currentDataSearch = currentOption.attr("data-search");
+
                 // Stores all of the original select box options text inside of an array
                 // (Used later in the `searchAlgorithm` method)
-                self.textArray[index] = dataDisabled ? "": currentText;
+                self.textArray[index] = dataDisabled ? "": currentDataSearch ? currentDataSearch: currentText;
 
                 // Checks the original select box option for the `selected` attribute
                 if (this.selected) {
@@ -571,10 +580,11 @@
 
                 var defaultedText = self.options["defaultText"] || self.selectBox.attr("data-text");
 
-                //Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
+                // Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
                 self._setText(self.dropdownText, defaultedText);
 
                 self.options["defaultText"] = defaultedText;
+
             }
 
             // Append the list item to the unordered list
@@ -619,13 +629,19 @@
                 height,
                 originalElemId = self.originalElem.id || "",
                 size = self.selectBox.attr("data-size"),
-                listSize = self.listSize = size === undefined ? "auto" : size === "0" || "size" === "auto" ? "auto" : +size;
+                listSize = self.listSize = size === undefined ? "auto" : size === "0" || "size" === "auto" ? "auto" : +size,
+                downArrowContainerWidth,
+                dropdownImageWidth;
 
             // Hides the original select box
             self.selectBox.css("display", "none").
 
             // Adds the new dropdown list to the page directly after the hidden original select box element
             after(self.dropdownContainer);
+
+            self.dropdownContainer.appendTo('body').
+
+            addClass('selectboxit-rendering');
 
             // The height of the dropdown list
             height = self.dropdown.height();
@@ -665,40 +681,21 @@
             // Adds the `selectboxit-selected` class name to the currently selected drop down option
             self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
 
-            // If an image is not being used
-            if(!self._realOuterWidth(self.dropdownImageContainer)) {
+            // The full outer width of the down arrow container
+            downArrowContainerWidth = self.downArrowContainer.outerWidth(true);
 
-                // Removes the image and image container
-                self.dropdownImageContainer.remove();
-
-            }
+            // The full outer width of the dropdown image
+            dropdownImageWidth = self.dropdownImage.outerWidth(true);
 
             // If the `autoWidth` option is true
             if(self.options["autoWidth"]) {
 
-                // If the SelectBoxIt drop down is visible (i.e. not set to display: none;)
-                if(self.dropdown.is(":visible")) {
+                // Sets the auto width of the drop down
+                self.dropdown.css({ "width": "auto" }).css({
 
-                    // Sets the auto width of the drop down
-                    self.dropdown.css({ "width": "auto" }).css({
+                    "width": self.list.outerWidth(true) + downArrowContainerWidth + dropdownImageWidth
 
-                        "width": self.list.outerWidth(true) + self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true)
-
-                    });
-
-                }
-
-                // If the SelectBoxIt drop down is hidden (i.e. set to display: none)
-                else {
-
-                    // Sets the auto width of the drop down
-                    self.dropdown.css({ "width": "auto" }).css({
-
-                        "width": self._realOuterWidth(self.list) + self._realOuterWidth(self.downArrowContainer) + self._realOuterWidth(self.dropdownImage)
-
-                    });
-
-                }
+                });
 
                 self.list.css({
 
@@ -708,14 +705,15 @@
 
             }
 
-            self.dropdownContainer.addClass('selectboxit-rendering');
-
             // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
-                "max-width": self.dropdownContainer.outerWidth(true) - (self.downArrowContainer.outerWidth(true) + self.dropdownImage.outerWidth(true))
+                "max-width": self.dropdownContainer.outerWidth(true) - (downArrowContainerWidth + dropdownImageWidth)
 
             });
+
+            // Adds the new dropdown list to the page directly after the hidden original select box element
+            self.selectBox.after(self.dropdownContainer);
 
             self.dropdownContainer.removeClass('selectboxit-rendering');
 
@@ -2777,7 +2775,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Resets the regular expression with the new value of `self.currentText`
             alphaNumeric = new RegExp(currentText, "gi");
 
-            // Searches based on the first letter of the dropdown list options text if the currentText < 2 characters
+            // Searches based on the first letter of the dropdown list options text if the currentText < 3 characters
             if (currentText.length < 3) {
 
                 alphaNumeric = new RegExp(currentText.charAt(0), "gi");
@@ -2884,6 +2882,33 @@ selectBoxIt._destroySelectBoxIt = function() {
     // Mobile Module
     // =============
 
+    // Set Mobile Text
+    // ---------------
+    //      Updates the text of the drop down
+    selectBoxIt._updateMobileText = function() {
+
+        var self = this,
+            currentOption,
+            currentDataText,
+            currentText;
+
+        currentOption = self.selectBox.find("option").filter(":selected");
+
+        currentDataText = currentOption.attr("data-text");
+
+        currentText = currentDataText ? currentDataText: currentOption.text();
+
+        // Sets the new dropdown list text to the value of the original dropdown list
+        self._setText(self.dropdownText, currentText);
+
+        if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
+
+           self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
+
+        }
+
+    };
+
     // Apply Native Select
     // -------------------
     //      Applies the original select box directly over the new drop down
@@ -2891,15 +2916,12 @@ selectBoxIt._destroySelectBoxIt = function() {
     selectBoxIt._applyNativeSelect = function() {
 
         // Stores the plugin context inside of the self variable
-        var self = this,
-            currentOption,
-            currentDataText,
-            currentText;
+        var self = this;
 
         // Appends the native select box to the drop down (allows for relative positioning using the position() method)
         self.dropdownContainer.append(self.selectBox);
 
-        self.dropdown.attr('tabindex', '-1');
+        self.dropdown.attr("tabindex", "-1");
 
         // Positions the original select box directly over top the new dropdown list using position absolute and "hides" the original select box using an opacity of 0.  This allows the mobile browser "wheel" interface for better usability.
         self.selectBox.css({
@@ -2908,7 +2930,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
             "visibility": "visible",
 
-            "width": self.dropdown.outerWidth(),
+            "width": self._realOuterWidth(self.dropdown),
 
             "height": self.dropdown.outerHeight(),
 
@@ -2930,27 +2952,62 @@ selectBoxIt._destroySelectBoxIt = function() {
 
             "-webkit-appearance": "menulist-button"
 
-        }).on({
+        });
+
+        if(self.originalElem.disabled) {
+
+            self.triggerEvent("disable");
+
+        }
+
+        return this;
+
+    };
+
+    // Mobile Events
+    // -------------
+    //      Listens to mobile-specific events
+    selectBoxIt._mobileEvents = function() {
+
+        var self = this;
+
+        self.selectBox.on({
 
             "changed.selectBoxIt": function() {
 
-                currentOption = self.selectBox.find("option").filter(":selected");
+                self.hasChanged = true;
 
-                currentDataText = currentOption.attr("data-text");
-
-                currentText = currentDataText ? currentDataText: currentOption.text();
-
-                // Sets the new dropdown list text to the value of the original dropdown list
-                self._setText(self.dropdownText, currentText);
-
-                if(self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")) {
-
-                   self.dropdownImage.attr("class", self.list.find('li[data-val="' + currentOption.val() + '"]').find("i").attr("class")).addClass("selectboxit-default-icon");
-
-                }
+                self._updateMobileText();
 
                 // Triggers the `option-click` event on mobile
                 self.triggerEvent("option-click");
+
+            },
+
+            "mousedown.selectBoxIt": function() {
+
+                // If the select box has not been changed, the defaultText option is being used
+                if(!self.hasChanged && self.options.defaultText && !self.originalElem.disabled) {
+
+                    self._updateMobileText();
+
+                    self.triggerEvent("option-click");
+
+                }
+
+            },
+
+            "enable.selectBoxIt": function() {
+
+                // Moves SelectBoxIt onto the page
+                self.selectBox.removeClass('selectboxit-rendering');
+
+            },
+
+            "disable.selectBoxIt": function() {
+
+                // Moves SelectBoxIt off the page
+                self.selectBox.addClass('selectboxit-rendering');
 
             }
 
@@ -2970,6 +3027,8 @@ selectBoxIt._destroySelectBoxIt = function() {
             if(self.isMobile) {
 
                 self._applyNativeSelect();
+
+                self._mobileEvents();
 
             }
 

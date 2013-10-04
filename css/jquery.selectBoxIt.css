@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 3.7.0
+ * jquery.selectBoxIt.css 3.8.0
  * Author: @gregfranko
  */
 
@@ -189,8 +189,13 @@
 }
 
 .selectboxit-rendering {
-  display: block;
-  visibility: hidden;
+  display: inline-block !important;
+  *display: inline !important;
+  zoom: 1 !important;
+  visibility: visible !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
 }
 
 /* jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */

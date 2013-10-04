@@ -434,7 +434,7 @@
 
                 "id": originalElemId && originalElemId + "SelectBoxItContainer",
 
-                "class": "selectboxit-container " + (copyClasses === "container" ? selectboxClasses: "")
+                "class": self.theme.container + ' ' + (copyClasses === "container" ? selectboxClasses: "")
 
             }).
 

@@ -246,7 +246,8 @@
         _create: function(internal) {
 
             var self = this,
-                populateOption = self.options["populate"];
+                populateOption = self.options["populate"],
+                userTheme = self.options["theme"];
 
             // If the element calling SelectBoxIt is not a select box or is not visible
             if(!self.element.is("select")) {
@@ -280,7 +281,7 @@
             // The html document height
             self.documentHeight = $(document).height();
 
-            self.theme = self.getThemes()[self.options["theme"]] || self.getThemes()["default"];
+            self.theme = $.isPlainObject(userTheme) ? $.extend({}, self.getThemes()["default"], userTheme) : self.getThemes()[userTheme] ? self.getThemes()[userTheme] : self.getThemes()["default"];
 
             // The index of the currently selected dropdown list option
             self.currentFocus = 0;
@@ -1740,6 +1741,38 @@
 
             return self;
 
+        },
+
+        // _realOuterWidth
+        // ---------------
+        //      Retrieves the true outerWidth dimensions of a hidden DOM element
+        _realOuterWidth: function(elem) {
+
+            if(elem.is(":visible")) {
+
+                return elem.outerWidth(true);
+
+            }
+
+            var self = this,
+                clonedElem = elem.clone(),
+                outerWidth;
+
+            clonedElem.css({
+
+                "visibility": "hidden",
+
+                "display": "block",
+
+                "position": "absolute"
+
+            }).appendTo("body");
+
+            outerWidth = clonedElem.outerWidth(true);
+
+            clonedElem.remove();
+
+            return outerWidth;
         }
 
     });
@@ -2889,7 +2922,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
             "visibility": "visible",
 
-            "width": self.dropdown.outerWidth(),
+            "width": self._realOuterWidth(self.dropdown),
 
             "height": self.dropdown.outerHeight(),
 

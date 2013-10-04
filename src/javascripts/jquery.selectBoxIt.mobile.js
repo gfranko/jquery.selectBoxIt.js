@@ -50,7 +50,7 @@
 
             "visibility": "visible",
 
-            "width": self.dropdown.outerWidth(),
+            "width": self._realOuterWidth(self.dropdown),
 
             "height": self.dropdown.outerHeight(),
 

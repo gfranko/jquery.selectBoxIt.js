@@ -554,7 +554,7 @@
                 }
 
                 // Uses string concatenation for speed (applies HTML attribute encoding)
-                currentItem += optgroupElement + '<li id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
+                currentItem += optgroupElement + '<li data-id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
 
                 currentDataSearch = currentOption.attr("data-search");
 
@@ -1395,7 +1395,7 @@
 
                         $(this).addClass(focusClass);
 
-                        self.currentFocus = +$(this).attr("id");
+                        self.currentFocus = +$(this).attr("data-id");
 
                     }
 
@@ -1412,7 +1412,7 @@
 
                         $(this).addClass(focusClass);
 
-                        self.currentFocus = +$(this).attr("id");
+                        self.currentFocus = +$(this).attr("data-id");
 
                     }
 
@@ -1459,7 +1459,7 @@
 
                             self.listItems.eq(self.currentFocus).removeClass(self.focusClass);
 
-                            self.currentFocus = +currentOption.attr("id");
+                            self.currentFocus = +currentOption.attr("data-id");
 
                         }
 
@@ -1520,7 +1520,7 @@
 
                     }
 
-                    self.currentFocus = +currentElem.attr("id");
+                    self.currentFocus = +currentElem.attr("data-id");
 
                     activeElem = self.listItems.eq(self.currentFocus);
 
@@ -1628,7 +1628,7 @@
                     // Sets `currentFocus` to the currently focused dropdown list option.
                     // The unary `+` operator casts the string to a number
                     // [James Padolsey Blog Post](http://james.padolsey.com/javascript/terse-javascript-101-part-2/)
-                    self.currentFocus = +elem.attr("id");
+                    self.currentFocus = +elem.attr("data-id");
 
                     // Triggers the dropdown list `change` event if a value change occurs
                     if (self.originalElem.value !== self.dropdownText.attr("data-val")) {

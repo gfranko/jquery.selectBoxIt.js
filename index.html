@@ -16,7 +16,7 @@
 <body>
 <form>
 
-<select name="project" data-testing="2">
+<select id="gregorio" name="project" data-testing="2">
 <option selected="selected" value="0"></option><option value="A Year in the Taiga">A Year in the Taiga</option>
 <option value="Entre Lobos">Entre Lobos</option>
 <option value="Fly Me to the Moon">Fly Me to the Moon</option>
@@ -357,7 +357,7 @@
     <option value="1">DM-Approved</option>
     <option value="2">DM-Denied</option>
     <option value="3">DM-Dealer Action Required</option>
-    <option value="8" data-search="fuck">DM-Pending</option>
+    <option value="8">DM-Pending</option>
   </select>
 </form>
 
@@ -374,10 +374,7 @@ jQuery(function($) {
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt({
-    defaultText: 'Testing',
-    autoWidth: false
-  });
+  $('select').selectBoxIt({ defaultText: 'Testing', autoWidth: false });
 
   $('form').removeClass('hidden');
 

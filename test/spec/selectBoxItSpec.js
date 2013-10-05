@@ -332,7 +332,7 @@ describe('selectBoxIt jQuery Plugin', function () {
         it("should trigger focus and blur events, and update the select box current value", function() {
 
             //Sets the select box value to the last select box option
-            selectBoxIt1.currentFocus = +selectBoxIt1.listItems.last().attr("id");
+            selectBoxIt1.currentFocus = +selectBoxIt1.listItems.last().attr("data-id");
 
             selectBoxIt1.selectItems.each(function(index) {
 

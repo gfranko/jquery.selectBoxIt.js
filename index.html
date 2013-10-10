@@ -374,9 +374,18 @@ jQuery(function($) {
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt({ defaultText: 'Testing', autoWidth: false });
+  $('select').selectBoxIt({ defaultText: 'Testing', autoWidth: false, 'hideEffect': 'fade', 'hideEffectSpeed': 1000 });
 
   $('form').removeClass('hidden');
+
+  $('select').on({
+    'close': function() {
+        console.log('close event fired');
+    },
+    'closed': function() {
+        console.log('closed event fired');
+    }
+  });
 
   // $('select').last().selectBoxIt({
   //   defaultText: "Greg Franko Repos",

@@ -906,6 +906,9 @@
                     // Updates the list `scrollTop` attribute
                     self._scrollToView("search");
 
+                    // Triggers a custom "opened" event when the drop down list is done animating
+                    self.triggerEvent("opened");
+
                 });
 
             }
@@ -958,6 +961,14 @@
                     self.list.hide(hideEffect, hideEffectOptions, hideEffectSpeed);
 
                 }
+
+                // After the drop down list is done animating
+                self.list.promise().done(function() {
+
+                    // Triggers a custom "closed" event when the drop down list is done animating
+                    self.triggerEvent("closed");
+
+                });
 
             }
 

@@ -186,6 +186,8 @@
 
                 builder.buildURL($("#css-downloads input[type='checkbox']:checked"), "jquery.selectboxit.css", "css", function(data) {
 
+                  console.log('data', data);
+
                     $("#generated-css-source").text(data.content);
 
                     if(!data.content) {

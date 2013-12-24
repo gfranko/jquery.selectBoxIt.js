@@ -430,11 +430,19 @@
             append(self.dropdownImageContainer.append(self.dropdownImage)).append(self.dropdownText);
 
             // Create the dropdown container that will hold all of the dropdown list dom elements
+            var containerId = originalElemId && originalElemId + "SelectBoxItContainer";
+            if (containerId) {
+              var existingContainer = $('#' + containerId);
+              if (existingContainer.length !== 0) {
+                self.selectBox.insertAfter(existingContainer);
+                existingContainer.remove();
+              }
+            }
             self.dropdownContainer = $("<span/>", {
 
-                "id": originalElemId && originalElemId + "SelectBoxItContainer",
+              "id": containerId,
 
-                "class": 'selectboxit-container ' + self.theme.container + ' ' + (copyClasses === "container" ? selectboxClasses: "")
+              "class": 'selectboxit-container ' + self.theme.container + ' ' + (copyClasses === "container" ? selectboxClasses: "")
 
             }).
 

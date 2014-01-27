@@ -363,16 +363,18 @@
 </form>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script src="./src/javascripts/jquery.selectBoxIt.js"></script>
 <script>
-jQuery(function($) {
+$(function($) {
 /*
   var select = $("select").selectBoxIt({ populate: '{ "text": "Testing shit", "value": "yea buddy", "class": "please add", "data-iconurl": "https://twimg0-a.akamaihd.net/profile_images/2633978789/80508321d8ce3ba8aa264380bb7eba33.png", "selected": "selected" }' }).data("selectBox-selectBoxIt");
 */
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt({ });
+  $('select').selectBoxIt({ 'numSearchCharacters': 1 });
 
   // $('form').removeClass('hidden');
 

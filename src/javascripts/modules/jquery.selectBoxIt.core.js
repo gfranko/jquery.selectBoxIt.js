@@ -123,7 +123,10 @@
             "dynamicPositioning": true,
 
             // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
-            "hideCurrent": false
+            "hideCurrent": false,
+
+            // **numSearchCharacters**: Option for how many characters a user must search to be treated as a full string search
+            "numSearchCharacters": "auto"
 
         },
 

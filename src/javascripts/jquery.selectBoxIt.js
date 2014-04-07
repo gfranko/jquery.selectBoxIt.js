@@ -710,17 +710,18 @@
 
             }
 
-            // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
+            // Adds the new dropdown list to the page directly after the hidden original select box element
+            self.selectBox.after(self.dropdownContainer);
+
+            self.dropdownContainer.removeClass('selectboxit-rendering');
+
+            // Fixes #255
+			// Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
                 "max-width": self.dropdownContainer.outerWidth(true) - (downArrowContainerWidth + dropdownImageWidth)
 
             });
-
-            // Adds the new dropdown list to the page directly after the hidden original select box element
-            self.selectBox.after(self.dropdownContainer);
-
-            self.dropdownContainer.removeClass('selectboxit-rendering');
 
             if($.type(listSize) === "number") {
 

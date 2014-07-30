@@ -1,0 +1,23 @@
+{
+  "name": "jquery.selectBoxIt",
+  "version": "3.8.1",
+  "homepage": "http://www.selectboxit.com/",
+  "authors": [
+    "Greg Franko <gregfranko5@gmail.com>"
+  ],
+  "description": "A jQuery Select Box Plugin for Mobile, Tablet, and Desktop",
+  "main": "src/javascripts/jquery.selectBoxIt.js",
+  "keywords": [
+    "jquery",
+    "selectboxit"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "demos"
+  ]
+}

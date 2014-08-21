@@ -100,6 +100,13 @@
                 "rel"
 
             ],
+            
+            // **dontCopyAttributes: HTML attributes to explicitly blacklist from being copied to the new dropdown
+            "dontCopyAttributes": [
+
+                "data-reactid"
+
+            ],
 
             // **copyClasses**: HTML classes that will be copied over to the new drop down.  The value indicates where the classes should be copied.  The default value is 'button', but you can also use 'container' (recommended) or 'none'.
             "copyClasses": "button",

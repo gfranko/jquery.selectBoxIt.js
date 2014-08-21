@@ -100,6 +100,13 @@
                 "rel"
 
             ],
+            
+            // **dontCopyAttributes: HTML attributes to explicitly blacklist from being copied to the new dropdown
+            "dontCopyAttributes": [
+
+                "data-reactid"
+
+            ],
 
             // **copyClasses**: HTML classes that will be copied over to the new drop down.  The value indicates where the classes should be copied.  The default value is 'button', but you can also use 'container' (recommended) or 'none'.
             "copyClasses": "button",
@@ -1805,6 +1812,7 @@
     // Stores the plugin prototype object in a local variable
     var selectBoxIt = $.selectBox.selectBoxIt.prototype;
 
+
     // Add Options Module
     // ==================
 
@@ -2140,7 +2148,9 @@
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            whitelist = self.options["copyAttributes"];
+            whitelist = self.options["copyAttributes"],
+            blacklist = self.options["dontCopyAttributes"];
+
 
         // If there are array properties
         if(arr.length) {
@@ -2151,6 +2161,13 @@
                 // Get's the property name and property value of each property
                 var propName = (property.name).toLowerCase(), propValue = property.value;
 
+                // If the currently traversed property is in the blacklist
+                if($.inArray(propName, blacklist) !== -1) {
+
+                    return;
+
+                }
+                
                 // If the currently traversed property value is not "null", is on the whitelist, or is an HTML 5 data attribute
                 if(propValue !== "null" && ($.inArray(propName, whitelist) !== -1 || propName.indexOf("data") !== -1)) {
 
@@ -2167,6 +2184,7 @@
         return self;
 
     };
+
 // Destroy Module
 // ==============
 

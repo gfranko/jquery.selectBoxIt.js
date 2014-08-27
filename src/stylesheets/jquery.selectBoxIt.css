@@ -81,6 +81,7 @@
 .selectboxit-container .selectboxit-options {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  box-sizing: content-box\9;
   min-width: 100%;  /* Minimum Width of the dropdown list box options */
   *width: 100%;
   margin: 0;

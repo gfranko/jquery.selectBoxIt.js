@@ -5,7 +5,8 @@ describe('selectBoxIt jQuery Plugin', function () {
 
         setFixtures('<select id="test1" data-icon="ui-icon ui-icon-power" data-text="Testing" class="testClass1 testClass2"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>' +
                     '<select id="test2" data-icon="ui-icon ui-icon-power" data-text="Testing" class="testClass1 testClass2"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>' +
-                    '<select id="test3" data-icon="ui-icon ui-icon-power" data-text="Testing" class="testClass1 testClass2"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>');
+                    '<select id="test3" data-icon="ui-icon ui-icon-power" data-text="Testing" class="testClass1 testClass2"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>' +
+                    '<select id="test4" data-icon="ui-icon ui-icon-power" data-reactid="0.0.0.1.2" data-custom="hi" data-text="Testing" class="testClass1 testClass2"><option value="Select a Month">Select a Month</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September" data-icon="ui ui-icon-power">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select>');
 
         spyOnEvent($("select#test1"), "create");
 
@@ -30,6 +31,14 @@ describe('selectBoxIt jQuery Plugin', function () {
                        };
         selectBoxIt3 = $("select#test3").selectBoxIt(opts3).data("selectBoxIt");
 
+        /*
+         * Fixture used to test option variants.
+         */
+        var    opts4 = {
+                            dontCopyAttributes: ['data-reactid','data-custom']
+                       };
+        selectBoxIt4 = $("select#test4").selectBoxIt(opts4).data("selectBoxIt");
+
     });
 
     describe("create()", function() {
@@ -49,6 +58,16 @@ describe('selectBoxIt jQuery Plugin', function () {
                 expect(selectBoxIt1.dropdown).toBe("span");
 
                 expect(selectBoxIt1.dropdown).toBeVisible();
+
+            });
+
+            it("should not copy attributes in dontCopyAttributes", function () {
+
+                expect(selectBoxIt4.dropdown).not.toHaveAttr("data-reactid");
+                
+                expect(selectBoxIt4.dropdown).not.toHaveAttr("data-custom");
+
+                expect(selectBoxIt4.dropdown).toHaveAttr("data-icon");
 
             });
 

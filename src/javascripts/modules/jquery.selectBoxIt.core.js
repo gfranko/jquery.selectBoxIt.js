@@ -100,6 +100,13 @@
                 "rel"
 
             ],
+            
+            // **dontCopyAttributes: HTML attributes to explicitly blacklist from being copied to the new dropdown
+            "dontCopyAttributes": [
+
+                "data-reactid"
+
+            ],
 
             // **copyClasses**: HTML classes that will be copied over to the new drop down.  The value indicates where the classes should be copied.  The default value is 'button', but you can also use 'container' (recommended) or 'none'.
             "copyClasses": "button",
@@ -123,7 +130,10 @@
             "dynamicPositioning": true,
 
             // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
-            "hideCurrent": false
+            "hideCurrent": false,
+
+            // **numSearchCharacters**: Option for how many characters a user must search to be treated as a full string search
+            "numSearchCharacters": "auto"
 
         },
 
@@ -707,17 +717,18 @@
 
             }
 
-            // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
+            // Adds the new dropdown list to the page directly after the hidden original select box element
+            self.selectBox.after(self.dropdownContainer);
+
+            self.dropdownContainer.removeClass('selectboxit-rendering');
+
+            // Fixes #255
+			// Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
                 "max-width": self.dropdownContainer.outerWidth(true) - (downArrowContainerWidth + dropdownImageWidth)
 
             });
-
-            // Adds the new dropdown list to the page directly after the hidden original select box element
-            self.selectBox.after(self.dropdownContainer);
-
-            self.dropdownContainer.removeClass('selectboxit-rendering');
 
             if($.type(listSize) === "number") {
 

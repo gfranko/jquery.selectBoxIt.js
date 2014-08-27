@@ -100,6 +100,13 @@
                 "rel"
 
             ],
+            
+            // **dontCopyAttributes: HTML attributes to explicitly blacklist from being copied to the new dropdown
+            "dontCopyAttributes": [
+
+                "data-reactid"
+
+            ],
 
             // **copyClasses**: HTML classes that will be copied over to the new drop down.  The value indicates where the classes should be copied.  The default value is 'button', but you can also use 'container' (recommended) or 'none'.
             "copyClasses": "button",
@@ -123,7 +130,10 @@
             "dynamicPositioning": true,
 
             // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
-            "hideCurrent": false
+            "hideCurrent": false,
+
+            // **numSearchCharacters**: Option for how many characters a user must search to be treated as a full string search
+            "numSearchCharacters": "auto"
 
         },
 
@@ -707,17 +717,18 @@
 
             }
 
-            // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
+            // Adds the new dropdown list to the page directly after the hidden original select box element
+            self.selectBox.after(self.dropdownContainer);
+
+            self.dropdownContainer.removeClass('selectboxit-rendering');
+
+            // Fixes #255
+			// Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
                 "max-width": self.dropdownContainer.outerWidth(true) - (downArrowContainerWidth + dropdownImageWidth)
 
             });
-
-            // Adds the new dropdown list to the page directly after the hidden original select box element
-            self.selectBox.after(self.dropdownContainer);
-
-            self.dropdownContainer.removeClass('selectboxit-rendering');
 
             if($.type(listSize) === "number") {
 
@@ -1801,6 +1812,7 @@
     // Stores the plugin prototype object in a local variable
     var selectBoxIt = $.selectBox.selectBoxIt.prototype;
 
+
     // Add Options Module
     // ==================
 
@@ -2136,7 +2148,9 @@
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            whitelist = self.options["copyAttributes"];
+            whitelist = self.options["copyAttributes"],
+            blacklist = self.options["dontCopyAttributes"];
+
 
         // If there are array properties
         if(arr.length) {
@@ -2147,6 +2161,13 @@
                 // Get's the property name and property value of each property
                 var propName = (property.name).toLowerCase(), propValue = property.value;
 
+                // If the currently traversed property is in the blacklist
+                if($.inArray(propName, blacklist) !== -1) {
+
+                    return;
+
+                }
+                
                 // If the currently traversed property value is not "null", is on the whitelist, or is an HTML 5 data attribute
                 if(propValue !== "null" && ($.inArray(propName, whitelist) !== -1 || propName.indexOf("data") !== -1)) {
 
@@ -2163,6 +2184,7 @@
         return self;
 
     };
+
 // Destroy Module
 // ==============
 
@@ -2727,6 +2749,8 @@ selectBoxIt._destroySelectBoxIt = function() {
 
         var self = this,
 
+            options = self.options,
+
             // Boolean to determine if a pattern match exists
             matchExists = false,
 
@@ -2746,7 +2770,10 @@ selectBoxIt._destroySelectBoxIt = function() {
             textArray = self.textArray,
 
             // Variable storing the current text property
-            currentText = self.currentText;
+            currentText = self.currentText,
+
+            // Option for how many characters a user must search to be treated as a full string search
+            numSearchCharacters = $.type(options.numSearchCharacters) === 'number' ? options.numSearchCharacters : 3;
 
         // Loops through the text array to find a pattern match
         for (x = currentIndex, arrayLength = textArray.length; x < arrayLength; x += 1) {
@@ -2786,7 +2813,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             alphaNumeric = new RegExp(currentText, "gi");
 
             // Searches based on the first letter of the dropdown list options text if the currentText < 3 characters
-            if (currentText.length < 3) {
+            if (currentText.length < numSearchCharacters) {
 
                 alphaNumeric = new RegExp(currentText.charAt(0), "gi");
 

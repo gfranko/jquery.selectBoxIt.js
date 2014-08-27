@@ -46,6 +46,8 @@
 
         var self = this,
 
+            options = self.options,
+
             // Boolean to determine if a pattern match exists
             matchExists = false,
 
@@ -65,7 +67,10 @@
             textArray = self.textArray,
 
             // Variable storing the current text property
-            currentText = self.currentText;
+            currentText = self.currentText,
+
+            // Option for how many characters a user must search to be treated as a full string search
+            numSearchCharacters = $.type(options.numSearchCharacters) === 'number' ? options.numSearchCharacters : 3;
 
         // Loops through the text array to find a pattern match
         for (x = currentIndex, arrayLength = textArray.length; x < arrayLength; x += 1) {
@@ -105,7 +110,7 @@
             alphaNumeric = new RegExp(currentText, "gi");
 
             // Searches based on the first letter of the dropdown list options text if the currentText < 3 characters
-            if (currentText.length < 3) {
+            if (currentText.length < numSearchCharacters) {
 
                 alphaNumeric = new RegExp(currentText.charAt(0), "gi");
 

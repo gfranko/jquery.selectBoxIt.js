@@ -34,7 +34,9 @@
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            whitelist = self.options["copyAttributes"];
+            whitelist = self.options["copyAttributes"],
+            blacklist = self.options["dontCopyAttributes"];
+
 
         // If there are array properties
         if(arr.length) {
@@ -45,6 +47,13 @@
                 // Get's the property name and property value of each property
                 var propName = (property.name).toLowerCase(), propValue = property.value;
 
+                // If the currently traversed property is in the blacklist
+                if($.inArray(propName, blacklist) !== -1) {
+
+                    return;
+
+                }
+                
                 // If the currently traversed property value is not "null", is on the whitelist, or is an HTML 5 data attribute
                 if(propValue !== "null" && ($.inArray(propName, whitelist) !== -1 || propName.indexOf("data") !== -1)) {
 

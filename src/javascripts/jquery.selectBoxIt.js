@@ -2250,7 +2250,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Enabled styling for disabled state
             addClass(self.theme["disabled"]);
 
-            self.setOption("disabled", true);
+            self._setOption("disabled", true);
 
             // Triggers a `disable` custom event on the original select box
             self.triggerEvent("disable");
@@ -2489,7 +2489,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Enables styling for enabled state
             addClass(self.theme["enabled"]);
 
-            self.setOption("disabled", false);
+            self._setOption("disabled", false);
 
             // Provide callback function support
             self._callbackSupport(callback);

@@ -759,4 +759,26 @@ describe('selectBoxIt jQuery Plugin', function () {
 
     });
 
+    /*
+    TODO: This test is useless ATM because the value is not decoded as the browser would do.
+    describe("escapeHtml", function() {
+
+      beforeEach(function() {
+
+            setFixtures('<select id="test1" data-icon="ui-icon ui-icon-power" data-text="Testing"><option value="Select a value">Select a value</option><option value="1&ampquote;">1"</option><option value="2&quote;">2"</option></select>');
+
+            selectBoxIt1 = $("select#test1").selectBoxIt().data("selectBoxIt");
+
+			selectBoxIt1.selectOption(1);
+
+        });            
+
+        it("should escape html values in data-val attribute", function() {
+
+			expect(selectBoxIt1.dropdownText.attr("data-val")).toEqual("1&ampquote;");            
+
+        });
+
+    });
+	*/
 });

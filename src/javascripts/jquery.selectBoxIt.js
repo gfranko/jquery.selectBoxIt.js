@@ -347,6 +347,10 @@
                 this._applyNativeSelect();
 
             }
+            
+            $("label[for=\"" + this.element.attr("id") + "\"]").on("click", function(){
+                self.focus();
+            });
 
             // Triggers a custom `create` event on the original dropdown list
             self.triggerEvent("create");
@@ -846,6 +850,38 @@
             return self;
 
         },
+        
+        // Focus
+        // ----
+        //      Focus on the dropdown list
+        focus: function(callback) {
+            
+            var self = this,
+                isNative = self.options["native"],
+                isMobile = self.isMobile;
+            
+            // If there are no select box options, do not try to open the select box
+            if(!self.listItems.length || self.dropdown.hasClass(self.theme["disabled"])) {
+
+                return self;
+
+            }
+            
+            // If the new drop down is being used and is not visible
+            if((!isNative && !isMobile) && !this.list.is(":visible")) {
+                
+                // Triggers a custom "focus" event on the original select box
+                self.triggerEvent("focus");
+                
+            }
+            
+            // Provide callback function support
+            self._callbackSupport(callback);
+
+            // Maintains chainability
+            return self;
+            
+        },
 
         // Open
         // ----
@@ -1187,6 +1223,11 @@
                 },
 
                 "focus.selectBoxIt": function(event, internal) {
+                    
+                    // trigger event handler on the original select too
+                    var focusEvent = $.Event("focus");
+                    focusEvent.target = d.selectBox[0];
+                    $(document).trigger(focusEvent);
 
                     // Stores the data associated with the mousedown event inside of a local variable
                     var mdown = $(this).data("mdown");

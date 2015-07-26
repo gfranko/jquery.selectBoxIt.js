@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.8.1",
+        VERSION: "3.8.2",
 
         // These options will be used as defaults
         options: {
@@ -123,7 +123,10 @@
             "dynamicPositioning": true,
 
             // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
-            "hideCurrent": false
+            "hideCurrent": false,
+            
+            // **descriptionTrim**: Determines whether or not to trim the description and the number of characters. Set to 0 to ignore setting
+            "descriptionTrim":	50,
 
         },
 
@@ -487,7 +490,13 @@
                     "tabindex": -1
 
                 }),
-
+                
+                descriptionText,
+                
+                extraLIclassWhenDescription,
+                
+                price,
+                
                 currentDataSelectedText,
 
                 currentDataText,
@@ -530,12 +539,18 @@
                 iconUrlClass = iconUrl ? "selectboxit-option-icon-url": "";
 
                 iconUrlStyle = iconUrl ? 'style="background-image:url(\'' + iconUrl + '\');"': "";
+                
+                descriptionText = currentOption.attr("data-content") || "";
+                
+                price = currentOption.attr("data-price") || "";
 
                 currentDataSelectedText = currentOption.attr("data-selectedtext");
 
                 currentDataText = currentOption.attr("data-text");
 
                 currentText = currentDataText ? currentDataText: currentOption.text();
+                
+                extraLIclassWhenDescription = descriptionText ? ' selectboxit-option-with-description' : '';
 
                 parent = currentOption.parent();
 
@@ -556,7 +571,14 @@
                 currentOption.attr("value", this.value);
 
                 // Uses string concatenation for speed (applies HTML attribute encoding)
-                currentItem += optgroupElement + '<li data-id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
+                currentItem += optgroupElement + '<li data-id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + extraLIclassWhenDescription + " selectboxit-option " + ($(this).attr("class") || "") 
+                				+ '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle 
+                				+ '></i></span>' 
+                				+ (price ? '<span class="selectboxit-option-price">'+price+'</span>' : '')
+                				+ (self.options["html"] ? currentText: self.htmlEscape(currentText))+ ' '
+                				+ (descriptionText ? '<small class="text-muted">'+ (self.options["descriptionTrim"] ? $('<div>'+descriptionText+'</div>').text().slice(0,self.options["descriptionTrim"]) : descriptionText) +'</small>' : '')
+                				
+                				+ '</a></li>';
 
                 currentDataSearch = currentOption.attr("data-search");
 

@@ -76,7 +76,7 @@
                 return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
 
             },
-
+            
             // **native**: Triggers the native select box when a user interacts with the drop down
             "native": false,
 
@@ -271,6 +271,8 @@
                 self.add(populateOption);
 
             }
+            
+            self.isMultiselect = $(self.element).attr("multiple") !== "";
 
             // All of the original select box options
             self.selectItems = self.element.find("option");
@@ -364,10 +366,10 @@
 
             var self = this,
                 originalElemId = self.originalElemId = self.originalElem.id || "",
-                originalElemValue = self.originalElemValue = self.originalElem.value || "",
+                originalElemValue = self.originalElemValue = (self.isMultiselect ? $(self.originalElem).attr("data-val") : self.originalElem.value) || "",
                 originalElemName = self.originalElemName = self.originalElem.name || "",
                 copyClasses = self.options["copyClasses"],
-                selectboxClasses = self.selectBox.attr("class") || "";
+                selectboxClasses = self.selectBox.attr("class") || "";                            
 
             // Creates a dropdown element that contains the dropdown list text value
             self.dropdownText = $("<span/>", {
@@ -381,7 +383,7 @@
                 "unselectable": "on",
 
                 // Sets the dropdown `text` to equal the original select box default value
-                "text": self.firstSelectItem.text()
+                "text": !self.isMultiselect ? self.firstSelectItem.text() : ""
 
             }).
 
@@ -553,7 +555,7 @@
 
                 }
 
-                currentOption.attr("value", this.value);
+                currentOption.attr("data-val", this.value);
 
                 // Uses string concatenation for speed (applies HTML attribute encoding)
                 currentItem += optgroupElement + '<li data-id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
@@ -588,7 +590,8 @@
                 self.options["defaultText"] = defaultedText;
 
             }
-
+            
+          
             // Append the list item to the unordered list
             createdList.append(currentItem);
 
@@ -615,6 +618,34 @@
             self.dropdownImage.addClass(self.selectBox.attr("data-icon") || self.options["defaultIcon"] || self.listItems.eq(self.currentFocus).find("i").attr("class"));
 
             self.dropdownImage.attr("style", self.listItems.eq(self.currentFocus).find("i").attr("style"));
+
+
+            if(self.originalElemValue !== null && self.originalElemValue !== "" )
+            {
+                var values = self.originalElemValue.split(",");
+                var selectedTexts = [];
+                
+                for(var i=0;i<self.listItems.length;i++)
+                {
+                    if(values.indexOf($(self.listItems[i]).attr("data-val"))>-1)
+                    {
+                        var text = $(self.listItems[i]).attr("data-text");
+                        text = text === undefined || text === null || text.length === 0 ? $(self.listItems[i]).text() : text;
+                                
+                        $(self.listItems[i]).toggleClass("checked", true);    
+                                
+                        selectedTexts.push(text);   
+                    }
+                }
+                
+                if(selectedTexts.length > 0)
+                {
+                    self._setText(self.dropdownText, selectedTexts.join(","));
+                }
+            }
+            
+            
+
 
             //Maintains chainability
             return self;
@@ -681,7 +712,10 @@
             self.dropdown.append(self.downArrowContainer);
 
             // Adds the `selectboxit-selected` class name to the currently selected drop down option
-            self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
+            if(!self.isMultiselect)
+            {
+                self.listItems.removeClass("selectboxit-selected").eq(self.currentFocus).addClass("selectboxit-selected");
+            }
 
             // The full outer width of the down arrow container
             downArrowContainerWidth = self.downArrowContainer.outerWidth(true);
@@ -1061,7 +1095,7 @@
                     // Updates the dropdown list value
                     self._update(activeElem);
 
-                    if (activeElem.attr("data-preventclose") !== "true") {
+                    if (activeElem.attr("data-preventclose") !== "true" && !self.isMultiselect) {
 
                         // Closes the drop down list options list
                         self.close();
@@ -1336,7 +1370,9 @@
                     self.triggerEvent("option-click");
 
                     // If the current drop down option is not disabled
-                    if ($(this).attr("data-disabled") === "false" && $(this).attr("data-preventclose") !== "true") {
+                    if ($(this).attr("data-disabled") === "false" && 
+                        $(this).attr("data-preventclose") !== "true" &&
+                        !self.isMultiselect) {
 
                         // Closes the drop down list
                         self.close();
@@ -1382,7 +1418,9 @@
                         self.triggerEvent("option-mouseup");
 
                         // If the current drop down option is not disabled
-                        if ($(this).attr("data-disabled") === "false" && $(this).attr("data-preventclose") !== "true") {
+                        if ($(this).attr("data-disabled") === "false" && 
+                            $(this).attr("data-preventclose") !== "true" && 
+                            !self.isMultiselect) {
 
                             // Closes the drop down list
                             self.close();
@@ -1485,11 +1523,60 @@
                     currentDataText = currentOption.attr("data-text");
 
                     currentText = currentDataText ?  currentDataText: currentOption.find("a").text();
+                    
+                    var currentOptionValue = currentOption.attr("data-val");
 
                     // Sets the new dropdown list text to the value of the current option
-                    self._setText(self.dropdownText, currentDataSelectedText || currentText);
-
-                    self.dropdownText.attr("data-val", self.originalElem.value);
+                    
+                    if(!self.isMultiselect)
+                    {
+                        self.dropdownText.attr("data-val", self.originalElem.value);
+                        self._setText(self.dropdownText, currentDataSelectedText || currentText);
+                    }else{
+                        var value = self.dropdownText.attr("data-val");
+                        var selectedItems = [];
+                        
+                        if(currentOptionValue!=="")
+                        {
+                            selectedItems = value === "" ? [] : value.split(",");                        
+                            var selectedItemIndex = selectedItems.indexOf(currentOptionValue);
+                            if(selectedItemIndex != -1 && selectedItems.push !== null)
+                            {
+                                selectedItems.splice(selectedItemIndex, 1);
+                            }else{
+                                selectedItems.push(currentOptionValue);
+                            }                        
+                        }
+                        
+                        self.dropdownText.attr("data-val", selectedItems);
+                        
+                        var selectedTexts =[];
+                        for(var i=0;i<self.listItems.length;i++)
+                        {
+                            var isChecked = selectedItems.indexOf($(self.listItems[i]).attr("data-val"))!=-1;
+                            
+                            $(self.listItems[i]).toggleClass("checked", isChecked);                            
+                            
+                            if(isChecked)
+                            {
+                                var text = $(self.listItems[i]).attr("data-text");
+                                text = text === undefined || text === null || text.length === 0 ? $(self.listItems[i]).text() : text;
+                                selectedTexts.push(text);                                
+                            }
+                        }
+                        
+                        if(selectedTexts.length > 0)
+                        {
+                            self.selectBox.attr("data-val", selectedItems.join(","));
+                            self._setText(self.dropdownText, selectedTexts.join(", "));    
+                        }else
+                        {
+                            self.selectBox.attr("data-val", null);                            
+                            self._setText(self.dropdownText, self.options.defaultText);
+                        }
+                        
+                                                
+                    }
 
                     if(currentOption.find("i").attr("class")) {
 
@@ -1499,7 +1586,10 @@
                     }
 
                     // Triggers a custom changed event on the original select box
-                    self.triggerEvent("changed");
+                    if(!self.isMultiselect)
+                    {
+                        self.triggerEvent("changed");
+                    }
 
                 },
 
@@ -1636,7 +1726,10 @@
                 else {
 
                     // Sets the original dropdown list value and triggers the `change` event on the original select box
-                    self.selectBox.val(elem.attr("data-val"));
+                    if(!self.isMultiselect)
+                    {
+                        self.selectBox.val(elem.attr("data-val"));
+                    }
 
                     // Sets `currentFocus` to the currently focused dropdown list option.
                     // The unary `+` operator casts the string to a number
@@ -1644,10 +1737,14 @@
                     self.currentFocus = +elem.attr("data-id");
 
                     // Triggers the dropdown list `change` event if a value change occurs
-                    if (self.originalElem.value !== self.dropdownText.attr("data-val")) {
-
-                        self.triggerEvent("change");
-
+                    if(!self.isMultiselect)
+                    {
+                        if (self.originalElem.value !== self.dropdownText.attr("data-val")) {
+                            self.triggerEvent("change");
+                        }
+                    }else
+                    {
+                        self.triggerEvent("internal-change");
                     }
 
                 }
@@ -1677,7 +1774,7 @@
 
                 openClass = self.openClass = obj.open;
 
-            self.selectedClass = "selectboxit-selected";
+            self.selectedClass = !self.isMultiselect ? "selectboxit-selected" : "";
 
             self.downArrow.addClass(self.selectBox.attr("data-downarrow") || self.options["downArrowIcon"] || arrowClass);
 

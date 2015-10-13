@@ -34,6 +34,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
     // Unbinds all of the dropdown list event handlers with the `selectBoxIt` namespace
     self.dropdown.off(".selectBoxIt");
+    self.selectBox.off(".selectBoxIt");
 
     // If the original select box has been placed inside of the new drop down container
     if ($.contains(self.dropdownContainer[0], self.originalElem)) {

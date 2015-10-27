@@ -123,7 +123,9 @@
             "dynamicPositioning": true,
 
             // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
-            "hideCurrent": false
+            "hideCurrent": false,
+            
+            "disableMobile": false
 
         },
 
@@ -272,7 +274,8 @@
 
             }
             
-            self.isMultiselect = $(self.element).attr("multiple") !== "";
+			var multipleAttr = $(self.element).attr("multiple");
+            self.isMultiselect = multipleAttr !== "" && multipleAttr !== undefined;
 
             // All of the original select box options
             self.selectItems = self.element.find("option");
@@ -333,7 +336,7 @@
 
             }
 
-            self.isMobile = self.options["isMobile"]();
+            self.isMobile = self.options["isMobile"]() && !self.options.disableMobile;
 
             if(self._mobile) {
 
@@ -590,6 +593,22 @@
                 self.options["defaultText"] = defaultedText;
 
             }
+			
+			// If the `defaultText` option is being used
+            if ((self.options["defaultIndex"] || self.selectBox.attr("data-default-index"))) {
+
+                var defaultedIndex = self.options["defaultIndex"] || self.selectBox.attr("data-default-index");
+
+				var firstItemText = $(self.selectItems[+defaultedIndex]).text();
+				
+                // Overrides the current dropdown default text with the value the user specifies in the `defaultText` option
+                self._setText(self.dropdownText, firstItemText);	
+				self.originalElem.value = self.selectItems[+defaultedIndex].value;
+				self.dropdownText.attr("data-val", self.originalElem.value);
+
+                self.options["defaultedIndex"] = defaultedIndex;
+
+            }
             
           
             // Append the list item to the unordered list
@@ -631,8 +650,11 @@
                     {
                         var text = $(self.listItems[i]).attr("data-text");
                         text = text === undefined || text === null || text.length === 0 ? $(self.listItems[i]).text() : text;
-                                
+                        
+						if(self.isMultiselect)	
+						{						
                         $(self.listItems[i]).toggleClass("checked", true);    
+						}
                                 
                         selectedTexts.push(text);   
                     }
@@ -901,7 +923,7 @@
             }
 
             // If the new drop down is being used and is not visible
-            if((!isNative && !isMobile) && !this.list.is(":visible")) {
+            if((!isNative && !(isMobile && !self.isMultiselect)) && !this.list.is(":visible")) {
 
                 // Triggers a custom "open" event on the original select box
                 self.triggerEvent("open");
@@ -970,7 +992,7 @@
                 isMobile = self.isMobile;
 
             // If the drop down is being used and is visible
-            if((!isNative && !isMobile) && self.list.is(":visible")) {
+            if((!isNative && !(isMobile && !self.isMultiselect)) && self.list.is(":visible")) {
 
                 // Triggers a custom "close" event on the original select box
                 self.triggerEvent("close");
@@ -1372,7 +1394,7 @@
                     // If the current drop down option is not disabled
                     if ($(this).attr("data-disabled") === "false" && 
                         $(this).attr("data-preventclose") !== "true" &&
-                        !self.isMultiselect) {
+                        !(self.isMultiselect && $(this).attr("data-val")!=="")) {
 
                         // Closes the drop down list
                         self.close();
@@ -1554,8 +1576,11 @@
                         for(var i=0;i<self.listItems.length;i++)
                         {
                             var isChecked = selectedItems.indexOf($(self.listItems[i]).attr("data-val"))!=-1;
-                            
+                       
+							if(self.isMultiselect)			
+							{
                             $(self.listItems[i]).toggleClass("checked", isChecked);                            
+							}
                             
                             if(isChecked)
                             {
@@ -3132,7 +3157,7 @@ selectBoxIt._destroySelectBoxIt = function() {
         // Stores the plugin context inside of the self variable
         var self = this;
 
-            if(self.isMobile) {
+            if(self.isMobile && !self.isMultiselect) {
 
                 self._applyNativeSelect();
 

@@ -21,7 +21,7 @@
 <body>
 <form>
  
-  <select name="test" multiple="multiple" data-text="All" data-val="0,1">    
+  <select name="test" data-text="All" data-val="0,1" multiple="multiple">    
 	<option data-text="All" value="">All</option>
     <option data-text="a jQuery Plugin" value="0">a jQuery Plugin</option>
     <option data-text="a Select Box Replacement" value="1">a Select Box Replacement</option>
@@ -34,7 +34,10 @@
 <script>
 jQuery(function($) {
 
-  $('select').selectBoxIt({ });
+  $('select').selectBoxIt({ disableMobile: true });
+  $('select').on("changed", function(){
+	console.log("changed...");
+  });
 
 });
 </script>

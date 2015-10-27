@@ -144,7 +144,7 @@
         // Stores the plugin context inside of the self variable
         var self = this;
 
-            if(self.isMobile) {
+            if(self.isMobile && !self.isMultiselect) {
 
                 self._applyNativeSelect();
 

@@ -123,7 +123,35 @@
             "dynamicPositioning": true,
 
             // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
-            "hideCurrent": false
+            "hideCurrent": false,
+
+            // **getFocusStyle**: Determines the default focus style of select controls in the current browser
+            "getFocusStyle": function() {
+
+                var currentlyFocused = document.activeElement;
+
+                var dummyOption = $(document.createElement("select")).css({
+                    position: "fixed",
+                    top: 0
+                }).appendTo("body").focus();
+
+                // Firefox returns "" when trying to access "outline" shorthand, so grab each value individually.
+                var color = dummyOption.css('outlineColor');
+                var width = dummyOption.css('outlineWidth');
+                var style = dummyOption.css('outlineStyle');
+
+                var focusStyle = color + ' ' + width + ' ' + style;
+
+                dummyOption.remove();
+
+                if (currentlyFocused) {
+
+                    currentlyFocused.focus();
+
+                }
+
+                return focusStyle;
+            }
 
         },
 
@@ -234,7 +262,7 @@
 
         // isDeferred
         // ----------
-        //      Checks if parameter is a defered object      
+        //      Checks if parameter is a defered object
         isDeferred: function(def) {
             return $.isPlainObject(def) && def.promise && def.done;
         },
@@ -347,6 +375,8 @@
                 this._applyNativeSelect();
 
             }
+
+            self.focusStyle = self.options["getFocusStyle"]();
 
             // Triggers a custom `create` event on the original dropdown list
             self.triggerEvent("create");
@@ -1181,12 +1211,15 @@
                         self.close();
 
                         $(this).removeClass(focusClass);
+                        $(self.dropdown).css('outline', '');
 
                     }
 
                 },
 
                 "focus.selectBoxIt": function(event, internal) {
+
+                    $(self.dropdown).css('outline', self.focusStyle);
 
                     // Stores the data associated with the mousedown event inside of a local variable
                     var mdown = $(this).data("mdown");
@@ -1498,6 +1531,8 @@
                         self.dropdownImage.attr("style", currentOption.find("i").attr("style"));
                     }
 
+                    self.blur = true;
+
                     // Triggers a custom changed event on the original select box
                     self.triggerEvent("changed");
 
@@ -1749,7 +1784,7 @@
 
         // _copyAttributes
         // ---------------
-        //      Copies HTML attributes from the original select box to the new drop down 
+        //      Copies HTML attributes from the original select box to the new drop down
         _copyAttributes: function() {
 
             var self = this;

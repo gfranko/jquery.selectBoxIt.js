@@ -13,6 +13,7 @@
     "type": "git",
     "url": "git://github.com/gfranko/jQuery.selectBoxIt.js.git"
   },
+  "main": "src/javascripts/jquery.selectBoxIt.js",
   "bugs": {
     "url": "https://github.com/gfranko/jQuery.selectBoxIt.js/issues"
   },

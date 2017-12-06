@@ -33,24 +33,24 @@ A jQuery plugin that progressively enhances an HTML Select Box into a single opt
 
    - Easily extendable to allow developers to create new widgets
 
-##Requirements
+## Requirements
 jQuery 1.8.3+ (It is always recommended to use the latest version of jQuery)
 
 jQueryUI Widget Factory 1.10.0+ (It is always recommended to use the latest version of the jQueryUI Widget Factory)
 
-##Desktop Browser Support
+## Desktop Browser Support
 IE8+, Firefox 4+, Chrome, Safari 4+, Opera 11+ (Other browsers may work, but I did not test on them)
 
 **Note:** The CSS3 `background-size` property is used for the icon images, which is only supported in IE9+
 
-##Mobile/Tablet Browser Support
+## Mobile/Tablet Browser Support
 iOs 3+, Android 2.1+ (Other browsers may work, but I did not test on them)
 
 
-##Unit Tests
+## Unit Tests
 All unit tests are written using the Jasmine Framework
 
-##Contributing
+## Contributing
 Take care to maintain the existing coding style. Add Jasmine unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 If you plan to contribute to `SelectBoxIt` in the future, keep in mind that you should make sure your code passes the Grunt checks.
@@ -67,10 +67,10 @@ After you have verified your code, send a pull request to the `SelectBoxIt` dev 
 
 You'll find source code in the "src" subdirectory!
 
-##Forking
+## Forking
 If you find that you need a feature that SelectBoxIt does not currently support, either let me know via the SelectBoxIt issue tracker, or fork SelectBoxIt on Github and easily extend SelectBoxIt to create your own widget!
 
-##Change Log
+## Change Log
 
 `3.8.0` - October 4, 2013
 

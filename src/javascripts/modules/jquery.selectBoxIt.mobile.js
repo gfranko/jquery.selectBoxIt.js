@@ -129,6 +129,13 @@
                 // Moves SelectBoxIt off the page
                 self.selectBox.addClass('selectboxit-rendering');
 
+            },
+
+            "destroy.selectBoxIt": function() {
+
+                // Reset SelectBoxIt class
+                self.selectBox.removeClass('selectboxit-rendering');
+
             }
 
         });

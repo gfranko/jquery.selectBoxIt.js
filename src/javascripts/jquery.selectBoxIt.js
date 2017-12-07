@@ -1252,29 +1252,32 @@
 
                 // `keypress` event with the `selectBoxIt` namespace.  Catches all user keyboard text searches since you can only reliably get character codes using the `keypress` event
                 "keypress.selectBoxIt": function(e) {
+                    // The `keypress` handler logic will only be applied if the dropdown list is enabled
+                    if (!self.originalElem.disabled) {
+                    	
+	                    // Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross
+	                    // browser support since IE uses `keyCode` instead of `charCode`.
+	                    var currentKey = e.charCode || e.keyCode,
 
-                    // Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross
-                    // browser support since IE uses `keyCode` instead of `charCode`.
-                    var currentKey = e.charCode || e.keyCode,
+	                        key = self._keyMappings[e.charCode || e.keyCode],
 
-                        key = self._keyMappings[e.charCode || e.keyCode],
+	                        // Converts unicode values to characters
+	                        alphaNumericKey = String.fromCharCode(currentKey);
 
-                        // Converts unicode values to characters
-                        alphaNumericKey = String.fromCharCode(currentKey);
+	                    // If the plugin options allow text searches
+	                    if (self.search && (!key || (key && key === "space"))) {
 
-                    // If the plugin options allow text searches
-                    if (self.search && (!key || (key && key === "space"))) {
+	                        // Calls `search` and passes the character value of the user's text search
+	                        self.search(alphaNumericKey, true, true);
 
-                        // Calls `search` and passes the character value of the user's text search
-                        self.search(alphaNumericKey, true, true);
+	                    }
 
-                    }
+	                    if(key === "space") {
 
-                    if(key === "space") {
+	                        e.preventDefault();
 
-                        e.preventDefault();
-
-                    }
+	                    }
+                	}
 
                 },
 

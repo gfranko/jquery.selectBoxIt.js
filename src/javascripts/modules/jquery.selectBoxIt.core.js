@@ -156,7 +156,11 @@
 
                     "container": "bootstrap",
 
-                    "open": "open"
+                    "open": "open",
+
+                    "openAbove": "selectboxit-open-above",
+
+                    "openBelow": "selectboxit-open-below"
 
                 },
 
@@ -179,7 +183,11 @@
 
                     "container": "jqueryui",
 
-                    "open": "selectboxit-open"
+                    "open": "selectboxit-open",
+
+                    "openAbove": "selectboxit-open-above",
+
+                    "openBelow": "selectboxit-open-below"
 
                 },
 
@@ -202,7 +210,11 @@
 
                     "container": "jquerymobile",
 
-                    "open": "selectboxit-open"
+                    "open": "selectboxit-open",
+
+                    "openAbove": "selectboxit-open-above",
+
+                    "openBelow": "selectboxit-open-below"
 
                 },
 
@@ -224,7 +236,11 @@
 
                     "container": "selectboxit-container",
 
-                    "open": "selectboxit-open"
+                    "open": "selectboxit-open",
+
+                    "openAbove": "selectboxit-open-above",
+
+                    "openBelow": "selectboxit-open-below"
 
                 }
 
@@ -1115,7 +1131,9 @@
                 currentText,
                 focusClass = self.focusClass,
                 hoverClass = self.hoverClass,
-                openClass = self.openClass;
+                openClass = self.openClass,
+                openAboveClass = self.openAboveClass,
+                openBelowClass = self.openBelowClass;
 
             // Select Box events
             this.dropdown.on({
@@ -1562,6 +1580,8 @@
 
                     // Removes the open class from the dropdown container
                     self.dropdown.removeClass(openClass);
+                    self.dropdown.removeClass(openAboveClass);
+                    self.dropdown.removeClass(openBelowClass);
 
                 },
 
@@ -1675,7 +1695,11 @@
 
                 containerClass = obj.container,
 
-                openClass = self.openClass = obj.open;
+                openClass = self.openClass = obj.open,
+
+                openAboveClass = self.openAboveClass = obj.openAbove,
+
+                openBelowClass = self.openBelowClass = obj.openBelow;
 
             self.selectedClass = "selectboxit-selected";
 

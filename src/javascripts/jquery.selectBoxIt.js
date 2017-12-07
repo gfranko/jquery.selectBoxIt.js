@@ -156,7 +156,11 @@
 
                     "container": "bootstrap",
 
-                    "open": "open"
+                    "open": "open",
+
+                    "openAbove": "selectboxit-open-above",
+
+                    "openBelow": "selectboxit-open-below"
 
                 },
 
@@ -179,7 +183,11 @@
 
                     "container": "jqueryui",
 
-                    "open": "selectboxit-open"
+                    "open": "selectboxit-open",
+
+                    "openAbove": "selectboxit-open-above",
+
+                    "openBelow": "selectboxit-open-below"
 
                 },
 
@@ -202,7 +210,11 @@
 
                     "container": "jquerymobile",
 
-                    "open": "selectboxit-open"
+                    "open": "selectboxit-open",
+
+                    "openAbove": "selectboxit-open-above",
+
+                    "openBelow": "selectboxit-open-below"
 
                 },
 
@@ -224,7 +236,11 @@
 
                     "container": "selectboxit-container",
 
-                    "open": "selectboxit-open"
+                    "open": "selectboxit-open",
+
+                    "openAbove": "selectboxit-open-above",
+
+                    "openBelow": "selectboxit-open-below"
 
                 }
 
@@ -1115,7 +1131,9 @@
                 currentText,
                 focusClass = self.focusClass,
                 hoverClass = self.hoverClass,
-                openClass = self.openClass;
+                openClass = self.openClass,
+                openAboveClass = self.openAboveClass,
+                openBelowClass = self.openBelowClass;
 
             // Select Box events
             this.dropdown.on({
@@ -1562,6 +1580,8 @@
 
                     // Removes the open class from the dropdown container
                     self.dropdown.removeClass(openClass);
+                    self.dropdown.removeClass(openAboveClass);
+                    self.dropdown.removeClass(openBelowClass);
 
                 },
 
@@ -1675,7 +1695,11 @@
 
                 containerClass = obj.container,
 
-                openClass = self.openClass = obj.open;
+                openClass = self.openClass = obj.open,
+
+                openAboveClass = self.openAboveClass = obj.openAbove,
+
+                openBelowClass = self.openBelowClass = obj.openBelow;
 
             self.selectedClass = "selectboxit-selected";
 
@@ -1800,6 +1824,7 @@
 
     // Stores the plugin prototype object in a local variable
     var selectBoxIt = $.selectBox.selectBoxIt.prototype;
+
 
     // Add Options Module
     // ==================
@@ -2368,7 +2393,10 @@ selectBoxIt._destroySelectBoxIt = function() {
 
     selectBoxIt._dynamicPositioning = function() {
 
-        var self = this;
+        var self = this,
+          openAboveClass = self.openAboveClass,
+          openBelowClass = self.openBelowClass,
+          positionClass;
 
         // If the `size` option is a number
         if($.type(self.listSize) === "number") {
@@ -2414,6 +2442,8 @@ selectBoxIt._destroySelectBoxIt = function() {
                 // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
                 self.list.css("top", "auto");
 
+                positionClass = openBelowClass;
+
             }
 
             // If there is room on the top of the viewport
@@ -2424,6 +2454,7 @@ selectBoxIt._destroySelectBoxIt = function() {
                 // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                 self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
+                positionClass = openAboveClass;
             }
 
             // If there is not enough room on the top or the bottom
@@ -2440,6 +2471,8 @@ selectBoxIt._destroySelectBoxIt = function() {
 
                     self.list.css("top", "auto");
 
+                    positionClass = openBelowClass;
+
                 }
 
                 // If there is more room on the top
@@ -2450,16 +2483,22 @@ selectBoxIt._destroySelectBoxIt = function() {
                     // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                     self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
+                    positionClass = openAboveClass;
+
                 }
 
             }
 
+          self.dropdown.removeClass(openAboveClass);
+          self.dropdown.removeClass(openBelowClass);
+          self.dropdown.addClass(positionClass);
         }
 
         // Maintains chainability
         return self;
 
     };
+
 
     // Enable Module
     // =============

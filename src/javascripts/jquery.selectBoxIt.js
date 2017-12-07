@@ -915,6 +915,10 @@
                 }
 
                 self.list.promise().done(function() {
+
+                    // Updates the list `scrollTop` attribute
+                    self._scrollToView("search");
+
                     // Triggers a custom "opened" event when the drop down list is done animating
                     self.triggerEvent("opened");
 
@@ -1557,11 +1561,9 @@
                     activeElem.addClass(self.selectedClass).addClass(focusClass);
 
                     if(self.options.hideCurrent) {
-
-                        self.listItems.show();
-
-                        activeElem.hide();
-
+                        activeElem.hide().promise().done(function () {
+                            self.listItems.show();
+                        });
                     }
 
                 },

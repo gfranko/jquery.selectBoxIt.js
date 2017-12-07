@@ -276,3 +276,23 @@
 .selectboxit-list > .selectboxit-disabled > .selectboxit-option-anchor {
   color: #999999;
 }
+
+/**
+* @added by machadoug
+*/
+
+span.selectboxit-option-price {
+  float: right;
+  font-size: 150%;
+}
+.selectboxit-container small.text-muted {
+  display: block;
+}
+.selectboxit-container .selectboxit-option-with-description span, .selectboxit-container .selectboxit-options a {
+  height: 60px;
+}
+
+.selectboxit-option-with-description .selectboxit-option-icon-url {
+  width: 32px;
+  background-size: 32px 32px;
+}

@@ -3,8 +3,8 @@
   <meta charset="utf-8">
   <link type="text/css" rel="stylesheet" href="./src/stylesheets/jquery.selectBoxIt.css" />
   <link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" />
-  <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/ui-darkness/jquery-ui.css" />
-  <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
   <!--<link type="text/css" rel="stylesheet" href="css/jqm.css" /> -->
   <style>
   .testing {
@@ -360,9 +360,32 @@
     <option value="3">DM-Dealer Action Required</option>
     <option value="8">DM-Pending</option>
   </select>
+  
+  
+  <br /><br /><br /><br />
+  
+  <select name="test" id="select-with-description">
+ 	 <option value="SelectBoxIt themes:" data-iconurl="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-5/256/themes-icon.png">
+    SelectBoxIt themes:
+    </option>
+    <option value="Contact Enhanced" data-iconurl="https://idealextensions.com/images/extensions/com_contactenhanced/ce-logo-150px.png"
+    	data-content='<p><a href="https://idealextensions.com/joomla-extensions/component-contact-enhanced.html" target="_blank">Contact Enhanced</a> is a contact component manager created to replace Joomla! core contacts component and add lots of advantages and new features (see <strong>Features</strong> tab below) and it offers many plugins and modules for several different purposes,</p>'
+    	data-price="U$49"
+    	data-selectedtext="Contact Enhanced - U$50"
+    	rel="popover" title="Product Description"
+   	>
+    Contact Enhanced
+    </option>
+    <option value="0" data-icon="icon-search">0</option>
+    <option value="a jQuery Plugin" data-icon="icon-ok">a jQuery Plugin</option>
+    <option value="a Select Box Replacement" data-icon="icon-ok">a Select Box Replacement</option>
+    <option value="a Stateful UI Widget" data-icon="icon-ok">a Stateful UI Widget</option>
+  </select>
 </form>
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="./src/javascripts/jquery.selectBoxIt.js"></script>
 
 <script>
 jQuery(function($) {
@@ -372,7 +395,9 @@ jQuery(function($) {
 
   //var select = $("select").selectBoxIt({ populate: '<option value="test">test</option>' }).data('selectBox-selectBoxIt').remove(0);
 
-  $('select').selectBoxIt({ });
+  jQuery('select').selectBoxIt({descriptionTrim:20 });
+  jQuery(".selectboxit-container [rel='popover']").popover({ trigger: "hover", container: "body", html : true, 
+        });
 
   // $('form').removeClass('hidden');
 

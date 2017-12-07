@@ -1,4 +1,4 @@
-/*! jquery.selectBoxIt - v3.8.0 - 2013-08-13 
+/*! jquery.selectBoxIt - v3.8.1 - 2013-10-17
 * http://www.selectboxit.com
 * Copyright (c) 2013 Greg Franko; Licensed MIT*/
 
@@ -25,7 +25,7 @@
     $.widget("selectBox.selectBoxIt", {
 
         // Plugin version
-        VERSION: "3.8.0",
+        VERSION: "3.8.2",
 
         // These options will be used as defaults
         options: {
@@ -100,6 +100,13 @@
                 "rel"
 
             ],
+            
+            // **dontCopyAttributes: HTML attributes to explicitly blacklist from being copied to the new dropdown
+            "dontCopyAttributes": [
+
+                "data-reactid"
+
+            ],
 
             // **copyClasses**: HTML classes that will be copied over to the new drop down.  The value indicates where the classes should be copied.  The default value is 'button', but you can also use 'container' (recommended) or 'none'.
             "copyClasses": "button",
@@ -123,7 +130,10 @@
             "dynamicPositioning": true,
 
             // **hideCurrent**: Determines whether or not the currently selected drop down option is hidden in the list
-            "hideCurrent": false
+            "hideCurrent": false,
+
+            // **numSearchCharacters**: Option for how many characters a user must search to be treated as a full string search
+            "numSearchCharacters": "auto"
 
         },
 
@@ -553,8 +563,10 @@
 
                 }
 
+                currentOption.attr("value", this.value);
+
                 // Uses string concatenation for speed (applies HTML attribute encoding)
-                currentItem += optgroupElement + '<li data-id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
+                currentItem += optgroupElement + '<li data-id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
 
                 currentDataSearch = currentOption.attr("data-search");
 
@@ -705,17 +717,18 @@
 
             }
 
+            // Adds the new dropdown list to the page directly after the hidden original select box element
+            self.selectBox.after(self.dropdownContainer);
+
+            self.dropdownContainer.removeClass('selectboxit-rendering');
+
+            // Fixes #255
             // Dynamically adds the `max-width` and `line-height` CSS styles of the dropdown list text element
             self.dropdownText.css({
 
                 "max-width": self.dropdownContainer.outerWidth(true) - (downArrowContainerWidth + dropdownImageWidth)
 
             });
-
-            // Adds the new dropdown list to the page directly after the hidden original select box element
-            self.selectBox.after(self.dropdownContainer);
-
-            self.dropdownContainer.removeClass('selectboxit-rendering');
 
             if($.type(listSize) === "number") {
 
@@ -906,6 +919,9 @@
                     // Updates the list `scrollTop` attribute
                     self._scrollToView("search");
 
+                    // Triggers a custom "opened" event when the drop down list is done animating
+                    self.triggerEvent("opened");
+
                 });
 
             }
@@ -958,6 +974,14 @@
                     self.list.hide(hideEffect, hideEffectOptions, hideEffectSpeed);
 
                 }
+
+                // After the drop down list is done animating
+                self.list.promise().done(function() {
+
+                    // Triggers a custom "closed" event when the drop down list is done animating
+                    self.triggerEvent("closed");
+
+                });
 
             }
 
@@ -1240,29 +1264,30 @@
                 // `keypress` event with the `selectBoxIt` namespace.  Catches all user keyboard text searches since you can only reliably get character codes using the `keypress` event
                 "keypress.selectBoxIt": function(e) {
 
-                    // Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross
-                    // browser support since IE uses `keyCode` instead of `charCode`.
-                    var currentKey = e.charCode || e.keyCode,
+                    if (!self.originalElem.disabled) {
+                        // Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross
+                        // browser support since IE uses `keyCode` instead of `charCode`.
+                        var currentKey = e.charCode || e.keyCode,
 
-                        key = self._keyMappings[e.charCode || e.keyCode],
+                            key = self._keyMappings[e.charCode || e.keyCode],
 
-                        // Converts unicode values to characters
-                        alphaNumericKey = String.fromCharCode(currentKey);
+                            // Converts unicode values to characters
+                            alphaNumericKey = String.fromCharCode(currentKey);
 
-                    // If the plugin options allow text searches
-                    if (self.search && (!key || (key && key === "space"))) {
+                        // If the plugin options allow text searches
+                        if (self.search && (!key || (key && key === "space"))) {
 
-                        // Calls `search` and passes the character value of the user's text search
-                        self.search(alphaNumericKey, true, true);
+                            // Calls `search` and passes the character value of the user's text search
+                            self.search(alphaNumericKey, true, true);
 
+                        }
+
+                        if(key === "space") {
+
+                            e.preventDefault();
+
+                        }
                     }
-
-                    if(key === "space") {
-
-                        e.preventDefault();
-
-                    }
-
                 },
 
                 // `mousenter` event with the `selectBoxIt` namespace .The mouseenter JavaScript event is proprietary to Internet Explorer. Because of the event's general utility, jQuery simulates this event so that it can be used regardless of browser.
@@ -1536,11 +1561,9 @@
                     activeElem.addClass(self.selectedClass).addClass(focusClass);
 
                     if(self.options.hideCurrent) {
-
-                        self.listItems.show();
-
-                        activeElem.hide();
-
+                        activeElem.hide().promise().done(function () {
+                            self.listItems.show();
+                        });
                     }
 
                 },
@@ -1788,6 +1811,7 @@
     // Stores the plugin prototype object in a local variable
     var selectBoxIt = $.selectBox.selectBoxIt.prototype;
 
+
     // Add Options Module
     // ==================
 
@@ -1990,9 +2014,6 @@
             // W3C `combobox` description: A presentation of a select; usually similar to a textbox where users can type ahead to select an option.
             "role": "combobox",
 
-            //W3C `aria-autocomplete` description: Indicates whether user input completion suggestions are provided.
-            "aria-autocomplete": "list",
-
             "aria-haspopup": "true",
 
             // W3C `aria-expanded` description: Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.
@@ -2123,7 +2144,9 @@
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            whitelist = self.options["copyAttributes"];
+            whitelist = self.options["copyAttributes"],
+            blacklist = self.options["dontCopyAttributes"];
+
 
         // If there are array properties
         if(arr.length) {
@@ -2134,6 +2157,13 @@
                 // Get's the property name and property value of each property
                 var propName = (property.name).toLowerCase(), propValue = property.value;
 
+                // If the currently traversed property is in the blacklist
+                if($.inArray(propName, blacklist) !== -1) {
+
+                    return;
+
+                }
+                
                 // If the currently traversed property value is not "null", is on the whitelist, or is an HTML 5 data attribute
                 if(propValue !== "null" && ($.inArray(propName, whitelist) !== -1 || propName.indexOf("data") !== -1)) {
 
@@ -2150,6 +2180,7 @@
         return self;
 
     };
+
 // Destroy Module
 // ==============
 
@@ -2201,9 +2232,6 @@ selectBoxIt._destroySelectBoxIt = function() {
     // Resets the style attributes for the original select box
     self.selectBox.removeAttr("style").attr("style", self.selectBoxStyles);
 
-    // Shows the original dropdown list
-    self.selectBox.show();
-
     // Triggers the custom `destroy` event on the original select box
     self.triggerEvent("destroy");
 
@@ -2240,7 +2268,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Enabled styling for disabled state
             addClass(self.theme["disabled"]);
 
-            self.setOption("disabled", true);
+            self._setOption("disabled", true);
 
             // Triggers a `disable` custom event on the original select box
             self.triggerEvent("disable");
@@ -2359,6 +2387,8 @@ selectBoxIt._destroySelectBoxIt = function() {
     selectBoxIt._dynamicPositioning = function() {
 
         var self = this;
+        var openUpClassName = 'selectboxit-open-up';
+        var openDownClassName = 'selectboxit-open-down';
 
         // If the `size` option is a number
         if($.type(self.listSize) === "number") {
@@ -2404,6 +2434,8 @@ selectBoxIt._destroySelectBoxIt = function() {
                 // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
                 self.list.css("top", "auto");
 
+                self.dropdown.addClass(openDownClassName);
+
             }
 
             // If there is room on the top of the viewport
@@ -2413,6 +2445,8 @@ selectBoxIt._destroySelectBoxIt = function() {
 
                 // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                 self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
+
+                self.dropdown.addClass(openUpClassName);
 
             }
 
@@ -2430,6 +2464,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
                     self.list.css("top", "auto");
 
+                    self.dropdown.addClass(openDownClassName);
                 }
 
                 // If there is more room on the top
@@ -2440,6 +2475,7 @@ selectBoxIt._destroySelectBoxIt = function() {
                     // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                     self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
+                    self.dropdown.addClass(openUpClassName);
                 }
 
             }
@@ -2479,7 +2515,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Enables styling for enabled state
             addClass(self.theme["enabled"]);
 
-            self.setOption("disabled", false);
+            self._setOption("disabled", false);
 
             // Provide callback function support
             self._callbackSupport(callback);
@@ -2717,6 +2753,8 @@ selectBoxIt._destroySelectBoxIt = function() {
 
         var self = this,
 
+            options = self.options,
+
             // Boolean to determine if a pattern match exists
             matchExists = false,
 
@@ -2736,7 +2774,10 @@ selectBoxIt._destroySelectBoxIt = function() {
             textArray = self.textArray,
 
             // Variable storing the current text property
-            currentText = self.currentText;
+            currentText = self.currentText,
+
+            // Option for how many characters a user must search to be treated as a full string search
+            numSearchCharacters = $.type(options.numSearchCharacters) === 'number' ? options.numSearchCharacters : 3;
 
         // Loops through the text array to find a pattern match
         for (x = currentIndex, arrayLength = textArray.length; x < arrayLength; x += 1) {
@@ -2776,7 +2817,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             alphaNumeric = new RegExp(currentText, "gi");
 
             // Searches based on the first letter of the dropdown list options text if the currentText < 3 characters
-            if (currentText.length < 3) {
+            if (currentText.length < numSearchCharacters) {
 
                 alphaNumeric = new RegExp(currentText.charAt(0), "gi");
 
@@ -3009,8 +3050,14 @@ selectBoxIt._destroySelectBoxIt = function() {
                 // Moves SelectBoxIt off the page
                 self.selectBox.addClass('selectboxit-rendering');
 
-            }
+            },
 
+            "destroy.selectBoxIt": function() {
+
+                // Reset SelectBoxIt class
+                self.selectBox.removeClass('selectboxit-rendering');
+
+            }
         });
 
     };

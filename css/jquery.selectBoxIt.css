@@ -1,5 +1,5 @@
 /*
- * jquery.selectBoxIt.css 3.8.0
+ * jquery.selectBoxIt.css 3.8.1
  * Author: @gregfranko
  */
 
@@ -81,8 +81,8 @@
 .selectboxit-container .selectboxit-options {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  box-sizing: content-box\9;
   min-width: 100%;  /* Minimum Width of the dropdown list box options */
-  *width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;

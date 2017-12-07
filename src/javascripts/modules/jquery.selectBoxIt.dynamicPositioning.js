@@ -9,6 +9,8 @@
     selectBoxIt._dynamicPositioning = function() {
 
         var self = this;
+        var openUpClassName = 'selectboxit-open-up';
+        var openDownClassName = 'selectboxit-open-down';
 
         // If the `size` option is a number
         if($.type(self.listSize) === "number") {
@@ -54,6 +56,8 @@
                 // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
                 self.list.css("top", "auto");
 
+                self.dropdown.addClass(openDownClassName);
+
             }
 
             // If there is room on the top of the viewport
@@ -63,6 +67,8 @@
 
                 // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                 self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
+
+                self.dropdown.addClass(openUpClassName);
 
             }
 
@@ -80,6 +86,7 @@
 
                     self.list.css("top", "auto");
 
+                    self.dropdown.addClass(openDownClassName);
                 }
 
                 // If there is more room on the top
@@ -90,6 +97,7 @@
                     // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                     self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
+                    self.dropdown.addClass(openUpClassName);
                 }
 
             }

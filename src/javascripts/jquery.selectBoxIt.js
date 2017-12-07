@@ -566,7 +566,7 @@
                 currentOption.attr("value", this.value);
 
                 // Uses string concatenation for speed (applies HTML attribute encoding)
-                currentItem += optgroupElement + '<li data-id="' + index + '" data-val="' + this.value + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
+                currentItem += optgroupElement + '<li data-id="' + index + '" data-val="' + self.htmlEscape(this.value) + '" data-disabled="' + dataDisabled + '" class="' + optgroupClass + " selectboxit-option " + ($(this).attr("class") || "") + '"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon ' + iconClass + ' ' + (iconUrlClass || self.theme["container"]) + '"' + iconUrlStyle + '></i></span>' + (self.options["html"] ? currentText: self.htmlEscape(currentText)) + '</a></li>';
 
                 currentDataSearch = currentOption.attr("data-search");
 
@@ -915,10 +915,6 @@
                 }
 
                 self.list.promise().done(function() {
-
-                    // Updates the list `scrollTop` attribute
-                    self._scrollToView("search");
-
                     // Triggers a custom "opened" event when the drop down list is done animating
                     self.triggerEvent("opened");
 
@@ -1264,29 +1260,30 @@
                 // `keypress` event with the `selectBoxIt` namespace.  Catches all user keyboard text searches since you can only reliably get character codes using the `keypress` event
                 "keypress.selectBoxIt": function(e) {
 
-                    // Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross
-                    // browser support since IE uses `keyCode` instead of `charCode`.
-                    var currentKey = e.charCode || e.keyCode,
+                    if (!self.originalElem.disabled) {
+                        // Sets the current key to the `keyCode` value if `charCode` does not exist.  Used for cross
+                        // browser support since IE uses `keyCode` instead of `charCode`.
+                        var currentKey = e.charCode || e.keyCode,
 
-                        key = self._keyMappings[e.charCode || e.keyCode],
+                            key = self._keyMappings[e.charCode || e.keyCode],
 
-                        // Converts unicode values to characters
-                        alphaNumericKey = String.fromCharCode(currentKey);
+                            // Converts unicode values to characters
+                            alphaNumericKey = String.fromCharCode(currentKey);
 
-                    // If the plugin options allow text searches
-                    if (self.search && (!key || (key && key === "space"))) {
+                        // If the plugin options allow text searches
+                        if (self.search && (!key || (key && key === "space"))) {
 
-                        // Calls `search` and passes the character value of the user's text search
-                        self.search(alphaNumericKey, true, true);
+                            // Calls `search` and passes the character value of the user's text search
+                            self.search(alphaNumericKey, true, true);
 
+                        }
+
+                        if(key === "space") {
+
+                            e.preventDefault();
+
+                        }
                     }
-
-                    if(key === "space") {
-
-                        e.preventDefault();
-
-                    }
-
                 },
 
                 // `mousenter` event with the `selectBoxIt` namespace .The mouseenter JavaScript event is proprietary to Internet Explorer. Because of the event's general utility, jQuery simulates this event so that it can be used regardless of browser.
@@ -2015,9 +2012,6 @@
             // W3C `combobox` description: A presentation of a select; usually similar to a textbox where users can type ahead to select an option.
             "role": "combobox",
 
-            //W3C `aria-autocomplete` description: Indicates whether user input completion suggestions are provided.
-            "aria-autocomplete": "list",
-
             "aria-haspopup": "true",
 
             // W3C `aria-expanded` description: Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.
@@ -2272,7 +2266,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Enabled styling for disabled state
             addClass(self.theme["disabled"]);
 
-            self.setOption("disabled", true);
+            self._setOption("disabled", true);
 
             // Triggers a `disable` custom event on the original select box
             self.triggerEvent("disable");
@@ -2391,6 +2385,8 @@ selectBoxIt._destroySelectBoxIt = function() {
     selectBoxIt._dynamicPositioning = function() {
 
         var self = this;
+        var openUpClassName = 'selectboxit-open-up';
+        var openDownClassName = 'selectboxit-open-down';
 
         // If the `size` option is a number
         if($.type(self.listSize) === "number") {
@@ -2436,6 +2432,8 @@ selectBoxIt._destroySelectBoxIt = function() {
                 // Sets custom CSS properties to place the dropdown list options directly below the dropdown list
                 self.list.css("top", "auto");
 
+                self.dropdown.addClass(openDownClassName);
+
             }
 
             // If there is room on the top of the viewport
@@ -2445,6 +2443,8 @@ selectBoxIt._destroySelectBoxIt = function() {
 
                 // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                 self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
+
+                self.dropdown.addClass(openUpClassName);
 
             }
 
@@ -2462,6 +2462,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
                     self.list.css("top", "auto");
 
+                    self.dropdown.addClass(openDownClassName);
                 }
 
                 // If there is more room on the top
@@ -2472,6 +2473,7 @@ selectBoxIt._destroySelectBoxIt = function() {
                     // Sets custom CSS properties to place the dropdown list options directly above the dropdown list
                     self.list.css("top", (self.dropdown.position().top - self.list.outerHeight()));
 
+                    self.dropdown.addClass(openUpClassName);
                 }
 
             }
@@ -2511,7 +2513,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             // Enables styling for enabled state
             addClass(self.theme["enabled"]);
 
-            self.setOption("disabled", false);
+            self._setOption("disabled", false);
 
             // Provide callback function support
             self._callbackSupport(callback);
@@ -3046,8 +3048,14 @@ selectBoxIt._destroySelectBoxIt = function() {
                 // Moves SelectBoxIt off the page
                 self.selectBox.addClass('selectboxit-rendering');
 
-            }
+            },
 
+            "destroy.selectBoxIt": function() {
+
+                // Reset SelectBoxIt class
+                self.selectBox.removeClass('selectboxit-rendering');
+
+            }
         });
 
     };

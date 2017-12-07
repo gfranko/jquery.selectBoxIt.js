@@ -27,7 +27,7 @@
             // Enabled styling for disabled state
             addClass(self.theme["disabled"]);
 
-            self.setOption("disabled", true);
+            self._setOption("disabled", true);
 
             // Triggers a `disable` custom event on the original select box
             self.triggerEvent("disable");

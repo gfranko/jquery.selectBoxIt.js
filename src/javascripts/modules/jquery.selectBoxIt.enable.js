@@ -27,7 +27,7 @@
             // Enables styling for enabled state
             addClass(self.theme["enabled"]);
 
-            self.setOption("disabled", false);
+            self._setOption("disabled", false);
 
             // Provide callback function support
             self._callbackSupport(callback);

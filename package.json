@@ -31,6 +31,7 @@
     "grunt-contrib-jshint": "~0.3.0",
     "grunt-contrib-jasmine": "~0.4.2"
   },
+  "main": "src/javascripts/jquery.selectBoxIt.js",
   "scripts": {
     "test": "grunt travis --verbose"
   },

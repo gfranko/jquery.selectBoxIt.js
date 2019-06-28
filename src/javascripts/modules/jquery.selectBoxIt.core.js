@@ -1534,7 +1534,7 @@
                 // `open` event with the `selectBoxIt` namespace
                 "open.selectBoxIt": function() {
 
-                    var currentElem = self.list.find("li[data-val='" + self.dropdownText.attr("data-val") + "']"),
+                    var currentElem = self.list.find("li[data-val=\"" + self.dropdownText.attr("data-val") + "\"]"),
                         activeElem;
 
                     // If no current element can be found, then select the first drop down option

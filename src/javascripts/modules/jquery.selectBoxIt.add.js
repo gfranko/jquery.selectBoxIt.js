@@ -159,7 +159,7 @@
 
         var self = this;
 
-        data = $.isFunction(data) ? data.call() : data;
+        data = (typeof data === "function") ? data.call() : data;
 
         if(self.isDeferred(data)) {
 

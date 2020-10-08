@@ -730,7 +730,7 @@
 
             });
 
-            if($.type(listSize) === "number") {
+            if(typeof listSize === "number") {
 
                 // Stores the new `max-height` for later
                 self.maxHeight = self.listAnchors.outerHeight(true) * listSize;
@@ -1826,7 +1826,7 @@
         this._populate(data, function(data) {
 
             var self = this,
-                dataType = $.type(data),
+                dataType = typeof data,
                 value,
                 x = 0,
                 dataLength,
@@ -1835,7 +1835,7 @@
                 parsedJSON = isJSON && self._parseJSON(data);
 
             // If the passed data is a local or JSON array
-            if(data && (dataType === "array" || (isJSON && parsedJSON.data && $.type(parsedJSON.data) === "array")) || (dataType === "object" && data.data && $.type(data.data) === "array")) {
+            if(data && (dataType === "array" || (isJSON && parsedJSON.data && (typeof parsedJSON.data === "array"))) || (dataType === "object" && data.data && (typeof data.data === "array"))) {
 
                 // If the data is JSON
                 if(self._isJSON(data)) {
@@ -1868,7 +1868,7 @@
                     }
 
                     // If the currently traversed array item is a string
-                    else if($.type(value) === "string") {
+                    else if(typeof value === "string") {
 
                         // Adds an option to the elems array
                         elems.push($("<option/>", { text: value, value: value }));
@@ -2289,7 +2289,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
     selectBoxIt.disableOption = function(index, callback) {
 
-        var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled, type = $.type(index);
+        var self = this, currentSelectBoxOption, hasNextEnabled, hasPreviousEnabled, type = typeof index;
 
         // If an index is passed to target an indropdownidual drop down option
         if(type === "number") {
@@ -2391,7 +2391,7 @@ selectBoxIt._destroySelectBoxIt = function() {
         var openDownClassName = 'selectboxit-open-down';
 
         // If the `size` option is a number
-        if($.type(self.listSize) === "number") {
+        if(typeof self.listSize === "number") {
 
             // Set's the max-height of the drop down list
             self.list.css("max-height", self.maxHeight || "none");
@@ -2533,7 +2533,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
     selectBoxIt.enableOption = function(index, callback) {
 
-        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled, type = $.type(index);
+        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled, type = typeof index;
 
         // If an index is passed to target an indropdownidual drop down option
         if(type === "number") {
@@ -2777,7 +2777,7 @@ selectBoxIt._destroySelectBoxIt = function() {
             currentText = self.currentText,
 
             // Option for how many characters a user must search to be treated as a full string search
-            numSearchCharacters = $.type(options.numSearchCharacters) === 'number' ? options.numSearchCharacters : 3;
+            numSearchCharacters = typeof options.numSearchCharacters === 'number' ? options.numSearchCharacters : 3;
 
         // Loops through the text array to find a pattern match
         for (x = currentIndex, arrayLength = textArray.length; x < arrayLength; x += 1) {
@@ -3095,7 +3095,7 @@ selectBoxIt._destroySelectBoxIt = function() {
     selectBoxIt.remove = function(indexes, callback) {
 
         var self = this,
-            dataType = $.type(indexes),
+            dataType = typeof indexes,
             value,
             x = 0,
             dataLength,
@@ -3111,7 +3111,7 @@ selectBoxIt._destroySelectBoxIt = function() {
                 value = indexes[x];
 
                 // If the currently traversed array item is an object literal
-                if($.type(value) === "number") {
+                if(typeof value === "number") {
 
                     if(elems.length) {
 
@@ -3185,7 +3185,7 @@ selectBoxIt._destroySelectBoxIt = function() {
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            type = $.type(val);
+            type = typeof val;
 
         // Makes sure the passed in position is a number
         if(type === "number") {
@@ -3223,7 +3223,7 @@ selectBoxIt._destroySelectBoxIt = function() {
         var self = this;
 
         //Makes sure a string is passed in
-        if($.type(key) === "string") {
+        if(typeof key === "string") {
 
             // Sets the plugin option to the new value provided by the user
             self.options[key] = value;

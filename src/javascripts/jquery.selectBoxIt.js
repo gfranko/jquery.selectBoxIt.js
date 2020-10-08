@@ -823,7 +823,7 @@
             var self = this;
 
             // Checks to make sure the parameter passed in is a function
-            if ($.isFunction(callback)) {
+            if (typeof callback === "function") {
 
                 // Calls the method passed in as a parameter and sets the current `SelectBoxIt` object that is stored in the jQuery data method as the context(allows for `this` to reference the SelectBoxIt API Methods in the callback function. The `dropdown` DOM element that acts as the new dropdown list is also passed as the only parameter to the callback
                 callback.call(self, self.dropdown);
@@ -1972,7 +1972,7 @@
 
         var self = this;
 
-        data = $.isFunction(data) ? data.call() : data;
+        data = (typeof data === "function") ? data.call() : data;
 
         if(self.isDeferred(data)) {
 

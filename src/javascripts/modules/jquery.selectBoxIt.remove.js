@@ -10,7 +10,7 @@
     selectBoxIt.remove = function(indexes, callback) {
 
         var self = this,
-            dataType = $.type(indexes),
+            dataType = typeof indexes,
             value,
             x = 0,
             dataLength,
@@ -26,7 +26,7 @@
                 value = indexes[x];
 
                 // If the currently traversed array item is an object literal
-                if($.type(value) === "number") {
+                if(typeof value === "number") {
 
                     if(elems.length) {
 

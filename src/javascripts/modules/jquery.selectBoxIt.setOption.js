@@ -12,7 +12,7 @@
         var self = this;
 
         //Makes sure a string is passed in
-        if($.type(key) === "string") {
+        if(typeof key === "string") {
 
             // Sets the plugin option to the new value provided by the user
             self.options[key] = value;

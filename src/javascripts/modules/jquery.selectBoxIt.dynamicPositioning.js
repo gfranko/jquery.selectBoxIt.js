@@ -13,7 +13,7 @@
         var openDownClassName = 'selectboxit-open-down';
 
         // If the `size` option is a number
-        if($.type(self.listSize) === "number") {
+        if(typeof self.listSize === "number") {
 
             // Set's the max-height of the drop down list
             self.list.css("max-height", self.maxHeight || "none");

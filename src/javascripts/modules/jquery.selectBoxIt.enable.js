@@ -45,7 +45,7 @@
 
     selectBoxIt.enableOption = function(index, callback) {
 
-        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled, type = $.type(index);
+        var self = this, currentSelectBoxOption, currentIndex = 0, hasNextEnabled, hasPreviousEnabled, type = typeof index;
 
         // If an index is passed to target an indropdownidual drop down option
         if(type === "number") {

@@ -730,7 +730,7 @@
 
             });
 
-            if($.type(listSize) === "number") {
+            if(typeof listSize === "number") {
 
                 // Stores the new `max-height` for later
                 self.maxHeight = self.listAnchors.outerHeight(true) * listSize;

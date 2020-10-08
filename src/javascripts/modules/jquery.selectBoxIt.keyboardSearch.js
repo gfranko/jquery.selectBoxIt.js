@@ -70,7 +70,7 @@
             currentText = self.currentText,
 
             // Option for how many characters a user must search to be treated as a full string search
-            numSearchCharacters = $.type(options.numSearchCharacters) === 'number' ? options.numSearchCharacters : 3;
+            numSearchCharacters = typeof options.numSearchCharacters === 'number' ? options.numSearchCharacters : 3;
 
         // Loops through the text array to find a pattern match
         for (x = currentIndex, arrayLength = textArray.length; x < arrayLength; x += 1) {

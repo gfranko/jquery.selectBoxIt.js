@@ -13,7 +13,7 @@
         this._populate(data, function(data) {
 
             var self = this,
-                dataType = $.type(data),
+                dataType = typeof data,
                 value,
                 x = 0,
                 dataLength,
@@ -22,7 +22,7 @@
                 parsedJSON = isJSON && self._parseJSON(data);
 
             // If the passed data is a local or JSON array
-            if(data && (dataType === "array" || (isJSON && parsedJSON.data && $.type(parsedJSON.data) === "array")) || (dataType === "object" && data.data && $.type(data.data) === "array")) {
+            if(data && (dataType === "array" || (isJSON && parsedJSON.data && typeof parsedJSON.data === "array")) || (dataType === "object" && data.data && typeof data.data === "array")) {
 
                 // If the data is JSON
                 if(self._isJSON(data)) {
@@ -55,7 +55,7 @@
                     }
 
                     // If the currently traversed array item is a string
-                    else if($.type(value) === "string") {
+                    else if(typeof value === "string") {
 
                         // Adds an option to the elems array
                         elems.push($("<option/>", { text: value, value: value }));

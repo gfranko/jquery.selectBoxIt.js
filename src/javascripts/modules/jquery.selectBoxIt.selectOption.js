@@ -10,7 +10,7 @@
 
         // Stores the plugin context inside of the self variable
         var self = this,
-            type = $.type(val);
+            type = typeof val;
 
         // Makes sure the passed in position is a number
         if(type === "number") {
